@@ -47,30 +47,52 @@ jobs:
 
       - name: Check that no secrets reached the output
         # Cheap safety net: the repository is public, and the source material
-        # this site was built from contained credentials and signed URLs.
+        # this site was built from contained cleartext credentials and signed
+        # URLs. See SECURITY_REVIEW.md.
+        #
+        # The credential pattern is applied to the generated content pages
+        # only. Scanning _static/ as well produces false positives from
+        # third-party assets -- Font Awesome ships a `.fa-user-secret:before`
+        # rule that matches any naive "secret:" pattern.
         run: |
           set -e
-          echo "Scanning built HTML for secrets and internal data..."
+          echo "Scanning build output for secrets and internal data..."
+          fail=0
 
+          echo "-> signed / tokenised URLs (whole output)"
           if grep -rEn 'X-Amz-|Signature=|[?&]jwt=|[?&]token=' \
                docs/_build/html; then
             echo "::error::Signed or tokenised URL found in the build output"
-            exit 1
+            fail=1
           fi
 
+          echo "-> private key material (whole output)"
           if grep -rEn 'BEGIN [A-Z ]*PRIVATE KEY|ssh-rsa AAAA|ssh-ed25519 AAAA' \
                docs/_build/html; then
             echo "::error::Private key material found in the build output"
-            exit 1
+            fail=1
           fi
 
-          if grep -rEn '(password|passwd|secret|api[_-]?key|token|credential)[[:space:]]*[:=][[:space:]]*[A-Za-z0-9_.-]{6,}' \
+          echo "-> credentials (generated content pages)"
+          if grep -rEn --include='*.html' \
+               '(password|passwd|secret|api[_-]?key|token|credential)[[:space:]]*[:=][[:space:]]*[A-Za-z0-9_./+-]{6,}' \
                docs/_build/html; then
-            echo "::error::Possible credential found in the build output"
-            exit 1
+            echo "::error::Possible credential found in the generated pages"
+            fail=1
           fi
 
-          echo "No secrets found in the build output."
+          echo "-> internal hosts and private repositories (content pages)"
+          if grep -rEn --include='*.html' \
+               'git\.fh-aachen\.de|private-user-images\.githubusercontent\.com' \
+               docs/_build/html; then
+            echo "::error::Internal host or private image URL found"
+            fail=1
+          fi
+
+          if [ "$fail" -ne 0 ]; then
+            exit 1
+          fi
+          echo "OK: no secrets found in the build output."
 
       - name: Check internal links and images
         # linkcheck also validates external URLs, which makes it flaky in CI,
