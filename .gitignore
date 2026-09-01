@@ -1,0 +1,27 @@
+# --- Raw source material (NEVER commit: may contain internal/confidential data) ---
+*.zip
+source-material/
+raw-material/
+extracted/
+Verschiedene Tutorials*/
+00-0*/
+
+# --- Build output ---
+_build/
+docs/_build/
+.doctrees/
+
+# --- Python ---
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# --- Editors / OS ---
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
