@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" font-family="'Segoe UI', Helvetica, Arial, sans-serif" role="img" aria-labelledby="title03 desc03">
+  <title id="title03">TF transform tree</title>
+  <desc id="desc03">A tree of coordinate frames. Map is the root and connects to Odom with a solid line labelled dynamic, corrected by localization. Odom connects to Base Footprint with a solid line labelled dynamic, from odometry. Base Footprint connects to Base Link with a dashed line labelled static. Base Link connects to three sensor frames, Laser Frame, Camera Link and IMU Link, each with a dashed line labelled static.</desc>
+
+  <rect x="0" y="0" width="800" height="420" fill="#fbfcfc" stroke="#d7dee1" stroke-width="1"/>
+
+  <defs>
+    <marker id="arrow03" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#5f6b70"/>
+    </marker>
+  </defs>
+
+  <!-- map -->
+  <rect x="320" y="20" width="160" height="50" rx="8" fill="#e3f7f6" stroke="#00918d" stroke-width="2"/>
+  <text x="400" y="51" text-anchor="middle" font-size="17" fill="#23292d" font-weight="700">map</text>
+
+  <!-- odom -->
+  <rect x="320" y="110" width="160" height="50" rx="8" fill="#e3f7f6" stroke="#00918d" stroke-width="2"/>
+  <text x="400" y="141" text-anchor="middle" font-size="17" fill="#23292d" font-weight="700">odom</text>
+
+  <path d="M400,70 V110" fill="none" stroke="#2b6cb0" stroke-width="2.5" marker-end="url(#arrow03)"/>
+  <text x="415" y="94" font-size="12" fill="#2b6cb0">dynamic — localization</text>
+  <text x="415" y="108" font-size="11" fill="#5f6b70">(corrects drift, can jump)</text>
+
+  <!-- base_footprint -->
+  <rect x="320" y="200" width="160" height="50" rx="8" fill="#e3f7f6" stroke="#00918d" stroke-width="2"/>
+  <text x="400" y="231" text-anchor="middle" font-size="16" fill="#23292d" font-weight="700">base_footprint</text>
+
+  <path d="M400,160 V200" fill="none" stroke="#2b6cb0" stroke-width="2.5" marker-end="url(#arrow03)"/>
+  <text x="415" y="184" font-size="12" fill="#2b6cb0">dynamic — odometry</text>
+  <text x="415" y="198" font-size="11" fill="#5f6b70">(smooth, but drifts)</text>
+
+  <!-- base_link -->
+  <rect x="320" y="290" width="160" height="50" rx="8" fill="#e3f7f6" stroke="#00918d" stroke-width="2"/>
+  <text x="400" y="321" text-anchor="middle" font-size="16" fill="#23292d" font-weight="700">base_link</text>
+
+  <path d="M400,250 V290" fill="none" stroke="#5f6b70" stroke-width="2.5" stroke-dasharray="7,5" marker-end="url(#arrow03)"/>
+  <text x="415" y="274" font-size="12" fill="#5f6b70">static</text>
+
+  <!-- sensor frames -->
+  <rect x="60" y="380" width="150" height="40" rx="8" fill="#eef2f3" stroke="#6b7780" stroke-width="1.5"/>
+  <text x="135" y="405" text-anchor="middle" font-size="14" fill="#23292d">laser_frame</text>
+
+  <rect x="325" y="380" width="150" height="40" rx="8" fill="#eef2f3" stroke="#6b7780" stroke-width="1.5"/>
+  <text x="400" y="405" text-anchor="middle" font-size="14" fill="#23292d">camera_link</text>
+
+  <rect x="590" y="380" width="150" height="40" rx="8" fill="#eef2f3" stroke="#6b7780" stroke-width="1.5"/>
+  <text x="665" y="405" text-anchor="middle" font-size="14" fill="#23292d">imu_link</text>
+
+  <path d="M400,340 C400,355 135,365 135,380" fill="none" stroke="#5f6b70" stroke-width="2" stroke-dasharray="7,5" marker-end="url(#arrow03)"/>
+  <path d="M400,340 V380" fill="none" stroke="#5f6b70" stroke-width="2" stroke-dasharray="7,5" marker-end="url(#arrow03)"/>
+  <path d="M400,340 C400,355 665,365 665,380" fill="none" stroke="#5f6b70" stroke-width="2" stroke-dasharray="7,5" marker-end="url(#arrow03)"/>
+
+  <text x="650" y="30" font-size="12" fill="#2b6cb0">— solid = dynamic (published on /tf)</text>
+  <text x="650" y="46" font-size="12" fill="#5f6b70">- - dashed = static (on /tf_static)</text>
+</svg>

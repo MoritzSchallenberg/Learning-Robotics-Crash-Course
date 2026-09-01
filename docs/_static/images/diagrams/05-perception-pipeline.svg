@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 260" font-family="'Segoe UI', Helvetica, Arial, sans-serif" role="img" aria-labelledby="title05 desc05">
+  <title id="title05">Perception pipeline from camera to detection result</title>
+  <desc id="desc05">A left to right pipeline: Camera produces an Image message, which is rectified using Camera Info from calibration, then passed to a Detector such as ArUco or YOLO, which outputs a Detection message. A dashed branch from calibration data feeds into the rectify step. The Detection message is then combined with the Camera to Object transform to produce a Pose in the map frame, the final localized result.</desc>
+
+  <rect x="0" y="0" width="800" height="260" fill="#fbfcfc" stroke="#d7dee1" stroke-width="1"/>
+
+  <defs>
+    <marker id="arrow05" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2b6cb0"/>
+    </marker>
+  </defs>
+
+  <!-- Camera -->
+  <rect x="20" y="90" width="110" height="60" rx="8" fill="#e3f7f6" stroke="#00918d" stroke-width="1.5"/>
+  <text x="75" y="125" text-anchor="middle" font-size="14" fill="#23292d" font-weight="600">Camera</text>
+
+  <path d="M130,120 H175" fill="none" stroke="#2b6cb0" stroke-width="2.5" marker-end="url(#arrow05)"/>
+  <text x="152" y="110" text-anchor="middle" font-size="10" fill="#2b6cb0">Image</text>
+
+  <!-- Rectify -->
+  <rect x="175" y="90" width="120" height="60" rx="8" fill="#e3f7f6" stroke="#00918d" stroke-width="1.5"/>
+  <text x="235" y="118" text-anchor="middle" font-size="13" fill="#23292d" font-weight="600">Rectify</text>
+  <text x="235" y="135" text-anchor="middle" font-size="10" fill="#5f6b70">(undistort)</text>
+
+  <!-- Calibration -->
+  <rect x="195" y="20" width="140" height="40" rx="8" fill="#fdf3e3" stroke="#b7791f" stroke-width="1.3"/>
+  <text x="265" y="45" text-anchor="middle" font-size="12" fill="#23292d">CameraInfo</text>
+  <path d="M265,60 V90" fill="none" stroke="#b7791f" stroke-width="2" stroke-dasharray="5,4" marker-end="url(#arrow05)"/>
+
+  <path d="M295,120 H340" fill="none" stroke="#2b6cb0" stroke-width="2.5" marker-end="url(#arrow05)"/>
+  <text x="317" y="110" text-anchor="middle" font-size="10" fill="#2b6cb0">rect. img</text>
+
+  <!-- Detector -->
+  <rect x="340" y="85" width="140" height="70" rx="8" fill="#e3f7f6" stroke="#00918d" stroke-width="1.5"/>
+  <text x="410" y="112" text-anchor="middle" font-size="13" fill="#23292d" font-weight="600">Detector</text>
+  <text x="410" y="130" text-anchor="middle" font-size="10" fill="#5f6b70">ArUco / AprilTag</text>
+  <text x="410" y="144" text-anchor="middle" font-size="10" fill="#5f6b70">or YOLO</text>
+
+  <path d="M480,120 H525" fill="none" stroke="#2b6cb0" stroke-width="2.5" marker-end="url(#arrow05)"/>
+  <text x="502" y="110" text-anchor="middle" font-size="10" fill="#2b6cb0">Detection</text>
+
+  <!-- Detection msg -->
+  <rect x="525" y="90" width="130" height="60" rx="8" fill="#eef2f3" stroke="#6b7780" stroke-width="1.5"/>
+  <text x="590" y="115" text-anchor="middle" font-size="12" fill="#23292d" font-weight="600">Detection2D /</text>
+  <text x="590" y="132" text-anchor="middle" font-size="12" fill="#23292d" font-weight="600">TF frame</text>
+
+  <path d="M655,120 H700" fill="none" stroke="#2b6cb0" stroke-width="2.5" marker-end="url(#arrow05)"/>
+
+  <!-- Pose result -->
+  <rect x="700" y="85" width="90" height="70" rx="8" fill="#e3f7f6" stroke="#00918d" stroke-width="2"/>
+  <text x="745" y="112" text-anchor="middle" font-size="12" fill="#23292d" font-weight="700">Pose in</text>
+  <text x="745" y="128" text-anchor="middle" font-size="12" fill="#23292d" font-weight="700">map frame</text>
+
+  <!-- localization requirement note -->
+  <rect x="340" y="185" width="360" height="55" rx="8" fill="#fbe9e7" stroke="#c53030" stroke-width="1.2"/>
+  <text x="520" y="207" text-anchor="middle" font-size="12" fill="#23292d" font-weight="600">Detection alone only gives pixel coordinates.</text>
+  <text x="520" y="224" text-anchor="middle" font-size="12" fill="#23292d">Localizing needs depth or a known marker size, plus TF2.</text>
+</svg>

@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 420" font-family="'Segoe UI', Helvetica, Arial, sans-serif" role="img" aria-labelledby="title08 desc08">
+  <title id="title08">Finite state machine compared with a behavior tree</title>
+  <desc id="desc08">Left side: a finite state machine with states Idle, Navigate, Detect and Deliver connected in sequence, each with its own explicit failure transition to a shared Abort state. Right side: a behavior tree with a Fallback root node whose first child is a Sequence of Navigate, Detect and Deliver, and whose second child is a Recovery action, used if the sequence fails. The behavior tree needs only one recovery branch instead of one failure transition per state.</desc>
+
+  <rect x="0" y="0" width="820" height="420" fill="#fbfcfc" stroke="#d7dee1" stroke-width="1"/>
+
+  <defs>
+    <marker id="arrow08" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2b6cb0"/>
+    </marker>
+    <marker id="arrowFail08" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#c53030"/>
+    </marker>
+  </defs>
+
+  <line x1="410" y1="10" x2="410" y2="410" stroke="#d7dee1" stroke-width="1"/>
+
+  <!-- LEFT: FSM -->
+  <text x="20" y="28" font-size="15" fill="#5f6b70" font-weight="700">FINITE STATE MACHINE</text>
+
+  <rect x="30" y="50" width="100" height="42" rx="7" fill="#e3f7f6" stroke="#00918d" stroke-width="1.5"/>
+  <text x="80" y="76" text-anchor="middle" font-size="12" fill="#23292d" font-weight="600">Idle</text>
+
+  <rect x="30" y="130" width="100" height="42" rx="7" fill="#e3f7f6" stroke="#00918d" stroke-width="1.5"/>
+  <text x="80" y="156" text-anchor="middle" font-size="12" fill="#23292d" font-weight="600">Navigate</text>
+
+  <rect x="30" y="210" width="100" height="42" rx="7" fill="#e3f7f6" stroke="#00918d" stroke-width="1.5"/>
+  <text x="80" y="236" text-anchor="middle" font-size="12" fill="#23292d" font-weight="600">Detect</text>
+
+  <rect x="30" y="290" width="100" height="42" rx="7" fill="#e3f7f6" stroke="#00918d" stroke-width="1.5"/>
+  <text x="80" y="316" text-anchor="middle" font-size="12" fill="#23292d" font-weight="600">Deliver</text>
+
+  <rect x="230" y="170" width="110" height="42" rx="7" fill="#fbe9e7" stroke="#c53030" stroke-width="1.5"/>
+  <text x="285" y="196" text-anchor="middle" font-size="12" fill="#23292d" font-weight="600">Abort</text>
+
+  <path d="M80,92 V130" fill="none" stroke="#2b6cb0" stroke-width="2" marker-end="url(#arrow08)"/>
+  <path d="M80,172 V210" fill="none" stroke="#2b6cb0" stroke-width="2" marker-end="url(#arrow08)"/>
+  <path d="M80,252 V290" fill="none" stroke="#2b6cb0" stroke-width="2" marker-end="url(#arrow08)"/>
+
+  <path d="M130,151 C180,155 200,170 230,182" fill="none" stroke="#c53030" stroke-width="1.6" marker-end="url(#arrowFail08)"/>
+  <path d="M130,231 C170,220 200,205 230,195" fill="none" stroke="#c53030" stroke-width="1.6" marker-end="url(#arrowFail08)"/>
+  <path d="M130,311 C200,290 230,240 260,212" fill="none" stroke="#c53030" stroke-width="1.6" marker-end="url(#arrowFail08)"/>
+  <text x="185" y="270" font-size="10" fill="#c53030">3 separate "on failure" edges</text>
+
+  <!-- RIGHT: BT -->
+  <text x="430" y="28" font-size="15" fill="#5f6b70" font-weight="700">BEHAVIOR TREE</text>
+
+  <rect x="560" y="50" width="140" height="42" rx="7" fill="#e3f7f6" stroke="#00918d" stroke-width="2"/>
+  <text x="630" y="76" text-anchor="middle" font-size="13" fill="#23292d" font-weight="700">Fallback ( ? )</text>
+
+  <path d="M600,92 V115" fill="none" stroke="#2b6cb0" stroke-width="2" marker-end="url(#arrow08)"/>
+  <path d="M660,92 C690,105 700,115 700,115" fill="none" stroke="#2b6cb0" stroke-width="2" marker-end="url(#arrow08)"/>
+
+  <rect x="450" y="115" width="160" height="42" rx="7" fill="#eef2f3" stroke="#6b7780" stroke-width="1.5"/>
+  <text x="530" y="141" text-anchor="middle" font-size="12" fill="#23292d" font-weight="600">Sequence ( → )</text>
+
+  <rect x="660" y="115" width="140" height="42" rx="7" fill="#fbe9e7" stroke="#c53030" stroke-width="1.5"/>
+  <text x="730" y="141" text-anchor="middle" font-size="12" fill="#23292d" font-weight="600">Recovery</text>
+
+  <path d="M462,157 V180" fill="none" stroke="#2b6cb0" stroke-width="1.6" marker-end="url(#arrow08)"/>
+  <path d="M530,157 V180" fill="none" stroke="#2b6cb0" stroke-width="1.6" marker-end="url(#arrow08)"/>
+  <path d="M598,157 V180" fill="none" stroke="#2b6cb0" stroke-width="1.6" marker-end="url(#arrow08)"/>
+
+  <rect x="422" y="180" width="80" height="38" rx="6" fill="#ffffff" stroke="#00918d" stroke-width="1.4"/>
+  <text x="462" y="203" text-anchor="middle" font-size="11" fill="#23292d">Navigate</text>
+
+  <rect x="490" y="180" width="80" height="38" rx="6" fill="#ffffff" stroke="#00918d" stroke-width="1.4"/>
+  <text x="530" y="203" text-anchor="middle" font-size="11" fill="#23292d">Detect</text>
+
+  <rect x="558" y="180" width="80" height="38" rx="6" fill="#ffffff" stroke="#00918d" stroke-width="1.4"/>
+  <text x="598" y="203" text-anchor="middle" font-size="11" fill="#23292d">Deliver</text>
+
+  <rect x="440" y="270" width="360" height="90" rx="8" fill="#fbfcfc" stroke="#d7dee1" stroke-width="1.2"/>
+  <text x="460" y="292" font-size="12" fill="#23292d" font-weight="600">Reading order:</text>
+  <text x="460" y="310" font-size="11" fill="#5f6b70">Try the Sequence top to bottom. If any</text>
+  <text x="460" y="326" font-size="11" fill="#5f6b70">step fails, the Fallback tries Recovery</text>
+  <text x="460" y="342" font-size="11" fill="#5f6b70">next — one shared branch, not one per state.</text>
+
+  <rect x="30" y="360" width="360" height="45" rx="8" fill="#fbfcfc" stroke="#d7dee1" stroke-width="1.2"/>
+  <text x="50" y="380" font-size="11" fill="#5f6b70">Every state needs its own named failure exit —</text>
+  <text x="50" y="396" font-size="11" fill="#5f6b70">clear for small missions, tangled for large ones.</text>
+</svg>

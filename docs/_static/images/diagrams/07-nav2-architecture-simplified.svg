@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" font-family="'Segoe UI', Helvetica, Arial, sans-serif" role="img" aria-labelledby="title07 desc07">
+  <title id="title07">Simplified Nav2 architecture</title>
+  <desc id="desc07">A navigation goal enters the BT Navigator, which is a behavior tree coordinating three servers: the Planner Server, which reads the Global Costmap and produces a path; the Controller Server, which reads the Local Costmap and produces velocity commands; and the Behavior Server, which runs recovery actions such as spinning or backing up when planning or control fails. The Controller Server outputs cmd_vel to the robot. Both costmaps are built from the static map and live sensor data.</desc>
+
+  <rect x="0" y="0" width="800" height="420" fill="#fbfcfc" stroke="#d7dee1" stroke-width="1"/>
+
+  <defs>
+    <marker id="arrow07" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2b6cb0"/>
+    </marker>
+  </defs>
+
+  <!-- goal -->
+  <rect x="330" y="15" width="140" height="40" rx="8" fill="#fdf3e3" stroke="#b7791f" stroke-width="1.5"/>
+  <text x="400" y="40" text-anchor="middle" font-size="13" fill="#23292d" font-weight="600">NavigateToPose goal</text>
+
+  <path d="M400,55 V80" fill="none" stroke="#2b6cb0" stroke-width="2.5" marker-end="url(#arrow07)"/>
+
+  <!-- BT Navigator -->
+  <rect x="260" y="80" width="280" height="55" rx="8" fill="#e3f7f6" stroke="#00918d" stroke-width="2"/>
+  <text x="400" y="112" text-anchor="middle" font-size="16" fill="#23292d" font-weight="700">BT Navigator</text>
+
+  <path d="M330,135 V165" fill="none" stroke="#2b6cb0" stroke-width="2" marker-end="url(#arrow07)"/>
+  <path d="M400,135 V165" fill="none" stroke="#2b6cb0" stroke-width="2" marker-end="url(#arrow07)"/>
+  <path d="M470,135 V165" fill="none" stroke="#2b6cb0" stroke-width="2" marker-end="url(#arrow07)"/>
+
+  <!-- three servers -->
+  <rect x="60" y="165" width="200" height="65" rx="8" fill="#ffffff" stroke="#00918d" stroke-width="1.5"/>
+  <text x="160" y="192" text-anchor="middle" font-size="14" fill="#23292d" font-weight="600">Planner Server</text>
+  <text x="160" y="210" text-anchor="middle" font-size="11" fill="#5f6b70">global path to goal</text>
+
+  <rect x="300" y="165" width="200" height="65" rx="8" fill="#ffffff" stroke="#00918d" stroke-width="1.5"/>
+  <text x="400" y="192" text-anchor="middle" font-size="14" fill="#23292d" font-weight="600">Controller Server</text>
+  <text x="400" y="210" text-anchor="middle" font-size="11" fill="#5f6b70">follow path locally</text>
+
+  <rect x="540" y="165" width="200" height="65" rx="8" fill="#ffffff" stroke="#c53030" stroke-width="1.5"/>
+  <text x="640" y="192" text-anchor="middle" font-size="14" fill="#23292d" font-weight="600">Behavior Server</text>
+  <text x="640" y="210" text-anchor="middle" font-size="11" fill="#5f6b70">recovery: spin, back up</text>
+
+  <!-- costmaps -->
+  <rect x="60" y="270" width="200" height="55" rx="8" fill="#eef2f3" stroke="#6b7780" stroke-width="1.3"/>
+  <text x="160" y="300" text-anchor="middle" font-size="13" fill="#23292d" font-weight="600">Global Costmap</text>
+
+  <rect x="300" y="270" width="200" height="55" rx="8" fill="#eef2f3" stroke="#6b7780" stroke-width="1.3"/>
+  <text x="400" y="300" text-anchor="middle" font-size="13" fill="#23292d" font-weight="600">Local Costmap</text>
+
+  <path d="M160,270 V230" fill="none" stroke="#2b6cb0" stroke-width="2" marker-end="url(#arrow07)"/>
+  <path d="M400,270 V230" fill="none" stroke="#2b6cb0" stroke-width="2" marker-end="url(#arrow07)"/>
+
+  <!-- static map + sensors -->
+  <rect x="60" y="350" width="200" height="45" rx="8" fill="#fbfcfc" stroke="#6b7780" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="160" y="376" text-anchor="middle" font-size="12" fill="#5f6b70">static map + /scan</text>
+  <path d="M160,350 V325" fill="none" stroke="#2b6cb0" stroke-width="2" marker-end="url(#arrow07)"/>
+
+  <rect x="300" y="350" width="200" height="45" rx="8" fill="#fbfcfc" stroke="#6b7780" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="400" y="376" text-anchor="middle" font-size="12" fill="#5f6b70">live /scan only</text>
+  <path d="M400,350 V325" fill="none" stroke="#2b6cb0" stroke-width="2" marker-end="url(#arrow07)"/>
+
+  <!-- cmd_vel output -->
+  <rect x="590" y="270" width="150" height="55" rx="8" fill="#e3f7f6" stroke="#00918d" stroke-width="2"/>
+  <text x="665" y="303" text-anchor="middle" font-size="15" fill="#23292d" font-weight="700">/cmd_vel</text>
+  <path d="M500,297 H590" fill="none" stroke="#2b6cb0" stroke-width="2.5" marker-end="url(#arrow07)"/>
+</svg>

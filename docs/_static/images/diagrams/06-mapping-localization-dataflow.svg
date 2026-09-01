@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 380" font-family="'Segoe UI', Helvetica, Arial, sans-serif" role="img" aria-labelledby="title06 desc06">
+  <title id="title06">Mapping and localization data flow</title>
+  <desc id="desc06">Two modes share the same inputs, laser scan and odometry. In mapping mode, these feed SLAM Toolbox, which outputs an occupancy grid map and the map to odom transform. In localization mode, a previously saved map plus the live laser scan and odometry feed AMCL, which outputs a corrected pose and the same map to odom transform. Both modes publish into the same transform tree, base link up through odom to map.</desc>
+
+  <rect x="0" y="0" width="800" height="380" fill="#fbfcfc" stroke="#d7dee1" stroke-width="1"/>
+
+  <defs>
+    <marker id="arrow06" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2b6cb0"/>
+    </marker>
+  </defs>
+
+  <!-- shared inputs -->
+  <rect x="30" y="30" width="160" height="45" rx="8" fill="#eef2f3" stroke="#6b7780" stroke-width="1.3"/>
+  <text x="110" y="58" text-anchor="middle" font-size="13" fill="#23292d">/scan (LaserScan)</text>
+
+  <rect x="30" y="90" width="160" height="45" rx="8" fill="#eef2f3" stroke="#6b7780" stroke-width="1.3"/>
+  <text x="110" y="118" text-anchor="middle" font-size="13" fill="#23292d">/odom (Odometry)</text>
+
+  <text x="110" y="20" text-anchor="middle" font-size="13" fill="#5f6b70" font-weight="600">shared inputs</text>
+
+  <!-- Mapping mode box -->
+  <rect x="250" y="15" width="520" height="150" rx="10" fill="#e3f7f6" stroke="#00918d" stroke-width="1.3"/>
+  <text x="270" y="38" font-size="14" fill="#00918d" font-weight="700">MAPPING MODE</text>
+
+  <rect x="300" y="55" width="180" height="55" rx="8" fill="#ffffff" stroke="#00918d" stroke-width="1.5"/>
+  <text x="390" y="87" text-anchor="middle" font-size="14" fill="#23292d" font-weight="600">SLAM Toolbox</text>
+
+  <path d="M190,52 C230,52 260,75 300,80" fill="none" stroke="#2b6cb0" stroke-width="2" marker-end="url(#arrow06)"/>
+  <path d="M190,112 C230,112 260,95 300,88" fill="none" stroke="#2b6cb0" stroke-width="2" marker-end="url(#arrow06)"/>
+
+  <rect x="540" y="55" width="190" height="55" rx="8" fill="#ffffff" stroke="#00918d" stroke-width="1.5"/>
+  <text x="635" y="78" text-anchor="middle" font-size="12" fill="#23292d" font-weight="600">occupancy grid map</text>
+  <text x="635" y="95" text-anchor="middle" font-size="11" fill="#5f6b70">+ map→odom TF</text>
+
+  <path d="M480,82 H540" fill="none" stroke="#2b6cb0" stroke-width="2" marker-end="url(#arrow06)"/>
+
+  <!-- saved map -->
+  <rect x="300" y="125" width="180" height="30" rx="6" fill="#fdf3e3" stroke="#b7791f" stroke-width="1.2"/>
+  <text x="390" y="145" text-anchor="middle" font-size="11" fill="#23292d">map_saver_cli → map.yaml</text>
+  <path d="M390,110 V125" fill="none" stroke="#b7791f" stroke-width="2" marker-end="url(#arrow06)"/>
+
+  <!-- Localization mode box -->
+  <rect x="250" y="195" width="520" height="150" rx="10" fill="#eef2f3" stroke="#6b7780" stroke-width="1.3"/>
+  <text x="270" y="218" font-size="14" fill="#5f6b70" font-weight="700">LOCALIZATION MODE</text>
+
+  <rect x="260" y="240" width="140" height="35" rx="6" fill="#fdf3e3" stroke="#b7791f" stroke-width="1.2"/>
+  <text x="330" y="262" text-anchor="middle" font-size="11" fill="#23292d">saved map.yaml</text>
+
+  <rect x="300" y="285" width="180" height="55" rx="8" fill="#ffffff" stroke="#6b7780" stroke-width="1.5"/>
+  <text x="390" y="317" text-anchor="middle" font-size="14" fill="#23292d" font-weight="600">AMCL</text>
+
+  <path d="M330,275 V285" fill="none" stroke="#b7791f" stroke-width="2" marker-end="url(#arrow06)"/>
+  <path d="M190,60 C230,150 260,255 300,290" fill="none" stroke="#2b6cb0" stroke-width="2" marker-end="url(#arrow06)" opacity="0.85"/>
+  <path d="M190,120 C230,180 260,270 300,305" fill="none" stroke="#2b6cb0" stroke-width="2" marker-end="url(#arrow06)" opacity="0.85"/>
+
+  <rect x="540" y="285" width="190" height="55" rx="8" fill="#ffffff" stroke="#6b7780" stroke-width="1.5"/>
+  <text x="635" y="308" text-anchor="middle" font-size="12" fill="#23292d" font-weight="600">corrected pose</text>
+  <text x="635" y="325" text-anchor="middle" font-size="11" fill="#5f6b70">+ map→odom TF</text>
+
+  <path d="M480,312 H540" fill="none" stroke="#2b6cb0" stroke-width="2" marker-end="url(#arrow06)"/>
+</svg>

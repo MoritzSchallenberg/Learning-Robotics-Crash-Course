@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 340" font-family="'Segoe UI', Helvetica, Arial, sans-serif" role="img" aria-labelledby="title02 desc02">
+  <title id="title02">ROS 2 node and topic communication</title>
+  <desc id="desc02">Two publisher nodes send messages to a topic named slash scan, which two subscriber nodes read from. A separate pair of nodes exchange a direct request and response through a service call, shown as a two-way arrow, to contrast the one-to-many topic pattern with the one-to-one service pattern.</desc>
+
+  <rect x="0" y="0" width="800" height="340" fill="#fbfcfc" stroke="#d7dee1" stroke-width="1"/>
+
+  <text x="30" y="35" font-size="15" fill="#5f6b70" font-weight="600">Topics: many publishers, many subscribers, no reply</text>
+
+  <!-- Publisher nodes -->
+  <rect x="30" y="60" width="160" height="55" rx="8" fill="#e3f7f6" stroke="#00918d" stroke-width="1.5"/>
+  <text x="110" y="93" text-anchor="middle" font-size="14" fill="#23292d" font-weight="600">lidar_driver</text>
+
+  <rect x="30" y="130" width="160" height="55" rx="8" fill="#e3f7f6" stroke="#00918d" stroke-width="1.5"/>
+  <text x="110" y="163" text-anchor="middle" font-size="14" fill="#23292d" font-weight="600">sim_lidar</text>
+
+  <!-- Topic bus -->
+  <rect x="290" y="90" width="220" height="120" rx="10" fill="#eef2f3" stroke="#6b7780" stroke-width="1.5" stroke-dasharray="2,0"/>
+  <text x="400" y="120" text-anchor="middle" font-size="15" fill="#23292d" font-weight="700">/scan</text>
+  <text x="400" y="140" text-anchor="middle" font-size="12" fill="#5f6b70">sensor_msgs/msg/</text>
+  <text x="400" y="156" text-anchor="middle" font-size="12" fill="#5f6b70">LaserScan</text>
+  <text x="400" y="188" text-anchor="middle" font-size="11" fill="#5f6b70">(topic = name + type)</text>
+
+  <!-- Subscriber nodes -->
+  <rect x="610" y="60" width="160" height="55" rx="8" fill="#e3f7f6" stroke="#00918d" stroke-width="1.5"/>
+  <text x="690" y="93" text-anchor="middle" font-size="14" fill="#23292d" font-weight="600">rviz2</text>
+
+  <rect x="610" y="130" width="160" height="55" rx="8" fill="#e3f7f6" stroke="#00918d" stroke-width="1.5"/>
+  <text x="690" y="163" text-anchor="middle" font-size="14" fill="#23292d" font-weight="600">obstacle_node</text>
+
+  <defs>
+    <marker id="arrow02" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2b6cb0"/>
+    </marker>
+    <marker id="arrowBoth02" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M10,0 L0,5 L10,10 z" fill="#b7791f"/>
+    </marker>
+  </defs>
+
+  <path d="M190,88 H290" fill="none" stroke="#2b6cb0" stroke-width="2.5" marker-end="url(#arrow02)"/>
+  <path d="M190,158 C230,158 250,150 290,140" fill="none" stroke="#2b6cb0" stroke-width="2.5" marker-end="url(#arrow02)"/>
+  <path d="M510,140 C550,150 570,158 610,158" fill="none" stroke="#2b6cb0" stroke-width="2.5" marker-end="url(#arrow02)"/>
+  <path d="M510,88 H610" fill="none" stroke="#2b6cb0" stroke-width="2.5" marker-end="url(#arrow02)"/>
+
+  <line x1="30" y1="235" x2="770" y2="235" stroke="#d7dee1" stroke-width="1"/>
+
+  <text x="30" y="265" font-size="15" fill="#5f6b70" font-weight="600">Services: one request, one reply</text>
+
+  <rect x="30" y="285" width="180" height="45" rx="8" fill="#fdf3e3" stroke="#b7791f" stroke-width="1.5"/>
+  <text x="120" y="313" text-anchor="middle" font-size="14" fill="#23292d" font-weight="600">mission_control</text>
+
+  <path d="M210,300 H430" fill="none" stroke="#b7791f" stroke-width="2.5" marker-end="url(#arrowBoth02)" marker-start="url(#arrowBoth02)"/>
+  <text x="320" y="292" text-anchor="middle" font-size="12" fill="#b7791f">/reset_odometry</text>
+
+  <rect x="430" y="285" width="180" height="45" rx="8" fill="#fdf3e3" stroke="#b7791f" stroke-width="1.5"/>
+  <text x="520" y="313" text-anchor="middle" font-size="14" fill="#23292d" font-weight="600">odometry_node</text>
+</svg>

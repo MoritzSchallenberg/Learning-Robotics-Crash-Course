@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 440" font-family="'Segoe UI', Helvetica, Arial, sans-serif" role="img" aria-labelledby="title09 desc09">
+  <title id="title09">System bring-up order and the debugging flow</title>
+  <desc id="desc09">Left side: the correct startup order, top to bottom, Drivers and TF, then Localization, then Navigation, then Mission Control, each layer depending on the one above it being ready. Right side: a debugging flow chart starting at Node running question, then Topic publishing question, then Names and QoS match question, then TF tree complete question, then Lifecycle activated question, ending at Problem located, with each no answer pointing to the likely fix.</desc>
+
+  <rect x="0" y="0" width="820" height="440" fill="#fbfcfc" stroke="#d7dee1" stroke-width="1"/>
+
+  <defs>
+    <marker id="arrow09" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2b6cb0"/>
+    </marker>
+    <marker id="arrowNo09" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#c53030"/>
+    </marker>
+  </defs>
+
+  <line x1="400" y1="10" x2="400" y2="430" stroke="#d7dee1" stroke-width="1"/>
+
+  <text x="20" y="26" font-size="14" fill="#5f6b70" font-weight="700">BRING-UP ORDER</text>
+
+  <rect x="40" y="45" width="320" height="50" rx="8" fill="#e3f7f6" stroke="#00918d" stroke-width="1.6"/>
+  <text x="200" y="76" text-anchor="middle" font-size="14" fill="#23292d" font-weight="600">1. Drivers &amp; TF</text>
+  <path d="M200,95 V130" fill="none" stroke="#2b6cb0" stroke-width="2.2" marker-end="url(#arrow09)"/>
+
+  <rect x="40" y="130" width="320" height="50" rx="8" fill="#e3f7f6" stroke="#00918d" stroke-width="1.6"/>
+  <text x="200" y="161" text-anchor="middle" font-size="14" fill="#23292d" font-weight="600">2. Localization</text>
+  <path d="M200,180 V215" fill="none" stroke="#2b6cb0" stroke-width="2.2" marker-end="url(#arrow09)"/>
+
+  <rect x="40" y="215" width="320" height="50" rx="8" fill="#e3f7f6" stroke="#00918d" stroke-width="1.6"/>
+  <text x="200" y="246" text-anchor="middle" font-size="14" fill="#23292d" font-weight="600">3. Navigation</text>
+  <path d="M200,265 V300" fill="none" stroke="#2b6cb0" stroke-width="2.2" marker-end="url(#arrow09)"/>
+
+  <rect x="40" y="300" width="320" height="50" rx="8" fill="#e3f7f6" stroke="#00918d" stroke-width="1.6"/>
+  <text x="200" y="331" text-anchor="middle" font-size="14" fill="#23292d" font-weight="600">4. Mission control</text>
+
+  <rect x="40" y="370" width="320" height="55" rx="8" fill="#fbfcfc" stroke="#d7dee1" stroke-width="1.2"/>
+  <text x="60" y="392" font-size="11" fill="#5f6b70">Each layer needs the one above it</text>
+  <text x="60" y="408" font-size="11" fill="#5f6b70">already running and healthy.</text>
+
+  <text x="430" y="26" font-size="14" fill="#5f6b70" font-weight="700">DEBUGGING FLOW</text>
+
+  <g font-size="11.5">
+    <rect x="450" y="42" width="330" height="34" rx="6" fill="#eef2f3" stroke="#6b7780" stroke-width="1.3"/>
+    <text x="615" y="64" text-anchor="middle" fill="#23292d">1. Node running? (node list)</text>
+    <path d="M615,76 V88" fill="none" stroke="#2b6cb0" stroke-width="1.8" marker-end="url(#arrow09)"/>
+    <text x="785" y="70" text-anchor="end" font-size="9.5" fill="#c53030">no → read launch log</text>
+
+    <rect x="450" y="88" width="330" height="34" rx="6" fill="#eef2f3" stroke="#6b7780" stroke-width="1.3"/>
+    <text x="615" y="110" text-anchor="middle" fill="#23292d">2. Topic publishing? (topic hz)</text>
+    <path d="M615,122 V134" fill="none" stroke="#2b6cb0" stroke-width="1.8" marker-end="url(#arrow09)"/>
+    <text x="785" y="116" text-anchor="end" font-size="9.5" fill="#c53030">no → node crashed early</text>
+
+    <rect x="450" y="134" width="330" height="34" rx="6" fill="#eef2f3" stroke="#6b7780" stroke-width="1.3"/>
+    <text x="615" y="156" text-anchor="middle" fill="#23292d">3. Names + QoS match? (topic info -v)</text>
+    <path d="M615,168 V180" fill="none" stroke="#2b6cb0" stroke-width="1.8" marker-end="url(#arrow09)"/>
+    <text x="785" y="162" text-anchor="end" font-size="9.5" fill="#c53030">no → rename topic / fix QoS</text>
+
+    <rect x="450" y="180" width="330" height="34" rx="6" fill="#eef2f3" stroke="#6b7780" stroke-width="1.3"/>
+    <text x="615" y="202" text-anchor="middle" fill="#23292d">4. TF tree complete? (view_frames)</text>
+    <path d="M615,214 V226" fill="none" stroke="#2b6cb0" stroke-width="1.8" marker-end="url(#arrow09)"/>
+    <text x="785" y="208" text-anchor="end" font-size="9.5" fill="#c53030">no → publish missing transform</text>
+
+    <rect x="450" y="226" width="330" height="34" rx="6" fill="#eef2f3" stroke="#6b7780" stroke-width="1.3"/>
+    <text x="615" y="248" text-anchor="middle" fill="#23292d">5. Lifecycle nodes activated?</text>
+    <path d="M615,260 V272" fill="none" stroke="#2b6cb0" stroke-width="1.8" marker-end="url(#arrow09)"/>
+    <text x="785" y="254" text-anchor="end" font-size="9.5" fill="#c53030">no → check lifecycle manager</text>
+  </g>
+
+  <rect x="500" y="272" width="230" height="40" rx="8" fill="#e3f7f6" stroke="#00918d" stroke-width="1.8"/>
+  <text x="615" y="297" text-anchor="middle" font-size="13" fill="#23292d" font-weight="700">Problem located</text>
+
+  <rect x="450" y="330" width="330" height="60" rx="8" fill="#fbfcfc" stroke="#d7dee1" stroke-width="1.2"/>
+  <text x="465" y="350" font-size="11" fill="#5f6b70">Work top to bottom. Each "yes" moves to</text>
+  <text x="465" y="366" font-size="11" fill="#5f6b70">the next question; the first "no" is almost</text>
+  <text x="465" y="382" font-size="11" fill="#5f6b70">always where the real fault is.</text>
+</svg>

@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 460" font-family="'Segoe UI', Helvetica, Arial, sans-serif" role="img" aria-labelledby="title10 desc10">
+  <title id="title10">Schematic hackathon arena layout</title>
+  <desc id="desc10">A top-down floor plan sketch of the hackathon arena. A Start Zone sits in the bottom left corner. A winding path leads past two labelled obstacles through open floor space to a Target Zone in the top right, which contains a marker to detect. An optional Drop Zone sits near the start for teams attempting the transport bonus task. The outer boundary is the arena wall. This is a schematic sketch, not a scaled or final layout.</desc>
+
+  <rect x="0" y="0" width="800" height="460" fill="#fbfcfc" stroke="#d7dee1" stroke-width="1"/>
+
+  <!-- arena boundary -->
+  <rect x="40" y="40" width="720" height="380" fill="#ffffff" stroke="#23292d" stroke-width="3"/>
+  <text x="400" y="26" text-anchor="middle" font-size="13" fill="#5f6b70">arena wall (schematic — not to scale)</text>
+
+  <!-- start zone -->
+  <rect x="60" y="330" width="120" height="70" fill="#e3f7f6" stroke="#00918d" stroke-width="2"/>
+  <text x="120" y="360" text-anchor="middle" font-size="13" fill="#23292d" font-weight="700">START</text>
+  <text x="120" y="378" text-anchor="middle" font-size="10" fill="#5f6b70">robot origin</text>
+
+  <!-- drop zone -->
+  <rect x="200" y="350" width="100" height="50" fill="#fdf3e3" stroke="#b7791f" stroke-width="1.6" stroke-dasharray="6,3"/>
+  <text x="250" y="379" text-anchor="middle" font-size="11" fill="#23292d">DROP ZONE</text>
+  <text x="250" y="392" text-anchor="middle" font-size="9" fill="#5f6b70">(bonus)</text>
+
+  <!-- obstacles -->
+  <rect x="260" y="200" width="70" height="70" fill="#eef2f3" stroke="#6b7780" stroke-width="2"/>
+  <text x="295" y="240" text-anchor="middle" font-size="11" fill="#23292d">obstacle A</text>
+
+  <rect x="470" y="290" width="90" height="55" fill="#eef2f3" stroke="#6b7780" stroke-width="2"/>
+  <text x="515" y="322" text-anchor="middle" font-size="11" fill="#23292d">obstacle B</text>
+
+  <rect x="450" y="120" width="60" height="60" fill="#eef2f3" stroke="#6b7780" stroke-width="2"/>
+  <text x="480" y="155" text-anchor="middle" font-size="10" fill="#23292d">unmapped</text>
+  <text x="480" y="168" text-anchor="middle" font-size="10" fill="#23292d">on the day</text>
+
+  <!-- target zone -->
+  <rect x="600" y="70" width="130" height="90" fill="#e3f7f6" stroke="#00918d" stroke-width="2"/>
+  <text x="665" y="100" text-anchor="middle" font-size="13" fill="#23292d" font-weight="700">TARGET ZONE</text>
+  <circle cx="665" cy="130" r="18" fill="#ffffff" stroke="#c53030" stroke-width="2.5"/>
+  <text x="665" y="134" text-anchor="middle" font-size="11" fill="#c53030" font-weight="700">M</text>
+  <text x="665" y="152" text-anchor="middle" font-size="9" fill="#5f6b70">marker to detect</text>
+
+  <!-- example route -->
+  <path d="M120,330 C150,270 220,270 260,235 C300,200 380,260 420,270 C470,285 520,260 560,230 C610,190 630,160 655,160"
+        fill="none" stroke="#2b6cb0" stroke-width="2.5" stroke-dasharray="9,6"/>
+  <text x="400" y="440" text-anchor="middle" font-size="11" fill="#2b6cb0">— dashed line: one possible route, not the only route</text>
+
+  <!-- legend -->
+  <rect x="580" y="200" width="150" height="150" fill="#fbfcfc" stroke="#d7dee1" stroke-width="1.2"/>
+  <text x="595" y="220" font-size="11" fill="#23292d" font-weight="600">Legend</text>
+  <rect x="595" y="230" width="16" height="16" fill="#e3f7f6" stroke="#00918d" stroke-width="1.5"/>
+  <text x="618" y="243" font-size="10" fill="#5f6b70">start / target</text>
+  <rect x="595" y="253" width="16" height="16" fill="#fdf3e3" stroke="#b7791f" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <text x="618" y="266" font-size="10" fill="#5f6b70">bonus zone</text>
+  <rect x="595" y="276" width="16" height="16" fill="#eef2f3" stroke="#6b7780" stroke-width="1.5"/>
+  <text x="618" y="289" font-size="10" fill="#5f6b70">obstacle</text>
+  <circle cx="603" cy="308" r="8" fill="#ffffff" stroke="#c53030" stroke-width="2"/>
+  <text x="618" y="312" font-size="10" fill="#5f6b70">marker</text>
+  <line x1="595" y1="335" x2="611" y2="335" stroke="#2b6cb0" stroke-width="2.5" stroke-dasharray="4,3"/>
+  <text x="618" y="339" font-size="10" fill="#5f6b70">example route</text>
+</svg>
