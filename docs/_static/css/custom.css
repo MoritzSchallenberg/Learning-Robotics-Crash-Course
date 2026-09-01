@@ -135,29 +135,55 @@ body,
   color: #ffffff;
 }
 
-.wy-menu-vertical li.current > a,
-.wy-menu-vertical li.on a {
+/* The stock theme gives the expanded branch a near-white background, which is
+   unreadable against this sidebar in both light and dark mode. Keep the whole
+   branch dark and mark the current page by contrast instead. */
+.wy-menu-vertical li.current,
+.wy-menu-vertical li.toctree-l2.current,
+.wy-menu-vertical li.toctree-l3.current {
   background: var(--lrcc-sidebar-bg-deep);
-  color: #ffffff;
-  border: none;
 }
 
-.wy-menu-vertical li.current a {
-  border-right: none;
-}
-
-.wy-menu-vertical li.toctree-l2.current > a,
-.wy-menu-vertical li.toctree-l3.current > a {
-  background: rgba(0, 0, 0, 0.25);
-}
-
-.wy-menu-vertical li.current > a:hover,
-.wy-menu-vertical li.toctree-l2.current > a:hover {
-  background: rgba(0, 0, 0, 0.4);
-}
-
+.wy-menu-vertical li.current a,
+.wy-menu-vertical li.toctree-l2 a,
+.wy-menu-vertical li.toctree-l3 a,
 .wy-nav-side .wy-menu-vertical li.current a {
   color: var(--lrcc-sidebar-fg);
+  border-right: none;
+  border-bottom: none;
+}
+
+/* The page you are actually on. */
+.wy-menu-vertical li.current > a,
+.wy-menu-vertical li.on a,
+.wy-menu-vertical li.toctree-l2.current > a,
+.wy-menu-vertical li.toctree-l3.current > a {
+  background: var(--lrcc-accent);
+  color: #ffffff;
+  border: none;
+  font-weight: 700;
+}
+
+/* ... but a parent that merely contains the current page is not itself
+   current, so it must not look like the active item. */
+.wy-menu-vertical li.current > a:not([href]),
+.wy-menu-vertical li.toctree-l1.current > a {
+  background: transparent;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.wy-menu-vertical li.current a:hover,
+.wy-menu-vertical li.toctree-l2 a:hover,
+.wy-menu-vertical li.toctree-l3 a:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+}
+
+.wy-menu-vertical li.toctree-l2.current > a:hover,
+.wy-menu-vertical li.toctree-l3.current > a:hover {
+  background: var(--lrcc-accent-dark);
+  color: #ffffff;
 }
 
 .wy-nav-top {
@@ -288,7 +314,11 @@ footer span {
   color: var(--lrcc-code-fg);
   padding: 0.1em 0.35em;
   font-size: 0.87em;
+  /* Long literals -- file paths, namespaced topic names -- have no spaces to
+     break at and would otherwise push the whole page sideways on a phone. */
   white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 /* Keep the copy button legible on the dark code surface. */

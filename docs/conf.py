@@ -83,7 +83,10 @@ html_theme_options = {
     "collapse_navigation": False,
     "sticky_navigation": True,
     "navigation_depth": 3,
-    "titles_only": False,
+    # Show page titles only in the sidebar. Without this, the section headings
+    # of each section index page appear as siblings of the real pages, which
+    # makes the course structure hard to read.
+    "titles_only": True,
     "prev_next_buttons_location": "bottom",
     "style_external_links": True,
 }
@@ -91,7 +94,7 @@ html_theme_options = {
 html_static_path = ["_static"]
 
 html_css_files = ["css/custom.css"]
-html_js_files = ["js/theme.js"]
+html_js_files = ["js/color-mode.js"]
 
 # The site is served from a repository subpath on GitHub Pages
 # (https://<user>.github.io/Learning-Robotics-Crash-Course/). Sphinx emits

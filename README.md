@@ -115,7 +115,8 @@ docs/
 
   _static/
     css/custom.css            Theme layer, badges, light/dark palette
-    js/theme.js               Light/dark toggle
+    js/color-mode.js          Light/dark toggle (name must not be theme.js,
+                              which would shadow the RTD theme's own script)
     images/                   (empty — see CONTENT_REVIEW.md §4.4)
   _extra/.nojekyll
 

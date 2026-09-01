@@ -70,7 +70,7 @@ redistributed separately by this repository.
 | File | Notes |
 |---|---|
 | `docs/_static/css/custom.css` | Written from scratch. Adapts the stock RTD theme to the Summer School's look and adds task, solution, review and badge styling plus a dark palette. No CSS from any source site is included. |
-| `docs/_static/js/theme.js` | Written from scratch. Light/dark toggle with OS-preference detection and `localStorage` persistence. No third-party code. |
+| `docs/_static/js/color-mode.js` | Written from scratch. Light/dark toggle with OS-preference detection and `localStorage` persistence. No third-party code. |
 | `docs/conf.py` | Written from scratch. |
 | `.github/workflows/pages.yml` | Written from scratch, using GitHub's official first-party actions. |
 
