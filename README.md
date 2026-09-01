@@ -270,12 +270,22 @@ Pushes to `main` trigger `.github/workflows/pages.yml`, which installs
 dependencies, builds with `-W`, scans the output for secrets, checks links, and
 publishes to GitHub Pages.
 
-> [!NOTE]
-> **One-time manual setup required.** GitHub Pages must be set to deploy from
-> GitHub Actions before the first deployment can succeed:
+> [!IMPORTANT]
+> **The site is not live yet — one manual step is still required.**
 >
-> **Settings → Pages → Build and deployment → Source → "GitHub Actions"**
+> GitHub Pages has not been enabled on this repository. Until it is, the build
+> job succeeds and uploads the artifact, and the deploy job fails.
 >
-> This cannot be done from a workflow and has to be set once by someone with
-> admin rights on the repository. Until it is, the build job succeeds and the
-> deploy job fails.
+> Someone with **admin rights** on the repository must do this once:
+>
+> 1. Open **Settings → Pages**.
+> 2. Under **Build and deployment**, set **Source** to **“GitHub Actions”**.
+> 3. Re-run the latest workflow from the **Actions** tab (or push any commit).
+>
+> This cannot be done from a workflow, from the API without an admin token, or
+> over SSH — GitHub deliberately requires an admin to enable publishing.
+>
+> Once set, the site appears at
+> <https://moritzschallenberg.github.io/Learning-Robotics-Crash-Course/> and
+> every push to `main` redeploys it automatically. No other configuration is
+> needed: the workflow, permissions and environment are already in place.
