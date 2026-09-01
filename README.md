@@ -215,6 +215,40 @@ Check against primary sources before writing: the
 [OpenCV](https://docs.opencv.org/) and [MoveIt](https://moveit.picknik.ai/)
 documentation, and the README of whichever package you are describing.
 
+### Content levels and 85-minute sessions
+
+Every course session is a strict 85-minute run sheet. When adding or editing
+session content, mark it with one of the four content-level badges —
+`{{ core }}` (must fit in the 85 minutes), `{{ optional }}` (only with time
+to spare), `{{ advanced }}` (deliberately outside the session, for later
+reading) or `{{ platformspecific }}` — defined in `docs/conf.py` as MyST
+substitutions, and check that the Core practical task is genuinely
+completable in its allotted block, not just described. See any existing
+`course/0*.md` file for the pattern, and `docs/instructors/` for the
+facilitator-side preparation this assumes.
+
+### Testing beyond the build
+
+`sphinx-build -W` catches broken internal links, anchors and Markdown
+errors, but not what only a browser can check — JavaScript errors, mobile
+overflow, the light/dark toggle, search. `scripts/verify-site.py` covers
+that:
+
+```bash
+sphinx-build -b html docs docs/_build/html
+pip install playwright && playwright install chromium
+
+mkdir -p /tmp/site-serve/Learning-Robotics-Crash-Course
+cp -r docs/_build/html/. /tmp/site-serve/Learning-Robotics-Crash-Course/
+python3 -m http.server 8899 -d /tmp/site-serve &
+
+python3 scripts/verify-site.py
+```
+
+Playwright is intentionally **not** in `requirements.txt` — building the
+site itself should never need a browser download. Install it only when
+running this script.
+
 ## Security
 
 > **This repository is public.**
