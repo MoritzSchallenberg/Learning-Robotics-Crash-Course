@@ -94,18 +94,23 @@ jobs:
           fi
           echo "OK: no secrets found in the build output."
 
-      - name: Check internal links and images
-        # linkcheck also validates external URLs, which makes it flaky in CI,
-        # so external failures are reported but do not fail the build.
+      - name: Check external links
+        # Informational only. Internal links and images are already validated
+        # by the `-W` build above; this step checks that external URLs still
+        # resolve. External sites go down, rate-limit and block CI runners, so
+        # it must never be the reason a deploy fails -- and it must never hang:
+        # a single slow host can otherwise stall the job for hours.
+        timeout-minutes: 6
+        continue-on-error: true
         run: |
-          sphinx-build -b linkcheck docs docs/_build/linkcheck || true
+          timeout 300 sphinx-build -b linkcheck docs docs/_build/linkcheck \
+            || echo "linkcheck did not finish cleanly (informational only)"
           echo "--- linkcheck summary ---"
-          if [ -f docs/_build/linkcheck/output.txt ]; then
+          if [ -s docs/_build/linkcheck/output.txt ]; then
             cat docs/_build/linkcheck/output.txt
           else
             echo "No broken links reported."
           fi
-        continue-on-error: true
 
       - name: Upload the Pages artifact
         # Only the deploy job needs the artifact, but uploading on pull
