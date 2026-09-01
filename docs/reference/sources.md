@@ -181,13 +181,13 @@ real implications for anything you distribute.
 * - Component
   - License
   - Role
-* - [Sphinx](https://www.sphinx-doc.org/)
+* - [Sphinx](https://www.sphinx-doc.org/en/master/)
   - BSD-2-Clause
   - Documentation generator
 * - [sphinx-rtd-theme](https://github.com/readthedocs/sphinx_rtd_theme)
   - MIT
   - The visual theme
-* - [MyST-Parser](https://myst-parser.readthedocs.io/)
+* - [MyST-Parser](https://myst-parser.readthedocs.io/en/latest/)
   - MIT
   - Markdown support
 * - [sphinx-copybutton](https://github.com/executablebooks/sphinx-copybutton)

@@ -347,6 +347,6 @@ If you finish early, the source courses suggest plenty:
   [3](03-sensors-tf.md) · [4](04-perception.md) ·
   [5](05-mapping-localization.md) · [6](06-navigation.md) ·
   [7](07-autonomous-decisions.md) · [8](08-integration.md)
-- [Nav2 costmap filters](https://docs.nav2.org/tutorials/docs/navigation2_with_keepout_filter.html)
-- [Nav2 waypoint following](https://docs.nav2.org/tutorials/docs/using_groot.html)
+- [Nav2 keep-out filter](https://docs.nav2.org/jazzy/configuration_and_development/configuration_guide/core_servers/costmap_2d/costmap_filters/keepout_filter/)
+- [Nav2 tutorials](https://docs.nav2.org/jazzy/tutorials/)
 - Your [platform track](../platforms/index.md)

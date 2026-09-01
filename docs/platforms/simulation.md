@@ -187,7 +187,7 @@ ros2 run turtlesim turtlesim_node
 ```
 
 **Sessions 3–6**: any Webots example with a laser scanner and odometry, or the
-[Nav2 simulation tutorials](https://docs.nav2.org/getting_started/index.html),
+[Nav2 simulation tutorials](https://docs.nav2.org/jazzy/getting_started/),
 which ship a complete mapped environment.
 
 **Sessions 4, 7**: print ArUco markers on paper and hold them in front of a
@@ -217,5 +217,5 @@ Expected. Look at noise, timing, and topic names first.
 
 - [Webots documentation](https://cyberbotics.com/doc/guide/index)
 - [webots_ros2](https://docs.ros.org/en/jazzy/p/webots_ros2/)
-- [Nav2 getting started](https://docs.nav2.org/getting_started/index.html)
+- [Nav2 getting started](https://docs.nav2.org/jazzy/getting_started/)
 - [Using simulation time in ROS 2](https://design.ros2.org/articles/clock_and_time.html)

@@ -548,7 +548,7 @@ first.
 - [RAFCON documentation](https://rafcon.readthedocs.io/en/stable/concepts.html)
   and the [RAFCON repository](https://github.com/DLR-RM/RAFCON)
 - [BehaviorTree.CPP](https://www.behaviortree.dev/) — the library Nav2 uses
-- [Nav2 behavior trees](https://docs.nav2.org/behavior_trees/index.html)
+- [Nav2 behavior trees](https://docs.nav2.org/jazzy/configuration_and_development/configuration_guide/core_servers/bt_plugins/)
 - [PlanSys2](https://plansys2.github.io/) and its
   [behavior tree actions tutorial](https://plansys2.github.io/tutorials/docs/bt_actions.html)
 - [MoveIt 2](https://moveit.picknik.ai/)

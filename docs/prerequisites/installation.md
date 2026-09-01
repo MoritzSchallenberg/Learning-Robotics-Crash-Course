@@ -231,5 +231,5 @@ that make no sense. Keep exactly one `source /opt/ros/...` line in `.bashrc`.
 ## Further reading
 
 - [ROS 2 documentation](https://docs.ros.org/) — start here for anything ROS 2
-- [colcon documentation](https://colcon.readthedocs.io/)
+- [colcon documentation](https://colcon.readthedocs.io/en/released/)
 - [Versions and compatibility](../reference/compatibility.md) on this site

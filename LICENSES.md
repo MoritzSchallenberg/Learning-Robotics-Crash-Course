@@ -54,9 +54,9 @@ are vendored into this repository.
 
 | Component | Version | License |
 |---|---|---|
-| [Sphinx](https://www.sphinx-doc.org/) | 7.4.7 | BSD-2-Clause |
+| [Sphinx](https://www.sphinx-doc.org/en/master/) | 7.4.7 | BSD-2-Clause |
 | [sphinx-rtd-theme](https://github.com/readthedocs/sphinx_rtd_theme) | 3.0.2 | MIT |
-| [MyST-Parser](https://myst-parser.readthedocs.io/) | 3.0.1 | MIT |
+| [MyST-Parser](https://myst-parser.readthedocs.io/en/latest/) | 3.0.1 | MIT |
 | [sphinx-copybutton](https://github.com/executablebooks/sphinx-copybutton) | 0.5.2 | MIT |
 | [sphinx-design](https://github.com/executablebooks/sphinx-design) | 0.6.1 | MIT |
 
@@ -105,7 +105,7 @@ none of them.
 | [PlanSys2](https://plansys2.github.io/) | Apache-2.0 |
 | [Golog++](https://github.com/MASKOR/gologpp) | See repository |
 | [Ansible](https://docs.ansible.com/) | GPL-3.0 |
-| [MediaPipe](https://ai.google.dev/edge/mediapipe) | Apache-2.0 |
+| [MediaPipe](https://developers.google.com/edge/mediapipe/solutions/guide) | Apache-2.0 |
 | [OpenVINO](https://docs.openvino.ai/) | Apache-2.0 |
 
 > **Note on Ultralytics YOLO.** It is **AGPL-3.0**, which has real

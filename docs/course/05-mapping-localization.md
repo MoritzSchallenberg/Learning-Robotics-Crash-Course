@@ -530,8 +530,8 @@ or the two files were separated.
 
 - [SLAM Toolbox](https://github.com/SteveMacenski/slam_toolbox) and its
   configuration guide
-- [Nav2 AMCL configuration](https://docs.nav2.org/configuration/packages/configuring-amcl.html)
-- [Nav2 map server](https://docs.nav2.org/configuration/packages/configuring-map-server.html)
+- [Nav2 AMCL configuration](https://docs.nav2.org/jazzy/configuration_and_development/configuration_guide/others/configuring_amcl/)
+- [Nav2 map server](https://docs.nav2.org/jazzy/configuration_and_development/configuration_guide/core_servers/map_server/configuring_map_server/)
 - [REP 105: Coordinate frames](https://www.ros.org/reps/rep-0105.html) — the
   authority on the `map`/`odom` split
 - [robot_localization](https://docs.ros.org/en/melodic/api/robot_localization/html/index.html)

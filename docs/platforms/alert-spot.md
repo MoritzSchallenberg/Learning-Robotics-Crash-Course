@@ -382,7 +382,7 @@ This is the trigger for training a custom model — see
 
 ### Gesture control
 
-An optional project uses [MediaPipe](https://ai.google.dev/edge/mediapipe) for
+An optional project uses [MediaPipe](https://developers.google.com/edge/mediapipe/solutions/guide) for
 hand gesture recognition, translating gestures into `cmd_vel` commands:
 
 ```bash

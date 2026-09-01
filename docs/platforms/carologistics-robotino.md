@@ -377,7 +377,7 @@ The team designs its own mounts and PCBs:
 
 - **CAD**: Fusion 360, with an Autodesk education licence
 - **Circuit design**: [KiCad](https://www.kicad.org/)
-- **3D printing**: [PrusaSlicer](https://www.prusa3d.com/page/prusaslicer_424/)
+- **3D printing**: [PrusaSlicer](https://www.prusa3d.com/p/prusaslicer/)
 
 Access to the team's CAD cloud is arranged internally.
 
@@ -409,5 +409,5 @@ substitutions:
 - [Carologistics on GitHub](https://github.com/carologistics)
 - [Carologistics team website](https://www.carologistics.org/)
 - [RoboCup Logistics League](https://ll.robocup.org/)
-- [Festo Robotino](https://www.festo-didactic.com/int-en/learning-systems/education-robots-robotino/)
+- [Festo Robotino](https://www.festo-didactic.com/)
 - [Nav2 documentation](https://docs.nav2.org/)

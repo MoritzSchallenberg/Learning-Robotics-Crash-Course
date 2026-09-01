@@ -555,8 +555,8 @@ else. Remap it.
 
 - [Nav2 documentation](https://docs.nav2.org/) — thorough, and the first place
   to look
-- [Nav2 concepts](https://docs.nav2.org/concepts/index.html)
-- [Nav2 configuration guide](https://docs.nav2.org/configuration/index.html)
-- [Nav2 first-time setup](https://docs.nav2.org/setup_guides/index.html)
-- [Behavior trees in Nav2](https://docs.nav2.org/behavior_trees/index.html) —
+- [Nav2 documentation home](https://docs.nav2.org/jazzy/)
+- [Nav2 configuration guide](https://docs.nav2.org/jazzy/configuration_and_development/configuration_guide/)
+- [Nav2 first-time setup](https://docs.nav2.org/jazzy/configuration_and_development/first_time_robot_setup_guide/)
+- [Behavior trees in Nav2](https://docs.nav2.org/jazzy/configuration_and_development/configuration_guide/core_servers/bt_plugins/) —
   the bridge to [session 7](07-autonomous-decisions.md)
