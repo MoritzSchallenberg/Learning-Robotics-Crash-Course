@@ -7,6 +7,24 @@ broken code and are not.
 
 This page records what each instruction was written for.
 
+:::{important}
+**If you are setting up a machine with no existing team infrastructure to
+match** — a spare laptop, a fresh simulation-only install — this course
+recommends **Ubuntu 24.04 with ROS 2 Jazzy**: it is the newer LTS with the
+longer support window, and it is what the shared course content (the general
+[course modules](../course/index.md), largely drawn from the ROS Summer
+School) and the [simulation track](../platforms/simulation.md) are tested
+against going forward.
+
+This is a **recommendation for new installs, not a rewrite of existing
+guides.** The ALeRT/Spot material stays exactly what it has always been —
+**Ubuntu 22.04 with ROS 2 Humble** — because that is what the team's actual
+robot runs, and silently "upgrading" a hardware-specific guide to a
+distribution nobody has tested it on would be worse than leaving it alone.
+If you are joining ALeRT, install Humble on 22.04, full stop; the
+recommendation above is not for you.
+:::
+
 :::{danger}
 **Never assume an instruction transfers between tracks.** ROS 2 distributions
 are not compatible with each other: package names differ

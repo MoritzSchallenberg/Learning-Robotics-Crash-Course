@@ -262,7 +262,7 @@ ansible-playbook -i robotinos.inv -t fast-deploy robotino.yml -l <host> -K
 ```
 
 `fast-deploy` pulls the latest code, stashes local changes and rebuilds. See
-[session 8](../course/08-integration.md#deployment-with-ansible) for what the
+[session 8](../course/08-integration.md) for what the
 options mean.
 
 ### Starting a test game
@@ -286,7 +286,7 @@ both the machine and which side you are looking at. The tag camera sits at
 marker height.
 
 The general technique is in
-[session 4](../course/04-perception.md#fiducial-markers). What is specific here
+[session 4](../course/04-perception/fiducial-markers.md). What is specific here
 is the combination: the tag identifies the machine, and the **laser lines**
 give its precise position and orientation. Cross-checking the two is what makes
 detection reliable enough to dock against.
@@ -305,34 +305,44 @@ constrains the search considerably.
 The Pi camera plus YOLOv8-nano detects workpieces; the position is then
 triangulated using the laser lines, giving a 6D pose (with pitch and roll
 assumed zero). This is exactly the detection-to-localization step described in
-[session 4](../course/04-perception.md#detection-versus-localization) — the
+[session 4](../course/04-perception/index.md#detection-versus-localization) — the
 laser line supplies the depth that the bounding box cannot.
 
 ### Markerless MPS detection
 
-An active research topic: detecting machines without markers, which the league
-has set as a challenge for several years. The approach under investigation uses
-a camera to generate per-cell probabilities for machine presence and rotation,
-aggregates them across robots, and combines them with laser-line evidence.
+{{ advanced }} {{ unverified }} — a Carologistics research topic, not a
+finished, ready-to-run system, and not part of any session's core task.
 
-Rotation is the hard part. Candidate approaches include learning each side of a
-machine separately, detecting front and back together with the traffic-light
-position, or training a network that predicts orientation directly — which
-requires orientation labels in the training data.
+**Purpose, in one sentence**: during the three-minute exploration phase
+([session 1](../course/01-system-hardware.md) explains why that phase
+exists), machines currently must carry a visible marker to be located
+quickly; markerless detection aims to find them from appearance alone,
+because the league scores exploration speed and a marker-free approach
+generalises to machines the team's cameras have never specifically been
+tuned for.
 
-:::{admonition} TODO-REVIEW
-:class: todo-review
+The approach under investigation, as of when this page was written: a
+camera generates per-cell probabilities for machine presence and rotation,
+aggregated across robots and combined with the laser-line evidence
+described above. Rotation is the hard part — candidate approaches include
+learning each side of a machine separately, detecting front and back
+together with the traffic-light position, or training a network that
+predicts orientation directly, which needs orientation labels in the
+training data (see [data labeling](../course/04-perception/data-labeling.md)
+for the general labeling workflow this would build on).
 
-The markerless detection description reflects the team wiki at the time this
-site was written and describes work in progress, not a finished system. Check
-the current state with the team before relying on it.
-:::
+This description reflects the public team wiki at the time of writing and
+describes work in progress. No internal topic names, repository paths or
+operational data are reproduced here — check the current state with the
+team, via the public
+[`ros2-markerless-mps`](https://github.com/carologistics/ros2-markerless-mps)
+repository, before relying on any of it.
 
 ### Data labeling
 
 Training data for object detection is labeled with a browser-based annotation
 tool. The general workflow and the rules for good labels are in
-[session 4](../course/04-perception.md#training-a-custom-model).
+[session 4](../course/04-perception/object-detection.md#training-a-custom-model).
 
 Carologistics-specific classes:
 
@@ -359,16 +369,40 @@ not established. See `CONTENT_REVIEW.md` in the repository.
 
 ## Gripper
 
-The gripper is a custom mechanism: NEMA stepper motors with encoders, driven
-through Igus motor controllers and a custom PCB, commanded by an Arduino that
-exposes a ROS interface.
+The gripper is a custom mechanism, built from the following pieces, in
+general-principle terms — the same
+[sense–process–act pattern](../course/01-system-hardware.md#theory) as the
+rest of the robot, at a smaller scale:
 
-:::{admonition} TODO-REVIEW
-:class: todo-review
+**Actuators**: NEMA 17 stepper motors (with an encoder) for the finer
+axes, and a NEMA 24 stepper motor with an integrated brake for the axis that
+must hold position under load without power. Igus motor controllers drive
+the steppers.
 
-The source wiki documents the gripper as hardware components and lists several
-items as TODO. There is no tested command-level interface documentation to
-reproduce here. Ask the hardware team for the current control interface.
+**Sensors**: the motor encoders report shaft position, which is what lets
+the controller know where the gripper actually is rather than only where it
+was commanded to be — the same open-loop-vs-closed-loop distinction as the
+drive motors in [session 1](../course/01-system-hardware.md).
+
+**Control**: a custom PCB carries an Arduino Giga, which exposes a ROS
+interface to the rest of the robot's software — the gripper is a node like
+any other from the perspective of
+[session 2](../course/02-ros2.md), just one whose "actuator" output is a
+motor controller board instead of `/cmd_vel`.
+
+**Safety**: as with the rest of the robot, the platform E-stop
+([session 1](../course/01-system-hardware.md)) cuts gripper power along
+with drive power. A brake-equipped axis is a deliberate safety property in
+its own right — it will not drop whatever it is holding purely because power
+was cut.
+
+:::{note}
+{{ unverified }} This is the mechanism's general design as documented in the
+team wiki, not a tested command-level interface. No connection, power or
+motion command is given here because none could be confirmed against
+running hardware — inventing one would be worse than not having it. Ask the
+hardware team for the current control interface and topic names before
+writing code against this gripper.
 :::
 
 ## Hardware and CAD

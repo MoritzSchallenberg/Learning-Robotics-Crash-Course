@@ -150,7 +150,7 @@ Set **Fixed Frame** to `base_footprint`, then add:
 :::{note}
 The Best Effort setting on `/scan` is not optional. The publisher uses it, and
 an RViz display left on Reliable shows nothing at all, with no error. See
-[session 3](../course/03-sensors-tf.md#when-rviz-shows-nothing).
+[session 3](../course/03-sensors-tf.md#common-problems).
 :::
 
 Save the configuration once it works.
@@ -219,7 +219,7 @@ yet fails silently in a way that looks like the robot ignoring you.
 The ALeRT tutorials use OpenCV directly on the gripper camera, which is a good
 way to learn perception before reaching for a neural network. Both exercises
 are described in general terms in
-[session 4](../course/04-perception.md).
+[session 4](../course/04-perception/index.md).
 
 ### ArUco detection
 
@@ -233,13 +233,13 @@ corners, ids, rejected = detector.detectMarkers(image)
 ```
 
 Full node structure in
-[session 4](../course/04-perception.md#aruco-with-opencv).
+[session 4](../course/04-perception/fiducial-markers.md#aruco-with-opencv).
 
 ### Line following
 
 Detect the red line on the floor and follow it by publishing `Twist` messages
 to `/cmd_vel`. The technique — convert to HSV, threshold, find contours — is in
-[session 4](../course/04-perception.md#colour-detection-with-hsv).
+[session 4](../course/04-perception/fiducial-markers.md#colour-detection-with-hsv).
 
 The interesting part is the control: given the line's horizontal position in
 the image, compute a turn rate that keeps it centred. A proportional controller
@@ -280,7 +280,10 @@ guessing.
 
 ## 3D mapping
 
-A 2D occupancy grid cannot represent a rescue arena. Two 3D approaches:
+{{ advanced }} A 2D occupancy grid cannot represent a rescue arena. Two 3D
+approaches, explained for general understanding in
+[session 5's advanced reading](../course/05-mapping-localization.md#advanced-3d-mapping)
+— this page adds only the ALeRT-specific repository pointers.
 
 ### Octomap
 
@@ -290,34 +293,32 @@ sudo apt install ros-humble-octomap*
 
 The team maintains a fork at
 [RRL-ALeRT/octomap_mapping](https://github.com/RRL-ALeRT/octomap_mapping). Use
-the launch file from that repository.
-
-Octomap stores 3D occupancy in an octree, subdividing space only where detail
-is needed. It feeds 3D path planning — the team has a
-[3D planner working on the octomap](https://github.com/RRL-ALeRT/alert_ros2).
+the launch file from that repository. It feeds 3D path planning — the team has
+a [3D planner working on the octomap](https://github.com/RRL-ALeRT/alert_ros2).
 
 ### GLIM
 
 [GLIM](https://github.com/koide3/glim_ros2) is a LiDAR–inertial SLAM system
-that tightly couples 3D LiDAR with IMU data to build accurate point cloud maps.
-Appropriate where 2D scan matching fails entirely — uneven ground, stairs,
-rubble. Installation is documented at
+that tightly couples 3D LiDAR with IMU data to build accurate point cloud
+maps — see session 5 for when this matters over 2D SLAM. Installation is
+documented at
 [koide3.github.io/glim](https://koide3.github.io/glim/installation.html).
 
 ### Mesh navigation
 
-For navigating on non-flat surfaces, the team has experimented with
-[mesh_navigation](https://github.com/naturerobots/mesh_navigation), which plans
-on a triangle mesh of the terrain rather than a grid — the natural
+{{ unverified }} For navigating on non-flat surfaces, the team has
+experimented with
+[mesh_navigation](https://github.com/naturerobots/mesh_navigation), which
+plans on a triangle mesh of the terrain rather than a grid — the natural
 generalisation when "the floor" is not a plane.
 
-:::{admonition} TODO-REVIEW
-:class: todo-review
-
-Octomap, GLIM and mesh navigation are referenced in the source material by
-repository link only, with no configuration, parameters or tested procedure.
-This section is an orientation, not a guide. Expert review and a tested
-walkthrough are needed before these become course exercises.
+:::{note}
+All three of Octomap, GLIM and mesh navigation are referenced here by
+repository link with the install command each repository documents, and no
+further tested configuration. Treat this section as orientation — read the
+linked repository's own documentation for a working parameter set, rather
+than expecting a tested walkthrough here. None of the three is part of any
+session's core task.
 :::
 
 ## Manipulation with MoveIt
@@ -336,7 +337,7 @@ sliders, which is often the quickest way to get out of an awkward
 configuration.
 
 The general concepts and a pick-and-place structure are in
-[session 7](../course/07-autonomous-decisions.md#manipulation-with-moveit).
+[session 7](../course/07-autonomous-decisions.md).
 
 :::{tip}
 The simulation publishes TF frames for objects — for example the target
@@ -378,7 +379,7 @@ ros2 service call /hazmat_signs std_srvs/srv/Empty "{}"
 ```
 
 This is the trigger for training a custom model — see
-[session 4](../course/04-perception.md#training-a-custom-model).
+[session 4](../course/04-perception/object-detection.md#training-a-custom-model).
 
 ### Gesture control
 

@@ -13,15 +13,19 @@ This site consolidates and rewrites three internal MASKOR teaching resources:
 - the **Carologistics team wiki** (Team Carologistics, FH Aachen and RWTH
   Aachen).
 
-> **TODO-REVIEW — the content license has not been decided.**
+> **Decision needed — the content license has not been chosen.**
 >
-> The institute has not yet chosen a license for this course text, so this
-> repository deliberately ships **no `LICENSE` file**. Until one is chosen, no
-> terms of reuse are granted beyond what applies by default.
+> The institute and the original rights holders (the Summer School,
+> Carologistics and ALeRT teams) have not yet chosen a license for this
+> course text, so this repository deliberately ships **no `LICENSE` file**
+> and this document does **not** pick one on their behalf. Until a decision
+> is made, no terms of reuse are granted beyond what applies by default under
+> copyright law — effectively "all rights reserved."
 >
-> A permissive documentation license such as **CC BY 4.0** or **CC BY-SA 4.0**
-> would suit a public teaching resource and is the natural default, but that is
-> a decision for the institute. This should be settled before the site is
+> This is tracked as an open decision in `DECISIONS_NEEDED.md` (item 1) in
+> the repository root, including a neutral summary of the available options
+> and their trade-offs, so that the institute can decide without this
+> document steering the choice. It should be settled before the site is
 > widely publicised.
 
 ### How the source material was used

@@ -209,11 +209,16 @@ the original teaching resources listed above.
 Corrections and improvements are welcome — see the contributing section of the
 [repository README](https://github.com/MoritzSchallenberg/Learning-Robotics-Crash-Course).
 
-:::{admonition} TODO-REVIEW
+:::{admonition} Decision needed: content license
 :class: todo-review
 
-The content license for this course has not yet been decided by the institute.
-Until it is, no license file declares terms of reuse for the course text, and
-`LICENSES.md` in the repository records this as an open question. This needs a
-decision from the institute before the site is widely publicised.
+The content license for this course has not yet been decided by the
+institute and the original rights holders. Until it is, no license file
+declares terms of reuse for the course text — this site deliberately does
+not pick one on their behalf, and no option (including a permissive one
+such as CC BY 4.0) is assumed by default.
+
+See `DECISIONS_NEEDED.md` (item 1) in the repository for a neutral summary
+of the available options and `LICENSES.md` for the full statement of what
+is and is not currently licensed.
 :::
