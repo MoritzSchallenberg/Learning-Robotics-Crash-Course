@@ -58,6 +58,10 @@ def _badge(css_class: str, label: str) -> str:
     return f'<span class="lrcc-badge lrcc-badge--{css_class}">{label}</span>'
 
 
+def _level(css_class: str, label: str) -> str:
+    return f'<span class="lrcc-level lrcc-level--{css_class}">{label}</span>'
+
+
 myst_substitutions = {
     "common": _badge("common", "COMMON"),
     "simulation": _badge("simulation", "SIMULATION"),
@@ -66,6 +70,16 @@ myst_substitutions = {
     "jazzy": _badge("jazzy", "ROS 2 JAZZY"),
     "humble": _badge("humble", "ROS 2 HUMBLE"),
     "unverified": _badge("unverified", "UNVERIFIED"),
+    # ---------------------------------------------------------------------
+    # Content-level badges (Entwicklungsauftrag 2). Mark every heading or
+    # task with exactly one of these so a reader -- or a facilitator running
+    # short on time -- can tell at a glance what must happen in the 85
+    # minutes and what can wait.
+    # ---------------------------------------------------------------------
+    "core": _level("core", "CORE"),
+    "optional": _level("optional", "OPTIONAL"),
+    "advanced": _level("advanced", "ADVANCED"),
+    "platformspecific": _level("platform", "PLATFORM-SPECIFIC"),
 }
 
 # -- Options for HTML output -------------------------------------------------

@@ -125,7 +125,7 @@ simulations, so check yours before assuming `/scan` and `/cmd_vel`.
   - Identical, and easier — simulated TF trees are usually complete and
     correct from the start.
 * - 4
-  - [Perception](../course/04-perception.md)
+  - [Perception](../course/04-perception/index.md)
   - Simulated cameras publish valid `camera_info` already, so calibration is
     not needed. Do the calibration exercise anyway if you can borrow a webcam.
 * - 5
@@ -204,7 +204,7 @@ the `webots_ros2` version.
 
 **RViz shows nothing.**
 QoS — simulated sensors often publish Best Effort. See
-[session 3](../course/03-sensors-tf.md#when-rviz-shows-nothing).
+[session 3](../course/03-sensors-tf.md#common-problems).
 
 **The simulation runs very slowly.**
 No 3D acceleration. This is the usual outcome inside a virtual machine, and the

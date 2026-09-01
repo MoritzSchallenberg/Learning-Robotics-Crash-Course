@@ -10,159 +10,238 @@ Saturday–Sunday, 07–08 November 2026
 
 Everything from the eight sessions, on one robot, running on its own.
 
-:::{admonition} Draft rules
+:::{admonition} Draft 0.1 — not confirmed
 :class: warning
 
-This is the **first draft** of the challenge. The scoring is deliberately
-published early so that teams can build against it and so that it can be
-criticised and corrected before the event. Point values and the exact arena
-layout will be confirmed closer to the date. If something here is ambiguous or
-unfair, say so — that is what a draft is for.
+Everything on this page — the rubric, the arena, the time limit — is
+**Draft 0.1**, published early so teams can build against it and so it can
+be corrected before the event. It is deliberately easy to change: every
+number lives in one table, and `DECISIONS_NEEDED.md` tracks exactly what
+still needs sign-off (items 8 and 9). If something here is unfair or
+unclear, say so — that is what a draft is for.
 :::
 
-## The mission
+## The common mission
 
-A robot has to cross an operation area autonomously, avoid obstacles, find
-targets and reach them. In the extended levels it also picks up an object,
-transports it, or reports its position to another system.
+Every team, on every platform, attempts the same seven-step mission:
 
-The mission is deliberately layered. A team that only completes Level 1 has
-still built a working autonomous robot. Levels 2 and 3 are for teams who get
-there with time to spare.
+1. **Start correctly** — bring up the robot from a cold state with the
+   team's own launch procedure.
+2. **Establish position** — localize, or otherwise determine a known
+   starting pose.
+3. **Reach a target area** — navigate there autonomously, no manual driving.
+4. **Handle obstacles** — detect and avoid at least one obstacle not present
+   when the arena was last mapped.
+5. **Recognise a target** — detect a marker or object in the target area.
+6. **Report success** — signal mission completion on the agreed topic.
+7. **Fail safely** — if something goes wrong, reach a safe, stopped state
+   rather than continuing blindly.
 
-### Level 1 — Autonomous traversal
+### Optional extensions (bonus)
 
-The robot starts at a marked position and must:
+- pick up and transport the recognised object;
+- plan a new route after being blocked;
+- communicate with a second robot;
+- handle more than one target;
+- explore an area with no prior map.
 
-1. traverse the operation area **without manual control**;
-2. avoid all obstacles, including ones not present when the map was made;
-3. reach the designated target zone;
-4. signal completion by publishing to the scoring topic.
-
-Everything you need for this is in sessions 1 to 6.
-
-### Level 2 — Find and report
-
-In addition:
-
-1. detect all fiducial markers placed in the area;
-2. publish each marker's ID as it is found;
-3. store each marker's pose as a TF frame, and keep it available **after the
-   marker is out of sight**;
-4. return to the start position and signal completion.
-
-Sessions 4 and 7 cover this. Point 3 is the interesting one: it is not enough
-to see a marker, you have to remember where it was.
-
-### Level 3 — Manipulate or relay
-
-Choose one, depending on your platform:
-
-**Transport** {{ alert }} {{ carologistics }}
-: Pick up a designated object, carry it to the drop zone, and place it.
-
-**Relay** {{ simulation }} {{ common }}
-: Report the object's pose accurately enough for a second system to act on it,
-  in the `map` frame with a stated accuracy.
-
-## Scoring
-
-A scoring node runs during your attempt. It listens on the topics below,
-records what you report and how long you take, and publishes the result.
-
-### Interface
-
-```{list-table}
-:header-rows: 1
-:widths: 26 30 44
-
-* - Topic
-  - Type
-  - Meaning
-* - `/detected_ids`
-  - `std_msgs/msg/Int32`
-  - Publish each marker ID as you detect it
-* - `/object_reported`
-  - `std_msgs/msg/Int32`
-  - Publish the ID of a marker whose associated object you also identified
-* - `/finished`
-  - `std_msgs/msg/Bool`
-  - Publish `true` once, when your run is complete
-* - `/results`
-  - `std_msgs/msg/Float32MultiArray`
-  - Published by the scorer with your result
-```
-
-:::{warning}
-Publish `true` on `/finished` exactly once, and only when you are actually
-done. The clock stops at that message, and reports arriving afterwards are not
-counted.
+:::{note}
+**Manipulation and multi-robot tasks are bonus only.** A team without a
+gripper, or running only one robot, is never penalised for not attempting
+them — see the rubric below, where the maximum achievable score without any
+bonus is the full 100 points.
 :::
 
-### Points
+## Scoring rubric
 
-**Positive**
+A transparent 100-point rubric, split across what can be measured
+automatically and what a referee assesses directly.
 
 ```{list-table}
 :header-rows: 1
 :widths: 60 20 20
 
-* - Achievement
+* - Area
   - Points
-  - Level
-* - Reaching the target zone autonomously
+  - Assessed by
+* - Safe and reproducible system bring-up
+  - 10
+  - Referee checklist
+* - Localization / known starting state
+  - 10
+  - Referee + `/mission_status`
+* - Autonomous navigation
+  - 20
+  - Referee + navigation log
+* - Obstacle reaction
+  - 15
+  - Referee observation
+* - Perception and target recognition
+  - 15
+  - `/detected_target` topic + referee
+* - Mission logic and failure handling
+  - 15
+  - Referee + `/mission_status`
+* - Integration and technical robustness
+  - 10
+  - Referee checklist
+* - Short documentation and final presentation
   - 5
-  - 1
-* - Each marker correctly detected and reported
-  - 2
-  - 2
-* - Each marker whose associated object is also reported
-  - 3
-  - 2
-* - Each marker still available as a TF frame at the end of the run
-  - 1
-  - 2
-* - Returning to the start position
-  - 3
-  - 2
-* - Object successfully transported to the drop zone
-  - 8
-  - 3
-* - Object pose reported within 10 cm of ground truth
-  - 5
-  - 3
+  - Referee
+* - **Total**
+  - **100**
+  -
 ```
 
-**Negative**
+**Bonus points** (added on top of the 100, capped at +15 total): transport
+task completed (+8), new route planned after a block (+4), multi-robot
+communication demonstrated (+3).
 
-```{list-table}
-:header-rows: 1
-:widths: 60 40
+**Penalties**: −3 per collision with the arena or an obstacle; −2 per manual
+interaction (gamepad, terminal command, physical assistance) after the run
+has started; −1 per full minute beyond the time limit.
 
-* - Penalty
-  - Points
-* - Each collision with the arena or an obstacle
-  - −3
-* - Each manual interaction (gamepad, terminal command, physical assistance)
-  - −2
-* - Each started minute beyond the time limit
-  - −1
-```
+**Time limit**: 15 minutes per attempt. **Ties**: decided by elapsed time,
+then by fewer manual interactions.
 
-**Time limit**: 15 minutes per attempt.
+:::{admonition} TODO-REVIEW
+:class: todo-review
 
-**Ties** are decided by elapsed time.
-
-:::{note}
-Manual interaction is penalised but permitted. A run that finishes with three
-manual interventions scores better than one that gets stuck at minute two.
-Recovering is worth points.
+The point values above are a considered first draft, not a validated one —
+they have not been tested against the real arena or the robots available on
+the day. See `DECISIONS_NEEDED.md` item 9. Collision detection is assumed to
+be judged by a human referee; if an automated method is intended for a
+future version, this section needs revising rather than the automation being
+invented here.
 :::
 
-### The scoring node
+## Rules and logistics
 
-Your solution will be graded by a node with this interface. It is published
-here so you can test against it — run it yourself during development.
+### Safety rules
+
+- A referee or team member must be within reach of the physical E-stop at
+  all times during a run.
+- If a robot is about to injure a person or destroy itself or the arena,
+  stop it immediately — a stopped run costs points; a broken robot costs
+  the weekend.
+- No run begins until the referee confirms the arena is clear.
+
+### Permitted preparation
+
+- Mapping the arena in advance, if access is provided ahead of the event.
+- Tuning navigation and perception parameters using data from practice
+  runs.
+- Pre-training a detection model on the announced target object(s), once
+  confirmed.
+- Team-written launch, configuration and mission-control code, prepared in
+  advance.
+
+Not permitted: teleoperating any part of the scored attempt except as a
+penalised manual interaction; hard-coding the exact arena layout from
+insider knowledge not available to other teams.
+
+### Starting state
+
+The robot begins powered off or in a defined idle state, at a marked start
+position, facing a direction the team declares in advance. The clock starts
+when the team signals ready and the referee starts the run.
+
+### Abort conditions
+
+A run is aborted (scored as-is, mission incomplete) if: the E-stop is
+pressed for safety reasons; the robot leaves the arena boundary; the time
+limit is reached; or the team requests it.
+
+### Required logs
+
+Each team records and submits a rosbag of their best attempt, containing at
+minimum `/tf`, `/tf_static`, `/scan` (or equivalent range sensor), `/cmd_vel`
+and `/mission_status`, following the practice from
+[session 8](08-integration.md#rosbags-briefly). This is both evidence for
+scoring disputes and material for a future course's teaching examples
+(with team consent).
+
+### Group size and roles
+
+Teams of 2–4. Recommended roles for the run itself: **driver** (owns the
+laptop and launch sequence, the only one who touches a keyboard once the
+run has started), **spotter** (owns the E-stop, watches the robot, calls
+safety stops), **narrator** (talks the referee through what is happening,
+useful for the documentation/presentation score).
+
+### Acceptance checklist (bring this, completed, to your slot)
+
+- [ ] One command brings the robot from cold start to ready.
+- [ ] The team has rehearsed the full mission at least twice.
+- [ ] The E-stop is tested and someone is assigned to hold it.
+- [ ] A rosbag recording command is ready to run before the attempt starts.
+- [ ] Batteries are charged, and a spare (if any) is ready.
+- [ ] The mission-control code handles at least one failure path without
+      hanging (see [session 7](07-autonomous-decisions.md)).
+
+## Platform variants
+
+### Simulation
+
+{{ simulation }}
+
+Run the full mission in [Webots](../platforms/simulation.md). Identical
+scoring; the "hardware failure" procedure below does not apply — a crashed
+simulation is restarted, and the clock resets with it, at the referee's
+discretion.
+
+### Carologistics / Robotino
+
+{{ carologistics }}
+
+Robotino's omnidirectional drive is a genuine advantage for tight arena
+turns — plan for it in your navigation parameters
+(see the [platform page](../platforms/carologistics-robotino.md)). The
+transport bonus maps naturally onto Robotino's gripper carrying a workpiece
+to a marked drop zone.
+
+### ALeRT / Spot
+
+{{ alert }}
+
+Legged locomotion is the advantage where the arena includes any
+non-flat terrain (see the [platform page](../platforms/alert-spot.md)).
+Manipulation bonus attempts should budget extra time — MoveIt planning
+failures are a normal part of a first attempt, not a sign something is
+broken.
+
+## Procedure for a hardware failure
+
+1. **Stop the clock.** Signal the referee immediately — do not attempt a
+   repair with the clock running.
+2. **Assess**: is this fixable within the event's spare time (battery swap,
+   loose connector), or does it end the attempt?
+3. **Fixable**: the team gets one restart, at the referee's discretion,
+   generally with a time penalty reflecting the delay.
+4. **Not fixable**: the attempt ends; the team may run again in a later
+   slot if one is available, or the run is scored as-is up to the failure.
+5. **Always**: the referee logs what failed, for the acceptance checklist of
+   future course versions.
+
+## Schematic arena
+
+```{figure} ../_static/images/diagrams/10-hackathon-arena-schematic.svg
+:alt: A top-down schematic floor plan. A Start Zone sits bottom left. A dashed example route winds past two labelled obstacles and an unmapped-on-the-day area to a Target Zone top right containing a marker. An optional Drop Zone sits near the start for the transport bonus task.
+:width: 100%
+
+Schematic only — not the confirmed layout. See `DECISIONS_NEEDED.md` item 8.
+```
+
+This sketch fixes the **shape** of the mission (start → obstacles →
+target, with an optional drop zone) so teams can build and test against
+something concrete. The actual dimensions, obstacle placement and target
+count depend on the room booked for the event — an open organisational
+question, not a technical one; see `DECISIONS_NEEDED.md`.
+
+## The scoring node
+
+Illustrative interface for the automatable part of the score
+(perception, mission logic). Test against it during development.
 
 ```python
 #!/usr/bin/env python3
@@ -171,62 +250,34 @@ import time
 
 import rclpy
 from rclpy.node import Node
-from std_msgs.msg import Bool, Float32MultiArray, Int32
+from std_msgs.msg import String
 
 
 class ScoringNode(Node):
-    """Records reported IDs and elapsed time for one challenge attempt."""
+    """Records mission status transitions and timing for one attempt."""
 
     def __init__(self):
         super().__init__('scoring_node', namespace='scoring')
-
-        self.marker_ids = set()
-        self.object_ids = set()
         self.start_time = time.time()
         self.finished = False
 
-        self.create_subscription(Int32, 'detected_ids', self.on_marker, 10)
-        self.create_subscription(Int32, 'object_reported', self.on_object, 10)
-        self.create_subscription(Bool, 'finished', self.on_finished, 10)
-
-        self.results_publisher = self.create_publisher(
-            Float32MultiArray, 'results', 10)
+        self.create_subscription(String, 'detected_target', self.on_target, 10)
+        self.create_subscription(String, 'mission_status', self.on_status, 10)
 
         self.get_logger().info('Scoring started. Clock is running.')
 
-    def on_marker(self, msg):
+    def on_target(self, msg):
+        self.get_logger().info(f'Target reported: {msg.data}')
+
+    def on_status(self, msg):
         if self.finished:
             return
-        if msg.data not in self.marker_ids:
-            self.marker_ids.add(msg.data)
-            self.get_logger().info(f'Marker reported: {msg.data}')
-
-    def on_object(self, msg):
-        if self.finished:
-            return
-        if msg.data not in self.object_ids:
-            self.object_ids.add(msg.data)
-            self.get_logger().info(f'Object reported for marker: {msg.data}')
-
-    def on_finished(self, msg):
-        if not msg.data or self.finished:
-            return
-        self.finished = True
-        self.publish_results(time.time() - self.start_time)
-
-    def publish_results(self, duration):
-        # Format: [marker ids..., -1.0, object ids..., -2.0, duration]
-        message = Float32MultiArray()
-        message.data = (
-            [float(i) for i in sorted(self.marker_ids)]
-            + [-1.0]
-            + [float(i) for i in sorted(self.object_ids)]
-            + [-2.0, duration]
-        )
-        self.results_publisher.publish(message)
-        self.get_logger().info(
-            f'Finished. Markers={sorted(self.marker_ids)} '
-            f'Objects={sorted(self.object_ids)} Time={duration:.2f}s')
+        self.get_logger().info(f'Mission status: {msg.data}')
+        if msg.data in ('succeeded', 'failed_safe', 'aborted'):
+            self.finished = True
+            duration = time.time() - self.start_time
+            self.get_logger().info(
+                f'Attempt finished: {msg.data} in {duration:.1f}s')
 
 
 def main():
@@ -244,109 +295,30 @@ if __name__ == '__main__':
     main()
 ```
 
-:::{admonition} TODO-REVIEW
-:class: todo-review
-
-Point values, the time limit and the arena layout are a **draft proposal**,
-not confirmed rules. They need review by the course organisers against the
-actual arena and the robots available on the day. Collision detection and
-ground-truth object poses are assumed to be judged by a human referee; if an
-automated method is intended, this section needs revising.
+:::{tip}
+Publish `mission_status` with the values `succeeded`, `failed_safe` or
+`aborted` — never leave it unset. A referee (and this node) needs exactly
+one clear signal for how your attempt ended.
 :::
 
-## Preparation
+## Preparing for it
 
-### What to build beforehand
+Build [Level 1 of the common mission](#the-common-mission) end to end first
+— reliable beats clever. Rehearse the cold-start-to-ready sequence until
+every team member has done it once. Record every practice run; when
+something goes wrong you will have the bag.
 
-Nothing here should be new on the day. By the end of session 8 you should
-have:
+## Transition from the course
 
-- a **bringup** launch file that starts the whole robot with one command;
-- a **map** of an environment resembling the arena;
-- **localization** that reliably converges;
-- **navigation** tuned to your robot's actual velocity and size;
-- **detection** of the marker family that will be used;
-- a **mission controller** — state machine or behavior tree — that handles
-  failure;
-- **rosbag recording** as a one-line command.
-
-### What to test beforehand
-
-The failures that end hackathon runs are almost never algorithmic:
-
-- **Battery life.** How long does a full charge actually last under load? Is
-  there a spare, and is it charged?
-- **Cold start.** Can you go from powered-off to navigating in under five
-  minutes, with no manual steps?
-- **Recovery.** If a node crashes mid-run, can you restart just that part?
-- **The unknown obstacle.** Your map will not match the arena. Test with
-  obstacles that are not in the map.
-- **Lighting.** Marker detection that works in your lab may fail under
-  different lights. Test in varied conditions.
-- **Everyone can run it.** If only one person can start the robot, you have a
-  single point of failure who might be getting coffee.
-
-### Strategy
-
-**Get Level 1 working end to end first.** A robot that reliably crosses the
-arena scores more than a half-finished manipulation pipeline.
-
-**Make it robust before making it clever.** A slow, reliable run beats a fast
-run that fails on attempt one.
-
-**Record everything.** Bag every practice run. When something goes wrong you
-will have the data.
-
-**Commit often.** Being able to `git checkout` back to the version that worked
-an hour ago is worth more on the day than any single feature.
-
-## On the day
-
-### Format
-
-Each team gets multiple attempts. The best attempt counts.
-
-Between attempts you may change code, re-map, and re-tune. Use the time — the
-first attempt is reconnaissance.
-
-### Rules
-
-- The robot must run **autonomously**. Manual interactions are permitted and
-  penalised.
-- The arena may differ from what you mapped. Expect it to.
-- Safety first: if a robot is about to hurt someone or damage itself, stop it.
-  A stopped run costs points; a broken robot costs the weekend.
-
-### Judging
-
-A referee records collisions and manual interactions. The scoring node records
-detections and time. Both go into the final score.
-
-Disputes are settled by the organisers. This is a course, not a world
-championship — if a rule turns out to be unfair, it gets fixed rather than
-enforced.
-
-## Ideas to go further
-
-If you finish early, the source courses suggest plenty:
-
-- **Full coverage** — traverse every reachable part of the arena, not just a
-  path through it.
-- **Frontier exploration** — explore an arena you have no map of at all.
-- **Keep-out zones and speed zones** — use Nav2 costmap filters to mark areas
-  the robot must avoid or must slow down in.
-- **Multi-robot** — two robots sharing what they find.
-- **Custom detection** — train a model on the actual objects in the arena
-  ([session 4](04-perception.md)).
-- **Docking** — end the run by driving precisely onto a charging station using
-  a marker.
+Everything here draws on all eight sessions:
+[1](01-system-hardware.md) · [2](02-ros2.md) · [3](03-sensors-tf.md) ·
+[4](04-perception/index.md) · [5](05-mapping-localization.md) ·
+[6](06-navigation.md) · [7](07-autonomous-decisions.md) ·
+[8](08-integration.md).
 
 ## Further reading
 
-- All eight sessions: [1](01-system-hardware.md) · [2](02-ros2.md) ·
-  [3](03-sensors-tf.md) · [4](04-perception.md) ·
-  [5](05-mapping-localization.md) · [6](06-navigation.md) ·
-  [7](07-autonomous-decisions.md) · [8](08-integration.md)
-- [Nav2 keep-out filter](https://docs.nav2.org/jazzy/configuration_and_development/configuration_guide/core_servers/costmap_2d/costmap_filters/keepout_filter/)
+- [Nav2 costmap filters](https://docs.nav2.org/jazzy/configuration_and_development/configuration_guide/core_servers/costmap_2d/costmap_filters/keepout_filter/)
 - [Nav2 tutorials](https://docs.nav2.org/jazzy/tutorials/)
 - Your [platform track](../platforms/index.md)
+- Open organisational decisions: `DECISIONS_NEEDED.md` in the repository

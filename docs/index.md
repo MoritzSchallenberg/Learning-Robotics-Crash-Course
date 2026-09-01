@@ -91,7 +91,7 @@ All sessions run from **17:35 to 19:00**.
   - Sensor messages, coordinate frames, transforms, visualization
 * - 4
   - Wed, 14 Oct 2026
-  - [Perception and Object Detection](course/04-perception.md)
+  - [Perception and Object Detection](course/04-perception/index.md)
   - Camera calibration, OpenCV, markers, YOLO, data labeling
 * - 5
   - Mon, 19 Oct 2026
@@ -137,11 +137,25 @@ Commands that only apply to one system or one ROS 2 distribution carry a badge:
 {{ jazzy }} ROS 2 Jazzy &nbsp;
 {{ humble }} ROS 2 Humble
 
+Every session is a strict **85-minute** evening, so its content is also
+marked by what you need tonight versus what can wait:
+
+{{ core }} must happen in the 85 minutes &nbsp;
+{{ optional }} only with time to spare &nbsp;
+{{ advanced }} deliberately outside tonight, for later reading &nbsp;
+{{ platformspecific }} Robotino, Spot or simulation only
+
 :::{warning}
 The three source courses were written for **different** operating systems and
 ROS 2 distributions. Never mix a Humble guide with a Jazzy setup without
 checking. The [compatibility matrix](reference/compatibility.md) lists which
 combination each instruction was written for.
+:::
+
+:::{note}
+**Facilitating a session or the hackathon?** The [instructor guides](instructors/index.md)
+cover what to prepare, how much time it takes, and what to expect from
+participants — separate from the participant-facing pages above.
 :::
 
 ```{toctree}
@@ -174,4 +188,12 @@ platforms/index
 :caption: Reference
 
 reference/index
+```
+
+```{toctree}
+:hidden:
+:maxdepth: 2
+:caption: Instructors
+
+instructors/index
 ```

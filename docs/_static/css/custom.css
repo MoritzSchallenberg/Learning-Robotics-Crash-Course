@@ -610,7 +610,83 @@ footer span {
 }
 
 /* --------------------------------------------------------------------------
-   12. Responsive behaviour
+   12. Original course diagrams
+   -------------------------------------------------------------------------- */
+
+/* Every diagram is a hand-authored SVG in _static/images/diagrams/, designed
+   with a light, neutral card background and dark text so it stays legible
+   with no changes needed whether the surrounding page is in light or dark
+   mode. The frame below is what actually adapts to the theme: a visible
+   border and shadow in light mode, a slightly stronger one in dark mode so
+   the light card does not look like a stray white rectangle on a dark page. */
+
+.rst-content .figure,
+.rst-content figure {
+  margin: 1.6em auto;
+  text-align: center;
+  max-width: 100%;
+}
+
+.rst-content .figure img,
+.rst-content figure img {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  height: auto;
+  background: #fbfcfc;
+  border: 1px solid var(--lrcc-border);
+  border-radius: var(--lrcc-radius);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+}
+
+:root[data-theme="dark"] .rst-content .figure img,
+:root[data-theme="dark"] .rst-content figure img {
+  border-color: rgba(255, 255, 255, 0.14);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.55);
+}
+
+.rst-content .figure .caption,
+.rst-content figure figcaption,
+.rst-content p.caption {
+  color: var(--lrcc-text-muted);
+  font-size: 0.88em;
+  margin-top: 0.6em;
+  text-align: center;
+}
+
+/* --------------------------------------------------------------------------
+   13. Content level badges (Core / Optional / Advanced / Platform-specific)
+   -------------------------------------------------------------------------- */
+
+.lrcc-level {
+  display: inline-block;
+  padding: 0.14em 0.6em;
+  margin: 0 0.3em 0.3em 0;
+  border-radius: 3px;
+  font-size: 0.74em;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  vertical-align: middle;
+  white-space: nowrap;
+  color: #ffffff;
+}
+
+.lrcc-level--core { background: #1f8f4e; }
+.lrcc-level--optional { background: #2b7fbd; }
+.lrcc-level--advanced { background: #7a4bb5; }
+.lrcc-level--platform { background: #c1512e; }
+
+/* A minute-by-minute run sheet table gets a slightly denser look than a
+   normal table so a whole 85-minute plan fits on screen without scrolling. */
+.lrcc-runsheet td:first-child,
+.lrcc-runsheet th:first-child {
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+/* --------------------------------------------------------------------------
+   14. Responsive behaviour
    -------------------------------------------------------------------------- */
 
 @media screen and (max-width: 768px) {

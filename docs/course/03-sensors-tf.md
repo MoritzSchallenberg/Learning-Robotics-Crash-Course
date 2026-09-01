@@ -3,522 +3,242 @@
 :::{admonition} Session 3
 :class: note
 
-Monday, 12 October 2026, 17:35 – 19:00
+Monday, 12 October 2026, 17:35 – 19:00 (85 minutes)
 :::
 
 {{ common }}
 
-A LiDAR measures "2.4 metres, that way". That is useless until you know where
-the LiDAR is on the robot, and where the robot is in the room. This session is
-about the machinery that answers those questions — coordinate frames and
-transforms — and about seeing it all in RViz.
+A LiDAR measures "2.4 metres, that way." That is useless until you know
+*where the sensor is* and *where the robot is*. Tonight covers the machinery
+that answers those questions — coordinate frames — and seeing it all in
+RViz.
 
-## Learning objectives
+## Tonight
 
-After this session you can:
+**Learning objectives** — by 19:00 you can:
 
-- name the standard sensor message types and what each contains;
-- explain what a coordinate frame is and read a TF tree;
-- publish a static transform and check it;
-- visualize sensor data in RViz and fix it when nothing appears;
-- diagnose the QoS mismatch that silently hides topics;
-- look up the transform between any two frames from a node.
+1. read a `LaserScan` message and explain what each field means;
+2. read a TF tree and explain the difference between a static and a dynamic
+   transform;
+3. visualize sensor data in RViz, including fixing the most common reason
+   nothing appears.
 
-## Prerequisites
+**Visible result of the evening**: laser data appears in RViz, positioned
+correctly relative to the robot, after you add one missing static transform
+yourself.
 
-[Session 2](02-ros2.md). You can write a subscriber and inspect topics from the
-command line.
+**Preparation**: [session 2](02-ros2.md) completed — you can start a node,
+read a topic, and set a parameter.
 
-## Sensors and their messages
-
-ROS 2 defines standard message types so that any LiDAR works with any mapping
-package. Learning the messages matters more than learning any particular
-driver.
+## Run sheet (85 minutes)
 
 ```{list-table}
 :header-rows: 1
-:widths: 22 30 48
+:widths: 16 20 64
+:class: lrcc-runsheet
 
-* - Sensor
-  - Message type
-  - What is inside
-* - 2D LiDAR
-  - `sensor_msgs/msg/LaserScan`
-  - An array of ranges, plus the angle the first one starts at and the angle
-    between them
-* - 3D LiDAR / depth
-  - `sensor_msgs/msg/PointCloud2`
-  - A packed array of 3D points
-* - Camera
-  - `sensor_msgs/msg/Image`
-  - Pixels, width, height, encoding
-* - Camera intrinsics
-  - `sensor_msgs/msg/CameraInfo`
-  - The calibration matrices — see [session 4](04-perception.md)
-* - IMU
-  - `sensor_msgs/msg/Imu`
-  - Angular velocity, linear acceleration, orientation
-* - Wheel odometry
-  - `nav_msgs/msg/Odometry`
-  - Estimated pose and velocity, with covariances
+* - Time
+  - Block
+  - Content
+* - 17:35–17:45
+  - Opening
+  - Recap topics; today's topic carries sensor data — and sensor data is
+    meaningless without a frame
+* - 17:45–18:05
+  - Theory {{ core }}
+  - LaserScan, coordinate frames, the map/odom/base_link split
+* - 18:05–18:15
+  - Demonstration {{ core }}
+  - Live: RViz shows nothing, diagnose why, fix it
+* - 18:15–18:50
+  - Practical task {{ core }}
+  - Visualize a scan, read the TF tree, add a static transform
+* - 18:50–19:00
+  - Wrap-up
+  - Confirm the transform is correct; preview session 4
 ```
 
-Inspect any of them:
+## Theory
 
-```bash
-ros2 interface show sensor_msgs/msg/LaserScan
-```
+{{ core }}
 
 ### Reading a LaserScan
 
-A `LaserScan` is not a list of points. It is a list of *distances*, plus enough
-metadata to work out the direction of each:
+A `LaserScan` is not a list of points — it is a list of *distances*, plus
+enough metadata to work out the direction of each one.
+
+```{figure} ../_static/images/diagrams/04-lidar-scan-angles.svg
+:alt: A robot at the centre of a fan of laser rays sweeping from angle_min to angle_max, with two example rays hitting a wall labelled with their measured range, and one ray showing an infinite reading meaning no obstacle was found within range_max.
+:width: 100%
+
+`ranges[i]` is measured at `angle_min + i × angle_increment`. `.inf` means
+nothing was detected within `range_max`.
+```
 
 ```yaml
-header:
-  stamp: {sec: 1666101279, nanosec: 103108176}
-  frame_id: laser_frame
+header: {frame_id: laser_frame}
 angle_min: -3.14
 angle_max: 3.14
 angle_increment: 0.0087
 range_min: 0.45
 range_max: 100.0
-ranges: [.inf, .inf, 7.115, 6.744, 6.387, ...]
+ranges: [.inf, .inf, 7.115, 6.744, ...]
 ```
 
-Three things to notice:
+Two things bite people immediately: `.inf`/`nan` entries are normal and code
+that does not handle them crashes on the first open direction; and
+`frame_id` says *which sensor frame* these numbers are relative to — which
+is where TF2 comes in.
 
-**`frame_id`** — which coordinate frame these measurements are expressed in.
-This is the link to everything below.
+### Coordinate frames, minimally
 
-**`.inf` entries** — nothing was detected in that direction within range. Real
-sensor data is full of them, and code that does not handle them crashes on the
-first wall-free direction. `nan` appears too, for invalid readings.
+Each part of the robot gets its own **frame**. TF2 tracks the relationships
+between them so any node can ask: *where is this point, in that frame?*
 
-**`range_min`** — measurements closer than this are meaningless. An obstacle
-pressed against the sensor may report a plausible-looking number.
+```{figure} ../_static/images/diagrams/03-tf-tree.svg
+:alt: A tree of coordinate frames. Map connects to Odom with a dynamic transform corrected by localization. Odom connects to Base Footprint with a dynamic transform from odometry. Base Footprint connects to Base Link with a static transform, and Base Link connects to Laser Frame, Camera Link and IMU Link, each with a static transform.
+:width: 100%
 
-Index `i` in `ranges` corresponds to angle `angle_min + i * angle_increment`.
-
-### Sensor limits
-
-Every sensor lies, in its own characteristic way:
-
-- **LiDAR** — struggles with glass, mirrors and matte black surfaces; a 2D
-  LiDAR sees only one horizontal slice, so it misses a table top at chest
-  height and the floor beneath it.
-- **Cameras** — depend on lighting; motion blur destroys detection; rolling
-  shutter distorts fast-moving objects.
-- **IMU** — accurate over short intervals, drifts over long ones.
-- **Encoders** — perfect until a wheel slips, and there is nothing in the data
-  to tell you when it did.
-
-Knowing the failure mode of each sensor is what lets you diagnose the system
-later: if the map is skewed, suspect the odometry; if the obstacle was invisible,
-suspect the LiDAR plane.
-
-## Coordinate frames and TF2
-
-### The problem
-
-The LiDAR reports a point 2.4 m ahead of *itself*. The navigation stack wants
-to know where that point is relative to the *robot's base*, and the map wants
-to know where it is in the *room*. Each of those is a different coordinate
-frame, and something has to convert between them.
-
-That something is **TF2**. Each part of the robot gets its own frame, the
-relationships between frames are published continuously, and any node can then
-ask: *where is this point, expressed in that frame?*
-
-### The standard frames
-
-Robotics has settled on a conventional set of frames, and the entire navigation
-stack assumes it:
-
-```text
-map            fixed to the world; does not drift, but jumps when
- │             localization corrects itself
- ▼
-odom           smooth and continuous, but drifts over time
- │
- ▼
-base_footprint the robot's position on the ground plane
- │
- ▼
-base_link      the robot's body
- ├──► laser_frame     where the LiDAR is mounted
- ├──► camera_link     where the camera is mounted
- └──► imu_link        where the IMU is mounted
+`map`→`odom`→`base_link` is dynamic (published continuously); `base_link`→
+sensor frames is static (published once).
 ```
 
-The `map` → `odom` → `base_link` split is subtle and important:
-
-**`odom` → `base_link`** is published by the odometry source. It is smooth —
-it never jumps — but it drifts, so after ten minutes it is wrong.
-
-**`map` → `odom`** is published by the localization system (session 5). It is
-the correction: the difference between where odometry thinks the robot is and
-where it actually is. It jumps whenever localization improves its estimate.
-
-The result is a tree in which every node can get a smooth estimate (via `odom`)
-or a globally correct one (via `map`), as needed.
-
-:::{note}
-Each frame has exactly **one** parent. Two nodes publishing the same transform
-produce a tree that flickers between them and behaviour that makes no sense.
-`ros2 run tf2_tools view_frames` shows you who publishes what.
-:::
-
-### Static versus dynamic transforms
-
-A **static** transform never changes: the LiDAR is bolted to the chassis
-15 cm above `base_link` and stays there. Published once, on `/tf_static`.
-
-A **dynamic** transform changes constantly: `odom` → `base_link` changes every
-time the robot moves. Published continuously on `/tf`.
-
-### Publishing a static transform
-
-```yaml
-launch:
-
-- node:
-    pkg: "tf2_ros"
-    exec: "static_transform_publisher"
-    name: "base_link_to_laser"
-    args: '0.0 0.0 0.15 3.14159 0.0 0.0 base_link laser_frame'
-```
-
-The arguments are:
-
-```text
-x y z yaw pitch roll parent_frame child_frame
-```
-
-Translation in **metres**, rotation as Euler angles in **radians**. A
-quaternion form is also accepted:
-
-```text
-x y z qx qy qz qw parent_frame child_frame
-```
-
-The transform describes where the **child** sits relative to the **parent**.
-The example above says: `laser_frame` is 15 cm above `base_link`, rotated by π
-about the X axis — that is, mounted upside down, which many LiDARs are.
-
-:::{warning}
-Getting the direction of a transform backwards is the classic TF mistake. The
-arguments describe the child *in the parent's* coordinates. If your sensor data
-appears mirrored or on the wrong side of the robot, this is almost always why.
-:::
-
-### Inspecting the tree
+`map` → `odom` → `base_footprint` → `base_link` is the standard convention.
+Every node underneath can get a smooth local estimate (via `odom`) or a
+globally correct one (via `map`), as needed. Session 5 explains *why* the
+tree splits at `odom` — for tonight, the important part is the last hop:
+`base_link` → sensor frame, which is **static** — it never changes because
+the sensor is bolted where it is bolted.
 
 ```bash
-# Generate a PDF diagram of the whole tree
-ros2 run tf2_tools view_frames
-
-# Print one transform live
-ros2 run tf2_ros tf2_echo base_link laser_frame
-
-# Watch the raw topics
-ros2 topic echo /tf_static
+ros2 run tf2_ros static_transform_publisher x y z yaw pitch roll parent child
 ```
 
-`view_frames` writes `frames.pdf` into the current directory and is the fastest
-way to see a broken tree: a disconnected frame stands out immediately.
+:::{warning}
+Argument order is `x y z yaw pitch roll` — not roll, pitch, yaw. Getting this
+backwards is the single most common TF mistake, and it is very visible: your
+sensor data appears rotated or on the wrong side of the robot.
+:::
 
-### Looking up a transform in a node
+## Practical task
+
+### Goal
+Get a laser scan visible in RViz, correctly placed relative to the robot,
+by publishing one missing static transform.
+
+### Starting point
+A pre-built workspace with a `robot_bringup` package containing a launch
+file that starts a simulated (or real) LiDAR publishing `/scan`, but is
+**deliberately missing** the `base_link` → `laser_frame` transform.
+
+### Steps
+1. `ros2 launch robot_bringup sensors.launch.yaml`
+2. Start RViz: `rviz2`. Set **Fixed Frame** to `base_link`.
+3. Add a `LaserScan` display on `/scan`. Confirm nothing appears.
+4. Run `ros2 run tf2_tools view_frames` and open `frames.pdf` — find the gap.
+5. Publish the missing transform (measure or use the value your facilitator
+   gives you): `ros2 run tf2_ros static_transform_publisher 0 0 0.15 0 0
+   3.14159 base_link laser_frame`
+6. Add the same line to `sensors.launch.yaml` as a `static_transform_publisher`
+   node so it starts automatically next time.
+7. Restart the launch file and confirm the scan now appears.
+
+### Expected result
+Laser points appear in RViz, aligned with any obstacle you place in front of
+the real or simulated sensor.
+
+### Verification
+```bash
+ros2 run tf2_ros tf2_echo base_link laser_frame
+```
+Prints the transform continuously and matches what you published. Moving an
+obstacle in front of the sensor moves the corresponding points in RViz.
+
+### Common problems
+- **Still nothing after adding the transform** — check the **fixed frame**
+  in RViz is `base_link`, not something that does not exist.
+- **Scan appears mirrored or rotated 180°** — swapped roll/pitch/yaw order,
+  or parent/child reversed.
+- **Nothing appears and there is no error at all** — QoS mismatch. Set the
+  display's Reliability to *Best Effort* or *System Default*; sensor drivers
+  rarely publish *Reliable*.
+
+### Extension
+
+{{ optional }}
+
+Add a second static transform for a camera or IMU frame of your choosing,
+and add both to the `TF` display in RViz to see the whole tree at once.
+
+## Simulation fallback
+
+{{ simulation }}
+
+Any Webots example with a LiDAR works identically — the transform, the
+`view_frames` diagnosis, and the fix are the same regardless of whether the
+scan is real or simulated. Simulated TF trees are often complete already;
+if so, deliberately remove one static transform from the launch file to
+recreate tonight's exercise.
+
+## Advanced: looking up a transform from code
+
+{{ advanced }}
+
+:::{dropdown} A minimal TF listener node
+:icon: light-bulb
 
 ```python
-#!/usr/bin/env python3
-
-import rclpy
-from rclpy.node import Node
 from tf2_ros import TransformException
 from tf2_ros.buffer import Buffer
 from tf2_ros.transform_listener import TransformListener
 
+# in __init__:
+self.tf_buffer = Buffer()
+self.tf_listener = TransformListener(self.tf_buffer, self)
 
-class FrameListener(Node):
-
-    def __init__(self):
-        super().__init__('tf2_listener')
-        self.tf_buffer = Buffer()
-        self.tf_listener = TransformListener(self.tf_buffer, self)
-        self.create_timer(0.25, self.on_timer)
-
-    def on_timer(self):
-        from_frame = 'base_link'
-        to_frame = 'laser_frame'
-        try:
-            transform = self.tf_buffer.lookup_transform(
-                from_frame, to_frame, rclpy.time.Time())
-        except TransformException as ex:
-            self.get_logger().info(
-                f'Could not transform {from_frame} to {to_frame}: {ex}')
-            return
-
-        t = transform.transform.translation
-        r = transform.transform.rotation
-        self.get_logger().info(
-            f'position: ({t.x:.3f}, {t.y:.3f}, {t.z:.3f}) '
-            f'orientation: ({r.x:.3f}, {r.y:.3f}, {r.z:.3f}, {r.w:.3f})')
-
-
-def main():
-    rclpy.init()
-    node = FrameListener()
-    try:
-        rclpy.spin(node)
-    except KeyboardInterrupt:
-        pass
-    node.destroy_node()
-    rclpy.shutdown()
-
-
-if __name__ == '__main__':
-    main()
+# in a timer callback:
+try:
+    t = self.tf_buffer.lookup_transform('base_link', 'laser_frame', rclpy.time.Time())
+except TransformException as ex:
+    self.get_logger().info(f'lookup failed: {ex}')
+    return
 ```
 
-The listener fills a buffer with recent transforms in the background;
-`lookup_transform` then queries it. Passing `rclpy.time.Time()` asks for the
-latest available transform.
-
-The two frames do not have to be adjacent. TF2 chains through the tree for you
-— which is exactly the point.
-
-:::{warning}
-Catch `TransformException` specifically rather than using a bare `except:`. A
-lookup legitimately fails while the tree is still being populated at startup,
-and a bare except will also swallow the `KeyboardInterrupt` you use to stop the
-node.
+Catch `TransformException` specifically — a lookup legitimately fails while
+the buffer is still filling at startup, and a bare `except:` also swallows
+`KeyboardInterrupt`. You will reuse this exact pattern in
+[session 4](04-perception/fiducial-markers.md) to turn a detected marker
+into a usable position.
 :::
 
-## RViz
-
-RViz is the 3D viewer for everything ROS 2 publishes. Start it:
-
-```bash
-rviz2
-```
-
-The workflow is always the same:
-
-1. Set **Fixed Frame** under *Global Options*. This is the frame everything is
-   drawn relative to. If it is wrong or does not exist, you see nothing.
-2. Click **Add** to add a display.
-3. Use the **By topic** tab, which lists what is actually available and
-   configures the display for you.
-
-Displays you will use constantly:
-
-`TF`
-: every coordinate frame as a set of axes — the first thing to add when
-  something looks misplaced
-
-`LaserScan`
-: 2D laser data as points
-
-`PointCloud2`
-: 3D data
-
-`Image`
-: a camera stream in a panel
-
-`RobotModel`
-: the robot's geometry, from `/robot_description`
-
-`Map`
-: an occupancy grid (session 5)
-
-Save your configuration once it is useful — *File → Save Config As* — and load
-it from a launch file. Rebuilding an RViz setup from scratch every session is a
-waste of an evening.
-
-### When RViz shows nothing
-
-This happens to everyone, and there are only three causes.
-
-**1. The fixed frame does not exist.**
-RViz reports `No transform from [laser_frame] to [map]`. Set the fixed frame to
-something that does exist — `base_link` is a safe choice while debugging — or
-fix the missing transform.
-
-**2. The topic is not being published.**
-Check outside RViz first:
-
-```bash
-ros2 topic hz /scan
-```
-
-No output means the problem is upstream, not in RViz.
-
-**3. QoS mismatch.**
-
-This is the one that wastes hours, because there is no error message. ROS 2
-lets publishers and subscribers negotiate *Quality of Service*, and if their
-policies are incompatible, no data flows at all — silently.
-
-Sensor drivers typically publish **Best Effort** (drop a scan rather than delay
-one), while RViz defaults to **Reliable**. Result: nothing appears.
-
-Check what the publisher actually offers:
-
-```bash
-ros2 topic info -v /scan
-```
-
-Then set the display's QoS in RViz to match. In practice:
-
-```{list-table}
-:header-rows: 1
-:widths: 30 35 35
-
-* - Data
-  - Reliability
-  - Durability
-* - Sensor streams (`/scan`, images)
-  - Best Effort
-  - Volatile
-* - Maps (`/map`)
-  - Reliable
-  - Transient Local
-```
-
-**Transient Local** matters for maps: the map is published once, and a
-subscriber that starts later still needs to receive it. A volatile subscriber
-would simply never see it.
-
-:::{tip}
-Setting a display's Reliability to *System Default* makes RViz adopt the
-publisher's setting and resolves most of these cases without thinking about it.
-:::
-
-## Task
-
-:::{admonition} Task: build and inspect a transform tree
-:class: task
-
-**Part 1 — Visualize the laser.**
-
-1. Start your robot or simulation.
-2. Start RViz, set the fixed frame to `base_link`, and add a `LaserScan`
-   display on your scan topic.
-3. If nothing appears, work through the three causes above. Note which one it
-   was.
-4. Wave your hand or place an obstacle in front of the sensor and confirm the
-   points move.
-
-**Part 2 — Explore the TF tree.**
-
-1. Run `ros2 run tf2_tools view_frames` and open the resulting `frames.pdf`.
-2. Draw the tree on paper. Which frames exist? Which node publishes each?
-3. Use `ros2 run tf2_ros tf2_echo base_link <sensor_frame>` and compare the
-   numbers to where the sensor physically sits on the robot.
-
-**Part 3 — Add a static transform.**
-
-Create a launch file `robot_tf.launch.yaml` in a `robot_bringup` package that
-publishes this tree using `static_transform_publisher`:
-
-```{list-table}
-:header-rows: 1
-:widths: 30 30 40
-
-* - Parent → child
-  - Translation (x, y, z) m
-  - Rotation (roll, pitch, yaw) rad
-* - `base_footprint` → `base_link`
-  - (0.0, 0.0, 0.01)
-  - (0, 0, 0)
-* - `base_link` → `imu_link`
-  - (0.0, 0.0, 0.068)
-  - (0, 0, 0)
-* - `base_link` → `laser_frame`
-  - (0.0, 0.0, 0.15)
-  - (3.14159, 0, 0)
-* - `base_link` → `camera_link`
-  - (0.07, 0.0, 0.11)
-  - (0, 0, 0)
-```
-
-Give every node a distinct `name`. Then visualize the result in RViz with a
-`TF` display and fixed frame `base_footprint`.
-
-**Part 4 — Write a TF listener.**
-
-Adapt the listener node above to print the transform between `base_link` and
-your laser frame. Then physically move the robot (or drive it in simulation)
-and print `odom` → `base_link` instead. Watch the numbers change.
-:::
-
-:::{admonition} Expected result
-:class: result
-
-In part 1, laser points appear and respond to obstacles.
-
-In part 3, RViz shows four sets of coordinate axes in the right places, and
-`laser_frame` is visibly flipped relative to the others.
-
-In part 4, the `base_link` → `laser_frame` numbers stay constant no matter how
-the robot moves — it is a static transform. The `odom` → `base_link` numbers
-change as the robot drives, and drift slowly even when it does not.
-:::
-
-:::{dropdown} Hint: static transform launch file
+:::{dropdown} IMU and dynamic transforms, briefly
 :icon: light-bulb
 
-```yaml
-launch:
-
-- node:
-    pkg: "tf2_ros"
-    exec: "static_transform_publisher"
-    name: "footprint_to_base"
-    args: '0.0 0.0 0.01 0.0 0.0 0.0 base_footprint base_link'
-
-- node:
-    pkg: "tf2_ros"
-    exec: "static_transform_publisher"
-    name: "base_to_laser"
-    args: '0.0 0.0 0.15 0.0 0.0 3.14159 base_link laser_frame'
-```
-
-Note the argument order: `x y z yaw pitch roll`. The table above lists roll,
-pitch, yaw — the reverse. Getting this wrong is the most common error in this
-task, and it is very visible in RViz.
+An IMU (`sensor_msgs/msg/Imu`) gives angular velocity and linear
+acceleration directly from the sensor frame — useful for orientation, but
+like any sensor it has noise and drift of its own. A **dynamic** transform
+(`odom`→`base_link`, published on `/tf` rather than `/tf_static`) changes
+every cycle as the robot moves; session 5 is where you first publish one for
+real.
 :::
 
 ## Common mistakes
 
-**`No transform from [X] to [Y]`.**
-Either the transform is genuinely not published, or the fixed frame is wrong.
-`view_frames` tells you which.
+**`No transform from [X] to [Y]`.** Either the transform genuinely is not
+published, or the fixed frame is wrong. `view_frames` shows which.
 
-**The scan appears rotated 180° or mirrored.**
-The rotation in your static transform is wrong, or you swapped parent and
-child.
+**The scan drifts from the walls as the robot turns.** The static
+transform's rotation is off, or you mixed static with a dynamic use case.
 
-**The scan drifts away from the walls as the robot turns.**
-The translation is roughly right but the sensor is not where you said it is.
-Measure it.
+## Transition to session 4
 
-**Nothing appears and there is no error.**
-QoS. Run `ros2 topic info -v`.
-
-**`lookup_transform` always fails at startup.**
-Normal — the buffer needs a moment to fill. Catch the exception and try again
-next cycle rather than crashing.
-
-**Two nodes publishing the same transform.**
-The tree flickers. Only one publisher per parent–child pair.
+Tonight you placed *distance* data in space. Next week you place *camera*
+data in space — detecting a marker and publishing where it actually is,
+using this same TF machinery:
+[Perception and Object Detection](04-perception/index.md).
 
 ## Further reading
 
 - [TF2 tutorials](https://docs.ros.org/en/jazzy/Tutorials/Intermediate/Tf2/Tf2-Main.html)
-  — the official series, worth doing in full
 - [REP 105: Coordinate frames for mobile platforms](https://www.ros.org/reps/rep-0105.html)
-  — where `map`, `odom` and `base_link` are actually defined
 - [About Quality of Service settings](https://docs.ros.org/en/jazzy/Concepts/Intermediate/About-Quality-of-Service-Settings.html)
-- [RViz user guide](https://docs.ros.org/en/jazzy/Tutorials/Intermediate/RViz/RViz-User-Guide/RViz-User-Guide.html)

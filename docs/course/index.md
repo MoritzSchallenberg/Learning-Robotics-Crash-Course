@@ -1,16 +1,22 @@
 # The course
 
-Eight evenings, each **17:35 – 19:00**, followed by a weekend hackathon.
+Eight evenings, each exactly **85 minutes (17:35 – 19:00)**, followed by a
+weekend hackathon.
 
-Every session follows the same shape: a short block of theory, then a
-hands-on task you run yourself. The theory exists to make the task make sense —
-if you only have time for one, do the task.
+Every session follows the same run sheet — opening, compact theory,
+demonstration, practical task, wrap-up — and marks content as
+{{ core }} (must happen tonight), {{ optional }} (only with time to spare),
+{{ advanced }} (deliberately outside the 85 minutes) or
+{{ platformspecific }} (Robotino, Spot or simulation only). If you only have
+time for one thing on any page, do the **Core** practical task.
 
 ## How the sessions build on each other
 
 The course is a single arc. Session 3 gives you transforms, which session 5
 needs to build a map, which session 6 needs to navigate, which session 7 needs
-to run a mission. Skipping an evening is survivable; skipping the task is not.
+to run a mission. Skipping an evening is survivable; skipping the Core task
+is not — every 85-minute plan assumes it, and the next evening's prerequisite
+is always last week's Core result, not last week's Advanced reading.
 
 ```{list-table}
 :header-rows: 1
@@ -34,8 +40,8 @@ to run a mission. Skipping an evening is survivable; skipping the task is not.
   - Read sensor data and place it correctly in space
 * - 4
   - Wed, 14 Oct 2026
-  - [Perception and Object Detection](04-perception.md)
-  - Find a marker or an object in a camera image and publish where it is
+  - [Perception and Object Detection](04-perception/index.md)
+  - Find a marker in a camera image and publish where it is
 * - 5
   - Mon, 19 Oct 2026
   - [Mapping and Localization](05-mapping-localization.md)
@@ -72,7 +78,7 @@ your robot.
 01-system-hardware
 02-ros2
 03-sensors-tf
-04-perception
+04-perception/index
 05-mapping-localization
 06-navigation
 07-autonomous-decisions

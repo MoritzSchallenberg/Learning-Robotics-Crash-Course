@@ -209,6 +209,29 @@ keys, as long as the cursor stays in that terminal.
 If all four work, your installation is sound and you are ready for session 1.
 :::
 
+## Preflight check
+
+Run this **the day before** every session, not during it — a read-only
+script that checks your OS, `ROS_DISTRO`, the `ros2` CLI, your workspace,
+RViz, the simulator and basic network settings, then tells you exactly what
+to fix.
+
+```bash
+bash scripts/course-preflight.sh
+```
+
+It prints `PASS`, `WARNING` or `FAIL` for each check, with a concrete next
+step for anything short of `PASS`, and exits non-zero if any check `FAIL`s.
+
+:::{note}
+The script only reads state. It never installs anything, changes
+configuration, deletes a file, reads a credential, or queries a private
+network target — safe to run as often as you like, on any machine.
+:::
+
+Every course session's **Preparation** section assumes you have run this
+and resolved every `FAIL` beforehand.
+
 ## Common mistakes
 
 **`ros2: command not found`.**

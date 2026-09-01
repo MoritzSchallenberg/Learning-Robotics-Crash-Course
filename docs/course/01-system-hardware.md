@@ -3,204 +3,129 @@
 :::{admonition} Session 1
 :class: note
 
-Monday, 05 October 2026, 17:35 – 19:00
+Monday, 05 October 2026, 17:35 – 19:00 (85 minutes)
 :::
 
 {{ common }}
 
 Before any software makes sense, you need a picture of the machine it runs on.
-This evening is about that picture: what an autonomous robot is made of, how
-the parts connect, and why the software is structured the way it is.
+Tonight is about that picture: what an autonomous robot is made of, how the
+parts connect, and why the software is structured the way it is.
 
-## Learning objectives
+## Tonight
 
-After this session you can:
+**Learning objectives** — by 19:00 you can:
 
-- describe the sense–think–act chain and place any component into it;
-- explain what a motor controller, an encoder and an IMU each contribute;
-- read a robot's power and data topology and say what fails if one link breaks;
-- name the difference between an onboard computer and a microcontroller, and
-  say which job belongs where;
-- compare two very different robots — a wheeled Robotino and a legged Spot —
-  in terms of the same architecture.
+1. describe the sense–process–act loop and place any robot component in it;
+2. read a robot's power and data topology and say what fails if one link
+   breaks;
+3. compare a wheeled robot and a legged robot using the same architecture.
 
-## Prerequisites
+**Visible result of the evening**: every pair leaves with a hand-drawn system
+diagram of a real or described robot, showing data flow, power flow and the
+safety chain as three distinguishable kinds of arrow.
 
-None beyond curiosity. The [prerequisites](../prerequisites/index.md) section
-matters from session 2 onwards.
+**Preparation**: none beyond arriving on time. This is the one evening with no
+software prerequisite — [session 2](02-ros2.md) is where the
+[prerequisites](../prerequisites/index.md) start to matter.
 
-## The sense–think–act chain
+## Run sheet (85 minutes)
 
-Every autonomous robot, from a vacuum cleaner to a Mars rover, is the same loop
-running over and over:
+```{list-table}
+:header-rows: 1
+:widths: 16 20 64
+:class: lrcc-runsheet
 
-```text
-   ┌──────────┐      ┌────────────────┐      ┌───────────┐
-   │  SENSE   │ ───► │     THINK      │ ───► │    ACT    │
-   │ sensors  │      │  computation   │      │ actuators │
-   └──────────┘      └────────────────┘      └───────────┘
-         ▲                                          │
-         └──────────  the world changes  ◄──────────┘
+* - Time
+  - Block
+  - Content
+* - 17:35–17:45
+  - Opening
+  - Why this course, why hardware first. Show a real robot (or a photo) and
+    ask: "what do you already see?"
+* - 17:45–18:05
+  - Theory {{ core }}
+  - The sense–process–act loop; drive, power, compute, network, safety
+* - 18:05–18:15
+  - Demonstration {{ core }}
+  - Walk a real robot (or the diagram below) end to end, naming every part
+    as data or power flows through it
+* - 18:15–18:50
+  - Practical task {{ core }}
+  - Draw the system diagram (see below)
+* - 18:50–19:00
+  - Wrap-up
+  - Compare two diagrams across the room; preview session 2
+```
+
+## Theory
+
+{{ core }}
+
+### The sense–process–act loop
+
+Every autonomous robot, from a vacuum cleaner to a Mars rover, runs the same
+loop over and over:
+
+```{figure} ../_static/images/diagrams/01-sensor-processing-actuator-loop.svg
+:alt: A closed loop diagram showing Sensors feeding Processing, Processing commanding Actuators, Actuators changing the World, and the World being observed again by Sensors. A Battery powers all three blocks through dashed power lines, and an Emergency Stop can cut power to the Actuators directly.
+:width: 100%
+
+The sense–process–act loop: data flows in a circle (solid blue), power
+branches out from the battery to every stage (dashed amber), and the E-stop
+can cut actuator power independently of software (red).
 ```
 
 **Sense** — LiDAR, cameras, IMU, wheel encoders, bumpers. Each produces a
-stream of measurements, each with its own rate, its own noise, and its own
-position on the robot.
+stream of measurements, each with its own rate, noise and position on the
+robot.
 
-**Think** — the onboard computer turns those measurements into an estimate of
-the world and a decision about what to do. This is where ROS 2 lives, and where
-almost everything in this course happens.
+**Process** — the onboard computer turns those measurements into a decision.
+This is where ROS 2 lives, and where the rest of this course happens.
 
 **Act** — motor controllers, grippers, arms. Commands go out, the world
 changes, and the loop starts again.
 
-The loop is what makes a robot a robot rather than a remote-controlled toy.
-When something misbehaves, your first diagnostic question is always: *which
-stage of the loop broke?*
+When something misbehaves later in this course, your first diagnostic
+question is always: *which stage of the loop broke?*
 
-## Components
+### Drive, power, compute, network, safety — in one paragraph each
 
-### Drive and motor controllers
+**Drive and motor controllers.** The computer never talks to a motor
+directly. A motor controller sits in between, closing a fast control loop
+that a general-purpose computer cannot guarantee. Drive geometry differs by
+platform: **differential drive** must turn before it can move sideways;
+**omnidirectional** drive (Robotino) can translate in any direction while
+rotating; **legged** locomotion (Spot) can cross terrain wheels cannot.
 
-The computer does not talk to a motor directly. A **motor controller** sits in
-between: it takes a target velocity, measures what the motor is actually doing,
-and adjusts the current many hundreds of times a second to close the gap.
+**Power.** One battery, several DC-DC converters, one distribution network.
+A sagging battery produces symptoms that look exactly like software bugs —
+a sensor drops off the bus, the computer reboots mid-run.
 
-This matters for a practical reason: the control loop that keeps a wheel at the
-right speed runs on the controller, at a rate a general-purpose operating
-system cannot guarantee. Your ROS 2 node says "drive forward at 0.3 m/s" and
-the controller works out how.
+**Onboard compute.** A general-purpose computer (Linux, ROS 2, no timing
+guarantee) handles perception and decisions. A microcontroller (no OS, but a
+guaranteed timing deadline) handles anything that must happen at an exact
+moment — closing a motor loop, reading an encoder.
 
-Drive geometry differs between platforms and changes what the robot can do:
+**Network.** Onboard, wired (Ethernet, USB, serial). Off-board, wireless —
+and Wi-Fi is the weakest, most shared, lowest-bandwidth link in the whole
+system. [Session 8](08-integration.md) and the
+[networking prerequisite](../prerequisites/networking.md) come back to this.
 
-```{list-table}
-:header-rows: 1
-:widths: 25 35 40
-
-* - Geometry
-  - Can it move sideways?
-  - Example
-* - Differential drive
-  - No — it must turn first
-  - Most two-wheeled research robots
-* - Omnidirectional
-  - Yes, in any direction, while rotating
-  - Festo Robotino {{ carologistics }}
-* - Legged
-  - Yes, and over steps and rubble
-  - Boston Dynamics Spot {{ alert }}
-```
-
-### Encoders
-
-An **encoder** measures how far a motor has actually turned. Count the ticks
-from both wheels, apply the geometry of the robot, and you get an estimate of
-where it has travelled: this is **odometry**, and it is the foundation of
-session 5.
-
-Odometry drifts. Wheels slip, tyres compress, the floor is uneven, and every
-small error is added to all previous errors and never removed. Over a few
-metres it is excellent. Over a few minutes it is fiction. Correcting that drift
-against a map is exactly what localization does.
-
-### IMU
-
-An **inertial measurement unit** measures acceleration and angular velocity.
-Integrating angular velocity gives orientation, which is far more responsive
-than deriving it from wheel encoders — and it keeps working when the wheels
-slip. It also drifts, in its own way, which is why odometry and IMU are
-normally fused rather than used alone.
-
-### Cameras and LiDAR
-
-A **LiDAR** sweeps a laser and measures the time until the reflection returns,
-producing accurate distances to whatever surrounds the robot. A 2D LiDAR gives
-a slice at one height; a 3D LiDAR gives a full point cloud. LiDAR is precise
-and largely indifferent to lighting, which is why mapping and obstacle
-avoidance are built on it.
-
-A **camera** gives colour and texture — everything you need to tell *what*
-something is, and nothing you need to tell *how far away* it is. Depth cameras
-add distance, over a limited range.
-
-The division of labour is the point: LiDAR tells you where things are, cameras
-tell you what they are, and neither replaces the other.
-
-### Onboard computer and microcontrollers
-
-Two very different kinds of computer sit on a robot:
-
-**The onboard computer** — an x86 mini-PC or a powerful ARM board running Linux
-and ROS 2. It handles perception, mapping, planning and decision making. It has
-plenty of memory and no timing guarantees whatsoever.
-
-**Microcontrollers** — small, cheap, no operating system, but able to hit a
-timing deadline every single cycle. They read sensors and drive motors, and
-they are what you use when "usually within 10 ms" is not good enough.
-
-The rule of thumb: anything that must happen at an exact moment goes on a
-microcontroller; anything that must think goes on the onboard computer.
-
-### Power
-
-Power is not a footnote. It is the most common cause of behaviour that looks
-like a software bug.
-
-A robot typically has one battery, a set of DC-DC converters producing the
-voltages the various components need, and a distribution network. When the
-battery sags, the symptoms are wonderfully misleading: a sensor drops off the
-USB bus, the computer reboots mid-run, a motor stalls under load only when the
-LiDAR is also spinning.
+**Safety.** Layered: a physical **E-stop** that cuts motor power
+independently of software; **software limits** on speed and acceleration;
+**reflexes** in firmware (stop at a cliff, stop on contact) that act before
+any planner gets a say.
 
 :::{tip}
-When something inexplicable happens on a real robot, check the battery voltage
-before you read another line of code. This advice costs nothing and saves
+When something inexplicable happens on a real robot, check the battery
+voltage before you read another line of code. This costs nothing and saves
 hours.
 :::
 
-### Network
+### Two robots, one architecture
 
-Onboard, components are wired over Ethernet, USB and serial buses. Off-board,
-the robot talks to your laptop over Wi-Fi.
-
-That last link is the weakest part of most robot systems: it is shared, it
-drops, and it has a fraction of the bandwidth of the wired links. This is why
-session 3 cares about how much data a sensor publishes, and why
-[the networking page](../prerequisites/networking.md) explains republishers.
-
-### Safety
-
-Any robot that can move can hurt someone or destroy itself. Safety is built in
-layers:
-
-**Emergency stop** — a physical button that cuts motor power, independently of
-any software. It works when the computer has crashed, which is exactly when you
-need it.
-
-**Software limits** — velocity and acceleration caps, so a bug produces a slow
-mistake rather than a fast one.
-
-**Reflexes** — reactive behaviours in firmware: stop at a cliff, stop on
-bumper contact. Fast, dumb, and independent of the planning stack.
-
-:::{danger}
-E-stops are not a convenient way to stop a robot. Pressing one on a legged
-robot drops it where it stands, and on a manipulator lets the arm fall
-mid-motion. Use the normal shutdown path unless someone or something is
-actually about to be hurt.
-:::
-
-:::{warning}
-Some tutorials disable reflexes or safety overrides so that a robot will
-reverse or drive faster during an exercise. Understand what you are switching
-off before you switch it off, only do it in a clear space, and switch it back
-on afterwards.
-:::
-
-## Two robots, one architecture
-
-The institute runs two very different platforms. They map onto the same
-architecture, which is the point of learning the architecture.
+{{ platformspecific }}
 
 ```{list-table}
 :header-rows: 1
@@ -209,112 +134,138 @@ architecture, which is the point of learning the architecture.
 * - Aspect
   - Robotino {{ carologistics }}
   - Spot {{ alert }}
-* - Type
+* - Drive
   - Wheeled, omnidirectional
   - Quadruped, legged
-* - Made by
-  - Festo Didactic
-  - Boston Dynamics
 * - Moves over
   - Flat industrial floors
   - Rubble, steps, uneven terrain
 * - Main range sensor
   - 2D laser scanners
   - 3D LiDAR
-* - Cameras
-  - Webcam plus a global-shutter camera for manipulation
-  - Multiple onboard cameras, plus a gripper camera on the arm
-* - Manipulation
-  - Custom gripper for factory workpieces
-  - Arm with a gripper
-* - Competition
-  - RoboCup Logistics League
-  - RoboCup Rescue League
-* - The task shapes it
-  - Precision docking at machines, repeatability
-  - Traversing terrain, reaching into awkward places
+* - Shaped by
+  - Precision docking, repeatability
+  - Traversing terrain, reaching into gaps
 ```
 
-Notice how much follows from the last row. The Logistics League happens on a
-flat factory floor where a robot must dock to a machine within millimetres, so
-Robotino is omnidirectional and its perception is built around precise
-short-range measurement. The Rescue League happens in collapsed buildings where
-wheels do not work at all, so Spot has legs and 3D perception.
+Detailed component lists live on the platform pages —
+[Carologistics/Robotino](../platforms/carologistics-robotino.md) and
+[ALeRT/Spot](../platforms/alert-spot.md) — not here. Tonight is about the
+architecture both robots share.
 
-Neither robot is better. They are answers to different questions — and both run
-ROS 2, publish transforms, build maps, and navigate with the same stack you
-will learn in the coming weeks.
+## Practical task
 
-## Task
+### Goal
+Produce one system diagram — on paper or in any drawing tool — that traces a
+sensor reading from the sensor to the onboard computer, and a command from
+the computer back out to an actuator, with power and safety shown separately.
 
-:::{admonition} Task: map a real robot
-:class: task
+### Starting point
+A real robot if one is available in the room; otherwise the diagram above
+plus a one-page hardware description your facilitator hands out.
 
-Work in pairs, at a robot if one is available, otherwise from your platform's
-documentation.
+### Steps
+1. List every component you can find (aim for at least eight).
+2. Sort each into **sense**, **process**, or **act**.
+3. Draw them as boxes.
+4. Draw **data** arrows (solid, blue) between boxes that exchange
+   information.
+5. Draw **power** arrows (dashed, amber) from the battery to every box that
+   needs it.
+6. Mark the **E-stop** and what it cuts (red).
+7. Pick three components; for each, write one sentence: *if this fails
+   silently, what would the robot appear to be doing wrong?*
 
-**Part 1 — Identify the components.**
+### Expected result
+A diagram with three visually distinct arrow types that someone who has
+never seen the robot could follow, plus three short failure sentences.
 
-Walk the robot and list what you find. For every component, note:
+### Verification
+Swap diagrams with another pair. Can they name, without you speaking, which
+arrow is data and which is power? If not, add a legend and try again — that
+is the actual skill this task teaches.
 
-- what it is;
-- which stage of the sense–think–act loop it belongs to;
-- what it connects to, physically;
-- what stops working if it fails.
+### Common problems
+- **Data and power drawn as the same arrow style** — the two most common
+  debugging questions ("is data flowing?" vs "is it powered?") become
+  impossible to separate. Use two visibly different line styles.
+- **Forgetting the network** — a laptop running RViz over Wi-Fi is part of
+  the data path, not an outside observer.
+- **Treating the microcontroller as a detail** — whether a loop runs on the
+  microcontroller or the onboard computer decides whether it is real-time.
 
-Aim for at least ten components.
+### Extension
 
-**Part 2 — Draw the system diagram.**
+{{ optional }}
 
-Draw the robot as a block diagram with **two kinds of arrow**:
+Pick one failure sentence from step 7 and write the exact terminal command or
+observation that would confirm it — you will not be able to run it yet, but
+guessing correctly here is a good sign for [session 8](08-integration.md).
 
-- **data** — which component sends information to which, and over what
-  (USB, Ethernet, serial, Wi-Fi);
-- **power** — what feeds what, from the battery through the converters.
+## Simulation fallback
 
-Mark clearly:
+{{ simulation }}
 
-- where the emergency stop cuts in;
-- which links are wired and which are wireless;
-- which parts run on a microcontroller and which on the onboard computer.
+No robot in the room? Draw the diagram from the [Webots](../platforms/simulation.md)
+robot model description instead of a physical robot — the loop and the
+component categories are identical; only "battery" becomes "simulated power",
+which is worth discussing as a limitation of simulation in its own right.
 
-**Part 3 — Break it.**
+## Advanced: going deeper
 
-Pick three components. For each, answer in one sentence: if this fails
-silently, what would the robot *appear* to be doing wrong?
+{{ advanced }}
+
+:::{dropdown} Encoders, IMU and drive kinematics in detail
+:icon: light-bulb
+
+**Encoders** measure motor rotation; combined with drive geometry they give
+**odometry** — accurate over a few metres, unreliable after a few minutes,
+because small errors accumulate and are never corrected. Session 5 explains
+why that matters.
+
+**IMU** measures acceleration and angular velocity directly, which is more
+responsive than deriving orientation from wheels, and keeps working when
+wheels slip. It drifts too, in a different way — which is why the two are
+usually fused rather than trusted alone.
+
+**Drive kinematics** is the mapping between wheel speeds and robot velocity.
+For differential drive it's two numbers (left, right wheel speed); for
+omnidirectional drive it's three degrees of freedom (x, y, rotation) from
+however many wheels the platform has (Robotino uses three or four
+omni-wheels).
 :::
 
-:::{admonition} Expected result
-:class: result
+:::{dropdown} Why RoboCup shapes the hardware
+:icon: light-bulb
 
-One diagram per pair, on paper or in any drawing tool, in which someone who has
-never seen the robot can trace a LiDAR measurement from the sensor to the
-onboard computer, and a velocity command from the computer back out to a wheel.
-
-Part 3 is the one to discuss as a group: most of the interesting answers are
-symptoms that look like software bugs.
+The RoboCup Logistics League happens on a flat factory floor where a robot
+must dock to a machine within millimetres — so Robotino is omnidirectional
+and built around precise short-range sensing. The RoboCup Rescue League
+happens in a collapsed-building scenario where wheels do not work at all —
+so Spot has legs and 3D perception. Neither is "better"; both are answers to
+different competition questions.
 :::
 
 ## Common mistakes
 
-**Drawing data flow and power as the same arrows.**
-They follow different paths, and confusing them makes the diagram useless for
-debugging. Use two arrow styles.
+**Drawing data flow and power as the same arrows.** They follow different
+paths; conflating them makes the diagram useless for debugging.
 
-**Forgetting the network.**
-Your laptop is part of the system. If RViz runs on it, that Wi-Fi link is in
-the data path.
+**Skipping the network.** Anything connected over Wi-Fi is part of the
+system, not outside it.
 
-**Treating the microcontroller as a detail.**
-Whether a loop runs on the microcontroller or the onboard computer determines
-whether it is real-time. That distinction explains a lot of later behaviour.
+## Transition to session 2
+
+Tonight you drew the boxes. [Session 2](02-ros2.md) turns them into running
+software: the boxes become **nodes**, the arrows become **topics**, and you
+start, inspect and modify a real ROS 2 system.
 
 ## Further reading
 
-- [ROS 2 concepts](https://docs.ros.org/en/jazzy/Concepts.html) — the software
-  side of what you drew today
+- [ROS 2 concepts](https://docs.ros.org/en/jazzy/Concepts.html) — the
+  software side of what you drew tonight
 - [RoboCup Logistics League](https://ll.robocup.org/) {{ carologistics }}
 - [RoboCup Rescue League](https://rescuesim.robocup.org/) {{ alert }}
-- Your platform track: [Carologistics/Robotino](../platforms/carologistics-robotino.md) ·
+- Platform detail: [Carologistics/Robotino](../platforms/carologistics-robotino.md) ·
   [ALeRT/Spot](../platforms/alert-spot.md) ·
   [Simulation](../platforms/simulation.md)

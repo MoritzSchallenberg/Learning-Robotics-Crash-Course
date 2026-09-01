@@ -10,12 +10,12 @@ Terms used throughout this course, in plain language.
 : A ROS 2 communication pattern for long-running tasks: a goal is sent,
   feedback arrives while it runs, a result comes at the end, and it can be
   cancelled. Navigation is an action. See
-  [session 2](../course/02-ros2.md#services-and-actions-briefly).
+  [session 2](../course/02-ros2.md#advanced-launch-files-services-and-actions).
 
 **AMCL**
 : Adaptive Monte Carlo Localization. Estimates the robot's pose on a known map
   using a particle filter. See
-  [session 5](../course/05-mapping-localization.md#localization-on-a-saved-map).
+  [session 5](../course/05-mapping-localization.md).
 
 **Ament**
 : The build system underlying ROS 2 packages. `ament_python` for Python
@@ -24,15 +24,15 @@ Terms used throughout this course, in plain language.
 **Ansible**
 : An automation tool that configures machines from declarative playbooks over
   SSH. Used by Carologistics for fleet deployment. See
-  [session 8](../course/08-integration.md#deployment-with-ansible).
+  [session 8](../course/08-integration.md).
 
 **AprilTag**
 : A family of fiducial markers, robust at distance and in poor lighting. See
-  [session 4](../course/04-perception.md#fiducial-markers).
+  [session 4](../course/04-perception/fiducial-markers.md).
 
 **ArUco**
 : A family of fiducial markers, built into OpenCV. See
-  [session 4](../course/04-perception.md#fiducial-markers).
+  [session 4](../course/04-perception/fiducial-markers.md).
 
 ## B
 
@@ -45,7 +45,7 @@ Terms used throughout this course, in plain language.
 **Behavior tree**
 : A tree of nodes, ticked repeatedly, that decides what a robot does. Nav2 uses
   one internally. See
-  [session 7](../course/07-autonomous-decisions.md#behavior-trees).
+  [session 7](../course/07-autonomous-decisions.md#behavior-trees-in-contrast).
 
 **Bringup**
 : The set of launch files that start a robot's software. See
@@ -67,7 +67,7 @@ Terms used throughout this course, in plain language.
 **Costmap**
 : A grid where each cell holds the cost of driving there, from 0 to 254. Nav2
   keeps a global one and a local one. See
-  [session 6](../course/06-navigation.md#costmaps).
+  [session 6](../course/06-navigation.md#costmaps-global-vs-local).
 
 **CUDA**
 : NVIDIA's platform for general-purpose GPU computation. Used to accelerate
@@ -82,7 +82,7 @@ Terms used throughout this course, in plain language.
 **Detection**
 : Finding *what* is in an image, in image coordinates. Distinct from
   localization. See
-  [session 4](../course/04-perception.md#detection-versus-localization).
+  [session 4](../course/04-perception/index.md#detection-versus-localization).
 
 **Domain ID**
 : An integer that partitions a network into independent ROS 2 systems. Nodes
@@ -141,14 +141,14 @@ Terms used throughout this course, in plain language.
 **Inflation**
 : Expanding obstacles in a costmap by the robot's radius plus a margin, so the
   planner can treat the robot as a point. See
-  [session 6](../course/06-navigation.md#costmap-layers).
+  [session 6](../course/06-navigation.md#costmaps-global-vs-local).
 
 ## L
 
 **Launch file**
 : A file that starts several nodes together, with parameters and remappings.
   YAML, XML or Python. See
-  [session 2](../course/02-ros2.md#launch-files).
+  [session 2](../course/02-ros2.md#advanced-launch-files-services-and-actions).
 
 **LaserScan**
 : The message type for 2D laser data: an array of ranges plus the geometry
@@ -237,13 +237,13 @@ Terms used throughout this course, in plain language.
 : Quality of Service. Policies governing how messages are delivered.
   Incompatible policies mean **no data flows, with no error message** — one of
   the most common problems in ROS 2. See
-  [session 3](../course/03-sensors-tf.md#when-rviz-shows-nothing).
+  [session 3](../course/03-sensors-tf.md#common-problems).
 
 ## R
 
 **RAFCON**
 : A graphical state machine editor and execution engine from DLR. See
-  [session 7](../course/07-autonomous-decisions.md#rafcon).
+  [session 7](../course/07-autonomous-decisions.md).
 
 **rclpy**
 : The Python client library for ROS 2. (`rclcpp` is the C++ one.)
@@ -263,14 +263,14 @@ Terms used throughout this course, in plain language.
 
 **rosbag**
 : A recording of ROS 2 topics that can be replayed. See
-  [session 8](../course/08-integration.md#ros-bags).
+  [session 8](../course/08-integration.md#rosbags-briefly).
 
 **RRL**
 : RoboCup Rescue League. {{ alert }}
 
 **RViz**
 : The 3D visualization tool for ROS. See
-  [session 3](../course/03-sensors-tf.md#rviz).
+  [session 3](../course/03-sensors-tf.md).
 
 ## S
 
@@ -339,4 +339,4 @@ Terms used throughout this course, in plain language.
 
 **YOLO**
 : "You Only Look Once" — a family of fast neural network object detectors. See
-  [session 4](../course/04-perception.md#neural-networks-yolo).
+  [session 4](../course/04-perception/object-detection.md).
