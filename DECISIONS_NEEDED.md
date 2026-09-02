@@ -298,19 +298,19 @@ once teams attempt it.
 
 ## 10. Facilitators responsible for each session
 
-**Current status**: not specified anywhere. `docs/instructors/` (added in
+**Current status**: not specified anywhere. `maintainers/instructors/` (added in
 this version) documents *what* each session needs and *how* to prepare it,
 but not *who* is running it.
 
 **Why a decision is needed**: the instructor materials
-(`docs/instructors/preparation-checklist.md`,
-`docs/instructors/session-plans.md`) assume a facilitator is preparing
+(`maintainers/instructors/preparation-checklist.md`,
+`maintainers/instructors/session-plans.md`) assume a facilitator is preparing
 each specific evening in advance — pre-building workspaces, planting
 faults, testing the demonstration. Someone needs to own that per session.
 
 **Recommended option**: course organisers assign one named facilitator (plus
 one backup) per session before the course starts, each confirming they have
-read that session's page in `docs/instructors/session-plans.md` and
+read that session's page in `maintainers/instructors/session-plans.md` and
 completed the corresponding preparation checklist.
 
 **Possible alternatives**: a smaller core team rotates through all eight

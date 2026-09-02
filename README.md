@@ -8,8 +8,10 @@ groups of the **MASKOR Institute at FH Aachen**.
 The course brings together teaching material that used to live in three
 separate places — the ROS Summer School, the ALeRT/Spot practical course and
 the Carologistics team wiki — into one path that every team can follow. Eight
-evening sessions build up from the anatomy of a robot to a fully autonomous
-mission, and a closing hackathon puts it all together.
+modules build up from the anatomy of a robot to a fully autonomous mission,
+and a closing capstone project puts it all together. The site is a
+semester-independent learning platform: it carries no dates, schedules or
+event logistics — see [`maintainers/`](maintainers/) for that.
 
 ## Goal
 
@@ -21,25 +23,26 @@ systems live on separate platform pages that link back to them.
 **Audience:** new members of the robotics teams with some technical grounding.
 Some programming (Python is enough), comfort with a terminal, and an interest
 in how autonomous robots work. No prior ROS experience is needed, and no robot
-— every session can be followed in simulation.
+— every module can be completed in simulation.
 
 **Language:** English.
 
 ## Course structure
 
-Eight evenings, all 17:35–19:00, plus a hackathon.
+Eight modules, each built around one central concept and one practical task,
+plus a closing capstone project.
 
-| # | Date | Session |
+| # | Module | Focus |
 |---|---|---|
-| 1 | Mon, 05 Oct 2026 | System Architecture and Robot Hardware |
-| 2 | Wed, 07 Oct 2026 | ROS 2 Fundamentals |
-| 3 | Mon, 12 Oct 2026 | Sensors, TF2 and RViz |
-| 4 | Wed, 14 Oct 2026 | Perception and Object Detection |
-| 5 | Mon, 19 Oct 2026 | Mapping and Localization |
-| 6 | Wed, 21 Oct 2026 | Autonomous Navigation |
-| 7 | Mon, 26 Oct 2026 | Autonomous Decisions and Manipulation |
-| 8 | Wed, 28 Oct 2026 | System Integration and Testing |
-| — | Sat–Sun, 07–08 Nov 2026 | Hackathon: Autonomous Robot Challenge |
+| 1 | System Architecture and Robot Hardware | Components and data flows |
+| 2 | ROS 2 Fundamentals | Nodes, topics, packages |
+| 3 | Sensors, TF2 and RViz | Sensor data placed in space |
+| 4 | Perception and Object Detection | Marker/object detection |
+| 5 | Mapping and Localization | Build a map, locate the robot |
+| 6 | Autonomous Navigation | Reach autonomous goals |
+| 7 | Autonomous Decisions and Manipulation | Model a mission |
+| 8 | System Integration and Testing | Start and debug the whole system |
+| — | Capstone: Autonomous Robot Mission | Combine every module |
 
 Three platform tracks run alongside: **Simulation**,
 **Carologistics/Robotino** and **ALeRT/Spot**.
@@ -85,22 +88,28 @@ sphinx-autobuild docs docs/_build/html
 
 ## Project structure
 
+**`docs/`** is the entire published website — everything Sphinx builds and
+everything GitHub Pages serves. Nothing outside `docs/` is ever built or
+deployed; see [Learner-only site](#learner-only-site-what-is-and-is-not-published)
+below for what that guarantees.
+
 ```text
 .github/workflows/pages.yml   Build, secret-scan and deploy to GitHub Pages
 
-docs/
+docs/                          <-- published website; nothing else is built
   conf.py                     Sphinx configuration, incl. platform badges
   index.md                    Landing page
 
-  prerequisites/              Do these before session 1
+  prerequisites/
     linux-terminal.md         Terminal, filesystem, .bashrc
-    installation.md           Ubuntu, ROS 2, workspace, simulator
+    installation.md           Ubuntu, ROS 2, workspace, simulator, preflight
     git.md                    Git workflow and team conventions
     networking.md             Domain IDs, SSH, subnets
 
-  course/                     The eight sessions
+  course/                     The eight modules
     01-system-hardware.md   … 08-integration.md
-    hackathon.md              Final challenge
+    04-perception/           Split into a core page + 4 deeper chapters
+    hackathon.md              Capstone: Autonomous Robot Mission
 
   platforms/                  Team-specific material only
     simulation.md
@@ -117,19 +126,43 @@ docs/
     css/custom.css            Theme layer, badges, light/dark palette
     js/color-mode.js          Light/dark toggle (name must not be theme.js,
                               which would shadow the RTD theme's own script)
-    images/                   (empty — see CONTENT_REVIEW.md §4.4)
+    images/diagrams/          10 original SVG diagrams
   _extra/.nojekyll
+
+maintainers/                   NOT built, NOT deployed, NOT in any toctree
+  instructors/                 Facilitator/event material -- see below
+
+scripts/
+  course-preflight.sh          Read-only environment check (linked from the site)
+  verify-site.py                Browser-level checks (not part of the build)
 
 requirements.txt              Pinned documentation toolchain
 CONTENT_MAP.md                Inventory of all 78 source documents
 CONTENT_REVIEW.md             Included / merged / platform-specific / excluded
 SECURITY_REVIEW.md            Secret-scan findings and remediation
 LICENSES.md                   Attribution and licensing
+DECISIONS_NEEDED.md           Open organisational decisions (repo only,
+                              not linked from the public site)
 ```
 
-### Deviations from the originally proposed structure
+### Learner-only site: what is and is not published
 
-Three, all small and reversible:
+The published website contains only what a participant needs to learn,
+practise, look something up, or fix a technical problem — no dates,
+schedules, facilitator instructions, room planning, or event roles. See the
+guiding question in `DECISIONS_NEEDED.md` and the "Editing the content"
+section below for what that means when adding new pages.
+
+`maintainers/instructors/` holds facilitator-facing material that was
+previously part of the site (`docs/instructors/`) and has been moved out:
+it is not in `docs/`, not referenced by any `toctree`, not linked from any
+public page, and consequently never reaches the Sphinx build, the search
+index, or the GitHub Pages artifact. `DECISIONS_NEEDED.md`,
+`course-preflight.sh` and `verify-site.py` remain in the repository root /
+`scripts/` because they are genuinely useful to keep versioned, without
+being part of the website either.
+
+### Deviations from the originally proposed structure
 
 1. **Added `course/index.md`, `platforms/index.md` and `reference/index.md`.**
    Every `toctree` now has a parent page. This keeps breadcrumbs sensible,
@@ -140,8 +173,13 @@ Three, all small and reversible:
    branch-based publishing.
 3. **Added `sphinx-design`** to the toolchain, for the landing-page cards and
    the collapsible solution blocks used in the exercises.
-
-`docs/_static/images/` exists but is empty — see `CONTENT_REVIEW.md` §4.4 for
+4. **Split `course/04-perception.md`** into a core page plus four deeper
+   chapters (`camera-calibration`, `fiducial-markers`, `object-detection`,
+   `data-labeling`) under `course/04-perception/`, to keep the core module
+   page focused on its one practical task.
+5. **Moved `docs/instructors/` to `maintainers/instructors/`**, out of the
+   Sphinx source tree entirely, so the published site carries no
+   event-organisation content — see above.
 why no images are published yet.
 
 ## Editing the content
@@ -215,17 +253,24 @@ Check against primary sources before writing: the
 [OpenCV](https://docs.opencv.org/) and [MoveIt](https://moveit.picknik.ai/)
 documentation, and the README of whichever package you are describing.
 
-### Content levels and 85-minute sessions
+### Content levels
 
-Every course session is a strict 85-minute run sheet. When adding or editing
-session content, mark it with one of the four content-level badges —
-`{{ core }}` (must fit in the 85 minutes), `{{ optional }}` (only with time
-to spare), `{{ advanced }}` (deliberately outside the session, for later
-reading) or `{{ platformspecific }}` — defined in `docs/conf.py` as MyST
-substitutions, and check that the Core practical task is genuinely
-completable in its allotted block, not just described. See any existing
-`course/0*.md` file for the pattern, and `docs/instructors/` for the
-facilitator-side preparation this assumes.
+Every course module marks its content by how essential it is, using four
+badges — `{{ core }}` (the module's central concept and task), `{{ optional }}`
+(worth doing with extra time), `{{ advanced }}` (deliberately beyond the
+module's core scope, for later reading) or `{{ platformspecific }}` —
+defined in `docs/conf.py` as MyST substitutions. Check that a module's Core
+practical task is genuinely completable as described, not just plausible.
+See any existing `course/0*.md` file for the pattern.
+
+Each module follows the same structure: Overview, Learning objectives,
+Prerequisites, Core concepts, Guided example, Practical task, Expected
+result, Verification, Common problems, Optional extensions, Advanced
+topics, Connection to the next module. Write for a participant working
+through the material independently — no "tonight", "next week", "your
+facilitator provides X", or references to a live audience. Where a
+demonstration would traditionally be shown live, write it as a **Guided
+example** the reader can run themselves.
 
 ### Testing beyond the build
 
