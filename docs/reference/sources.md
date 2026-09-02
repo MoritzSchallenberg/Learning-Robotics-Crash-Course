@@ -218,7 +218,6 @@ declares terms of reuse for the course text — this site deliberately does
 not pick one on their behalf, and no option (including a permissive one
 such as CC BY 4.0) is assumed by default.
 
-See `DECISIONS_NEEDED.md` (item 1) in the repository for a neutral summary
-of the available options and `LICENSES.md` for the full statement of what
-is and is not currently licensed.
+See `LICENSES.md` in the repository for the full statement of what is and
+is not currently licensed.
 :::

@@ -242,7 +242,7 @@ ros2 launch robotino_navigation robotino_rviz.launch.py namespace:=robotinobase<
 
 Replace `<i>` with the robot number.
 
-Then, exactly as in [session 5](../course/05-mapping-localization.md):
+Then, exactly as in [module 5](../course/05-mapping-localization.md):
 
 1. Click **2D Pose Estimate** and set the robot's actual position and heading.
 2. Check that the laser data aligns with the walls on the map.
@@ -262,7 +262,7 @@ ansible-playbook -i robotinos.inv -t fast-deploy robotino.yml -l <host> -K
 ```
 
 `fast-deploy` pulls the latest code, stashes local changes and rebuilds. See
-[session 8](../course/08-integration.md) for what the
+[module 8](../course/08-integration.md) for what the
 options mean.
 
 ### Starting a test game
@@ -286,7 +286,7 @@ both the machine and which side you are looking at. The tag camera sits at
 marker height.
 
 The general technique is in
-[session 4](../course/04-perception/fiducial-markers.md). What is specific here
+[module 4](../course/04-perception/fiducial-markers.md). What is specific here
 is the combination: the tag identifies the machine, and the **laser lines**
 give its precise position and orientation. Cross-checking the two is what makes
 detection reliable enough to dock against.
@@ -305,16 +305,16 @@ constrains the search considerably.
 The Pi camera plus YOLOv8-nano detects workpieces; the position is then
 triangulated using the laser lines, giving a 6D pose (with pitch and roll
 assumed zero). This is exactly the detection-to-localization step described in
-[session 4](../course/04-perception/index.md#detection-versus-localization) — the
+[module 4](../course/04-perception/index.md#detection-versus-localization) — the
 laser line supplies the depth that the bounding box cannot.
 
 ### Markerless MPS detection
 
 {{ advanced }} {{ unverified }} — a Carologistics research topic, not a
-finished, ready-to-run system, and not part of any session's core task.
+finished, ready-to-run system, and not part of any module's core task.
 
 **Purpose, in one sentence**: during the three-minute exploration phase
-([session 1](../course/01-system-hardware.md) explains why that phase
+([module 1](../course/01-system-hardware.md) explains why that phase
 exists), machines currently must carry a visible marker to be located
 quickly; markerless detection aims to find them from appearance alone,
 because the league scores exploration speed and a marker-free approach
@@ -342,7 +342,7 @@ repository, before relying on any of it.
 
 Training data for object detection is labeled with a browser-based annotation
 tool. The general workflow and the rules for good labels are in
-[session 4](../course/04-perception/object-detection.md#training-a-custom-model).
+[module 4](../course/04-perception/object-detection.md#training-a-custom-model).
 
 Carologistics-specific classes:
 
@@ -371,7 +371,7 @@ not established. See `CONTENT_REVIEW.md` in the repository.
 
 The gripper is a custom mechanism, built from the following pieces, in
 general-principle terms — the same
-[sense–process–act pattern](../course/01-system-hardware.md#theory) as the
+[sense–process–act pattern](../course/01-system-hardware.md#core-concepts) as the
 rest of the robot, at a smaller scale:
 
 **Actuators**: NEMA 17 stepper motors (with an encoder) for the finer
@@ -382,16 +382,16 @@ the steppers.
 **Sensors**: the motor encoders report shaft position, which is what lets
 the controller know where the gripper actually is rather than only where it
 was commanded to be — the same open-loop-vs-closed-loop distinction as the
-drive motors in [session 1](../course/01-system-hardware.md).
+drive motors in [module 1](../course/01-system-hardware.md).
 
 **Control**: a custom PCB carries an Arduino Giga, which exposes a ROS
 interface to the rest of the robot's software — the gripper is a node like
 any other from the perspective of
-[session 2](../course/02-ros2.md), just one whose "actuator" output is a
+[module 2](../course/02-ros2.md), just one whose "actuator" output is a
 motor controller board instead of `/cmd_vel`.
 
 **Safety**: as with the rest of the robot, the platform E-stop
-([session 1](../course/01-system-hardware.md)) cuts gripper power along
+([module 1](../course/01-system-hardware.md)) cuts gripper power along
 with drive power. A brake-equipped axis is a deliberate safety property in
 its own right — it will not drop whatever it is holding purely because power
 was cut.

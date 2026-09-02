@@ -150,7 +150,7 @@ Set **Fixed Frame** to `base_footprint`, then add:
 :::{note}
 The Best Effort setting on `/scan` is not optional. The publisher uses it, and
 an RViz display left on Reliable shows nothing at all, with no error. See
-[session 3](../course/03-sensors-tf.md#common-problems).
+[module 3](../course/03-sensors-tf.md#common-problems).
 :::
 
 Save the configuration once it works.
@@ -219,7 +219,7 @@ yet fails silently in a way that looks like the robot ignoring you.
 The ALeRT tutorials use OpenCV directly on the gripper camera, which is a good
 way to learn perception before reaching for a neural network. Both exercises
 are described in general terms in
-[session 4](../course/04-perception/index.md).
+[module 4](../course/04-perception/index.md).
 
 ### ArUco detection
 
@@ -233,13 +233,13 @@ corners, ids, rejected = detector.detectMarkers(image)
 ```
 
 Full node structure in
-[session 4](../course/04-perception/fiducial-markers.md#aruco-with-opencv).
+[module 4](../course/04-perception/fiducial-markers.md#aruco-with-opencv).
 
 ### Line following
 
 Detect the red line on the floor and follow it by publishing `Twist` messages
 to `/cmd_vel`. The technique — convert to HSV, threshold, find contours — is in
-[session 4](../course/04-perception/fiducial-markers.md#colour-detection-with-hsv).
+[module 4](../course/04-perception/fiducial-markers.md#colour-detection-with-hsv).
 
 The interesting part is the control: given the line's horizontal position in
 the image, compute a turn rate that keeps it centred. A proportional controller
@@ -248,8 +248,8 @@ start.
 
 ## Mapping and navigation
 
-The general workflow is [session 5](../course/05-mapping-localization.md) and
-[session 6](../course/06-navigation.md). Spot-specific launch files:
+The general workflow is [module 5](../course/05-mapping-localization.md) and
+[module 6](../course/06-navigation.md). Spot-specific launch files:
 
 ```bash
 # SLAM
@@ -282,7 +282,7 @@ guessing.
 
 {{ advanced }} A 2D occupancy grid cannot represent a rescue arena. Two 3D
 approaches, explained for general understanding in
-[session 5's advanced reading](../course/05-mapping-localization.md#advanced-3d-mapping)
+[module 5's advanced reading](../course/05-mapping-localization.md#advanced-topics)
 — this page adds only the ALeRT-specific repository pointers.
 
 ### Octomap
@@ -300,7 +300,7 @@ a [3D planner working on the octomap](https://github.com/RRL-ALeRT/alert_ros2).
 
 [GLIM](https://github.com/koide3/glim_ros2) is a LiDAR–inertial SLAM system
 that tightly couples 3D LiDAR with IMU data to build accurate point cloud
-maps — see session 5 for when this matters over 2D SLAM. Installation is
+maps — see module 5 for when this matters over 2D SLAM. Installation is
 documented at
 [koide3.github.io/glim](https://koide3.github.io/glim/installation.html).
 
@@ -318,7 +318,7 @@ repository link with the install command each repository documents, and no
 further tested configuration. Treat this section as orientation — read the
 linked repository's own documentation for a working parameter set, rather
 than expecting a tested walkthrough here. None of the three is part of any
-session's core task.
+module's core task.
 :::
 
 ## Manipulation with MoveIt
@@ -337,12 +337,12 @@ sliders, which is often the quickest way to get out of an awkward
 configuration.
 
 The general concepts and a pick-and-place structure are in
-[session 7](../course/07-autonomous-decisions.md).
+[module 7](../course/07-autonomous-decisions.md).
 
 :::{tip}
 The simulation publishes TF frames for objects — for example the target
 workpiece and the place box. That means you can get a grasp pose with a TF
-listener ([session 3](../course/03-sensors-tf.md)) rather than computing it
+listener ([module 3](../course/03-sensors-tf.md)) rather than computing it
 from an image, which makes the manipulation exercise tractable.
 :::
 
@@ -379,7 +379,7 @@ ros2 service call /hazmat_signs std_srvs/srv/Empty "{}"
 ```
 
 This is the trigger for training a custom model — see
-[session 4](../course/04-perception/object-detection.md#training-a-custom-model).
+[module 4](../course/04-perception/object-detection.md#training-a-custom-model).
 
 ### Gesture control
 
@@ -403,7 +403,7 @@ setup publishes.
 ## High-level control
 
 The ALeRT stack uses several approaches, covered generally in
-[session 7](../course/07-autonomous-decisions.md):
+[module 7](../course/07-autonomous-decisions.md):
 
 **RAFCON** — graphical state machines, the main tool in the tutorials.
 

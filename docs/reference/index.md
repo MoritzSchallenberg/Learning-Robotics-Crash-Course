@@ -46,7 +46,7 @@ licenses of the software the course teaches.
 
 **"RViz shows nothing and there is no error."**
 → QoS mismatch.
-[Session 3](../course/03-sensors-tf.md#common-problems)
+[Module 3](../course/03-sensors-tf.md#common-problems)
 
 **"Which ROS 2 distribution should I install?"**
 → [Compatibility matrix](compatibility.md)

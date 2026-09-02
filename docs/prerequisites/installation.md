@@ -206,7 +206,7 @@ Step 1 prints your distribution name. Step 2 opens a window with a turtle in
 it. Step 3 lists `/turtlesim`. Step 4 lets you move the turtle with the arrow
 keys, as long as the cursor stays in that terminal.
 
-If all four work, your installation is sound and you are ready for session 1.
+If all four work, your installation is sound and you are ready for module 1.
 :::
 
 ## Preflight check
@@ -229,7 +229,7 @@ configuration, deletes a file, reads a credential, or queries a private
 network target — safe to run as often as you like, on any machine.
 :::
 
-Every course session's **Preparation** section assumes you have run this
+Every course module's **Preparation** section assumes you have run this
 and resolved every `FAIL` beforehand.
 
 ## Common mistakes
