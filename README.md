@@ -137,6 +137,13 @@ docs/                          <-- published website; nothing else is built
 maintainers/                   NOT built, NOT deployed, NOT in any toctree
   instructors/                 Facilitator/event material -- see below
 
+examples/                      Real, colcon-buildable starter packages
+  module02_turtlesim/          Module 2's practical task
+    turtle_course/             The actual ROS 2 package -- build this
+    solutions/                 Reference solution, kept separate from
+                               the package so it is never accidentally
+                               built or imported by it
+
 scripts/
   course-preflight.sh          Read-only environment check (linked from the site)
   verify-site.py                Browser-level checks (not part of the build)
@@ -199,6 +206,20 @@ being part of the website either.
    values) and a visible keyboard focus outline — see `custom.css`'s
    `--lrcc-accent-solid` design-token comment for why a "banner with white
    text" needs a different color than a "text/border accent".
+9. **Added a matching sidebar-contrast check.** The same rgba-compositing
+   helper is reused to check every `.wy-menu-vertical a` link on every
+   page, catching a related stock-theme bug where a non-current link
+   inside an expanded branch was painted with a hardcoded light-gray
+   background the site's own dark-sidebar override did not reach.
+10. **Added `examples/module02_turtlesim/`** — a real, `colcon`-buildable
+    ROS 2 Humble package (`turtle_course`) backing module 2's practical
+    task, with its own CI job (`.github/workflows/pages.yml`, the
+    `examples` job) that builds and lints it on every push, independent
+    of the Sphinx site build/deploy.
+11. **Added three "Try it on Spot" safety-level badges**
+    (`{{ spotsim }}` / `{{ spotreadonly }}` / `{{ spotsupervised }}`) and
+    a matching section in every course module, indexed from
+    `platforms/alert-spot.md`.
 
 ## Editing the content
 
