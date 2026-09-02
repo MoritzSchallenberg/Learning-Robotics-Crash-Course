@@ -126,22 +126,25 @@ The full record is in `CONTENT_REVIEW.md` and `SECURITY_REVIEW.md` in the
 
 ## Images
 
-This first version of the site contains **no images from the source material**.
-Every diagram is drawn as text, and the layout relies on typography rather than
-screenshots.
+This site contains **no images from the original source archives** — no
+screenshots of RViz, no photographs of robots or arenas, no diagrams from
+competition rulebooks copied from the teaching material this course was
+originally built from. Those had mixed and largely undocumented
+provenance, and several were served from signed, expiring URLs; rather
+than publish images whose rights were unclear, none were carried over.
 
-This is a deliberate, reversible decision: the source material's images —
-screenshots of RViz, photographs of robots and arenas, diagrams from
-competition rulebooks — have mixed and largely undocumented provenance, and
-several were served from signed, expiring URLs. Rather than publish images
-whose rights are unclear, the first version publishes none, and images can be
-added once their origin is established.
+That is not the same as "no images at all". Every diagram on this site —
+the ten SVG figures illustrating the sense–process–act loop, the TF tree,
+the perception pipeline, the Nav2 architecture and the rest — was drawn
+from scratch for this course, specifically to avoid that rights problem
+while still being able to show a system visually rather than only
+describe it in text. See each figure's own caption for what it depicts.
 
-Candidates for a future version, once rights are confirmed:
+Candidates for a future addition, once their rights are separately
+confirmed:
 
 - photographs of Robotino and Spot taken by the teams themselves;
-- RViz and Webots screenshots produced fresh for this course;
-- diagrams redrawn as SVG.
+- RViz and Webots screenshots produced fresh for this course.
 
 ## Software this course teaches
 
