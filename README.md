@@ -5,11 +5,8 @@ groups of the **MASKOR Institute at FH Aachen**.
 
 **Website:** <https://moritzschallenberg.github.io/Learning-Robotics-Crash-Course/>
 
-The course brings together teaching material that used to live in three
-separate places — the ROS Summer School, the ALeRT/Spot practical course and
-the Carologistics team wiki — into one path that every team can follow. Eight
-modules build up from the anatomy of a robot to a fully autonomous mission,
-and a closing capstone project puts it all together. The site is a
+Eight modules build up from the anatomy of a robot to a fully autonomous
+mission, and a closing capstone project puts it all together. The site is a
 semester-independent learning platform: it carries no dates, schedules or
 event logistics — see [`maintainers/`](maintainers/) for that.
 
@@ -30,11 +27,12 @@ in how autonomous robots work. No prior ROS experience is needed, and no robot
 ## Course structure
 
 Eight modules, each built around one central concept and one practical task,
-plus a closing capstone project.
+plus a closing capstone project. Module 1 has two hands-on hardware-design
+sub-pages (KiCad, Fusion) reachable directly from it.
 
 | # | Module | Focus |
 |---|---|---|
-| 1 | System Architecture and Robot Hardware | Components and data flows |
+| 1 | System Architecture and Robot Hardware | Components, data flows, schematics, mechanical CAD |
 | 2 | ROS 2 Fundamentals | Nodes, topics, packages |
 | 3 | Sensors, TF2 and RViz | Sensor data placed in space |
 | 4 | Perception and Object Detection | Marker/object detection |
@@ -45,7 +43,10 @@ plus a closing capstone project.
 | — | Capstone: Autonomous Robot Mission | Combine every module |
 
 Three platform tracks run alongside: **Simulation**,
-**Carologistics/Robotino** and **ALeRT/Spot**.
+**Carologistics/Robotino** and **ALeRT/Spot** — all three on the same fixed
+toolchain, **Ubuntu 22.04 LTS and ROS 2 Humble**
+(`docs/reference/compatibility.md`). There is no distribution choice on this
+site; every command assumes Humble.
 
 ## Building the site locally
 
@@ -108,6 +109,9 @@ docs/                          <-- published website; nothing else is built
 
   course/                     The eight modules
     01-system-hardware.md   … 08-integration.md
+    01-hardware/              KiCad and Fusion sub-pages, linked from module 1
+      kicad-schematic.md
+      fusion-mechanical-design.md
     04-perception/           Split into a core page + 4 deeper chapters
     hackathon.md              Capstone: Autonomous Robot Mission
 
@@ -118,7 +122,8 @@ docs/                          <-- published website; nothing else is built
 
   reference/
     ros2-cheatsheet.md        Commands, grouped by intent
-    compatibility.md          Version matrix and known conflicts
+    compatibility.md          "Supported environment": the fixed toolchain
+                              (Ubuntu 22.04 / ROS 2 Humble) and per-track versions
     glossary.md
     sources.md                Attribution and licensing
 
@@ -180,7 +185,20 @@ being part of the website either.
 5. **Moved `docs/instructors/` to `maintainers/instructors/`**, out of the
    Sphinx source tree entirely, so the published site carries no
    event-organisation content — see above.
-why no images are published yet.
+6. **Fixed the whole course to ROS 2 Humble on Ubuntu 22.04.** Removed the
+   Jazzy/Humble comparison and per-command distribution badges; the
+   `{{ jazzy }}` and `{{ humble }}` substitutions no longer exist.
+   `reference/compatibility.md` ("Supported environment") documents the
+   single fixed toolchain instead of a matrix of alternatives.
+7. **Added `course/01-hardware/`** — a KiCad schematic tutorial and an
+   Autodesk Fusion mechanical-CAD tutorial, linked as cards from module 1
+   and included in its `toctree`, each with its own practical task.
+8. **Added a dropdown-contrast regression check to `verify-site.py`.**
+   Every `sphinx-design` dropdown is opened in both light and dark mode and
+   checked for WCAG AA contrast (composited backgrounds, not raw `rgba()`
+   values) and a visible keyboard focus outline — see `custom.css`'s
+   `--lrcc-accent-solid` design-token comment for why a "banner with white
+   text" needs a different color than a "text/border accent".
 
 ## Editing the content
 
@@ -192,9 +210,13 @@ Instructions that only apply to one system must be marked. Write the
 substitution and it renders as a styled badge:
 
 ```markdown
-{{ common }}  {{ simulation }}  {{ carologistics }}  {{ alert }}
-{{ jazzy }}   {{ humble }}      {{ unverified }}
+{{ common }}  {{ simulation }}  {{ carologistics }}  {{ alert }}  {{ unverified }}
 ```
+
+The whole course is fixed to one toolchain — Ubuntu 22.04 LTS, ROS 2 Humble
+(see `docs/reference/compatibility.md`) — so there is deliberately no
+distribution badge; Humble is the implicit baseline for every command on the
+site.
 
 Badges are defined in `docs/conf.py` and styled in `custom.css`.
 
@@ -228,9 +250,9 @@ What needs checking, and why.
 
 ### Page template
 
-Each main page aims to have: learning objectives · prerequisites · brief theory
-· a walkthrough · commands or code · a practical task · the expected result ·
-common mistakes · further reading · platform and version markers.
+See "Content levels" below for the current 12-part module structure and the
+"Continue learning" convention — this replaced an earlier, shorter template
+from the first version of the site.
 
 ## Contributing
 
@@ -266,11 +288,22 @@ See any existing `course/0*.md` file for the pattern.
 Each module follows the same structure: Overview, Learning objectives,
 Prerequisites, Core concepts, Guided example, Practical task, Expected
 result, Verification, Common problems, Optional extensions, Advanced
-topics, Connection to the next module. Write for a participant working
-through the material independently — no "tonight", "next week", "your
-facilitator provides X", or references to a live audience. Where a
-demonstration would traditionally be shown live, write it as a **Guided
-example** the reader can run themselves.
+topics, Continue learning, Connection to the next module. Write for a
+participant working through the material independently — no "tonight",
+"next week", "your facilitator provides X", or references to a live
+audience. Where a demonstration would traditionally be shown live, write it
+as a **Guided example** the reader can run themselves.
+
+**Continue learning** is every module's deep-dive section — deliberately
+more than a keyword list. Each topic inside it is a `:::{dropdown}` with:
+what it is, why it matters, what it needs, a concrete first task or
+mini-project, a way to check the result, an official further-reading link,
+and a **Next step / Intermediate / Advanced** label in its title. A topic
+big enough to need more than that (KiCad, Fusion) gets its own page instead,
+linked as a card from the parent module. Keep every dropdown title on its
+own line, on a `(target-name)=` MyST anchor line if you need to link to it
+from elsewhere — dropdown titles are not headings and get no automatic
+anchor.
 
 ### Testing beyond the build
 
@@ -347,24 +380,6 @@ original tutorial sites are reused.
 
 Pushes to `main` trigger `.github/workflows/pages.yml`, which installs
 dependencies, builds with `-W`, scans the output for secrets, checks links, and
-publishes to GitHub Pages.
-
-> [!IMPORTANT]
-> **The site is not live yet — one manual step is still required.**
->
-> GitHub Pages has not been enabled on this repository. Until it is, the build
-> job succeeds and uploads the artifact, and the deploy job fails.
->
-> Someone with **admin rights** on the repository must do this once:
->
-> 1. Open **Settings → Pages**.
-> 2. Under **Build and deployment**, set **Source** to **“GitHub Actions”**.
-> 3. Re-run the latest workflow from the **Actions** tab (or push any commit).
->
-> This cannot be done from a workflow, from the API without an admin token, or
-> over SSH — GitHub deliberately requires an admin to enable publishing.
->
-> Once set, the site appears at
-> <https://moritzschallenberg.github.io/Learning-Robotics-Crash-Course/> and
-> every push to `main` redeploys it automatically. No other configuration is
-> needed: the workflow, permissions and environment are already in place.
+publishes to GitHub Pages. GitHub Pages is enabled and live:
+<https://moritzschallenberg.github.io/Learning-Robotics-Crash-Course/> —
+every push to `main` redeploys it automatically, no manual step needed.
