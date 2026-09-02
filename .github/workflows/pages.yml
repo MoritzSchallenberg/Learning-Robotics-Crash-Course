@@ -25,11 +25,15 @@ jobs:
     # Independent of the Sphinx build/deploy below: this never blocks or
     # delays publishing the site, it only checks that the example package(s)
     # referenced from the course pages actually build under ROS 2 Humble.
+    #
+    # action-ros-ci does its own checkout of "the code under test" via vcs,
+    # and recursively discovers every package.xml in the repository -- no
+    # explicit actions/checkout step or colcon path override needed, and a
+    # previous version of this job that added both failed for reasons the
+    # log did not make visible. This matches ros-tooling/action-ros-ci's own
+    # minimal documented usage exactly.
     runs-on: ubuntu-22.04
     steps:
-      - name: Check out the repository
-        uses: actions/checkout@v4
-
       - name: Set up ROS 2 Humble
         uses: ros-tooling/setup-ros@v0.7
         with:
@@ -40,13 +44,6 @@ jobs:
         with:
           package-name: turtle_course
           target-ros2-distro: humble
-          # The package lives under examples/, not the repository root --
-          # colcon needs to be told where to find it.
-          colcon-defaults: |
-            {
-              "build": { "base-paths": ["examples/module02_turtlesim/turtle_course"] },
-              "test": { "base-paths": ["examples/module02_turtlesim/turtle_course"] }
-            }
 
   build:
     name: Build the Sphinx site
