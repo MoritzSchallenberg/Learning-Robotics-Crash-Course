@@ -57,10 +57,10 @@ mapping, manipulation.
   - Varies
   - Wheeled, omnidirectional
   - Quadruped
-* - Ubuntu
-  - Matches your track
-  - 24.04 {{ jazzy }}
-  - 22.04 {{ humble }}
+* - Ubuntu / ROS 2
+  - 22.04 / Humble
+  - 22.04 / Humble
+  - 22.04 / Humble
 * - Simulator
   - Webots
   - Webots
@@ -79,13 +79,10 @@ mapping, manipulation.
   - RoboCup Rescue League
 ```
 
-:::{danger}
-The two team tracks use **different** Ubuntu releases and **different** ROS 2
-distributions. Instructions are not interchangeable, and mixing them produces
-failures that look like broken code. Check the
-[compatibility matrix](../reference/compatibility.md) before following any
-command from another track.
-:::
+All three tracks run the same [supported environment](../reference/compatibility.md)
+— Ubuntu 22.04 LTS and ROS 2 Humble — so commands are portable between
+tracks wherever the underlying hardware is. Only the hardware-specific
+details (drive type, sensors, manipulation) actually differ.
 
 ## Can I follow a track I do not have hardware for?
 

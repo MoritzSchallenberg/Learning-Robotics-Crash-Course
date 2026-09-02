@@ -255,5 +255,5 @@ earlier went wrong (often a `sudo colcon build`, which is never correct).
 
 - [The Linux Command Line](https://linuxcommand.org/tlcl.php) — free book, far
   more than you need but excellent
-- [ROS 2: Configuring your environment](https://docs.ros.org/en/jazzy/Tutorials/Beginner-CLI-Tools/Configuring-ROS2-Environment.html)
+- [ROS 2: Configuring your environment](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Configuring-ROS2-Environment.html)
   — the official take on sourcing

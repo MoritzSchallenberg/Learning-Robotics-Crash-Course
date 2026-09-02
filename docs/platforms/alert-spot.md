@@ -21,19 +21,16 @@ This page covers what is specific to that system. The fundamentals are in the
 * - Operating system
   - Ubuntu 22.04 LTS (Jammy)
 * - ROS 2 distribution
-  - Humble Hawksbill {{ humble }}
+  - Humble Hawksbill
 * - Simulator
   - Webots R2023b
 * - Robot
   - Boston Dynamics Spot, with arm
 ```
 
-:::{danger}
-The ALeRT stack targets **ROS 2 Humble on Ubuntu 22.04**. The Carologistics
-material targets **Jazzy on Ubuntu 24.04**. Do not follow a command from that
-track here without checking. See
-[compatibility](../reference/compatibility.md).
-:::
+This matches the course's [supported environment](../reference/compatibility.md)
+exactly, so no distribution check is needed before following a command on
+this page.
 
 :::{note}
 The original course notes state that only Ubuntu 22 could be actively

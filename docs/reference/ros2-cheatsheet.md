@@ -2,12 +2,14 @@
 
 {{ common }}
 
-The commands you will actually use, in one place. Everything here works on both
-[Humble and Jazzy](compatibility.md) unless noted.
+The commands you will actually use, in one place. Everything here is
+verified against [ROS 2 Humble](compatibility.md), the course's fixed
+distribution.
 
 :::{tip}
-Write `$ROS_DISTRO` instead of `humble` or `jazzy` and your commands work on
-both systems.
+Write `$ROS_DISTRO` instead of hard-coding `humble` — the variable is set for
+you by the setup script and keeps a command copy-pasteable even if you later
+work on a system running a different distribution.
 :::
 
 ## Environment
@@ -304,7 +306,7 @@ Full explanation in
 
 ## Further reading
 
-- [ROS 2 CLI documentation](https://docs.ros.org/en/jazzy/Concepts/Basic/About-Command-Line-Tools.html)
-- [ROS 2 tutorials](https://docs.ros.org/en/jazzy/Tutorials.html)
+- [ROS 2 CLI documentation](https://docs.ros.org/en/humble/Concepts/Basic/About-Command-Line-Tools.html)
+- [ROS 2 tutorials](https://docs.ros.org/en/humble/Tutorials.html)
 - [Nav2 documentation](https://docs.nav2.org/)
 - [Glossary](glossary.md) on this site

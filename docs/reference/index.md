@@ -13,12 +13,12 @@ Every command you will actually use, grouped by what you are trying to do —
 plus a diagnostic sequence for when nothing works.
 :::
 
-:::{grid-item-card} Versions and compatibility
+:::{grid-item-card} Supported environment
 :link: compatibility
 :link-type: doc
 
-Which platform runs which Ubuntu, which ROS 2 distribution, and which
-simulator — and where the source material contradicts itself.
+The course's fixed toolchain — Ubuntu 22.04, ROS 2 Humble — and the
+per-track simulator and package versions.
 :::
 
 :::{grid-item-card} Glossary
@@ -48,8 +48,8 @@ licenses of the software the course teaches.
 → QoS mismatch.
 [Module 3](../course/03-sensors-tf.md#common-problems)
 
-**"Which ROS 2 distribution should I install?"**
-→ [Compatibility matrix](compatibility.md)
+**"What exact software versions does this course use?"**
+→ [Supported environment](compatibility.md)
 
 **"What does that acronym mean?"**
 → [Glossary](glossary.md)

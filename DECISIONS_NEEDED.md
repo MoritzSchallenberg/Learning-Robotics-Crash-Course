@@ -68,38 +68,31 @@ the original team.
 
 ---
 
-## 2. Officially supported ROS distribution per team
+## 2. Officially supported ROS distribution per team — RESOLVED
 
-**Current status**: `docs/reference/compatibility.md` documents a real,
-unresolved contradiction — the Carologistics introductory setup guide
-specifies Ubuntu 24.04 with ROS 2 Jazzy, while the `robotino_navigation`
-repository documents and states it was tested on ROS 2 Humble. ALeRT/Spot is
-consistently Humble on Ubuntu 22.04 throughout its source material, with no
-contradiction found there.
+**Status**: resolved by course policy. The course now commits, on every
+public page, to a single fixed toolchain — **Ubuntu 22.04 LTS and ROS 2
+Humble** — documented at `docs/reference/compatibility.md`
+("Supported environment"). This is the environment every module, platform
+page and installation instruction on the site assumes; there is no
+distribution choice presented to participants, and no Jazzy/Humble
+comparison remains on the public site.
 
-**Why a decision is needed**: participants following the Carologistics
-track cannot know which distribution their actual lab robots run without
-being told, and following the wrong one produces failures that look like
-broken code. This can only be resolved by someone checking what is
-currently deployed on the physical robots — not by reading documentation
-further, since the documentation is exactly what disagrees with itself.
+**What this does and does not resolve**: this fixes the course's *teaching*
+baseline, which is what participants install and follow. It does not by
+itself change what any team's actual production robots or workstations run
+day to day — the Carologistics introductory setup guide and the
+`robotino_navigation` repository may still disagree with each other, and a
+production Robotino may still run a different distribution in practice. The
+platform pages now say so explicitly: check a repository's own README before
+building it, and treat the course's Humble baseline as the teaching
+environment, not a claim about a specific production deployment.
 
-**Recommended option**: the Carologistics team lead confirms, in one
-sentence, which distribution is authoritative for the team's current robots
-and workstations, and `docs/reference/compatibility.md` is updated to state
-it as fact rather than an open contradiction.
-
-**Possible alternatives**: (a) standardise the whole team on Jazzy/24.04
-going forward, matching the newer LTS and the setup guide; (b) standardise
-on Humble/22.04, matching what `robotino_navigation` is actually tested
-against today; (c) confirm both are genuinely in concurrent use on
-different machines, and document which machine runs which.
-
-**Impact of not deciding**: this site continues to present the
-contradiction honestly rather than picking a side, which is safe but leaves
-new Carologistics members to discover the correct answer by trial and
-error or by asking in person — exactly the friction this course exists to
-remove.
+**If the underlying production inconsistency should also be resolved**, that
+still requires the Carologistics team lead to confirm which distribution is
+authoritative for the team's current robots and workstations — this is
+recorded here only for completeness; it is no longer blocking the public
+course content.
 
 ---
 

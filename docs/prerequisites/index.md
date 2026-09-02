@@ -1,8 +1,9 @@
 # Prerequisites
 
-Everything in this section should be done **before the first course evening**.
-None of it is difficult, but a fresh Linux install plus ROS 2 can easily eat an
-evening, and that is time we would rather spend on robots.
+Work through this section before starting [module 1](../course/01-system-hardware.md).
+None of it is difficult, but a fresh Linux install plus ROS 2 can easily eat
+several hours, and that is time better spent later on robots than debugging
+an installation mid-module.
 
 ## What you need
 
@@ -13,29 +14,19 @@ evening, and that is time we would rather spend on robots.
 * - Requirement
   - Notes
 * - A 64-bit computer with Linux
-  - Native install strongly preferred. A virtual machine works for the first
-    sessions but struggles with 3D visualization and simulation.
-* - Ubuntu LTS
-  - Which release depends on your team — see
-    [the compatibility matrix](../reference/compatibility.md).
-* - ROS 2
-  - Jazzy Jalisco or Humble Hawksbill, matching your team.
+  - Native install strongly preferred. A virtual machine works for the early
+    modules but struggles with 3D visualization and simulation.
+* - Ubuntu 22.04 LTS
+  - The course's fixed baseline — see
+    [Supported environment](../reference/compatibility.md).
+* - ROS 2 Humble Hawksbill
+  - The only distribution this course uses; see the installation guide below.
 * - Basic Python
   - Variables, functions, classes, imports. Every exercise in this course is
     solvable in Python.
 * - A GitHub account
   - With an SSH key, so you can clone and push team repositories.
 ```
-
-:::{admonition} Which Ubuntu and which ROS 2?
-:class: important
-
-Do not guess. The Carologistics and ALeRT stacks are pinned to *different*
-distributions, and a mismatch produces errors that look like broken code but
-are really a version problem. Check
-[Versions and compatibility](../reference/compatibility.md) first, and ask your
-team which combination is current.
-:::
 
 ## Work through these in order
 
@@ -60,7 +51,8 @@ networking
 
 ## Getting help
 
-If something does not work, that is normal and worth saying out loud. Bring the
-exact error message — not a paraphrase — to the session or your team channel.
-Most installation problems are one of three things: the wrong ROS 2
-distribution, a workspace that was never sourced, or a network setting.
+If something does not work, that is normal. Bring the exact error message —
+not a paraphrase — when you ask your team for help. Most installation
+problems are one of three things: a distribution other than Humble
+installed by mistake, a workspace that was never sourced, or a network
+setting.

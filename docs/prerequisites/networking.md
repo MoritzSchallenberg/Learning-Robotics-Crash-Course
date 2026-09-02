@@ -59,7 +59,7 @@ one at random works until two people pick the same one.
 
 ### Restricting discovery to one interface
 
-{{ carologistics }} {{ jazzy }}
+{{ carologistics }}
 
 If broadcasting across the whole lab network is a problem, the DDS
 implementation can be told which interface to use. The Carologistics setup
@@ -281,6 +281,6 @@ setup, and never commit those details to a public repository.
 
 ## Further reading
 
-- [ROS 2: DDS tuning and networking](https://docs.ros.org/en/jazzy/How-To-Guides/DDS-tuning.html)
-- [ROS 2: About domain IDs](https://docs.ros.org/en/jazzy/Concepts/Intermediate/About-Domain-ID.html)
+- [ROS 2: DDS tuning and networking](https://docs.ros.org/en/humble/How-To-Guides/DDS-tuning.html)
+- [ROS 2: About domain IDs](https://docs.ros.org/en/humble/Concepts/Intermediate/About-Domain-ID.html)
 - [OpenSSH manual](https://www.openssh.com/manual.html)

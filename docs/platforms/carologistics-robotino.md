@@ -21,6 +21,11 @@ public repository.
 
 ## System versions
 
+This track follows the course's [supported
+environment](../reference/compatibility.md): Ubuntu 22.04 LTS and ROS 2
+Humble. Every command on this page and in the course modules assumes that
+baseline.
+
 ```{list-table}
 :header-rows: 1
 :widths: 35 65
@@ -28,9 +33,9 @@ public repository.
 * - Component
   - Version
 * - Developer workstation OS
-  - Ubuntu 24.04 LTS, or Fedora
+  - Ubuntu 22.04 LTS (course baseline)
 * - ROS 2 distribution
-  - Jazzy Jalisco {{ jazzy }}
+  - Humble Hawksbill
 * - Simulator
   - Webots {{ unverified }} — check the repository README
 * - Robot base
@@ -39,13 +44,13 @@ public repository.
   - Ansible
 ```
 
-:::{danger}
-Some Carologistics repositories were written for **ROS 2 Humble** while the
-introductory setup guide specifies **Jazzy**. The `robotino_navigation`
-repository in particular documents Humble. Check the README of each repository
-before assuming a distribution — this is a real inconsistency in the source
-material, not an error on this page. See
-[compatibility](../reference/compatibility.md).
+:::{note}
+The team's own production repositories evolve independently of this course
+and may target a different Ubuntu release or ROS 2 distribution at any given
+time. Check the README of each repository you actually clone before
+assuming it matches the course baseline above — this page teaches the
+course's fixed environment, not necessarily the exact configuration of every
+production system.
 :::
 
 ## The RoboCup Logistics League

@@ -57,7 +57,7 @@ ros2 launch webots_ros2_universal_robot multirobot_launch.py
 ```
 
 Other examples are listed in the
-[webots_ros2 documentation](https://docs.ros.org/en/jazzy/p/webots_ros2/).
+[webots_ros2 documentation](https://docs.ros.org/en/humble/p/webots_ros2/).
 
 ### Team simulations
 
@@ -103,7 +103,7 @@ ros2 param get /my_node use_sim_time
 
 ## Working through the course in simulation
 
-Every session works, with one adjustment: topic names differ between
+Every module works, with one adjustment: topic names differ between
 simulations, so check yours before assuming `/scan` and `/cmd_vel`.
 
 ```{list-table}
@@ -111,7 +111,7 @@ simulations, so check yours before assuming `/scan` and `/cmd_vel`.
 :widths: 8 32 60
 
 * - #
-  - Session
+  - Module
   - In simulation
 * - 1
   - [System hardware](../course/01-system-hardware.md)
@@ -172,26 +172,28 @@ ros2 topic list -t | grep Image
 
 :::{tip}
 Write the names down the first time. Simulated robots frequently namespace
-their topics — `/Spot/odometry` rather than `/odom` — and every subsequent
-session depends on getting them right.
+their topics — `/Spot/odometry` rather than `/odom` — and every later
+module depends on getting them right.
 :::
 
 ## Reproducible tasks without team hardware
 
 If you are not on either team, these are enough to complete the whole course:
 
-**Sessions 1–2**: `turtlesim`. No simulator required.
+**Module 2** (ROS 2 fundamentals): `turtlesim`. No simulator required.
 
 ```bash
 ros2 run turtlesim turtlesim_node
 ```
 
-**Sessions 3–6**: any Webots example with a laser scanner and odometry, or the
-[Nav2 simulation tutorials](https://docs.nav2.org/jazzy/getting_started/),
+**Modules 3, 5 and 6** (sensors/TF, mapping/localization, navigation): any
+Webots example with a laser scanner and odometry, or the
+[Nav2 simulation tutorials](https://docs.nav2.org/humble/getting_started/),
 which ship a complete mapped environment.
 
-**Sessions 4, 7**: print ArUco markers on paper and hold them in front of a
-webcam, or place them in the simulated world.
+**Modules 4 and 7** (perception, and the mission in autonomous decisions):
+print ArUco markers on paper and hold them in front of a webcam, or place
+them in the simulated world.
 
 ## Common mistakes
 
@@ -216,6 +218,6 @@ Expected. Look at noise, timing, and topic names first.
 ## Further reading
 
 - [Webots documentation](https://cyberbotics.com/doc/guide/index)
-- [webots_ros2](https://docs.ros.org/en/jazzy/p/webots_ros2/)
-- [Nav2 getting started](https://docs.nav2.org/jazzy/getting_started/)
+- [webots_ros2](https://docs.ros.org/en/humble/p/webots_ros2/)
+- [Nav2 getting started](https://docs.nav2.org/humble/getting_started/)
 - [Using simulation time in ROS 2](https://design.ros2.org/articles/clock_and_time.html)

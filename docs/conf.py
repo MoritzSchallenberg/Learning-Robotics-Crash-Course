@@ -45,10 +45,13 @@ myst_enable_extensions = [
 myst_heading_anchors = 3
 
 # ---------------------------------------------------------------------------
-# Platform / version badges.
+# Platform badges.
 #
-# Every platform- or distribution-specific instruction on this site must be
-# marked, so that readers never mix up a Humble guide with a Jazzy one.
+# Every platform-specific instruction on this site must be marked, so that
+# readers never run a Robotino command on Spot or vice versa. The whole
+# course is fixed to ROS 2 Humble (see docs/reference/compatibility.md), so
+# there is deliberately no distribution badge -- Humble is the implicit
+# baseline for every command on the site.
 # Authors write e.g. `{{ carologistics }}` in Markdown; the substitution below
 # expands to a styled badge (see _static/css/custom.css).
 # ---------------------------------------------------------------------------
@@ -67,14 +70,12 @@ myst_substitutions = {
     "simulation": _badge("simulation", "SIMULATION"),
     "carologistics": _badge("carologistics", "CAROLOGISTICS"),
     "alert": _badge("alert", "ALERT"),
-    "jazzy": _badge("jazzy", "ROS 2 JAZZY"),
-    "humble": _badge("humble", "ROS 2 HUMBLE"),
     "unverified": _badge("unverified", "UNVERIFIED"),
     # ---------------------------------------------------------------------
-    # Content-level badges (Entwicklungsauftrag 2). Mark every heading or
-    # task with exactly one of these so a reader -- or a facilitator running
-    # short on time -- can tell at a glance what must happen in the 85
-    # minutes and what can wait.
+    # Content-level badges. Mark every heading or task with exactly one of
+    # these so a self-directed reader can tell at a glance what is core to
+    # the module, what is worth doing with extra time, and what is a later,
+    # optional deep dive.
     # ---------------------------------------------------------------------
     "core": _level("core", "CORE"),
     "optional": _level("optional", "OPTIONAL"),

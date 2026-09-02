@@ -3,12 +3,10 @@
 A hands-on introduction to autonomous mobile robotics for the teams and
 research groups of the **MASKOR Institute at FH Aachen**.
 
-The course brings together material that used to live in three separate
-places — the ROS Summer School, the ALeRT/Spot practical course and the
-Carologistics team wiki — into one path that every team can follow. Eight
-modules build up from the anatomy of a robot to a fully autonomous mission,
-and a closing capstone project puts everything together on a real or
-simulated robot.
+Eight modules build up from the anatomy of a robot to a fully autonomous
+mission — sensing, transforms, perception, mapping and localization,
+navigation, and high-level decision making — and a closing capstone project
+puts everything together on a real or simulated robot.
 
 <a class="lrcc-cta" href="course/index.html">Start the Course →</a>
 
@@ -127,15 +125,12 @@ The **platform pages** carry only what is specific to one system — Robotino
 commands, Spot startup, simulation launch files — and link back to the
 shared explanation instead of repeating it.
 
-Commands that only apply to one system or one ROS 2 distribution carry a
-badge:
+Commands that only apply to one system carry a badge:
 
 {{ common }} works everywhere &nbsp;
 {{ simulation }} simulation only &nbsp;
 {{ carologistics }} Carologistics/Robotino &nbsp;
-{{ alert }} ALeRT/Spot &nbsp;
-{{ jazzy }} ROS 2 Jazzy &nbsp;
-{{ humble }} ROS 2 Humble
+{{ alert }} ALeRT/Spot
 
 Content within a module is also marked by how essential it is to that
 module's core learning objective:
@@ -146,12 +141,10 @@ module's core learning objective:
 reading &nbsp;
 {{ platformspecific }} Robotino, Spot or simulation only
 
-:::{warning}
-The three source courses were written for **different** operating systems
-and ROS 2 distributions. Never mix a Humble guide with a Jazzy setup without
-checking. The [compatibility matrix](reference/compatibility.md) lists which
-combination each instruction was written for.
-:::
+The whole course runs on one fixed toolchain — Ubuntu 22.04 LTS and ROS 2
+Humble — so no command needs its own distribution badge. See
+[Supported environment](reference/compatibility.md) for the exact versions
+and how to check them on your own machine.
 
 ```{toctree}
 :hidden:
