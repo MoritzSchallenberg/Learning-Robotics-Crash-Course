@@ -767,6 +767,11 @@ footer span {
 .lrcc-level--advanced { background: #7a4bb5; }
 .lrcc-level--platform { background: #c1512e; }
 
+/* "Try it on Spot" safety levels. */
+.lrcc-level--spot-sim { background: #246293; }
+.lrcc-level--spot-readonly { background: #8a5a12; }
+.lrcc-level--spot-supervised { background: #a3272c; }
+
 /* --------------------------------------------------------------------------
    14. Responsive behaviour
    -------------------------------------------------------------------------- */

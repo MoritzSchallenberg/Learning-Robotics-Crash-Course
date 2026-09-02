@@ -81,6 +81,15 @@ myst_substitutions = {
     "optional": _level("optional", "OPTIONAL"),
     "advanced": _level("advanced", "ADVANCED"),
     "platformspecific": _level("platform", "PLATFORM-SPECIFIC"),
+    # ---------------------------------------------------------------------
+    # "Try it on Spot" safety-level badges (Entwicklungsauftrag 5). Every
+    # Spot exercise scattered across the modules is marked with exactly one
+    # of these three, so a reader can tell at a glance whether it is safe
+    # to try alone.
+    # ---------------------------------------------------------------------
+    "spotsim": _level("spot-sim", "SIMULATION EXERCISE"),
+    "spotreadonly": _level("spot-readonly", "READ-ONLY ON PHYSICAL SPOT"),
+    "spotsupervised": _level("spot-supervised", "SUPERVISED PHYSICAL EXERCISE"),
 }
 
 # -- Options for HTML output -------------------------------------------------
