@@ -20,6 +20,34 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  examples:
+    name: Build and test the example ROS 2 packages
+    # Independent of the Sphinx build/deploy below: this never blocks or
+    # delays publishing the site, it only checks that the example package(s)
+    # referenced from the course pages actually build under ROS 2 Humble.
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Set up ROS 2 Humble
+        uses: ros-tooling/setup-ros@v0.7
+        with:
+          required-ros-distributions: humble
+
+      - name: Build and test turtle_course (module 2)
+        uses: ros-tooling/action-ros-ci@v0.4
+        with:
+          package-name: turtle_course
+          target-ros2-distro: humble
+          # The package lives under examples/, not the repository root --
+          # colcon needs to be told where to find it.
+          colcon-defaults: |
+            {
+              "build": { "base-paths": ["examples/module02_turtlesim/turtle_course"] },
+              "test": { "base-paths": ["examples/module02_turtlesim/turtle_course"] }
+            }
+
   build:
     name: Build the Sphinx site
     runs-on: ubuntu-latest
