@@ -226,6 +226,44 @@ for their actual inventory and playbook structure. This is one example of a
 deployment tool, not something every team needs to adopt.
 :::
 
+## Try it on Spot
+
+{{ alert }} {{ spotsim }}
+
+Run this module's eight-step diagnostic procedure against the full Webots
+Spot stack instead of a small `robot_bringup` launch file — a genuinely
+bigger system is exactly where a systematic procedure earns its keep over
+guessing:
+
+1. Bring up drivers, SLAM or navigation, and any perception node you have
+   working, in the order this module's core concepts describe (drivers
+   and TF first, localization next, navigation last).
+2. Confirm node, topic and TF state with the same commands as this
+   module's practical task (`ros2 node list`, `ros2 topic hz` on at least
+   the LiDAR and odometry topics, `ros2 run tf2_tools view_frames`).
+3. Record a rosbag of the whole system running normally for about a
+   minute: `ros2 bag record /scan /Spot/odometry /tf /tf_static -o
+   spot_baseline`.
+4. Pick one fault from this module's own [fault
+   table](#guided-example) and apply it to a **copy** of Spot's launch
+   configuration.
+5. Work the eight-step procedure, in order, without changing anything
+   yet, and note the step where the fault first became visible.
+6. Fix it, confirm the symptom is gone, and record a second, fixed-state
+   rosbag.
+
+**Verification**: identical to this module's own — the fault is found and
+named by diagnostic step number, and both rosbags (baseline and
+post-fault, or fixed) exist and replay correctly.
+
+:::{note}
+{{ spotreadonly }} This exercise is read-only with respect to the
+*physical* robot's actuators — inspecting a running system's diagnostics
+does not require moving anything. If your "system" for this exercise
+includes real Spot hardware rather than only Webots, keep it stationary
+(standing or sitting, not navigating) for the duration of this exercise.
+:::
+
 ## Continue learning
 
 :::{dropdown} Logging levels and where they belong — Next step
@@ -413,6 +451,40 @@ non-enrolled node's communication was actually blocked.
 
 **Read more.** [ROS 2:
 SROS2](https://docs.ros.org/en/humble/Tutorials/Advanced/Security/Introducing-ros2-security.html)
+:::
+
+## Interesting videos
+
+{{ optional }}
+
+::::{grid} 1 1 1 1
+:gutter: 2
+
+:::{grid-item-card} ROS2 - Create and Replay a ROS2 Bag
+:link: https://www.youtube.com/watch?v=a-O1qM9_S7k
+
+**Robotics Back-End · English · ~10 min**
+
+Covers: recording and replaying a rosbag, step by step — the same
+`ros2 bag record` / `ros2 bag play` pattern this module's core concepts
+and practical task use throughout.
+
+*Why watch it*: a second, independently-explained pass through exactly
+this module's rosbag workflow, useful if recording `/tf` and
+`/tf_static` alongside your data still feels like an arbitrary rule
+rather than something you understand.
+
+*Compatibility*: conceptual and applicable to ROS 2 Humble — `ros2 bag`
+syntax is stable across recent distributions.
+:::
+
+::::
+
+:::{note}
+This is deliberately one carefully checked video rather than a longer,
+unverified list. If this link is ever dead or the content has moved, that
+is a documentation bug worth reporting — see the [repository
+README](https://github.com/MoritzSchallenberg/Learning-Robotics-Crash-Course).
 :::
 
 ## Readiness checklist

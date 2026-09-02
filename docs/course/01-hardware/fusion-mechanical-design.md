@@ -351,6 +351,42 @@ outline](https://docs.kicad.org/9.0/en/pcbnew/pcbnew.html) ·
 files](https://help.autodesk.com/view/fusion360/ENU/)
 :::
 
+## Interesting videos
+
+{{ optional }}
+
+::::{grid} 1 1 1 1
+:gutter: 2
+
+:::{grid-item-card} Autodesk Fusion Tutorial for Beginners — Parametric Design Made Easy
+:link: https://www.youtube.com/watch?v=O6SYNO6U2M0
+
+**True Techy · English · ~3.5 min**
+
+Covers: a short, focused introduction to parametric design in Fusion —
+naming a dimension and changing it later, the same core idea this page's
+practical task's `hole_spacing` parameter demonstrates.
+
+*Why watch it*: short enough to watch before starting this page's
+practical task, as a preview of what "fully defined" and "parametric"
+actually look like on screen before you build them yourself.
+
+*Compatibility*: conceptual — Fusion's UI changes between releases more
+than KiCad's does; treat menu names as approximate and check
+[Autodesk's own Fusion
+documentation](https://help.autodesk.com/view/fusion360/ENU/) for your
+installed version if something does not match.
+:::
+
+::::
+
+:::{note}
+This is deliberately one carefully checked video rather than a longer,
+unverified list. If this link is ever dead or the content has moved, that
+is a documentation bug worth reporting — see the [repository
+README](https://github.com/MoritzSchallenberg/Learning-Robotics-Crash-Course).
+:::
+
 ## Connection to the next module
 
 This page and the [KiCad tutorial](kicad-schematic.md) are the two concrete

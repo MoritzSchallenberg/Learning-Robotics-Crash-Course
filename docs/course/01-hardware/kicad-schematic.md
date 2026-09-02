@@ -397,6 +397,42 @@ change rather than an opaque binary diff.
 control](https://docs.kicad.org/9.0/en/getting_started_in_kicad/getting_started_in_kicad.html)
 :::
 
+## Interesting videos
+
+{{ optional }}
+
+::::{grid} 1 1 1 1
+:gutter: 2
+
+:::{grid-item-card} KiCad for Beginners — Step by Step Tutorial to get started (2025)
+:link: https://www.youtube.com/watch?v=d9_-lQq8ShE
+
+**DIY Hideout · English · ~24 min**
+
+Covers: a from-scratch walkthrough of creating a KiCad project, placing
+symbols, wiring, and the schematic-editor basics this page's guided
+example also covers.
+
+*Why watch it*: a second, video walkthrough of the same beginner ground
+— useful if a particular step (placing a symbol, drawing a wire,
+annotating) went by too fast in text form above.
+
+*Compatibility*: conceptual — KiCad's schematic editor UI is broadly
+stable across recent major versions, but menu locations can shift between
+releases; if a menu path does not match what you see, check the
+[current KiCad documentation](https://docs.kicad.org/) for your installed
+version.
+:::
+
+::::
+
+:::{note}
+This is deliberately one carefully checked video rather than a longer,
+unverified list. If this link is ever dead or the content has moved, that
+is a documentation bug worth reporting — see the [repository
+README](https://github.com/MoritzSchallenberg/Learning-Robotics-Crash-Course).
+:::
+
 ## Connection to the next module
 
 This schematic is the electrical ground truth behind the block diagram from

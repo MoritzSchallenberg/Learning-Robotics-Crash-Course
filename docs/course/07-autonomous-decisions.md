@@ -134,10 +134,14 @@ Implement a mission — *navigate to a point, look for a marker, report* —
 that visibly recovers instead of hanging when the marker is not found.
 
 ### Starting point
-A `mission_demo` package with the navigation action client from
-[module 6](06-navigation.md#advanced-topics) and the marker detector from
-[module 4](04-perception/index.md) already available as importable helper
-classes — you write the state machine, not the underlying clients.
+A new package (call it `mission_demo`, or reuse an existing one from
+earlier modules) into which you copy two pieces of code you already have
+working: the navigation action client from
+[module 6](06-navigation.md#advanced-topics), and the marker-detection
+pattern from [module 4](04-perception/index.md). Wrap each as a small
+helper class or function your state machine can call — you are writing
+the state machine itself in this task, not the underlying clients, so
+reuse rather than rewrite them.
 
 ### Steps
 1. On paper, draw states: `IDLE → NAVIGATE → SEARCH → RETURN → DONE`, plus a
@@ -194,6 +198,15 @@ position, before giving up — the smallest possible recovery behaviour.
 {{ simulation }} Failing "on purpose" is easier in simulation — remove the
 marker from the scene, or block the path with a dragged object, exactly as
 in [module 6](06-navigation.md#optional-extensions).
+
+**Sketch the same mission as a behavior tree.** On paper, redraw your
+practical task's `IDLE → NAVIGATE → SEARCH → RETURN → DONE` state machine
+using this module's own Sequence and Fallback nodes instead of states and
+transitions — one Sequence for the happy path, one Fallback wrapping the
+whole thing with a recovery branch for `SEARCH`'s timeout. Compare the two
+drawings side by side: which one made the failure-handling structure
+clearer to draw, and which would be easier to extend with a sixth step
+next month?
 
 ## Advanced topics
 
@@ -288,6 +301,63 @@ states with their own failure exits (a `None` inverse-kinematics result is
 [ALeRT/Spot platform page](../platforms/alert-spot.md#manipulation-with-moveit).
 {{ carologistics }} Robotino's simpler custom gripper is covered on the
 [Carologistics platform page](../platforms/carologistics-robotino.md#gripper).
+:::
+
+## Try it on Spot
+
+{{ alert }} {{ spotsim }}
+
+Spot exposes its postures as **services** rather than topics or
+actions — a natural fit, since standing up either succeeds or does not,
+with no meaningful "progress" to report partway through:
+
+```bash
+ros2 service call /Spot/stand_up webots_spot_msgs/srv/SpotMotion
+ros2 service call /Spot/sit_down webots_spot_msgs/srv/SpotMotion
+ros2 service call /Spot/lie_down webots_spot_msgs/srv/SpotMotion
+```
+
+**Task**: build a state machine, exactly this module's core pattern,
+for a small mission:
+
+```text
+stand → navigate → detect → return → sit
+```
+
+- `stand`: call `/Spot/stand_up`, wait for the response.
+- `navigate`: reuse [module 6's](06-navigation.md#advanced-topics) action
+  client to send a `NavigateToPose` goal.
+- `detect`: reuse [module 4's](04-perception/index.md) marker detection,
+  with a timeout — no marker found in N seconds is a **named** failure
+  exit, not a hang.
+- `return`: navigate back to the start pose.
+- `sit`: call `/Spot/sit_down`.
+
+Log every state transition (state, timestamp, why) — the same discipline
+this module's own practical task and the [capstone
+project's](hackathon.md#continue-learning) failure-mode planning both
+depend on. Add at least one explicit timeout and one explicit failure
+transition, not only the happy path.
+
+:::{admonition} Optional: manipulation
+:class: task
+
+{{ advanced }} Add a sixth state that plans a MoveIt trajectory for
+Spot's arm ([platform page](../platforms/alert-spot.md#manipulation-with-moveit))
+once `detect` succeeds — with its own timeout, since "planning failed" is
+a normal MoveIt outcome, not a crash (see [this module's Planning scene
+dropdown](#planning-scene-and-collision-objects)).
+:::
+
+:::{danger}
+{{ spotsupervised }} An automatic movement sequence on the **physical**
+Spot — stand, walk, sit, with no human confirming each step — is a
+supervised-only exercise, never something to run unattended as a first
+attempt. Simulate the entire sequence in Webots until every state and
+every failure exit has actually been exercised, before ever considering
+it on real hardware, and then only with a trained team member present who
+can reach the E-stop. See the [platform page's operating
+sequence](../platforms/alert-spot.md#operating-the-physical-robot).
 :::
 
 ## Continue learning
@@ -492,6 +562,42 @@ by hand to confirm.
 is an active area with no single standard package this course pins;
 search current literature on "multi-robot task allocation ROS 2" when you
 reach this point.
+:::
+
+## Interesting videos
+
+{{ optional }}
+
+::::{grid} 1 1 1 1
+:gutter: 2
+
+:::{grid-item-card} Behavior Trees for ROS2
+:link: https://www.youtube.com/watch?v=KO4S0Lsba6I
+
+**The Construct Robotics Institute · ROS2 Developers Open Class #162 · English · ~68 min**
+
+Covers: behavior trees as a decision-making tool for ROS 2 — Sequence,
+Fallback, and how they compare to the state machine this module teaches
+as its core pattern.
+
+*Why watch it*: a much longer, hands-on look at exactly the "Behavior
+trees, in contrast" comparison this module's core concepts introduce
+briefly — useful once the state-machine practical task feels comfortable
+and you want to see the alternative built out properly.
+
+*Compatibility*: conceptual and applicable to ROS 2 Humble — behavior
+trees themselves are not distribution-specific, though check any specific
+package name shown against [Nav2's own behavior tree
+documentation](https://docs.nav2.org/humble/configuration_and_development/configuration_guide/core_servers/bt_plugins/).
+:::
+
+::::
+
+:::{note}
+This is deliberately one carefully checked video rather than a longer,
+unverified list. If this link is ever dead or the content has moved, that
+is a documentation bug worth reporting — see the [repository
+README](https://github.com/MoritzSchallenberg/Learning-Robotics-Crash-Course).
 :::
 
 ## Connection to the next module

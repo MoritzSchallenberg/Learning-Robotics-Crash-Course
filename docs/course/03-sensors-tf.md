@@ -223,6 +223,45 @@ every cycle as the robot moves; module 5 is where you first publish one for
 real.
 :::
 
+## Try it on Spot
+
+{{ alert }} {{ spotsim }}
+
+Build the RViz setup from the [platform
+page](../platforms/alert-spot.md#rviz-setup) yourself, using this
+module's own diagnosis procedure rather than the platform page's
+already-finished list:
+
+1. Set **Fixed Frame** to `base_footprint` and add a `TF` display —
+   confirm the tree is connected with `ros2 run tf2_tools view_frames`,
+   exactly as in this module's guided example.
+2. Add `RobotModel` (topic `/robot_description`) — this is the mechanical
+   equivalent of the block diagram from
+   [module 1](01-system-hardware.md#practical-task), now rendered from a
+   real URDF instead of drawn by hand.
+3. Add `PointCloud2` on the 3D LiDAR topic, `Odometry`, and `LaserScan` on
+   `/scan` — and apply this module's own QoS lesson **before** being told
+   the answer: if `/scan` shows nothing, check reliability first, not the
+   transform tree.
+4. Add `Image` on the gripper camera topic.
+5. Measure each sensor's actual publish rate with `ros2 topic hz`, and
+   record a short rosbag of all of them together:
+   `ros2 bag record /scan /Spot/odometry -o spot_sensors`.
+
+:::{admonition} Task: diagnose it yourself
+:class: task
+
+Before reading the platform page's finished RViz setup, remove **one**
+display you just added (or leave one on the wrong QoS setting) and run
+this module's own [four-step "nothing shows up"
+procedure](#guided-example) against it. Did it find the fault at the step
+you expected?
+:::
+
+**Verification**: every display shows real data, and you can state, from
+memory, which QoS setting `/scan` needs and why (Spot's LiDAR-derived scan
+publishes Best Effort, same as most real sensor drivers).
+
 ## Continue learning
 
 :::{dropdown} URDF, Xacro and robot_state_publisher — Next step
@@ -425,6 +464,38 @@ correctly.
 **Read more.** [PointCloud2
 message](https://docs.ros.org/en/humble/p/sensor_msgs/) ·
 [sensor_msgs_py.point_cloud2](https://github.com/ros2/common_interfaces/blob/humble/sensor_msgs_py/sensor_msgs_py/point_cloud2.py)
+:::
+
+## Interesting videos
+
+{{ optional }}
+
+::::{grid} 1 1 1 1
+:gutter: 2
+
+:::{grid-item-card} ROS2 - Visualize TFs for a Robot with RViz and tf2_tools
+:link: https://www.youtube.com/watch?v=NuhSdA1G4pM
+
+**Robotics Back-End · English · ~8 min**
+
+Covers: viewing a robot's TF tree in RViz, and generating the same
+`frames.pdf` overview this module's own diagnosis procedure uses.
+
+*Why watch it*: a second, independently-explained pass through exactly
+the `view_frames` diagnosis step this module's guided example builds its
+whole "why is nothing showing" procedure around.
+
+*Compatibility*: conceptual and applicable to ROS 2 Humble — the CLI
+tools and TF concepts shown are stable across ROS 2 distributions.
+:::
+
+::::
+
+:::{note}
+This is deliberately one carefully checked video rather than a longer,
+unverified list. If this link is ever dead or the content has moved, that
+is a documentation bug worth reporting — see the [repository
+README](https://github.com/MoritzSchallenberg/Learning-Robotics-Crash-Course).
 :::
 
 ## Connection to the next module

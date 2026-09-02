@@ -187,20 +187,35 @@ Detect an ArUco marker in a live camera stream, draw a box around it, and
 publish the detected marker ID on a ROS 2 topic.
 
 ### Starting point
-A workspace with a `perception_demo` package containing a node template
-`aruco_node.py` with the subscriber and publisher already wired, and
-`# TODO` comments marking exactly where detection code goes — and a
-running, calibrated camera topic.
+A new package (call it `perception_demo`) with an empty node file
+`aruco_node.py`, and a running, calibrated camera topic — either your
+platform's real driver, or [Webots'](../../platforms/simulation.md)
+simulated camera. This module's Guided example above already gave you
+every piece of code the node needs (`cv_bridge` conversion, the ArUco
+detector, `generateImageMarker`); this task is wiring them together into
+one subscriber-callback node, not a fill-in-the-blank template.
 
 ### Steps
-1. `ros2 launch perception_demo camera.launch.yaml`
-2. Confirm the image: add an `Image` display in RViz on `/camera/image_raw`.
-3. Open `aruco_node.py`; fill in the two `# TODO` blocks: create the
-   detector, call `detectMarkers`.
-4. Build: `colcon build --packages-select perception_demo`.
-5. Run: `ros2 run perception_demo aruco_node`.
-6. Hold a printed marker in front of the camera.
-7. Confirm in a second terminal: `ros2 topic echo /detected_marker_id`.
+1. Create the package: `ros2 pkg create --build-type ament_python
+   perception_demo`, add `rclpy`, `sensor_msgs`, `std_msgs` and
+   `cv_bridge` as `exec_depend` entries in `package.xml`.
+2. In `aruco_node.py`, subscribe to your camera's image topic (confirm
+   the exact name with `ros2 topic list` first — do not assume
+   `/camera/image_raw`), convert each frame with `cv_bridge`, and run the
+   `detectMarkers` call from the Guided example inside the callback.
+3. Add a publisher for `/detected_marker_id`
+   (`std_msgs/msg/Int32`, or a custom type from
+   [module 2's Continue learning](../02-ros2.md#continue-learning) if
+   you want to publish more than an ID) and publish whenever a marker is
+   found.
+4. Register the node as a console script in `setup.py`, then build:
+   `colcon build --packages-select perception_demo`.
+5. Run it: `ros2 run perception_demo aruco_node`.
+6. Confirm the image is actually arriving first — add an `Image` display
+   in RViz on your camera's real topic name, or `ros2 topic hz` it.
+7. Hold a printed marker (from the Guided example) in front of the
+   camera.
+8. Confirm in a second terminal: `ros2 topic echo /detected_marker_id`.
 
 ## Expected result
 
@@ -247,6 +262,56 @@ No camera available at all? Use a static test image saved as a file and
 read it with `cv2.imread()` instead of subscribing to a topic —
 everything downstream of `detectMarkers` is unchanged. A photo of your
 printed marker from the guided example works as this test image.
+
+**Test under changed lighting.** Dim the room, or point a lamp directly
+at the marker to create glare, and re-run your practical task's node
+without changing any code. Record at what point detection starts missing
+frames it caught easily before — a concrete first data point for
+[this module's occlusion-handling
+topic](#handling-occlusion) in Continue learning, since inconsistent
+lighting produces the same kind of intermittent "sometimes not detected"
+symptom as physical occlusion does.
+
+## Try it on Spot
+
+{{ alert }} {{ spotsim }}
+
+The [platform page](../../platforms/alert-spot.md#image-processing)
+already names the two ALeRT tutorial exercises this module's techniques
+map onto; do them yourself here, against Webots Spot:
+
+1. Subscribe to the gripper camera
+   (`/SpotArm/gripper_camera/image_color`) and confirm it with an `Image`
+   display in RViz before writing any code — the same "check the data
+   exists first" habit from this module's own Common problems section.
+2. Run this module's ArUco detector against that subscription instead of
+   a generic webcam topic. The simulation uses the same `DICT_6X6_50`
+   dictionary as this module's guided example, so no code changes to the
+   detector itself should be needed — only the topic name.
+3. Publish the detected marker ID, exactly as in this module's practical
+   task.
+4. **Optional**: also publish the marker's pose as a TF frame (this
+   module's [Optional
+   extensions](index.md#optional-extensions)), using the gripper camera's
+   real calibration rather than an assumed one.
+5. **Optional**: detect the red line on the floor with an HSV threshold
+   ([platform page's line-following
+   exercise](../../platforms/alert-spot.md#line-following)) and publish
+   the thresholded mask as a debug `Image` topic — a visible way to check
+   your HSV range is actually right, rather than guessing from numbers
+   alone.
+
+:::{warning}
+Turning a detection into a **movement command** (driving toward a
+detected marker or line) is a simulation-only exercise. Do not send
+`cmd_vel` commands derived from live image processing on a physical
+Spot outside a supervised exercise — see
+[module 7](../07-autonomous-decisions.md#try-it-on-spot).
+:::
+
+**Verification**: `ros2 topic echo /detected_marker_id` reports a value
+only while a marker is actually visible in the gripper camera's real
+field of view, not the field of view you assumed it had.
 
 ## Continue learning
 
@@ -308,6 +373,7 @@ as you cover one of the three markers.
 detection](https://docs.opencv.org/4.x/db/da9/tutorial_aruco_board_detection.html)
 :::
 
+(handling-occlusion)=
 :::{dropdown} Handling occlusion — Intermediate
 :icon: light-bulb
 
@@ -477,6 +543,43 @@ LiDAR's beam missing the marker entirely).
 **Read more.** [Module 6: costmaps built from multiple
 sensors](../06-navigation.md#core-concepts) is the same principle applied
 at the navigation layer.
+:::
+
+## Interesting videos
+
+{{ optional }}
+
+::::{grid} 1 1 1 1
+:gutter: 2
+
+:::{grid-item-card} Generate ArUco Markers for Detection and Pose Estimation with OpenCV in Python
+:link: https://www.youtube.com/watch?v=sg1bVJBjbng
+
+**Nicolai Nielsen · English · ~8 min**
+
+Covers: generating ArUco markers with OpenCV and detecting them with pose
+estimation — the same `cv2.aruco` API this module's guided example and
+practical task use directly.
+
+*Why watch it*: a second walkthrough of the exact `generateImageMarker`
+and `detectMarkers` calls this module has you run, including the pose
+estimation step this module's Optional extensions point toward.
+
+*Compatibility*: conceptual and applicable to the OpenCV version this
+course uses — verify the exact `cv2.aruco` function names against
+[OpenCV's own ArUco
+documentation](https://docs.opencv.org/4.x/d5/dae/tutorial_aruco_detection.html)
+if a name in the video looks unfamiliar, since the ArUco API has changed
+across OpenCV versions.
+:::
+
+::::
+
+:::{note}
+This is deliberately one carefully checked video rather than a longer,
+unverified list. If this link is ever dead or the content has moved, that
+is a documentation bug worth reporting — see the [repository
+README](https://github.com/MoritzSchallenberg/Learning-Robotics-Crash-Course).
 :::
 
 ## Connection to the next module

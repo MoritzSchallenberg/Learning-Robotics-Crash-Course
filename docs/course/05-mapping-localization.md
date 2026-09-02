@@ -94,9 +94,16 @@ Produce a map of a small area, then localize the robot on it and confirm
 the estimated position matches reality.
 
 ### Starting point
-A `robot_bringup` + `my_robot_slam` workspace with SLAM Toolbox and AMCL
-already configured, built following the
-[installation guide](../prerequisites/installation.md).
+Your own bringup and SLAM/localization configuration — SLAM Toolbox and
+AMCL installed and launchable, with the sensor and TF setup from
+[module 3](03-sensors-tf.md) already working. `robot_bringup` and
+`my_robot_slam` below are placeholder package names for whatever your own
+workspace or platform track actually calls them (see your [platform
+page](../platforms/index.md)); configuring SLAM Toolbox and AMCL from
+scratch is its own task, not part of this module's core — see
+[SLAM Toolbox's own getting-started
+docs](https://github.com/SteveMacenski/slam_toolbox#getting-started) if
+you need to set that configuration up first.
 
 ### Steps
 1. `ros2 launch robot_bringup robot.launch.yaml`
@@ -197,6 +204,43 @@ documentation rather than following a recipe here, and treat any specific
 command you find elsewhere as needing a check against the current
 repository state.
 :::
+
+## Try it on Spot
+
+{{ alert }} {{ spotsim }}
+
+```bash
+ros2 launch webots_spot slam_launch.py
+```
+
+1. Drive Spot through the arena slowly and deliberately — the same
+   "slowly, and close loops" discipline as this module's guided example,
+   now on legs instead of wheels, using
+   `ros2 run teleop_twist_keyboard teleop_twist_keyboard`.
+2. Watch the map form in RViz. Identify at least one gap or smeared area,
+   and explain why it happened (moved too fast through that area, or
+   never actually looked at it).
+3. Save the map: `ros2 run nav2_map_server map_saver_cli -f ~/spot_map`.
+4. Stop SLAM, load the saved map for localization instead
+   (`ros2 launch webots_spot nav_launch.py` uses a saved map — see the
+   [platform page's note on where the map file needs to
+   live](../platforms/alert-spot.md#mapping-and-navigation)), set an
+   initial pose, and confirm the particle cloud converges as it did in
+   this module's practical task.
+
+:::{danger}
+{{ spotsupervised }} On the **physical** Spot, mapping and localization
+are supervised-only exercises: an unmapped or partially mapped
+environment, on legs, in an area not already cleared and approved by a
+trained team member, is a real collision and fall risk that the
+simulation's "just restart it" safety net does not have. Do not attempt
+this on real hardware without direct supervision — see the [platform
+page's operating
+sequence](../platforms/alert-spot.md#operating-the-physical-robot).
+:::
+
+**Verification**: same as this module's own — the live scan sits on the
+mapped walls once localized, and stays there as Spot moves.
 
 ## Continue learning
 
@@ -368,6 +412,42 @@ the newly extended area, correctly aligned with each other.
 
 **Read more.** [SLAM Toolbox: continuing a
 map](https://github.com/SteveMacenski/slam_toolbox#continuing-a-map)
+:::
+
+## Interesting videos
+
+{{ optional }}
+
+::::{grid} 1 1 1 1
+:gutter: 2
+
+:::{grid-item-card} RDP 056: ROS SLAM Toolbox by Steve Macenski
+:link: https://www.youtube.com/watch?v=OdawgiWBsvQ
+
+**The Construct Robotics Institute · English · ~38 min**
+
+Covers: an interview with SLAM Toolbox's author on why it was built, how
+it handles loop closure and lifelong mapping, and what makes it different
+from older 2D SLAM approaches.
+
+*Why watch it*: this module teaches SLAM Toolbox as a tool to operate;
+this is the reasoning from the person who built it, including the
+lifelong-mapping ideas behind
+[this module's own multi-session mapping
+topic](#continue-learning).
+
+*Compatibility*: conceptual — an interview/podcast format, not a
+command-by-command tutorial, so there is nothing here to check against
+a specific ROS 2 distribution.
+:::
+
+::::
+
+:::{note}
+This is deliberately one carefully checked video rather than a longer,
+unverified list. If this link is ever dead or the content has moved, that
+is a documentation bug worth reporting — see the [repository
+README](https://github.com/MoritzSchallenberg/Learning-Robotics-Crash-Course).
 :::
 
 ## Connection to the next module

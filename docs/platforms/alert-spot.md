@@ -468,6 +468,63 @@ before touching the robot.
   - MoveIt 2 with the Spot arm
 ```
 
+## Try it on Spot: where each exercise lives
+
+Every course module carries its own **Try it on Spot** section, applying
+that module's exercise directly to this platform rather than only to a
+generic robot. This table is an index into them — the exercises
+themselves are not repeated here.
+
+```{list-table}
+:header-rows: 1
+:widths: 8 30 30 32
+
+* - Module
+  - Spot exercise
+  - Environment
+  - Safety level
+* - 1
+  - [Identify sensors, compute, actuators and the safety chain](../course/01-system-hardware.md#try-it-on-spot)
+  - Real Spot (inspection only) or the diagram above
+  - {{ spotreadonly }}
+* - 2
+  - [Inspect the Webots Spot node/topic graph](../course/02-ros2.md#try-it-on-spot)
+  - Simulation
+  - {{ spotsim }}
+* - 3
+  - [Build the RViz setup yourself, then diagnose a fault in it](../course/03-sensors-tf.md#try-it-on-spot)
+  - Simulation (or read-only on real Spot)
+  - {{ spotsim }} / {{ spotreadonly }}
+* - 4
+  - [ArUco detection and line following on the gripper camera](../course/04-perception/index.md#try-it-on-spot)
+  - Simulation
+  - {{ spotsim }}
+* - 5
+  - [SLAM, map saving and localization](../course/05-mapping-localization.md#try-it-on-spot)
+  - Simulation; real Spot supervised only
+  - {{ spotsim }} / {{ spotsupervised }}
+* - 6
+  - [Nav2 goals, recovery behaviour and a before/after comparison](../course/06-navigation.md#try-it-on-spot)
+  - Simulation
+  - {{ spotsim }}
+* - 7
+  - [A stand → navigate → detect → return → sit mission state machine](../course/07-autonomous-decisions.md#try-it-on-spot)
+  - Simulation; real Spot supervised only
+  - {{ spotsim }} / {{ spotsupervised }}
+* - 8
+  - [Full-system diagnostics and a fault-injection exercise](../course/08-integration.md#try-it-on-spot)
+  - Simulation (or read-only on real Spot)
+  - {{ spotsim }} / {{ spotreadonly }}
+```
+
+:::{note}
+**Simulation exercise** — free to run in Webots on your own. **Read-only
+on physical Spot** — inspection or observation only, no movement, no
+actuator freed. **Supervised physical exercise** — real Spot movement,
+only with a trained team member present; see [Operating the physical
+robot](#operating-the-physical-robot).
+:::
+
 ## Further reading
 
 - [webots_ros2_spot](https://github.com/MASKOR/webots_ros2_spot) — the

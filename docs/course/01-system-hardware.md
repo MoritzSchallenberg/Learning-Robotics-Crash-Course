@@ -276,6 +276,42 @@ so Spot has legs and 3D perception. Neither is "better"; both are answers to
 different competition questions.
 :::
 
+## Try it on Spot
+
+{{ alert }} {{ spotreadonly }}
+
+Apply this module's practical task to a real quadruped instead of a
+diagram — either the physical Spot, or the
+[platform page's](../platforms/alert-spot.md) description of it if you
+have no access.
+
+- Point to Spot's sensors and name each: the gripper camera
+  (`/SpotArm/gripper_camera/image_color`), the 3D LiDAR (published as
+  `/Spot/Velodyne_Puck/point_cloud`), and the leg/joint encoders that feed
+  odometry (`/Spot/odometry`).
+- Point to the onboard compute and the network link it uses to reach your
+  workstation — the same "wireless is the weakest link" point this
+  module's core concepts made generally.
+- Point to the joint actuators (the leg motors) as this module's
+  "actuator" stage, and Spot's arm as a second, separate actuator group.
+- Find the physical E-stop. **Do not press it** unless something is
+  genuinely about to be hurt — see the [platform
+  page's](../platforms/alert-spot.md#operating-the-physical-robot) full
+  danger notice. Confirm you can locate it before doing anything else on
+  real hardware.
+- Compare Robotino and Spot on the same four points (sense/process/act/
+  safety) using this module's [comparison
+  table](#two-robots-one-architecture) — what changed, and what stayed
+  the same?
+
+:::{important}
+**Read-only on physical Spot**: sensor and safety-chain identification
+only. Do not open any covers or panels, and do not operate any actuator —
+this is an inspection exercise, not an operating one. See
+[module 7](07-autonomous-decisions.md#try-it-on-spot) and the [platform
+page](../platforms/alert-spot.md) for what actually moving Spot requires.
+:::
+
 ## Continue learning
 
 Each topic below is a real next step, not just a keyword. Two of them —
@@ -476,6 +512,41 @@ simulated to real hardware, and in which direction.
 **Read more.** [ROS 2 and hardware
 interfaces](https://docs.ros.org/en/humble/) — search for `ros2_control`,
 the standard ROS 2 hardware-abstraction framework.
+:::
+
+## Interesting videos
+
+{{ optional }}
+
+::::{grid} 1 1 1 1
+:gutter: 2
+
+:::{grid-item-card} Spot for Safety and Incident Response
+:link: https://www.youtube.com/watch?v=zFUHi3_oiXk
+
+**Boston Dynamics · English · ~1.5 min**
+
+Covers: a real legged robot's sense-process-act loop in an actual
+operating environment — sensing a hazardous area, moving through it, and
+reporting back.
+
+*Why watch it*: a real-world, full-system counterpart to this module's
+own sense/process/act diagram — the same three stages, on hardware built
+for exactly the kind of environment
+[ALeRT/Spot's](../platforms/alert-spot.md) RoboCup Rescue League track is
+modelled on.
+
+*Compatibility*: conceptual — a product demonstration, not a technical
+tutorial; no commands to check for distribution compatibility.
+:::
+
+::::
+
+:::{note}
+This is deliberately one carefully checked video rather than a longer,
+unverified list. If this link is ever dead or the content has moved, that
+is a documentation bug worth reporting — see the [repository
+README](https://github.com/MoritzSchallenberg/Learning-Robotics-Crash-Course).
 :::
 
 ## Connection to the next module

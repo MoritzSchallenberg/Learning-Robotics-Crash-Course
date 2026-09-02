@@ -224,6 +224,56 @@ This is directly useful for the
 extension.
 :::
 
+## Try it on Spot
+
+{{ alert }} {{ spotsim }}
+
+```bash
+ros2 launch webots_spot nav_launch.py
+```
+
+Run this module's practical task against Spot's own navigation launch
+file instead of a generic one:
+
+1. Set the initial pose, send a goal, and watch the global (planned) and
+   local (reactive) paths separately in RViz — the same two-costmap
+   distinction from this module's core concepts, now on a legged
+   platform where the local costmap has to account for a wider, less
+   predictable footprint than a wheeled robot's.
+2. Introduce a new obstacle not on the map and watch the recovery
+   behaviour trigger.
+3. Run the goal a second time and compare: did the same recovery
+   behaviour trigger, or a different one?
+
+Record, across both attempts:
+
+```{list-table}
+:header-rows: 1
+:widths: 40 30 30
+
+* - Measurement
+  - Attempt 1
+  - Attempt 2
+* - Goal reached?
+  -
+  -
+* - Time to goal
+  -
+  -
+* - Recovery behaviours triggered
+  -
+  -
+* - Minimum obstacle distance (if measurable)
+  -
+  -
+```
+
+**Verification**: you have two filled rows, not one — a single successful
+run does not tell you whether the recovery behaviour you saw was typical
+or a fluke; see [this module's own tuning-task
+entry](#continue-learning) in Continue learning for the same principle
+applied more systematically.
+
 ## Continue learning
 
 :::{dropdown} Tuning task: measuring what a costmap parameter actually does — Next step
@@ -368,6 +418,41 @@ a single anecdote, plus the mean time-to-goal across successful runs.
 benchmarking](https://docs.nav2.org/humble/tutorials/docs/navigation2_with_gps.html)
 — search the Nav2 docs for the specific benchmarking tooling current at
 the time you read this; it has changed across releases.
+:::
+
+## Interesting videos
+
+{{ optional }}
+
+::::{grid} 1 1 1 1
+:gutter: 2
+
+:::{grid-item-card} Practical Demonstration of New User-Requested Nav2 Features
+:link: https://www.youtube.com/watch?v=BmyCi2lcdJY
+
+**Steve Macenski · ROSDevDay 2021 · English · ~50 min**
+
+Covers: live demonstrations of Nav2 features by Nav2's lead maintainer,
+including planning, costmaps and recovery behaviour in practice.
+
+*Why watch it*: straight from the source that maintains the tool this
+module teaches — a deeper, maintainer's-eye view of the same
+Planner/Controller/Behavior Server architecture from this module's core
+concepts.
+
+*Compatibility*: conceptual — Nav2 has gained features since 2021; treat
+this as orientation on the architecture and reasoning, and check the
+[current Nav2 documentation](https://docs.nav2.org/humble/) for anything
+version-specific before relying on it.
+:::
+
+::::
+
+:::{note}
+This is deliberately one carefully checked video rather than a longer,
+unverified list. If this link is ever dead or the content has moved, that
+is a documentation bug worth reporting — see the [repository
+README](https://github.com/MoritzSchallenberg/Learning-Robotics-Crash-Course).
 :::
 
 ## Connection to the next module
