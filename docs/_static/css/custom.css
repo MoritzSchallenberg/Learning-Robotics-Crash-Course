@@ -3,10 +3,9 @@
    MASKOR Institute, FH Aachen.
 
    This file is written from scratch for this project. It sits on top of the
-   stock `sphinx-rtd-theme` (installed as a Python dependency) and adapts it to
-   the look of the MASKOR ROS Summer School documentation: FH Aachen mint-green
-   accents, a readable content column, clearly styled task / solution blocks
-   and a light/dark toggle.
+   stock `sphinx-rtd-theme` (installed as a Python dependency) and applies an
+   FH Aachen mint-green accent, a readable content column, clearly styled
+   task / solution blocks and a light/dark toggle.
 
    No CSS from the original tutorial sites is copied here.
    ========================================================================== */
@@ -16,10 +15,21 @@
    -------------------------------------------------------------------------- */
 
 :root {
-  /* FH Aachen mint green, the accent used throughout the Summer School docs. */
+  /* FH Aachen mint green accent, used for decorative text, borders and
+     hover states -- never as a background with white text on it (too light
+     for that at AA contrast; see --lrcc-accent-solid below). */
   --lrcc-accent: #00b1ac;
-  --lrcc-accent-dark: #008b87;
+  --lrcc-accent-dark: #00615d;
   --lrcc-accent-soft: #e3f7f6;
+
+  /* A solid, WCAG AA-safe variant of the accent, specifically for white text
+     on a colored background (the CTA button, the sidebar search bar, the
+     "current page" sidebar highlight, admonition title bars). Keep every
+     new banner-style background on this token, or on --lrcc-note /
+     --lrcc-tip / --lrcc-warning / --lrcc-danger / --lrcc-review below, all
+     of which are calibrated the same way -- never on --lrcc-accent itself. */
+  --lrcc-accent-solid: #007a76;
+  --lrcc-accent-solid-hover: #005f5c;
 
   --lrcc-sidebar-bg: #26343a;
   --lrcc-sidebar-bg-deep: #1d282d;
@@ -33,12 +43,18 @@
   --lrcc-code-bg: #f6f8f8;
   --lrcc-code-fg: #b1003e;
 
-  --lrcc-note: #6ab0de;
-  --lrcc-tip: #1abc9c;
-  --lrcc-warning: #f0b37e;
-  --lrcc-danger: #f29f97;
-  --lrcc-task: var(--lrcc-accent);
-  --lrcc-review: #b96ad9;
+  /* Admonition banner colors. Each is calibrated so that the bold white
+     title text inside it clears WCAG AA (>= 4.5:1) -- these are NOT the
+     original pastel colors, which failed as low as 1.8:1 for white text.
+     They are intentionally the same in light and dark mode: a banner's own
+     background does not depend on the page theme, only the page's other
+     surfaces do. */
+  --lrcc-note: #2c6690;
+  --lrcc-tip: #0e7d6b;
+  --lrcc-warning: #9a5b0f;
+  --lrcc-danger: #b23a30;
+  --lrcc-task: var(--lrcc-accent-solid);
+  --lrcc-review: #7a3f9e;
 
   --lrcc-radius: 4px;
 }
@@ -49,6 +65,13 @@
   --lrcc-accent: #2ed3ce;
   --lrcc-accent-dark: #24a9a5;
   --lrcc-accent-soft: #14312f;
+
+  /* Dark mode needs its own solid/white-text-safe pair: the bright cyan
+     --lrcc-accent above (great as text against a dark page) drops to a
+     1.85:1 white-text ratio if reused as a banner background, which is why
+     it must never be used for that -- these two are calibrated instead. */
+  --lrcc-accent-solid: #0e7d78;
+  --lrcc-accent-solid-hover: #0a5f5b;
 
   --lrcc-sidebar-bg: #14191c;
   --lrcc-sidebar-bg-deep: #0e1214;
@@ -98,7 +121,7 @@ body,
 }
 
 .wy-side-nav-search {
-  background: var(--lrcc-accent);
+  background: var(--lrcc-accent-solid);
 }
 
 .wy-side-nav-search > a,
@@ -158,7 +181,7 @@ body,
 .wy-menu-vertical li.on a,
 .wy-menu-vertical li.toctree-l2.current > a,
 .wy-menu-vertical li.toctree-l3.current > a {
-  background: var(--lrcc-accent);
+  background: var(--lrcc-accent-solid);
   color: #ffffff;
   border: none;
   font-weight: 700;
@@ -182,12 +205,12 @@ body,
 
 .wy-menu-vertical li.toctree-l2.current > a:hover,
 .wy-menu-vertical li.toctree-l3.current > a:hover {
-  background: var(--lrcc-accent-dark);
+  background: var(--lrcc-accent-solid-hover);
   color: #ffffff;
 }
 
 .wy-nav-top {
-  background: var(--lrcc-accent);
+  background: var(--lrcc-accent-solid);
 }
 
 /* --------------------------------------------------------------------------
@@ -481,13 +504,18 @@ footer span {
   color: #ffffff;
 }
 
-/* Solution blocks are collapsed `sphinx-design` dropdowns so that readers can
-   try the exercise first. */
+/* Collapsible `sphinx-design` dropdowns -- solution blocks, and every
+   "Advanced topics" / "Continue learning" deep-dive on the site. Every rule
+   below is keyed off the theme-aware tokens above, deliberately, so that
+   the closed state, the open state, and everything nested inside it (text,
+   links, code, lists, admonitions) stay readable in both themes -- see
+   scripts/verify-site.py's dropdown-contrast check. */
 .rst-content details.sd-dropdown {
   border: 1px solid var(--lrcc-border);
   border-left: 4px solid var(--lrcc-tip);
   border-radius: var(--lrcc-radius);
   background: var(--lrcc-code-bg);
+  color: var(--lrcc-text);
   margin-bottom: 1.2em;
 }
 
@@ -495,6 +523,48 @@ footer span {
   background: transparent;
   color: var(--lrcc-text);
   font-weight: 700;
+}
+
+.rst-content details.sd-dropdown summary.sd-summary-title:hover {
+  background: var(--lrcc-accent-soft);
+}
+
+/* sphinx-design removes the default outline on the summary entirely (in
+   both themes); restore one on focus. Plain `:focus` rather than
+   `:focus-visible` is deliberate -- Chromium's focus-visible heuristic can
+   suppress the ring after a preceding click even for a later, genuine Tab
+   press, which would make keyboard focus invisible in exactly the cases
+   that matter. Showing the ring on every focus, mouse included, is a small
+   trade for that not happening. */
+.rst-content details.sd-dropdown summary.sd-summary-title:focus {
+  outline: 2px solid var(--lrcc-accent-solid);
+  outline-offset: -2px;
+}
+
+/* The open dropdown's body -- explicit for every element sphinx-design
+   itself leaves unstyled (it only ships `color: inherit` / `transparent`),
+   so nothing here silently falls back to a browser or theme default. */
+.rst-content details.sd-dropdown[open] {
+  background: var(--lrcc-code-bg);
+}
+
+.rst-content details.sd-dropdown .sd-summary-content,
+.rst-content details.sd-dropdown .sd-summary-content p:not(.admonition-title),
+.rst-content details.sd-dropdown .sd-summary-content li {
+  color: var(--lrcc-text);
+}
+
+.rst-content details.sd-dropdown .sd-summary-content a {
+  color: var(--lrcc-accent-dark);
+}
+
+:root[data-theme="dark"] .rst-content details.sd-dropdown .sd-summary-content a {
+  color: var(--lrcc-accent);
+}
+
+.rst-content details.sd-dropdown .sd-summary-content code {
+  background: var(--lrcc-body-bg);
+  color: var(--lrcc-code-fg);
 }
 
 /* --------------------------------------------------------------------------
@@ -517,11 +587,9 @@ footer span {
 }
 
 .lrcc-badge--common { background: #4c6875; }
-.lrcc-badge--simulation { background: #2b7fbd; }
+.lrcc-badge--simulation { background: #246293; }
 .lrcc-badge--carologistics { background: #c1512e; }
 .lrcc-badge--alert { background: #7a4bb5; }
-.lrcc-badge--jazzy { background: #1f8f4e; }
-.lrcc-badge--humble { background: #8a6d1f; }
 .lrcc-badge--unverified { background: #a02b47; }
 
 /* A row of badges directly under a heading gets a little breathing room. */
@@ -563,7 +631,7 @@ footer span {
   display: inline-block;
   margin: 0.6em 0 1.4em 0;
   padding: 0.7em 1.6em;
-  background: var(--lrcc-accent);
+  background: var(--lrcc-accent-solid);
   color: #ffffff !important;
   font-weight: 700;
   font-size: 1.05em;
@@ -573,7 +641,7 @@ footer span {
 }
 
 .lrcc-cta:hover {
-  background: var(--lrcc-accent-dark);
+  background: var(--lrcc-accent-solid-hover);
   color: #ffffff !important;
 }
 
@@ -600,7 +668,7 @@ footer span {
 }
 
 .lrcc-theme-switcher:hover {
-  background: var(--lrcc-accent);
+  background: var(--lrcc-accent-solid);
   color: #ffffff;
 }
 
@@ -672,18 +740,10 @@ footer span {
   color: #ffffff;
 }
 
-.lrcc-level--core { background: #1f8f4e; }
-.lrcc-level--optional { background: #2b7fbd; }
+.lrcc-level--core { background: #19703c; }
+.lrcc-level--optional { background: #246293; }
 .lrcc-level--advanced { background: #7a4bb5; }
 .lrcc-level--platform { background: #c1512e; }
-
-/* A minute-by-minute run sheet table gets a slightly denser look than a
-   normal table so a whole 85-minute plan fits on screen without scrolling. */
-.lrcc-runsheet td:first-child,
-.lrcc-runsheet th:first-child {
-  white-space: nowrap;
-  font-variant-numeric: tabular-nums;
-}
 
 /* --------------------------------------------------------------------------
    14. Responsive behaviour

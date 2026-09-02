@@ -5,7 +5,8 @@ Complements the CI pipeline (`sphinx-build -W`, the internal link/anchor
 check baked into that build, and the secret scan in
 `.github/workflows/pages.yml`) with checks that only a real browser can do:
 JavaScript errors, horizontal overflow on mobile, the light/dark toggle,
-search, copy buttons and syntax highlighting.
+search, copy buttons, syntax highlighting, and WCAG AA contrast plus
+keyboard focus inside every collapsible dropdown, in both themes.
 
 Not part of the required doc build -- `requirements.txt` intentionally does
 not include Playwright, so building the site never needs a browser
@@ -49,6 +50,93 @@ def discover_pages(build_dir: Path) -> list[str]:
             continue
         pages.append(rel)
     return pages
+
+
+_CONTRAST_JS = """
+() => {
+    function parseColor(c) {
+        const m = c.match(/rgba?\\(([\\d.]+),\\s*([\\d.]+),\\s*([\\d.]+)(?:,\\s*([\\d.]+))?\\)/);
+        if (!m) return null;
+        return [parseFloat(m[1]), parseFloat(m[2]), parseFloat(m[3]), m[4] === undefined ? 1 : parseFloat(m[4])];
+    }
+    function compositedBg(el) {
+        // Walk up to <html>, alpha-blending each translucent layer onto a
+        // white canvas -- a raw rgba() read (e.g. RTD's zebra-stripe
+        // overlay) is not the actual rendered color on its own.
+        let layers = [];
+        let cur = el;
+        while (cur) {
+            const p = parseColor(getComputedStyle(cur).backgroundColor);
+            if (p && p[3] > 0) layers.push(p);
+            if (p && p[3] >= 0.999) break;
+            cur = cur.parentElement;
+        }
+        layers.reverse();
+        let acc = [255, 255, 255];
+        for (const [r, g, b, a] of layers) {
+            acc = [r * a + acc[0] * (1 - a), g * a + acc[1] * (1 - a), b * a + acc[2] * (1 - a)];
+        }
+        return acc;
+    }
+    function relLum([r, g, b]) {
+        const chan = (c) => { c /= 255; return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4; };
+        return 0.2126 * chan(r) + 0.7152 * chan(g) + 0.0722 * chan(b);
+    }
+    function contrast(a, b) {
+        const la = relLum(a) + 0.05, lb = relLum(b) + 0.05;
+        return Math.max(la, lb) / Math.min(la, lb);
+    }
+    const findings = [];
+    document.querySelectorAll('details.sd-dropdown').forEach((det, i) => {
+        const body = det.querySelector('.sd-summary-content');
+        if (!body) return;
+        const nodes = body.querySelectorAll('p, li, a, code, td, th, .admonition-title');
+        nodes.forEach((el) => {
+            const text = (el.textContent || '').trim();
+            if (!text) return;
+            const fg = parseColor(getComputedStyle(el).color);
+            const bg = compositedBg(el);
+            if (!fg) return;
+            const ratio = contrast([fg[0], fg[1], fg[2]], bg);
+            if (ratio < 4.5) {
+                findings.push(`dropdown ${i} <${el.tagName.toLowerCase()}> "${text.slice(0, 30)}" ratio=${ratio.toFixed(2)}`);
+            }
+        });
+    });
+    return findings;
+}
+"""
+
+
+async def _check_dropdown_contrast(browser, base_url: str, pages: list[str]) -> list[str]:
+    failures: list[str] = []
+    ctx = await browser.new_context(viewport={"width": 1280, "height": 900})
+    page = await ctx.new_page()
+    for theme in ("light", "dark"):
+        for path in pages:
+            resp = await page.goto(f"{base_url}/{path}", wait_until="networkidle")
+            if resp is None or resp.status != 200:
+                continue
+            await page.evaluate(f"document.documentElement.setAttribute('data-theme', '{theme}')")
+            count = await page.locator("details.sd-dropdown").count()
+            if count == 0:
+                continue
+            for i in range(count):
+                summary = page.locator("details.sd-dropdown summary").nth(i)
+                await summary.click()
+                await page.wait_for_timeout(50)
+            findings = await page.evaluate(_CONTRAST_JS)
+            for f in findings:
+                failures.append(f"{theme} {path}: {f}")
+            # Keyboard focus must stay visible once sphinx-design's default
+            # outline is removed.
+            first_summary = page.locator("details.sd-dropdown summary").first
+            await first_summary.focus()
+            outline = await first_summary.evaluate("el => getComputedStyle(el).outlineStyle")
+            if outline == "none":
+                failures.append(f"{theme} {path}: dropdown summary has no visible keyboard focus outline")
+    await ctx.close()
+    return failures
 
 
 async def run(base_url: str, pages: list[str]) -> int:
@@ -130,6 +218,17 @@ async def run(base_url: str, pages: list[str]) -> int:
                 found_copy_button = True
                 break
         results.append(("copy buttons present somewhere on the site", found_copy_button))
+
+        # -- 6. dropdown contrast and keyboard focus, light and dark --------
+        # Regression check for the light/dark dropdown-content contrast bug:
+        # opens every `sphinx-design` dropdown on every page, in both
+        # themes, and fails if any text inside falls below WCAG AA (4.5:1)
+        # against its actual (alpha-composited) background, or if the
+        # summary loses a visible keyboard focus outline.
+        dropdown_failures = await _check_dropdown_contrast(browser, base_url, pages)
+        results.append(("dropdown contrast >= 4.5:1 in light and dark", not dropdown_failures))
+        for f in dropdown_failures[:20]:
+            print(f"  low contrast: {f}")
 
         await ctx.close()
         await browser.close()
