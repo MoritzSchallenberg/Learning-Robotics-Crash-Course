@@ -139,6 +139,10 @@ linkcheck_ignore = [
     r"https://(docs\.)?opencv\.org/.*",
     # Festo blocks automated requests to its product pages.
     r"https://www\.festo(-didactic)?\.com/.*",
+    # autodesk.com (not help.autodesk.com) answers 403 to automated requests;
+    # the links are correct and work in a browser, verified by hand on
+    # 2026-09-02.
+    r"https://www\.autodesk\.com/.*",
 ]
 
 # Sites that reject the default user agent.
