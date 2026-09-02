@@ -1,46 +1,49 @@
 # Learning Robotics Crash Course
 
-A shared introduction to autonomous mobile robotics for the teams and research
-groups of the **MASKOR Institute at FH Aachen**.
+A hands-on introduction to autonomous mobile robotics for the teams and
+research groups of the **MASKOR Institute at FH Aachen**.
 
-The course brings together material that used to live in three separate places
-— the ROS Summer School, the ALeRT/Spot practical course and the Carologistics
-team wiki — into one path that every team can follow. Eight evening sessions
-build up from the anatomy of a robot to a fully autonomous mission, and a
-closing hackathon puts everything together on a real or simulated robot.
+The course brings together material that used to live in three separate
+places — the ROS Summer School, the ALeRT/Spot practical course and the
+Carologistics team wiki — into one path that every team can follow. Eight
+modules build up from the anatomy of a robot to a fully autonomous mission,
+and a closing capstone project puts everything together on a real or
+simulated robot.
 
 <a class="lrcc-cta" href="course/index.html">Start the Course →</a>
 
 ## Who this is for
 
 New members of the robotics teams who already bring some technical
-grounding — you can program a little (Python is enough), you are not afraid of
-a terminal, and you want to understand how an autonomous robot actually works.
+grounding — you can program a little (Python is enough), you are not afraid
+of a terminal, and you want to understand how an autonomous robot actually
+works. This is not a general first-semester introduction to programming or
+computing.
 
-You do **not** need prior ROS experience. You do **not** need to own a robot:
-every session can be followed in simulation.
+You do **not** need prior ROS experience. You do **not** need to own a
+robot: every module can be completed in simulation.
 
-By the end of the course you will be able to bring up a robot system, inspect
-it with the ROS 2 command line, read its sensors, build a map, navigate
-autonomously in that map, detect objects with a camera, and tie the pieces
-together into a mission that runs without a human in the loop.
+By the end of the course you will be able to bring up a robot system,
+inspect it with the ROS 2 command line, read its sensors, build a map,
+navigate autonomously in that map, detect objects with a camera, and tie the
+pieces together into a mission that runs without a human in the loop.
 
 ## What the course covers
 
 The course is built on **ROS 2**, the middleware that nearly all modern
-research robots use. Around it we work through the classic autonomy stack:
+research robots use. Around it you work through the classic autonomy stack:
 sensing, transforms, perception, mapping and localization, navigation, and
 high-level decision making — always with a practical task, and always on
 hardware or a simulator you can actually run.
 
-## Before the first session
+## Before you start
 
-:::{admonition} Please arrive prepared
+:::{admonition} Work through the prerequisites first
 :class: important
 
-The first evening starts at the hardware, not at the installer. Work through
-the [prerequisites](prerequisites/index.md) beforehand — a working Linux
-system with ROS 2 installed saves the whole group a lot of time.
+The course starts at the hardware, not at the installer. Complete the
+[prerequisites](prerequisites/index.md) first — a working Linux system with
+ROS 2 installed makes every module go smoothly.
 :::
 
 ::::{grid} 1 1 2 2
@@ -50,8 +53,8 @@ system with ROS 2 installed saves the whole group a lot of time.
 :link: prerequisites/index
 :link-type: doc
 
-Linux and the terminal, ROS 2 installation, Git, and the networking basics you
-need to talk to a robot.
+Linux and the terminal, ROS 2 installation, Git, and the networking basics
+you need to talk to a robot.
 :::
 
 :::{grid-item-card} Platform tracks
@@ -64,71 +67,68 @@ Carologistics/Robotino, or ALeRT/Spot.
 
 ::::
 
-## The eight course evenings
-
-All sessions run from **17:35 to 19:00**.
+## The eight course modules
 
 ```{list-table}
 :header-rows: 1
-:widths: 6 22 44 28
+:widths: 6 34 60
 :class: lrcc-schedule
 
 * - #
-  - Date
-  - Session
+  - Module
   - Focus
 * - 1
-  - Mon, 05 Oct 2026
   - [System Architecture and Robot Hardware](course/01-system-hardware.md)
   - How a robot is built: sensors, compute, drives, power, safety
 * - 2
-  - Wed, 07 Oct 2026
   - [ROS 2 Fundamentals](course/02-ros2.md)
   - Workspaces, packages, nodes, topics, parameters, launch files
 * - 3
-  - Mon, 12 Oct 2026
   - [Sensors, TF2 and RViz](course/03-sensors-tf.md)
   - Sensor messages, coordinate frames, transforms, visualization
 * - 4
-  - Wed, 14 Oct 2026
   - [Perception and Object Detection](course/04-perception/index.md)
   - Camera calibration, OpenCV, markers, YOLO, data labeling
 * - 5
-  - Mon, 19 Oct 2026
   - [Mapping and Localization](course/05-mapping-localization.md)
   - Odometry, occupancy grids, SLAM Toolbox, AMCL
 * - 6
-  - Wed, 21 Oct 2026
   - [Autonomous Navigation](course/06-navigation.md)
   - Nav2, costmaps, planners, controllers, recoveries, exploration
 * - 7
-  - Mon, 26 Oct 2026
   - [Autonomous Decisions and Manipulation](course/07-autonomous-decisions.md)
   - State machines, behavior trees, RAFCON, MoveIt
 * - 8
-  - Wed, 28 Oct 2026
   - [System Integration and Testing](course/08-integration.md)
   - Startup order, configuration, logging, rosbags, debugging
 ```
 
-## Closing hackathon
+The modules build on each other in order — module 3 gives you transforms,
+which module 5 needs to build a map, which module 6 needs to navigate,
+which module 7 needs to run a mission. If you are joining partway through,
+[the course overview](course/index.md) lists each module's prerequisites so
+you can see what to catch up on first.
 
-**Sat–Sun, 07–08 Nov 2026** — the
-[Autonomous Robot Challenge](course/hackathon.md). A robot has to cross an
-operation area on its own, avoid obstacles, find a target and reach it. Extended
-levels add picking the object up, transporting it, or reporting its position to
-another system.
+## Capstone project
+
+[Autonomous Robot Mission](course/hackathon.md) — a robot has to cross an
+operation area on its own, avoid obstacles, find a target and reach it.
+Extended tasks add picking the object up, transporting it, or reporting its
+position to another system. It draws on every module above and is the
+course's final self-check: if you can complete it, the course has done its
+job.
 
 ## How to read this site
 
-The **course modules** explain the shared fundamentals once. They are written
-to be readable no matter which robot your team runs.
+The **course modules** explain the shared fundamentals once. They are
+written to be readable no matter which robot your team runs.
 
 The **platform pages** carry only what is specific to one system — Robotino
-commands, Spot startup, simulation launch files — and link back to the shared
-explanation instead of repeating it.
+commands, Spot startup, simulation launch files — and link back to the
+shared explanation instead of repeating it.
 
-Commands that only apply to one system or one ROS 2 distribution carry a badge:
+Commands that only apply to one system or one ROS 2 distribution carry a
+badge:
 
 {{ common }} works everywhere &nbsp;
 {{ simulation }} simulation only &nbsp;
@@ -137,25 +137,20 @@ Commands that only apply to one system or one ROS 2 distribution carry a badge:
 {{ jazzy }} ROS 2 Jazzy &nbsp;
 {{ humble }} ROS 2 Humble
 
-Every session is a strict **85-minute** evening, so its content is also
-marked by what you need tonight versus what can wait:
+Content within a module is also marked by how essential it is to that
+module's core learning objective:
 
-{{ core }} must happen in the 85 minutes &nbsp;
-{{ optional }} only with time to spare &nbsp;
-{{ advanced }} deliberately outside tonight, for later reading &nbsp;
+{{ core }} the module's central concept and task &nbsp;
+{{ optional }} worth doing if you have the time &nbsp;
+{{ advanced }} deliberately beyond the module's core scope, for later
+reading &nbsp;
 {{ platformspecific }} Robotino, Spot or simulation only
 
 :::{warning}
-The three source courses were written for **different** operating systems and
-ROS 2 distributions. Never mix a Humble guide with a Jazzy setup without
+The three source courses were written for **different** operating systems
+and ROS 2 distributions. Never mix a Humble guide with a Jazzy setup without
 checking. The [compatibility matrix](reference/compatibility.md) lists which
 combination each instruction was written for.
-:::
-
-:::{note}
-**Facilitating a session or the hackathon?** The [instructor guides](instructors/index.md)
-cover what to prepare, how much time it takes, and what to expect from
-participants — separate from the participant-facing pages above.
 :::
 
 ```{toctree}
@@ -188,12 +183,4 @@ platforms/index
 :caption: Reference
 
 reference/index
-```
-
-```{toctree}
-:hidden:
-:maxdepth: 2
-:caption: Instructors
-
-instructors/index
 ```
