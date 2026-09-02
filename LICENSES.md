@@ -40,8 +40,18 @@ This site consolidates and rewrites three internal MASKOR teaching resources:
   source teaching material and from official project documentation. They are
   minimal teaching examples; where an example derives substantially from an
   external project, the page links to it.
-- Attribution to the MASKOR Institute and to each source course is given on
-  [Sources and licenses](docs/reference/sources.md).
+- Attribution to the MASKOR Institute and to each currently listed source
+  course is given on [Sources and licenses](docs/reference/sources.md).
+
+> **Note (2026-09-02):** since this repository record was first written, the
+> course text has gone through two further full rewrites (restructuring into
+> a practical-task format, then removing all event- and facilitator-specific
+> framing), with every technical claim re-verified against official primary
+> documentation for the ROS 2 Humble baseline. The public
+> [Sources and licenses](docs/reference/sources.md) page reflects that
+> current, independently-checked state and, per that page's own editorial
+> policy, lists only sources still directly attributed today. This document
+> keeps the full historical record for legal completeness.
 
 ### Logos
 
@@ -111,6 +121,8 @@ none of them.
 | [Ansible](https://docs.ansible.com/) | GPL-3.0 |
 | [MediaPipe](https://developers.google.com/edge/mediapipe/solutions/guide) | Apache-2.0 |
 | [OpenVINO](https://docs.openvino.ai/) | Apache-2.0 |
+| [KiCad](https://www.kicad.org/) | GPL-3.0 (software); CC-BY-SA-4.0 (symbol/footprint libraries) |
+| [Autodesk Fusion](https://www.autodesk.com/products/fusion-360/) | Proprietary, subscription/entitlement-based — not open source |
 
 > **Note on Ultralytics YOLO.** It is **AGPL-3.0**, which has real
 > consequences: software that incorporates it and is offered over a network may

@@ -6,9 +6,11 @@ documentation of the tools it teaches.
 
 ## Original material
 
-The content on this site is a consolidation of three internal MASKOR teaching
-resources. All three are the work of the institute and its teams; this site
-restructures and rewrites that work into a single course.
+Some of this course's content originates from internal MASKOR teaching
+material; the table below lists what is still actively attributed as a
+source. The full provenance record, including material that has since been
+fully rewritten and independently re-verified, is kept in the repository's
+internal review documents rather than repeated here.
 
 ```{list-table}
 :header-rows: 1
@@ -17,13 +19,6 @@ restructures and rewrites that work into a single course.
 * - Source
   - Attribution
   - Used for
-* - **ROS Summer School**
-  - MASCOR Institute, FH Aachen
-  - Linux and terminal basics, ROS 2 fundamentals, nodes and packages,
-    parameters and launch files, publishers and subscribers, networking and
-    SSH, TF2, LiDAR, camera calibration, AprilTags and ArUco, SLAM Toolbox,
-    localization, Nav2, autonomous exploration, YOLO, the robot challenge —
-    and the visual structure of this site
 * - **ALeRT / Spot practical course**
   - MASCOR Institute, FH Aachen — ALeRT (Aachen Legged Rescue Team)
   - Webots Spot simulation, OpenCV image processing, ArUco exercises, services
@@ -40,39 +35,75 @@ restructures and rewrites that work into a single course.
 
 ## How the material was used
 
-**Explanations were rewritten.** The three sources overlapped heavily —
-terminal basics, ROS 2 concepts, TF2, SLAM, Nav2 and YOLO each appeared in two
-or three of them, in different words and at different depths. Rather than
-copying one version or concatenating several, each shared topic was rewritten
-once as a single explanation, drawing on the clearest treatment from each
-source. Where one source had a better exercise or a better warning, that was
-incorporated.
+**Explanations are independently written and checked against primary
+sources, not transcribed from any one source.** Every module has gone
+through more than one full rewrite since this course's first version: once
+to restructure it into a self-contained practical-task format, and again to
+remove every trace of a live-session, presenter's-eye-view framing so it
+reads as independent, self-directed material. Each rewrite re-verified the underlying technical
+claims — commands, package names, API calls — against the official
+documentation for the tool in question, rather than carrying forward
+earlier wording unchecked. See [Sources standard](#sources-standard) below
+for exactly which primary sources.
 
-**Structure follows the Summer School.** The site's layout — a Sphinx
-documentation site with hierarchical navigation, breadcrumbs, previous/next
-links, search and a light/dark toggle — follows the ROS Summer School's
-documentation, which is itself built on the widely used
-[Read the Docs Sphinx theme](https://github.com/readthedocs/sphinx_rtd_theme).
+**Structure follows a widely used documentation convention.** The site's
+layout — hierarchical navigation, breadcrumbs, previous/next links, search
+and a light/dark toggle — is the standard shape of a
+[Read the Docs Sphinx theme](https://github.com/readthedocs/sphinx_rtd_theme)
+site, not something borrowed from any one course's documentation.
 
-**No files were copied from the source sites.** The theme is installed as a
+**No files were copied from any source site.** The theme is installed as a
 Python dependency from PyPI, not copied. The CSS and JavaScript in
-`docs/_static/` were written for this project. No rendered HTML from the source
-sites is reused.
+`docs/_static/` were written for this project. No rendered HTML from any
+source site is reused.
 
 **Code examples are documented.** Short code examples that demonstrate a
 technique — a minimal publisher, a TF listener, an ArUco detector — were
-adapted from the source teaching material and from official ROS 2, OpenCV and
-Nav2 documentation. They are teaching examples, deliberately minimal, and
-attribution to the source course is given above. Where an example came
-substantially from an external project, the page links to that project.
+adapted from teaching material and from official documentation, and
+verified against the current documentation for the ROS 2 distribution this
+course targets. They are teaching examples, deliberately minimal. Where an
+example came substantially from an external project, the page links to that
+project.
 
-**Technical claims were checked against primary sources.** Commands, package
-names, topic names and message types were verified against the official ROS 2,
-Nav2, OpenCV, MoveIt and package documentation where possible. Where the source
-material could not be verified — because it depends on hardware, on an internal
-repository, or because the sources contradict each other — the page says so
-explicitly with a **TODO-REVIEW** marker or the {{ unverified }} badge, rather
-than guessing. See [Versions and compatibility](compatibility.md).
+(sources-standard)=
+### Sources standard
+
+Technical claims on this site are checked, in order of preference, against:
+
+```{list-table}
+:header-rows: 1
+:widths: 30 70
+
+* - Topic
+  - Primary source
+* - ROS 2 core, installation
+  - [ROS 2 Humble documentation](https://docs.ros.org/en/humble/)
+* - Navigation
+  - [Nav2 documentation](https://docs.nav2.org/humble/), checked for
+    Humble-compatible functionality
+* - Manipulation
+  - [MoveIt 2 documentation](https://moveit.picknik.ai/)
+* - Computer vision
+  - [OpenCV documentation](https://docs.opencv.org/)
+* - 2D SLAM
+  - [SLAM Toolbox repository](https://github.com/SteveMacenski/slam_toolbox)
+    and its own documentation
+* - Electrical schematics
+  - [KiCad documentation](https://docs.kicad.org/)
+* - Mechanical CAD
+  - [Autodesk Fusion help](https://help.autodesk.com/view/fusion360/ENU/)
+    and its
+    [system requirements](https://www.autodesk.com/support/technical/article/caas/sfdcarticles/sfdcarticles/System-requirements-for-Autodesk-Fusion-360.html)
+```
+
+Where a claim could not be verified — because it depends on hardware, on an
+internal repository, or because sources contradict each other — the page
+says so explicitly with the {{ unverified }} badge rather than guessing.
+See [Supported environment](compatibility.md) for the exact software
+versions this checking was done against, and each page's own **Further
+reading** section for the specific pages consulted, several of them
+retrieved and re-checked on 2026-09-02 for this course's move to a single
+fixed ROS 2 Humble baseline.
 
 ## What was deliberately excluded
 
@@ -163,6 +194,13 @@ here under their own licenses. This site claims no ownership of them.
 * - [Ansible](https://docs.ansible.com/)
   - GPL-3.0
   - Deployment automation
+* - [KiCad](https://www.kicad.org/)
+  - GPL-3.0 (software); CC-BY-SA-4.0 (libraries)
+  - Electrical schematic design
+* - [Autodesk Fusion](https://www.autodesk.com/products/fusion-360/)
+  - Proprietary, subscription/entitlement-based
+  - Mechanical CAD — {{ unverified }} confirm current licensing terms and
+    platform availability before relying on this course's Fusion page
 ```
 
 :::{note}
