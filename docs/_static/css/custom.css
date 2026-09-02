@@ -167,6 +167,19 @@ body,
   background: var(--lrcc-sidebar-bg-deep);
 }
 
+/* The rule above covers the <li> itself, but the stock theme separately
+   paints every *sibling* link inside an expanded current branch light gray
+   (`.wy-menu-vertical li.toctree-l2.current li.toctree-l3>a{background:#c9c9c9}`
+   and the equivalent one level deeper) -- specific enough to survive the
+   rule above and, combined with this sidebar's light link text, was
+   rendering those links at roughly 1.1:1 contrast, effectively invisible.
+   `:not(.current)` leaves the actual current link's own highlight (further
+   below) alone. */
+.wy-menu-vertical li.toctree-l2.current li.toctree-l3:not(.current) > a,
+.wy-menu-vertical li.toctree-l3.current li.toctree-l4:not(.current) > a {
+  background: var(--lrcc-sidebar-bg-deep);
+}
+
 .wy-menu-vertical li.current a,
 .wy-menu-vertical li.toctree-l2 a,
 .wy-menu-vertical li.toctree-l3 a,
@@ -180,7 +193,16 @@ body,
 .wy-menu-vertical li.current > a,
 .wy-menu-vertical li.on a,
 .wy-menu-vertical li.toctree-l2.current > a,
-.wy-menu-vertical li.toctree-l3.current > a {
+.wy-menu-vertical li.toctree-l3.current > a,
+/* Higher-specificity duplicates of the two rules above: a current l3/l4
+   item nested inside a current parent also matches the stock theme's
+   `li.toctree-l2.current li.toctree-l3>a{background:#c9c9c9}` rule (and
+   the l3/l4 equivalent), which is specific enough to beat the plain
+   selectors above and silently repaint the current link's own background
+   light gray -- the exact bug reported for the current-page highlight
+   itself, not only its siblings. */
+.wy-menu-vertical li.toctree-l2.current li.toctree-l3.current > a,
+.wy-menu-vertical li.toctree-l3.current li.toctree-l4.current > a {
   background: var(--lrcc-accent-solid);
   color: #ffffff;
   border: none;

@@ -5,8 +5,9 @@ Complements the CI pipeline (`sphinx-build -W`, the internal link/anchor
 check baked into that build, and the secret scan in
 `.github/workflows/pages.yml`) with checks that only a real browser can do:
 JavaScript errors, horizontal overflow on mobile, the light/dark toggle,
-search, copy buttons, syntax highlighting, and WCAG AA contrast plus
-keyboard focus inside every collapsible dropdown, in both themes.
+search, copy buttons, syntax highlighting, and WCAG AA contrast (plus, for
+dropdowns, keyboard focus) inside every collapsible dropdown and the
+sidebar's auto-expanded current-page branch, in both themes.
 
 Not part of the required doc build -- `requirements.txt` intentionally does
 not include Playwright, so building the site never needs a browser
@@ -52,8 +53,11 @@ def discover_pages(build_dir: Path) -> list[str]:
     return pages
 
 
-_CONTRAST_JS = """
-() => {
+# Shared by both contrast checks below: parses a computed color, composites
+# translucent background layers (a raw rgba() read alone is not the actual
+# rendered color -- see RTD's zebra-stripe table overlay), and computes WCAG
+# relative luminance / contrast ratio.
+_CONTRAST_HELPERS_JS = """
     function parseColor(c) {
         const m = c.match(/rgba?\\(([\\d.]+),\\s*([\\d.]+),\\s*([\\d.]+)(?:,\\s*([\\d.]+))?\\)/);
         if (!m) return null;
@@ -86,6 +90,12 @@ _CONTRAST_JS = """
         const la = relLum(a) + 0.05, lb = relLum(b) + 0.05;
         return Math.max(la, lb) / Math.min(la, lb);
     }
+"""
+
+_CONTRAST_JS = (
+    "() => {\n"
+    + _CONTRAST_HELPERS_JS
+    + """
     const findings = [];
     document.querySelectorAll('details.sd-dropdown').forEach((det, i) => {
         const body = det.querySelector('.sd-summary-content');
@@ -106,10 +116,47 @@ _CONTRAST_JS = """
     return findings;
 }
 """
+)
+
+# Regression check for the sidebar-specific variant of the same bug: the
+# stock RTD theme paints every link inside an *expanded, non-current*
+# branch with a hardcoded light gray background
+# (`li.toctree-l2.current li.toctree-l3>a{background:#c9c9c9}`), which is
+# specific enough to survive this site's own dark-sidebar override and,
+# combined with the sidebar's light link text, renders near-invisible.
+_SIDEBAR_CONTRAST_JS = (
+    "() => {\n"
+    + _CONTRAST_HELPERS_JS
+    + """
+    const findings = [];
+    document.querySelectorAll('.wy-menu-vertical a').forEach((el) => {
+        const text = (el.textContent || '').trim();
+        if (!text) return;
+        const fg = parseColor(getComputedStyle(el).color);
+        const bg = compositedBg(el);
+        if (!fg) return;
+        const ratio = contrast([fg[0], fg[1], fg[2]], bg);
+        if (ratio < 4.5) {
+            findings.push(`sidebar link "${text.slice(0, 40)}" ratio=${ratio.toFixed(2)}`);
+        }
+    });
+    return findings;
+}
+"""
+)
 
 
-async def _check_dropdown_contrast(browser, base_url: str, pages: list[str]) -> list[str]:
-    failures: list[str] = []
+async def _check_dropdown_and_sidebar_contrast(
+    browser, base_url: str, pages: list[str]
+) -> tuple[list[str], list[str]]:
+    """One page-visiting pass, in both themes, covering two related but
+    distinct contrast bugs: a dropdown's open body, and the sidebar's
+    auto-expanded branch for whichever page is current (every page
+    exercises some part of the sidebar tree, not just pages with a
+    dropdown, so this runs unconditionally per page rather than only when
+    a dropdown is present)."""
+    dropdown_failures: list[str] = []
+    sidebar_failures: list[str] = []
     ctx = await browser.new_context(viewport={"width": 1280, "height": 900})
     page = await ctx.new_page()
     for theme in ("light", "dark"):
@@ -118,6 +165,11 @@ async def _check_dropdown_contrast(browser, base_url: str, pages: list[str]) -> 
             if resp is None or resp.status != 200:
                 continue
             await page.evaluate(f"document.documentElement.setAttribute('data-theme', '{theme}')")
+
+            sidebar_findings = await page.evaluate(_SIDEBAR_CONTRAST_JS)
+            for f in sidebar_findings:
+                sidebar_failures.append(f"{theme} {path}: {f}")
+
             count = await page.locator("details.sd-dropdown").count()
             if count == 0:
                 continue
@@ -127,16 +179,16 @@ async def _check_dropdown_contrast(browser, base_url: str, pages: list[str]) -> 
                 await page.wait_for_timeout(50)
             findings = await page.evaluate(_CONTRAST_JS)
             for f in findings:
-                failures.append(f"{theme} {path}: {f}")
+                dropdown_failures.append(f"{theme} {path}: {f}")
             # Keyboard focus must stay visible once sphinx-design's default
             # outline is removed.
             first_summary = page.locator("details.sd-dropdown summary").first
             await first_summary.focus()
             outline = await first_summary.evaluate("el => getComputedStyle(el).outlineStyle")
             if outline == "none":
-                failures.append(f"{theme} {path}: dropdown summary has no visible keyboard focus outline")
+                dropdown_failures.append(f"{theme} {path}: dropdown summary has no visible keyboard focus outline")
     await ctx.close()
-    return failures
+    return dropdown_failures, sidebar_failures
 
 
 async def run(base_url: str, pages: list[str]) -> int:
@@ -219,16 +271,22 @@ async def run(base_url: str, pages: list[str]) -> int:
                 break
         results.append(("copy buttons present somewhere on the site", found_copy_button))
 
-        # -- 6. dropdown contrast and keyboard focus, light and dark --------
-        # Regression check for the light/dark dropdown-content contrast bug:
-        # opens every `sphinx-design` dropdown on every page, in both
-        # themes, and fails if any text inside falls below WCAG AA (4.5:1)
-        # against its actual (alpha-composited) background, or if the
-        # summary loses a visible keyboard focus outline.
-        dropdown_failures = await _check_dropdown_contrast(browser, base_url, pages)
+        # -- 6. dropdown and sidebar contrast, keyboard focus, light/dark ---
+        # Regression check for two related light/dark contrast bugs: a
+        # `sphinx-design` dropdown's open body, and the sidebar's
+        # auto-expanded branch for the current page -- both fail if any
+        # text falls below WCAG AA (4.5:1) against its actual
+        # (alpha-composited) background; the dropdown check additionally
+        # fails if a summary loses its visible keyboard focus outline.
+        dropdown_failures, sidebar_failures = await _check_dropdown_and_sidebar_contrast(
+            browser, base_url, pages
+        )
         results.append(("dropdown contrast >= 4.5:1 in light and dark", not dropdown_failures))
         for f in dropdown_failures[:20]:
-            print(f"  low contrast: {f}")
+            print(f"  low contrast (dropdown): {f}")
+        results.append(("sidebar contrast >= 4.5:1 in light and dark", not sidebar_failures))
+        for f in sidebar_failures[:20]:
+            print(f"  low contrast (sidebar): {f}")
 
         await ctx.close()
         await browser.close()
