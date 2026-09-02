@@ -1,43 +1,51 @@
-# Hackathon: Autonomous Robot Challenge
-
-:::{admonition} Schedule
-:class: note
-
-Saturday–Sunday, 07–08 November 2026
-:::
+# Capstone: Autonomous Robot Mission
 
 {{ common }}
 
-Everything from the eight sessions, on one robot, running on its own.
+Everything from the eight modules, on one robot, running on its own. This
+is the course's final self-check: if you can complete it, the course has
+done its job.
 
-:::{admonition} Draft 0.1 — not confirmed
-:class: warning
+## Overview
 
-Everything on this page — the rubric, the arena, the time limit — is
-**Draft 0.1**, published early so teams can build against it and so it can
-be corrected before the event. It is deliberately easy to change: every
-number lives in one table, and `DECISIONS_NEEDED.md` tracks exactly what
-still needs sign-off (items 8 and 9). If something here is unfair or
-unclear, say so — that is what a draft is for.
-:::
+You will combine mapping, localization, navigation, perception and mission
+logic into one autonomous run: bring up a robot, have it find its own
+position, reach a target area on its own, handle an obstacle it did not
+know about, recognise a target, and end in a safe, defined state — whether
+the mission succeeded or not.
 
-## The common mission
+## Learning objectives
 
-Every team, on every platform, attempts the same seven-step mission:
+By completing this project you demonstrate that you can:
 
-1. **Start correctly** — bring up the robot from a cold state with the
-   team's own launch procedure.
+1. integrate every module's subsystem into one reproducible system;
+2. run an autonomous mission with no manual driving during the attempt;
+3. produce a rosbag and logs that let you (or someone else) verify what the
+   system actually did.
+
+## Prerequisites
+
+All eight course modules completed, in particular
+[module 8](08-integration.md) — this project assumes you can already bring
+up a whole system with one command and diagnose a fault systematically.
+
+## The mission
+
+The same seven-step mission applies regardless of platform:
+
+1. **Start correctly** — bring up the robot from a cold state with your own
+   launch procedure.
 2. **Establish position** — localize, or otherwise determine a known
    starting pose.
 3. **Reach a target area** — navigate there autonomously, no manual driving.
 4. **Handle obstacles** — detect and avoid at least one obstacle not present
-   when the arena was last mapped.
+   when the area was last mapped.
 5. **Recognise a target** — detect a marker or object in the target area.
-6. **Report success** — signal mission completion on the agreed topic.
+6. **Report success** — signal mission completion on an agreed topic.
 7. **Fail safely** — if something goes wrong, reach a safe, stopped state
    rather than continuing blindly.
 
-### Optional extensions (bonus)
+### Optional extensions
 
 - pick up and transport the recognised object;
 - plan a new route after being blocked;
@@ -46,202 +54,113 @@ Every team, on every platform, attempts the same seven-step mission:
 - explore an area with no prior map.
 
 :::{note}
-**Manipulation and multi-robot tasks are bonus only.** A team without a
-gripper, or running only one robot, is never penalised for not attempting
-them — see the rubric below, where the maximum achievable score without any
-bonus is the full 100 points.
+**Manipulation and multi-robot tasks are optional extensions, not
+requirements.** A robot without a gripper, or a single-robot setup, can
+complete every item in the self-assessment checklist below without
+attempting them.
 :::
 
-## Scoring rubric
+## Self-assessment checklist
 
-A transparent 100-point rubric, split across what can be measured
-automatically and what a referee assesses directly.
+Rather than a points-based score, check the mission against these
+statements. Each should be true and demonstrable — ideally from your rosbag
+and logs, not just from memory:
 
-```{list-table}
-:header-rows: 1
-:widths: 60 20 20
+- [ ] The system starts reproducibly, with one command, from a cold state.
+- [ ] The robot establishes its position (localizes, or otherwise
+      confirms a known starting pose) before moving toward the target.
+- [ ] The target area is reached without any manual driving during the
+      run.
+- [ ] At least one obstacle not present in the original map is detected
+      and avoided.
+- [ ] The target object or marker is correctly recognised.
+- [ ] Errors and key decisions are logged — you can reconstruct what the
+      system did and why from the log alone.
+- [ ] If something fails, the mission ends in a defined, safe state rather
+      than hanging or continuing blindly.
 
-* - Area
-  - Points
-  - Assessed by
-* - Safe and reproducible system bring-up
-  - 10
-  - Referee checklist
-* - Localization / known starting state
-  - 10
-  - Referee + `/mission_status`
-* - Autonomous navigation
-  - 20
-  - Referee + navigation log
-* - Obstacle reaction
-  - 15
-  - Referee observation
-* - Perception and target recognition
-  - 15
-  - `/detected_target` topic + referee
-* - Mission logic and failure handling
-  - 15
-  - Referee + `/mission_status`
-* - Integration and technical robustness
-  - 10
-  - Referee checklist
-* - Short documentation and final presentation
-  - 5
-  - Referee
-* - **Total**
-  - **100**
-  -
-```
+A run that satisfies every item above is a complete demonstration of this
+course's learning objectives, independent of platform, of whether any
+optional extension was attempted, and of how the run compares to anyone
+else's.
 
-**Bonus points** (added on top of the 100, capped at +15 total): transport
-task completed (+8), new route planned after a block (+4), multi-robot
-communication demonstrated (+3).
+## Safety
 
-**Penalties**: −3 per collision with the arena or an obstacle; −2 per manual
-interaction (gamepad, terminal command, physical assistance) after the run
-has started; −1 per full minute beyond the time limit.
+- Keep the physical E-stop within reach for the entire run — yours, or
+  whoever is operating alongside you.
+- If the robot is about to injure someone or destroy itself or its
+  surroundings, stop it immediately. A stopped run is always the right
+  call over letting something get hurt or broken; see
+  [module 1's safety section](01-system-hardware.md#core-concepts) for why
+  the E-stop is independent of software in the first place.
+- Confirm the area is clear of people and fragile objects before starting
+  a run, and check the robot's actual footprint against the space
+  available — a wider turning radius than expected is a common way a
+  "clear" area turns out not to be.
 
-**Time limit**: 15 minutes per attempt. **Ties**: decided by elapsed time,
-then by fewer manual interactions.
+## Required logs
 
-:::{admonition} TODO-REVIEW
-:class: todo-review
+Record a rosbag of your attempt, containing at minimum `/tf`, `/tf_static`,
+`/scan` (or your platform's equivalent range sensor), `/cmd_vel` and
+`/mission_status`, following the practice from
+[module 8](08-integration.md#rosbags-briefly). This is what lets you check
+the self-assessment checklist against evidence rather than memory, and lets
+you replay a failed attempt to see exactly where it went wrong.
 
-The point values above are a considered first draft, not a validated one —
-they have not been tested against the real arena or the robots available on
-the day. See `DECISIONS_NEEDED.md` item 9. Collision detection is assumed to
-be judged by a human referee; if an automated method is intended for a
-future version, this section needs revising rather than the automation being
-invented here.
-:::
-
-## Rules and logistics
-
-### Safety rules
-
-- A referee or team member must be within reach of the physical E-stop at
-  all times during a run.
-- If a robot is about to injure a person or destroy itself or the arena,
-  stop it immediately — a stopped run costs points; a broken robot costs
-  the weekend.
-- No run begins until the referee confirms the arena is clear.
-
-### Permitted preparation
-
-- Mapping the arena in advance, if access is provided ahead of the event.
-- Tuning navigation and perception parameters using data from practice
-  runs.
-- Pre-training a detection model on the announced target object(s), once
-  confirmed.
-- Team-written launch, configuration and mission-control code, prepared in
-  advance.
-
-Not permitted: teleoperating any part of the scored attempt except as a
-penalised manual interaction; hard-coding the exact arena layout from
-insider knowledge not available to other teams.
-
-### Starting state
-
-The robot begins powered off or in a defined idle state, at a marked start
-position, facing a direction the team declares in advance. The clock starts
-when the team signals ready and the referee starts the run.
-
-### Abort conditions
-
-A run is aborted (scored as-is, mission incomplete) if: the E-stop is
-pressed for safety reasons; the robot leaves the arena boundary; the time
-limit is reached; or the team requests it.
-
-### Required logs
-
-Each team records and submits a rosbag of their best attempt, containing at
-minimum `/tf`, `/tf_static`, `/scan` (or equivalent range sensor), `/cmd_vel`
-and `/mission_status`, following the practice from
-[session 8](08-integration.md#rosbags-briefly). This is both evidence for
-scoring disputes and material for a future course's teaching examples
-(with team consent).
-
-### Group size and roles
-
-Teams of 2–4. Recommended roles for the run itself: **driver** (owns the
-laptop and launch sequence, the only one who touches a keyboard once the
-run has started), **spotter** (owns the E-stop, watches the robot, calls
-safety stops), **narrator** (talks the referee through what is happening,
-useful for the documentation/presentation score).
-
-### Acceptance checklist (bring this, completed, to your slot)
-
-- [ ] One command brings the robot from cold start to ready.
-- [ ] The team has rehearsed the full mission at least twice.
-- [ ] The E-stop is tested and someone is assigned to hold it.
-- [ ] A rosbag recording command is ready to run before the attempt starts.
-- [ ] Batteries are charged, and a spare (if any) is ready.
-- [ ] The mission-control code handles at least one failure path without
-      hanging (see [session 7](07-autonomous-decisions.md)).
-
-## Platform variants
+## Platform notes
 
 ### Simulation
 
 {{ simulation }}
 
-Run the full mission in [Webots](../platforms/simulation.md). Identical
-scoring; the "hardware failure" procedure below does not apply — a crashed
-simulation is restarted, and the clock resets with it, at the referee's
-discretion.
+Run the full mission in [Webots](../platforms/simulation.md). The mission
+and the self-assessment checklist are identical; a crashed simulation can
+simply be restarted from a clean state, which is one of simulation's
+genuine advantages for practicing this project repeatedly.
 
 ### Carologistics / Robotino
 
 {{ carologistics }}
 
-Robotino's omnidirectional drive is a genuine advantage for tight arena
-turns — plan for it in your navigation parameters
-(see the [platform page](../platforms/carologistics-robotino.md)). The
-transport bonus maps naturally onto Robotino's gripper carrying a workpiece
-to a marked drop zone.
+Robotino's omnidirectional drive is a genuine advantage for tight turns —
+plan for it in your navigation parameters (see the
+[platform page](../platforms/carologistics-robotino.md)). The transport
+extension maps naturally onto Robotino's gripper carrying a workpiece to a
+marked location.
 
 ### ALeRT / Spot
 
 {{ alert }}
 
-Legged locomotion is the advantage where the arena includes any
-non-flat terrain (see the [platform page](../platforms/alert-spot.md)).
-Manipulation bonus attempts should budget extra time — MoveIt planning
-failures are a normal part of a first attempt, not a sign something is
-broken.
+Legged locomotion is the advantage on any non-flat terrain (see the
+[platform page](../platforms/alert-spot.md)). Manipulation attempts should
+budget extra iteration time — MoveIt planning failures are a normal part of
+a first attempt, not a sign something is broken.
 
-## Procedure for a hardware failure
-
-1. **Stop the clock.** Signal the referee immediately — do not attempt a
-   repair with the clock running.
-2. **Assess**: is this fixable within the event's spare time (battery swap,
-   loose connector), or does it end the attempt?
-3. **Fixable**: the team gets one restart, at the referee's discretion,
-   generally with a time penalty reflecting the delay.
-4. **Not fixable**: the attempt ends; the team may run again in a later
-   slot if one is available, or the run is scored as-is up to the failure.
-5. **Always**: the referee logs what failed, for the acceptance checklist of
-   future course versions.
-
-## Schematic arena
+## Schematic mission area
 
 ```{figure} ../_static/images/diagrams/10-hackathon-arena-schematic.svg
-:alt: A top-down schematic floor plan. A Start Zone sits bottom left. A dashed example route winds past two labelled obstacles and an unmapped-on-the-day area to a Target Zone top right containing a marker. An optional Drop Zone sits near the start for the transport bonus task.
+:alt: A top-down schematic floor plan. A Start Zone sits bottom left. A dashed example route winds past two labelled obstacles and an unmapped-on-the-day area to a Target Zone top right containing a marker. An optional Drop Zone sits near the start for the transport extension.
 :width: 100%
 
-Schematic only — not the confirmed layout. See `DECISIONS_NEEDED.md` item 8.
+Schematic only, illustrating the shape of the mission rather than any
+particular physical layout.
 ```
 
-This sketch fixes the **shape** of the mission (start → obstacles →
-target, with an optional drop zone) so teams can build and test against
-something concrete. The actual dimensions, obstacle placement and target
-count depend on the room booked for the event — an open organisational
-question, not a technical one; see `DECISIONS_NEEDED.md`.
+This sketch fixes the **shape** of the mission — start, obstacles, a
+target area, an optional drop zone for the transport extension — so you can
+build and test against something concrete regardless of where you actually
+run it. Build your own version of this layout with whatever space and
+obstacles you have available; the exact dimensions do not matter, only that
+it exercises every step of the mission above.
 
-## The scoring node
+## Mission monitoring node
 
-Illustrative interface for the automatable part of the score
-(perception, mission logic). Test against it during development.
+An optional node for development: it listens for your mission's status
+transitions and target detections and logs them with a timestamp, which is
+useful for confirming your own mission logic behaves as intended before you
+depend on it, and for lining up a log against a rosbag when replaying a
+run.
 
 ```python
 #!/usr/bin/env python3
@@ -253,18 +172,18 @@ from rclpy.node import Node
 from std_msgs.msg import String
 
 
-class ScoringNode(Node):
-    """Records mission status transitions and timing for one attempt."""
+class MissionMonitorNode(Node):
+    """Logs mission status transitions and timing for one attempt."""
 
     def __init__(self):
-        super().__init__('scoring_node', namespace='scoring')
+        super().__init__('mission_monitor', namespace='monitor')
         self.start_time = time.time()
         self.finished = False
 
         self.create_subscription(String, 'detected_target', self.on_target, 10)
         self.create_subscription(String, 'mission_status', self.on_status, 10)
 
-        self.get_logger().info('Scoring started. Clock is running.')
+        self.get_logger().info('Mission monitor started.')
 
     def on_target(self, msg):
         self.get_logger().info(f'Target reported: {msg.data}')
@@ -282,7 +201,7 @@ class ScoringNode(Node):
 
 def main():
     rclpy.init()
-    node = ScoringNode()
+    node = MissionMonitorNode()
     try:
         rclpy.spin(node)
     except KeyboardInterrupt:
@@ -297,20 +216,38 @@ if __name__ == '__main__':
 
 :::{tip}
 Publish `mission_status` with the values `succeeded`, `failed_safe` or
-`aborted` — never leave it unset. A referee (and this node) needs exactly
-one clear signal for how your attempt ended.
+`aborted` — never leave it unset. Both this node and you, reading the log
+afterwards, need exactly one clear signal for how an attempt ended, which
+is the same discipline the state machine in
+[module 7](07-autonomous-decisions.md) already asks of every state.
 :::
 
-## Preparing for it
+## Handling an unexpected stop
 
-Build [Level 1 of the common mission](#the-common-mission) end to end first
-— reliable beats clever. Rehearse the cold-start-to-ready sequence until
-every team member has done it once. Record every practice run; when
-something goes wrong you will have the bag.
+If the robot stops unexpectedly mid-run — a dropped connection, a stalled
+motor, an E-stop press — do not simply restart the same launch command and
+hope. Work through it like any other fault:
 
-## Transition from the course
+1. Check the last few log lines and the last `mission_status` value before
+   the stop; often the mission logic already told you what it was doing.
+2. Run the [eight-step diagnostic procedure](08-integration.md#the-eight-step-diagnostic-procedure)
+   before touching anything.
+3. If a physical E-stop was pressed, the platform typically needs an
+   explicit re-enable step before it will move again — check your
+   [platform page](../platforms/index.md) for the exact procedure.
+4. Once you understand what happened, restart from a clean, known state
+   rather than from wherever the system was left.
 
-Everything here draws on all eight sessions:
+## Preparing for the project
+
+Build the mission end to end first — reliable beats clever. Rehearse the
+cold-start-to-ready sequence until it is routine. Record every practice
+attempt; when something goes wrong, the bag is what lets you find out why
+without having to reproduce it live.
+
+## Connection to the course
+
+This project draws on every module:
 [1](01-system-hardware.md) · [2](02-ros2.md) · [3](03-sensors-tf.md) ·
 [4](04-perception/index.md) · [5](05-mapping-localization.md) ·
 [6](06-navigation.md) · [7](07-autonomous-decisions.md) ·
@@ -321,4 +258,3 @@ Everything here draws on all eight sessions:
 - [Nav2 costmap filters](https://docs.nav2.org/jazzy/configuration_and_development/configuration_guide/core_servers/costmap_2d/costmap_filters/keepout_filter/)
 - [Nav2 tutorials](https://docs.nav2.org/jazzy/tutorials/)
 - Your [platform track](../platforms/index.md)
-- Open organisational decisions: `DECISIONS_NEEDED.md` in the repository
