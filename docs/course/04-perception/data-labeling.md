@@ -4,7 +4,7 @@
 
 {{ advanced }} **Status: advanced reading.** Needed only if you train a
 [custom YOLO model](object-detection.md#training-a-custom-model) — not part
-of [session 4](index.md)'s core task.
+of [module 4](index.md)'s core task.
 
 ## 1. Collect images
 
@@ -66,4 +66,4 @@ above.
 
 - [MakeSense.ai](https://www.makesense.ai/) · [Roboflow](https://roboflow.com/) ·
   [CVAT](https://www.cvat.ai/)
-- Back to [session 4](index.md) · [object detection](object-detection.md)
+- Back to [module 4](index.md) · [object detection](object-detection.md)

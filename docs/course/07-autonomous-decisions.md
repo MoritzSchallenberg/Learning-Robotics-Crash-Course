@@ -1,64 +1,33 @@
 # 7. Autonomous Decisions and Manipulation
 
-:::{admonition} Session 7
-:class: note
-
-Monday, 26 October 2026, 17:35 – 19:00 (85 minutes)
-:::
-
 {{ common }}
 
 You can navigate, perceive and localize. What is missing is the thing that
-decides *what to do next* — and what to do when a step fails. Tonight's core
-is that decision layer, not any one tool for building it.
+decides *what to do next* — and what to do when a step fails. This module's
+core is that decision layer, not any one tool for building it.
 
-## Tonight
+## Overview
 
-**Learning objectives** — by 19:00 you can:
+You will learn to model a mission as a sequence of states with explicit
+failure exits, see what a behavior tree adds over a plain state machine,
+and implement a mission that recovers or reports cleanly instead of hanging
+when a step fails.
+
+## Learning objectives
+
+By the end of this module you can:
 
 1. model a small mission as a sequence of states with explicit failure
    exits;
 2. explain what a behavior tree adds over a plain state machine;
 3. implement and run a mission with at least one failure or retry branch.
 
-**Visible result of the evening**: a mission runs to completion when
-everything works, **and** recovers or reports cleanly when a step you
-control deliberately fails — not hangs, not crashes.
+## Prerequisites
 
-**Preparation**: [session 6](06-navigation.md) completed — you can send a
-navigation goal from code and read its result.
+[Module 6](06-navigation.md) completed — you can send a navigation goal
+from code and read its result.
 
-## Run sheet (85 minutes)
-
-```{list-table}
-:header-rows: 1
-:widths: 16 20 64
-:class: lrcc-runsheet
-
-* - Time
-  - Block
-  - Content
-* - 17:35–17:45
-  - Opening
-  - Recap: a script has no answer to "what if this fails?" — today's session
-    is entirely about that gap
-* - 17:45–18:05
-  - Theory {{ core }}
-  - States, transitions, failure exits; state machine vs. behavior tree
-* - 18:05–18:15
-  - Demonstration {{ core }}
-  - Live: run a 3-state mission, then break it on purpose
-* - 18:15–18:50
-  - Practical task {{ core }}
-  - Model and implement a mission with a failure branch
-* - 18:50–19:00
-  - Wrap-up
-  - Deliberately fail each other's missions; preview session 8
-```
-
-## Theory
-
-{{ core }}
+## Core concepts
 
 ### Why a script is not enough
 
@@ -89,8 +58,8 @@ what if this does not work?" for every step.
 A tree, re-evaluated many times a second, built from a few control nodes:
 **Sequence** (run children in order, fail on first failure — "do all of
 these"), **Fallback** (try children in order, succeed on first success —
-"try these until one works"). Nav2's BT Navigator, which you already used in
-session 6, is exactly this pattern.
+"try these until one works"). Nav2's BT Navigator, which you already used
+in module 6, is exactly this pattern.
 
 ```{list-table}
 :header-rows: 1
@@ -110,7 +79,53 @@ session 6, is exactly this pattern.
   - Extend without touching existing states
 ```
 
-For tonight's task, a state machine is the faster thing to get working.
+For the practical task below, a state machine is the faster thing to get
+working.
+
+## Guided example
+
+Build and deliberately break a minimal three-state mission before tackling
+the full one, so the failure mode is familiar rather than surprising:
+
+```python
+import time
+from enum import Enum, auto
+
+
+class State(Enum):
+    IDLE = auto()
+    WAIT_FOR_INPUT = auto()
+    DONE = auto()
+
+
+def run_mission(get_input, timeout_s=5.0):
+    state = State.IDLE
+    deadline = None
+
+    while state is not State.DONE:
+        if state is State.IDLE:
+            state = State.WAIT_FOR_INPUT
+            deadline = time.time() + timeout_s
+
+        elif state is State.WAIT_FOR_INPUT:
+            if get_input() is not None:
+                state = State.DONE
+            elif time.time() > deadline:
+                print('timed out waiting for input')
+                state = State.DONE
+            else:
+                time.sleep(0.1)
+
+    print('mission finished')
+```
+
+Run it with a `get_input` that always returns `None` — it should print
+"timed out waiting for input" after five seconds and then finish, not hang
+forever. Now comment out the `elif time.time() > deadline:` branch and run
+it again: the loop never exits, because `WAIT_FOR_INPUT` has no way out
+when its condition is never met. This is the exact failure mode the
+practical task below asks you to avoid in a real mission — a state with no
+timeout is a state that can hang forever.
 
 ## Practical task
 
@@ -119,61 +134,68 @@ Implement a mission — *navigate to a point, look for a marker, report* —
 that visibly recovers instead of hanging when the marker is not found.
 
 ### Starting point
-A pre-built `mission_demo` package with the navigation action client from
-[session 6](06-navigation.md#advanced-sending-goals-from-code-and-exploring)
-and the marker detector from
-[session 4](04-perception/index.md) already available as importable helper
+A `mission_demo` package with the navigation action client from
+[module 6](06-navigation.md#advanced-topics) and the marker detector from
+[module 4](04-perception/index.md) already available as importable helper
 classes — you write the state machine, not the underlying clients.
 
 ### Steps
 1. On paper, draw states: `IDLE → NAVIGATE → SEARCH → RETURN → DONE`, plus a
    `FAILED` exit from `NAVIGATE`.
 2. Decide `SEARCH`'s timeout (30 s is reasonable) and what happens on
-   timeout — it must still transition, not hang.
+   timeout — it must still transition, not hang, exactly as in the guided
+   example above.
 3. Implement the state machine in Python using the provided helper classes
-   (a `State` enum plus a `step()` method is enough — see the hint below).
+   (a `State` enum plus a `step()` method, the same shape as the guided
+   example, is enough).
 4. Run it with the marker **present**. Confirm it completes.
 5. Run it with **no marker** in the search area. Confirm it does not hang.
 6. Block the navigation goal (place an obstacle across the only path).
    Confirm `NAVIGATE`'s failure exit actually fires.
 7. Fix whatever you found in steps 5–6.
 
-### Expected result
+## Expected result
+
 The mission finishes in all three cases — success, marker not found,
 navigation blocked — with no run lasting longer than the timeout you chose,
 and no traceback.
 
-### Verification
+## Verification
+
 ```bash
 ros2 topic echo /mission_status
 ```
+
 Reports `succeeded`, `marker_not_found` or `navigation_failed` — three
 distinct outcomes, never silence.
 
-### Common problems
+## Common problems
+
 - **A state with no way out** — waiting for something with no timeout. Every
-  waiting state needs a deadline.
+  waiting state needs a deadline, exactly like the guided example's broken
+  version.
 - **Failure not propagated** — the action client reports failure and the
   code moves to the next state anyway; always check the result status.
 - **Only the happy path exists** — the most common first draft. If your
   diagram has no failure transitions, it is not finished.
+- **`rclpy.shutdown()` inside a state.** Kills the shared node and
+  everything after it. Only call it once, at the very end of the program.
+- **The state machine "works" and the robot does not.** States ran and
+  returned `success` without checking whether their action actually
+  succeeded.
 
-### Extension
+## Optional extensions
 
 {{ optional }}
 
 Add a fourth state that retries `SEARCH` once, from a slightly different
 position, before giving up — the smallest possible recovery behaviour.
 
-## Simulation fallback
-
-{{ simulation }}
-
-Identical task; failing "on purpose" is easier in simulation — remove the
+{{ simulation }} Failing "on purpose" is easier in simulation — remove the
 marker from the scene, or block the path with a dragged object, exactly as
-in [session 6](06-navigation.md#simulation-fallback).
+in [module 6](06-navigation.md#optional-extensions).
 
-## Advanced: RAFCON, and where planning fits
+## Advanced topics
 
 {{ advanced }}
 
@@ -249,14 +271,14 @@ advance. It is not part of this course's hands-on track: neither institute
 team currently runs PlanSys2 or Golog++ for competition missions — both use
 state machines or behavior trees, because predictable behaviour under time
 pressure matters more than adapting to the unexpected. Treat this as
-orientation for further reading, not a tool you are expected to install
-tonight.
+orientation for further reading, not a tool this course walks through
+building.
 :::
 
 :::{dropdown} MoveIt and manipulation
 :icon: light-bulb
 
-{{ alert }} Where session 7's general decision principles connect to a
+{{ alert }} Where this module's general decision principles connect to a
 physical arm: [MoveIt 2](https://moveit.picknik.ai/) solves inverse
 kinematics and collision-free motion planning. A pick-and-place sequence is
 exactly the state-machine pattern above, with `GRASP` and `RELEASE` as
@@ -267,20 +289,11 @@ states with their own failure exits (a `None` inverse-kinematics result is
 [Carologistics platform page](../platforms/carologistics-robotino.md#gripper).
 :::
 
-## Common mistakes
+## Connection to the next module
 
-**`rclpy.shutdown()` inside a state.** Kills the shared node and everything
-after it. Only call it once, at the very end of the program.
-
-**The state machine "works" and the robot does not.** States ran and
-returned `success` without checking whether their action actually succeeded.
-
-## Transition to session 8
-
-Tonight's mission ran alone, once, by hand. Next week you assemble every
-piece from the last seven sessions into one system, start it with one
-command, and learn to find a fault fast —
-[System Integration and Testing](08-integration.md).
+This module's mission ran once, on its own. [Module 8](08-integration.md)
+assembles every piece from the previous modules into one system, starts it
+with one command, and covers how to find a fault fast.
 
 ## Further reading
 

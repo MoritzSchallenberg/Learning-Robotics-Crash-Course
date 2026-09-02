@@ -1,63 +1,32 @@
 # 5. Mapping and Localization
 
-:::{admonition} Session 5
-:class: note
-
-Monday, 19 October 2026, 17:35 – 19:00 (85 minutes)
-:::
-
 {{ common }}
 
 The robot has sensors, knows where they are mounted, and can detect a
-marker. It still has no idea where *it* is. Tonight gives it a map, and then
-a position in that map.
+marker. It still has no idea where *it* is. This module gives it a map, and
+then a position in that map.
 
-## Tonight
+## Overview
 
-**Learning objectives** — by 19:00 you can:
+You will learn why mapping and localization are different problems needing
+different tools, build (or load) an occupancy grid map with SLAM Toolbox,
+and check the robot's estimated position against that map in RViz.
+
+## Learning objectives
+
+By the end of this module you can:
 
 1. explain the difference between mapping and localization, and why they
    need different tools;
 2. build or load an occupancy grid map with SLAM Toolbox;
 3. check the robot's estimated position against the map in RViz.
 
-**Visible result of the evening**: a map exists (built tonight or loaded
-from a save), and the robot's laser scan visibly lines up with the walls of
-that map in RViz.
+## Prerequisites
 
-**Preparation**: [session 3](03-sensors-tf.md) completed — a working TF tree
-and a visible laser scan are required; you cannot map without both.
+[Module 3](03-sensors-tf.md) completed — a working TF tree and a visible
+laser scan are required; you cannot map without both.
 
-## Run sheet (85 minutes)
-
-```{list-table}
-:header-rows: 1
-:widths: 16 20 64
-:class: lrcc-runsheet
-
-* - Time
-  - Block
-  - Content
-* - 17:35–17:45
-  - Opening
-  - Recap TF; today `odom` and `map` both get filled in for real
-* - 17:45–18:05
-  - Theory {{ core }}
-  - Odometry, occupancy grids, mapping vs. localization, SLAM Toolbox
-* - 18:05–18:15
-  - Demonstration {{ core }}
-  - Live: watch a map form while driving, then localize on a saved one
-* - 18:15–18:50
-  - Practical task {{ core }}
-  - Build (or load) a map; check the estimated position
-* - 18:50–19:00
-  - Wrap-up
-  - Compare estimated vs. actual position; preview session 6
-```
-
-## Theory
-
-{{ core }}
+## Core concepts
 
 ### Odometry, briefly
 
@@ -65,13 +34,6 @@ and a visible laser scan are required; you cannot map without both.
 wheel encoders (often fused with an IMU). It is **smooth** — the estimate
 never jumps — and it **drifts**: small errors accumulate and are never
 corrected on their own.
-
-```bash
-ros2 run tf2_ros tf2_echo odom base_link
-```
-
-Drive a square back to the exact start point and read it again — the gap is
-the drift. Good over a few metres, unreliable after a few minutes.
 
 ### Occupancy grids
 
@@ -81,14 +43,13 @@ A 2D map is an **occupancy grid**: the world divided into cells, each `0`
 
 ### Mapping and localization are different problems
 
-**Mapping** (this evening, first half): you do not yet know where you are,
-and you build the map while driving — **SLAM** (Simultaneous Localization
-And Mapping) solves both at once by recognising previously seen places to
-correct drift.
+**Mapping**: you do not yet know where you are, and you build the map while
+driving — **SLAM** (Simultaneous Localization And Mapping) solves both at
+once by recognising previously seen places to correct drift.
 
-**Localization** (this evening, second half): a map already exists; you only
-need to find the robot's position *in* it — **AMCL**, a particle filter that
-scores hypotheses against the laser scan.
+**Localization**: a map already exists; you only need to find the robot's
+position *in* it — **AMCL**, a particle filter that scores hypotheses
+against the laser scan.
 
 ```{figure} ../_static/images/diagrams/06-mapping-localization-dataflow.svg
 :alt: Two modes sharing laser scan and odometry as inputs. Mapping mode feeds SLAM Toolbox, producing an occupancy grid map and the map to odom transform. Localization mode feeds a saved map plus scan and odometry into AMCL, producing a corrected pose and the same map to odom transform.
@@ -98,7 +59,7 @@ Both modes publish the same `map`→`odom` transform — the correction that
 keeps `odom`'s smooth drift from accumulating forever.
 ```
 
-This is why the `map`/`odom`/`base_link` split from session 3 exists:
+This is why the `map`/`odom`/`base_link` split from module 3 exists:
 `odom`→`base_link` stays smooth and local; `map`→`odom` is the correction,
 published by whichever of SLAM Toolbox or AMCL is currently running — never
 both at once.
@@ -109,16 +70,33 @@ and AMCL together produces a pose that jumps unpredictably between their two
 answers.
 :::
 
+## Guided example
+
+Measure odometry drift for yourself before you rely on any map built from
+it:
+
+```bash
+ros2 run tf2_ros tf2_echo odom base_link
+```
+
+Note the printed translation, then drive the robot (or teleoperate it in
+simulation) in a square, back to the exact spot it started from, and read
+the transform again. The gap between the two readings is the drift — good
+over a few metres, unreliable after a few minutes. This is exactly why
+mapping needs SLAM's loop-closing correction rather than trusting odometry
+alone, and why the practical task below asks you to drive slowly and close
+loops.
+
 ## Practical task
 
 ### Goal
-Produce a map of a small area, then localize the robot on it and confirm the
-estimated position matches reality.
+Produce a map of a small area, then localize the robot on it and confirm
+the estimated position matches reality.
 
 ### Starting point
-A pre-built `robot_bringup` + `my_robot_slam` workspace with SLAM Toolbox
-and AMCL already configured — only the launch commands below are new
-tonight.
+A `robot_bringup` + `my_robot_slam` workspace with SLAM Toolbox and AMCL
+already configured, built following the
+[installation guide](../prerequisites/installation.md).
 
 ### Steps
 1. `ros2 launch robot_bringup robot.launch.yaml`
@@ -133,17 +111,20 @@ tonight.
 7. Drive a short distance and watch the particle cloud tighten around the
    true position.
 
-### Expected result
+## Expected result
+
 After step 7, the live laser scan sits directly on the mapped walls, and
 stays there as the robot moves.
 
-### Verification
+## Verification
+
 Watch the scan against the walls, not the numeric pose — if the scan slides
 through a wall, localization has not converged, no matter what the pose
 readout claims. `ros2 topic echo /amcl_pose --once` should report a small
 covariance once converged.
 
-### Common problems
+## Common problems
+
 - **The map is doubled or smeared** — driven too fast or hit something.
   There is no fix but starting the map over, slowly.
 - **No map appears in RViz** — QoS: `/map` is Transient Local; set the
@@ -151,26 +132,28 @@ covariance once converged.
 - **AMCL never publishes `map`→`odom`** — no initial pose was set, or the
   lifecycle manager has not activated the AMCL/map_server nodes
   (`ros2 lifecycle get /amcl`).
+- **Map doubled or smeared.** Drove too fast, or collided with something.
+- **`use_sim_time` mismatch.** Set on some nodes and not others — check
+  every node, not just the one you changed last.
+- **SLAM Toolbox and AMCL fighting.** Only one may run at a time; stop SLAM
+  Toolbox completely before starting AMCL.
 
-### Extension
+## Optional extensions
 
 {{ optional }}
 
 Pick the robot up (or teleport it in simulation) and put it down somewhere
 else. Watch localization fail, then recover it with a fresh 2D Pose
 Estimate — this is exactly the failure mode you diagnose in
-[session 8](08-integration.md).
+[module 8](08-integration.md).
 
-## Simulation fallback
-
-{{ simulation }}
-
-Identical procedure, much faster — a whole arena maps in a few minutes and
-resets instantly if driven too fast. Set `use_sim_time:=true` on **every**
-launch file tonight, or nothing will time out sensibly; see
+{{ simulation }} Identical procedure, much faster — a whole arena maps in a
+few minutes and resets instantly if driven too fast. Set
+`use_sim_time:=true` on **every** launch file, or nothing will time out
+sensibly; see
 [Simulation time](../platforms/simulation.md#simulation-time).
 
-## Advanced: 3D mapping
+## Advanced topics
 
 {{ advanced }}
 
@@ -180,7 +163,7 @@ launch file tonight, or nothing will time out sensibly; see
 {{ alert }} An occupancy grid is a flat slice — fine for a robot on a
 factory floor, useless for one climbing over rubble. ALeRT uses two 3D
 approaches for that case; **neither is part of the general course**, and
-both are genuinely more advanced than tonight's 2D SLAM.
+both are genuinely more advanced than the 2D SLAM covered above.
 
 **Octomap** — a 3D occupancy map stored as an *octree*: the 3D
 generalisation of the occupancy grid, subdividing space only where detail is
@@ -215,21 +198,10 @@ command you find elsewhere as needing a check against the current
 repository state.
 :::
 
-## Common mistakes
+## Connection to the next module
 
-**Map doubled or smeared.** Drove too fast, or collided with something.
-
-**`use_sim_time` mismatch.** Set on some nodes and not others — check every
-node, not just the one you changed last.
-
-**SLAM Toolbox and AMCL fighting.** Only one may run at a time; stop SLAM
-Toolbox completely before starting AMCL.
-
-## Transition to session 6
-
-Tonight the robot knows where it is. Next week it decides how to get
-somewhere else on its own —
-[Autonomous Navigation](06-navigation.md).
+This module found the robot's own position. [Module 6](06-navigation.md)
+uses that position to decide how to get somewhere else on its own.
 
 ## Further reading
 

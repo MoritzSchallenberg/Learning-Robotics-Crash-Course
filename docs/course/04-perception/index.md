@@ -1,20 +1,15 @@
 # 4. Perception and Object Detection
 
-:::{admonition} Session 4
-:class: note
-
-Wednesday, 14 October 2026, 17:35 – 19:00 (85 minutes)
-:::
-
 {{ common }}
 
 A camera gives you a grid of coloured pixels. Turning that into "there is a
-marker 2.1 metres ahead, slightly left" is perception. Tonight's core is the
-smallest complete version of that pipeline: an image message, OpenCV, a
+marker 2.1 metres ahead, slightly left" is perception. This module's core is
+the smallest complete version of that pipeline: an image message, OpenCV, a
 fiducial marker, and a published result.
 
-This session has four deeper chapters. They are **not** part of tonight's 85
-minutes — they exist so you can go further afterwards, or prepare beforehand.
+This module has four deeper chapters, listed below. They are **not** part
+of the core task — they exist so you can go further afterwards, or prepare
+beforehand.
 
 ```{toctree}
 :maxdepth: 1
@@ -33,7 +28,7 @@ data-labeling
 :link: camera-calibration
 :link-type: doc
 
-{{ optional }} Preparation / reference — not required to complete tonight's
+{{ optional }} Preparation / reference — not required to complete the core
 task with a pre-calibrated camera.
 :::
 
@@ -60,64 +55,37 @@ task with a pre-calibrated camera.
 
 ::::
 
-## Tonight
+## Overview
 
-**Learning objectives** — by 19:00 you can:
+You will learn what separates *detecting* something in an image from
+*localizing* it in the world, process a camera image inside a ROS 2 node
+with OpenCV, and detect a fiducial marker, publishing its ID as a ROS 2
+message.
+
+## Learning objectives
+
+By the end of this module you can:
 
 1. explain the difference between *detecting* something and *localizing*
    it;
 2. process a camera image inside a ROS 2 node with OpenCV;
 3. detect a fiducial marker and publish where it is as a ROS 2 message.
 
-**Visible result of the evening**: your node draws a box around a marker in
-a live image and prints the marker's ID to the terminal, published as a ROS
-2 topic another node could subscribe to.
+## Prerequisites
 
-**Preparation** — before arriving:
-
-- [Session 3](../03-sensors-tf.md) completed.
+- [Module 3](../03-sensors-tf.md) completed.
 - A **calibrated** camera stream already running — either the simulator, or
   a webcam calibrated in advance using
-  [Camera calibration](camera-calibration.md). Calibrating during the
-  session eats the entire 85 minutes and is not part of tonight.
-- Printed ArUco markers, dictionary `DICT_6X6_50` (your facilitator
-  provides these).
+  [Camera calibration](camera-calibration.md). Calibrating on the fly is
+  not part of the core task; do it beforehand.
+- One or more printed ArUco markers, dictionary `DICT_6X6_50` — see the
+  guided example below for how to generate and print your own.
 
-## Run sheet (85 minutes)
-
-```{list-table}
-:header-rows: 1
-:widths: 16 20 64
-:class: lrcc-runsheet
-
-* - Time
-  - Block
-  - Content
-* - 17:35–17:45
-  - Opening
-  - Recap TF; today a camera image becomes a position, using the same TF
-    machinery
-* - 17:45–18:05
-  - Theory {{ core }}
-  - Image messages, `cv_bridge`, detection vs. localization
-* - 18:05–18:15
-  - Demonstration {{ core }}
-  - Live: detect a marker, watch its TF frame appear
-* - 18:15–18:50
-  - Practical task {{ core }}
-  - Detect a marker and publish the result
-* - 18:50–19:00
-  - Wrap-up
-  - Confirm detections together; preview session 5
-```
-
-## Theory
-
-{{ core }}
+## Core concepts
 
 ### Detection versus localization
 
-Hold on to this distinction — it is the point of the whole session.
+Hold on to this distinction — it is the point of the whole module.
 
 **Detection** answers *what*, in image coordinates: "there is a marker, in a
 box from pixel (120, 240) to (200, 310)." On its own it cannot tell a robot
@@ -181,6 +149,37 @@ detect a `DICT_4X4_50` marker, and there is no error — you simply get no
 detections. Check which dictionary your markers came from.
 :::
 
+## Guided example
+
+Generate and print your own ArUco marker using the same OpenCV library the
+detector above uses, so you know exactly which dictionary and ID you are
+working with:
+
+```python
+import cv2
+
+dictionary = cv2.aruco.getPredefinedDictionary(cv2.aruco.DICT_6X6_50)
+marker_image = cv2.aruco.generateImageMarker(dictionary, 0, 400)  # marker ID 0, 400px
+cv2.imwrite('marker_0.png', marker_image)
+```
+
+Print `marker_0.png` at a convenient size (10 cm square is a reasonable
+default for a desk-scale test), and repeat with a different ID for a second
+marker.
+
+Then confirm detection works before wiring it into a full node — run the
+same three lines interactively in a Python shell against a single captured
+frame, or against the live topic:
+
+```bash
+ros2 run usb_cam usb_cam_node_exe   # or your platform's camera driver
+ros2 topic echo /image_raw --once   # confirm the topic is actually publishing
+```
+
+If `detectMarkers` finds nothing on a frame you can see the marker in
+clearly, the dictionary is the first thing to check — printed markers are
+easy to generate in the wrong dictionary by mistake.
+
 ## Practical task
 
 ### Goal
@@ -188,9 +187,9 @@ Detect an ArUco marker in a live camera stream, draw a box around it, and
 publish the detected marker ID on a ROS 2 topic.
 
 ### Starting point
-A pre-built workspace with a `perception_demo` package containing a node
-template `aruco_node.py` with the subscriber and publisher already wired,
-and `# TODO` comments marking exactly where detection code goes — and a
+A workspace with a `perception_demo` package containing a node template
+`aruco_node.py` with the subscriber and publisher already wired, and
+`# TODO` comments marking exactly where detection code goes — and a
 running, calibrated camera topic.
 
 ### Steps
@@ -203,29 +202,39 @@ running, calibrated camera topic.
 6. Hold a printed marker in front of the camera.
 7. Confirm in a second terminal: `ros2 topic echo /detected_marker_id`.
 
-### Expected result
+## Expected result
+
 The marker is outlined in the published annotated image, and its ID is
 printed every time `ros2 topic echo /detected_marker_id` receives a message.
 
-### Verification
+## Verification
+
 ```bash
 ros2 topic hz /detected_marker_id
 ```
-Publishes at a steady rate whenever a marker is visible, and stops publishing
-new IDs when it is removed from view (the node should not report a marker
-that is not there).
 
-### Common problems
+Publishes at a steady rate whenever a marker is visible, and stops
+publishing new IDs when it is removed from view (the node should not
+report a marker that is not there).
+
+## Common problems
+
 - **No detections, no errors** — wrong dictionary, or the image topic name
   in the node does not match the camera's actual topic
   (`ros2 topic list` to check).
 - **Detections flicker on and off** at the edge of the frame — expected;
-  this is exactly why session 5's mapping task needs the position to be
+  this is exactly why module 5's mapping task needs the position to be
   *remembered*, not just detected once.
 - **`cv_bridge` import error** — the workspace was not sourced, or
   `cv_bridge` was not installed for your ROS 2 distribution.
+- **Detection works on a still image but not live.** Motion blur — reduce
+  exposure time, slow down, or improve lighting.
+- **Poses look plausible but are numerically wrong.** Usually a
+  calibration or marker-size problem — see
+  [camera calibration](camera-calibration.md) and the size warning in
+  [fiducial markers](fiducial-markers.md).
 
-### Extension
+## Optional extensions
 
 {{ optional }}
 
@@ -234,31 +243,16 @@ Publish the detected marker's position as a TF frame (see
 so that `ros2 run tf2_ros tf2_echo base_link <marker_frame>` gives you a
 distance and direction, not just an ID.
 
-## Simulation fallback
+No camera available at all? Use a static test image saved as a file and
+read it with `cv2.imread()` instead of subscribing to a topic —
+everything downstream of `detectMarkers` is unchanged. A photo of your
+printed marker from the guided example works as this test image.
 
-{{ simulation }}
+## Connection to the next module
 
-Print an ArUco marker on paper and hold it in front of any webcam — the
-detection code is identical whether the image comes from a real robot
-camera or a laptop webcam. If no camera is available at all, use a static
-test image saved as a file and read it with `cv2.imread()` instead of
-subscribing to a topic; everything downstream of `detectMarkers` is
-unchanged.
-
-## Common mistakes
-
-**Detection works on a still image but not live.** Motion blur — reduce
-exposure time, slow down, or improve lighting.
-
-**Poses look plausible but are numerically wrong.** Usually a calibration or
-marker-size problem — see [camera calibration](camera-calibration.md) and
-the size warning in [fiducial markers](fiducial-markers.md).
-
-## Transition to session 5
-
-Tonight a marker's position existed only while it was visible. Next week you
-build a **map** that remembers the world once and localize the robot inside
-it — [Mapping and Localization](../05-mapping-localization.md).
+This module produced a marker position that existed only while the marker
+was visible. [Module 5](../05-mapping-localization.md) builds a **map** that
+remembers the world once and localizes the robot inside it.
 
 ## Further reading
 

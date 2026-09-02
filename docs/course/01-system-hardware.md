@@ -1,66 +1,34 @@
 # 1. System Architecture and Robot Hardware
 
-:::{admonition} Session 1
-:class: note
-
-Monday, 05 October 2026, 17:35 – 19:00 (85 minutes)
-:::
-
 {{ common }}
 
-Before any software makes sense, you need a picture of the machine it runs on.
-Tonight is about that picture: what an autonomous robot is made of, how the
-parts connect, and why the software is structured the way it is.
+Before any software makes sense, you need a picture of the machine it runs
+on. This module is about that picture: what an autonomous robot is made of,
+how the parts connect, and why the software is structured the way it is.
 
-## Tonight
+## Overview
 
-**Learning objectives** — by 19:00 you can:
+You will learn the sense–process–act loop that every autonomous robot runs,
+and use it to read any robot's power and data topology — real or described.
+The module ends with you producing your own system diagram of a robot,
+distinguishing data flow, power flow and the safety chain.
+
+## Learning objectives
+
+By the end of this module you can:
 
 1. describe the sense–process–act loop and place any robot component in it;
 2. read a robot's power and data topology and say what fails if one link
    breaks;
 3. compare a wheeled robot and a legged robot using the same architecture.
 
-**Visible result of the evening**: every pair leaves with a hand-drawn system
-diagram of a real or described robot, showing data flow, power flow and the
-safety chain as three distinguishable kinds of arrow.
+## Prerequisites
 
-**Preparation**: none beyond arriving on time. This is the one evening with no
-software prerequisite — [session 2](02-ros2.md) is where the
-[prerequisites](../prerequisites/index.md) start to matter.
+None. This is the one module with no software prerequisite —
+[module 2](02-ros2.md) is where the [prerequisites](../prerequisites/index.md)
+start to matter.
 
-## Run sheet (85 minutes)
-
-```{list-table}
-:header-rows: 1
-:widths: 16 20 64
-:class: lrcc-runsheet
-
-* - Time
-  - Block
-  - Content
-* - 17:35–17:45
-  - Opening
-  - Why this course, why hardware first. Show a real robot (or a photo) and
-    ask: "what do you already see?"
-* - 17:45–18:05
-  - Theory {{ core }}
-  - The sense–process–act loop; drive, power, compute, network, safety
-* - 18:05–18:15
-  - Demonstration {{ core }}
-  - Walk a real robot (or the diagram below) end to end, naming every part
-    as data or power flows through it
-* - 18:15–18:50
-  - Practical task {{ core }}
-  - Draw the system diagram (see below)
-* - 18:50–19:00
-  - Wrap-up
-  - Compare two diagrams across the room; preview session 2
-```
-
-## Theory
-
-{{ core }}
+## Core concepts
 
 ### The sense–process–act loop
 
@@ -109,7 +77,7 @@ moment — closing a motor loop, reading an encoder.
 
 **Network.** Onboard, wired (Ethernet, USB, serial). Off-board, wireless —
 and Wi-Fi is the weakest, most shared, lowest-bandwidth link in the whole
-system. [Session 8](08-integration.md) and the
+system. [Module 8](08-integration.md) and the
 [networking prerequisite](../prerequisites/networking.md) come back to this.
 
 **Safety.** Layered: a physical **E-stop** that cuts motor power
@@ -150,19 +118,42 @@ hours.
 
 Detailed component lists live on the platform pages —
 [Carologistics/Robotino](../platforms/carologistics-robotino.md) and
-[ALeRT/Spot](../platforms/alert-spot.md) — not here. Tonight is about the
+[ALeRT/Spot](../platforms/alert-spot.md) — not here. This module is about the
 architecture both robots share.
+
+## Guided example
+
+Before drawing your own diagram, walk through the loop above end to end on
+a robot you have access to (real or simulated), naming every part you find
+as **sense**, **process** or **act**:
+
+1. Point to a sensor. What does it measure, and how often does it publish?
+2. Trace the wire or wireless link from that sensor to the onboard
+   computer. Is it the same physical path every other sensor uses, or a
+   separate one?
+3. Find the onboard computer and, if the platform has one, the
+   microcontroller. Which loop below runs on which?
+4. Point to an actuator. Trace the command path back from the computer to
+   it.
+5. Find the E-stop. Confirm — without pressing it — which of the paths you
+   just traced it would cut.
+
+If you have no robot available, do the same walk-through using the diagram
+above and the [platform hardware pages](../platforms/index.md) instead of a
+physical machine — the reasoning is identical either way.
 
 ## Practical task
 
 ### Goal
 Produce one system diagram — on paper or in any drawing tool — that traces a
 sensor reading from the sensor to the onboard computer, and a command from
-the computer back out to an actuator, with power and safety shown separately.
+the computer back out to an actuator, with power and safety shown
+separately.
 
 ### Starting point
-A real robot if one is available in the room; otherwise the diagram above
-plus a one-page hardware description your facilitator hands out.
+A real robot if you have access to one; otherwise the diagram above plus
+the relevant [platform hardware page](../platforms/index.md) as your
+component description.
 
 ### Steps
 1. List every component you can find (aim for at least eight).
@@ -176,16 +167,24 @@ plus a one-page hardware description your facilitator hands out.
 7. Pick three components; for each, write one sentence: *if this fails
    silently, what would the robot appear to be doing wrong?*
 
-### Expected result
+## Expected result
+
 A diagram with three visually distinct arrow types that someone who has
-never seen the robot could follow, plus three short failure sentences.
+never seen the robot could follow, plus three short failure sentences from
+step 7.
 
-### Verification
-Swap diagrams with another pair. Can they name, without you speaking, which
-arrow is data and which is power? If not, add a legend and try again — that
-is the actual skill this task teaches.
+## Verification
 
-### Common problems
+Look at your diagram fresh, or hand it to someone else without explaining
+it first: can they name, just from the diagram, which arrow is data and
+which is power, and what the E-stop cuts? If not, add a legend and revise —
+that is the actual skill this task teaches. For each of the three failure
+sentences from step 7, check that the sentence describes an *observable
+symptom* ("the robot stops responding to commands"), not just a repeat of
+the component name.
+
+## Common problems
+
 - **Data and power drawn as the same arrow style** — the two most common
   debugging questions ("is data flowing?" vs "is it powered?") become
   impossible to separate. Use two visibly different line styles.
@@ -193,25 +192,27 @@ is the actual skill this task teaches.
   the data path, not an outside observer.
 - **Treating the microcontroller as a detail** — whether a loop runs on the
   microcontroller or the onboard computer decides whether it is real-time.
+- **Drawing data flow and power as the same arrows.** They follow different
+  paths; conflating them makes the diagram useless for debugging.
+- **Skipping the network.** Anything connected over Wi-Fi is part of the
+  system, not outside it.
 
-### Extension
+## Optional extensions
 
 {{ optional }}
 
-Pick one failure sentence from step 7 and write the exact terminal command or
-observation that would confirm it — you will not be able to run it yet, but
-guessing correctly here is a good sign for [session 8](08-integration.md).
+Pick one failure sentence from your practical task's step 7 and write the
+exact terminal command or observation that would confirm it — you will not
+be able to run it until [module 2](02-ros2.md), but reasoning about it
+correctly here is a good sign for [module 8](08-integration.md).
 
-## Simulation fallback
+No robot available at all? Build the diagram from the
+[Webots](../platforms/simulation.md) robot model description instead of a
+physical robot — the loop and the component categories are identical; only
+"battery" becomes "simulated power", which is worth noting as a limitation
+of simulation in its own right.
 
-{{ simulation }}
-
-No robot in the room? Draw the diagram from the [Webots](../platforms/simulation.md)
-robot model description instead of a physical robot — the loop and the
-component categories are identical; only "battery" becomes "simulated power",
-which is worth discussing as a limitation of simulation in its own right.
-
-## Advanced: going deeper
+## Advanced topics
 
 {{ advanced }}
 
@@ -220,7 +221,7 @@ which is worth discussing as a limitation of simulation in its own right.
 
 **Encoders** measure motor rotation; combined with drive geometry they give
 **odometry** — accurate over a few metres, unreliable after a few minutes,
-because small errors accumulate and are never corrected. Session 5 explains
+because small errors accumulate and are never corrected. Module 5 explains
 why that matters.
 
 **IMU** measures acceleration and angular velocity directly, which is more
@@ -246,24 +247,17 @@ so Spot has legs and 3D perception. Neither is "better"; both are answers to
 different competition questions.
 :::
 
-## Common mistakes
+## Connection to the next module
 
-**Drawing data flow and power as the same arrows.** They follow different
-paths; conflating them makes the diagram useless for debugging.
-
-**Skipping the network.** Anything connected over Wi-Fi is part of the
-system, not outside it.
-
-## Transition to session 2
-
-Tonight you drew the boxes. [Session 2](02-ros2.md) turns them into running
-software: the boxes become **nodes**, the arrows become **topics**, and you
-start, inspect and modify a real ROS 2 system.
+This module produced a diagram of boxes and arrows.
+[Module 2](02-ros2.md) turns them into running software: the boxes become
+**nodes**, the arrows become **topics**, and you start, inspect and modify a
+real ROS 2 system.
 
 ## Further reading
 
 - [ROS 2 concepts](https://docs.ros.org/en/jazzy/Concepts.html) — the
-  software side of what you drew tonight
+  software side of what you just drew
 - [RoboCup Logistics League](https://ll.robocup.org/) {{ carologistics }}
 - [RoboCup Rescue League](https://rescuesim.robocup.org/) {{ alert }}
 - Platform detail: [Carologistics/Robotino](../platforms/carologistics-robotino.md) ·

@@ -3,7 +3,7 @@
 {{ common }}
 
 {{ advanced }} **Status: advanced reading.** Not required for
-[session 4](index.md)'s core task, which uses a fiducial marker. This page
+[module 4](index.md)'s core task, which uses a fiducial marker. This page
 is for objects that cannot carry a marker — people, tools, hazmat signs —
 and for teams whose platform track uses YOLO
 ({{ carologistics }} {{ alert }}).
@@ -175,4 +175,4 @@ training and validation sets overlap — see
 
 - [Ultralytics YOLO documentation](https://docs.ultralytics.com/)
 - [vision_msgs](https://github.com/ros-perception/vision_msgs)
-- Back to [session 4](index.md)
+- Back to [module 4](index.md)

@@ -3,9 +3,9 @@
 {{ common }}
 
 {{ optional }} **Status: preparation / reference.** This is *not* part of
-the [session 4](index.md) core 85 minutes. Do this beforehand if your camera
-needs it, or read it as background — it should never eat into the marker
-detection task.
+[module 4](index.md)'s core task. Do this beforehand if your camera needs
+it, or read it as background — it should never block the marker detection
+task.
 
 ## Why
 
@@ -38,7 +38,7 @@ If the `k` and `d` arrays are all zeros, it is not calibrated.
 Depth cameras such as the Intel RealSense arrive calibrated from the factory
 and publish valid `CameraInfo` immediately. A plain USB webcam does not.
 Simulated cameras also publish valid `CameraInfo` already — see
-[session 4's simulation fallback](index.md#simulation-fallback).
+[module 4's optional extensions](index.md#optional-extensions).
 :::
 
 ## Calibrating a webcam
@@ -131,4 +131,4 @@ The `k` matrix should now contain real numbers.
 
 - [ROS 2 image_pipeline documentation](https://docs.ros.org/en/rolling/p/image_pipeline/)
   — including the `camera_calibration` and `image_proc` packages
-- Back to [session 4](index.md)
+- Back to [module 4](index.md)

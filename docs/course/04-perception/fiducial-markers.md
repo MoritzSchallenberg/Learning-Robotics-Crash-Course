@@ -2,7 +2,7 @@
 
 {{ common }}
 
-{{ advanced }} **Status: advanced reading.** [Session 4](index.md) core
+{{ advanced }} **Status: advanced reading.** [Module 4](index.md) core
 task covers a minimal ArUco detector. This page goes further: AprilTag, the
 full node with TF publishing, and colour-based detection for comparison.
 
@@ -21,7 +21,7 @@ Both work the same way and are largely interchangeable for this course.
 
 ## ArUco with OpenCV
 
-The complete node — [session 4](index.md) has you fill in the two marked
+The complete node — [module 4](index.md) has you fill in the two marked
 gaps; this is the finished version:
 
 ```python
@@ -142,7 +142,7 @@ ros2 run tf2_ros tf2_echo base_link Standard41h12:7
 
 ### A TF listener for a detected marker
 
-Adapting the [session 3](../03-sensors-tf.md#advanced-looking-up-a-transform-from-code)
+Adapting the [module 3](../03-sensors-tf.md#advanced-topics)
 listener pattern to a marker:
 
 ```python
@@ -196,4 +196,4 @@ which is why detecting it usually needs two masks combined with
 - [ArUco tutorial](https://docs.opencv.org/4.x/d5/dae/tutorial_aruco_detection.html)
 - [AprilTag](https://april.eecs.umich.edu/software/apriltag) and the
   [apriltag_ros wrapper](https://github.com/christianrauch/apriltag_ros)
-- Back to [session 4](index.md)
+- Back to [module 4](index.md)

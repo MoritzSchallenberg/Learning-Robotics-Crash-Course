@@ -1,64 +1,32 @@
 # 8. System Integration and Testing
 
-:::{admonition} Session 8
-:class: note
-
-Wednesday, 28 October 2026, 17:35 – 19:00 (85 minutes)
-:::
-
 {{ common }}
 
-Seven weeks of pieces. Tonight they become one system, started with one
-command — and you learn the skill that decides how the hackathon goes:
-finding out what is broken, fast.
+Seven modules of pieces. This one turns them into one system, started with
+one command — and teaches the skill that decides how the capstone project
+goes: finding out what is broken, fast.
 
-## Tonight
+## Overview
 
-**Learning objectives** — by 19:00 you can:
+You will learn the correct startup order for a full robot system, a
+systematic eight-step procedure for finding a fault instead of guessing,
+and how to record and replay a rosbag of a real run.
+
+## Learning objectives
+
+By the end of this module you can:
 
 1. bring up a whole robot with one launch command, in the correct order;
 2. record and replay a rosbag of a real run;
-3. work a systematic procedure to find a deliberately planted fault.
+3. work a systematic procedure to find a fault you introduce yourself.
 
-**Visible result of the evening**: your team finds an instructor-planted
-fault using the diagnostic procedure below (not guessing), then runs a
-complete mini-mission end to end.
+## Prerequisites
 
-**Preparation**: sessions [2](02-ros2.md) through
-[7](07-autonomous-decisions.md) completed — tonight assembles what you
-already built, it does not introduce a new subsystem.
+Modules [2](02-ros2.md) through [7](07-autonomous-decisions.md)
+completed — this module assembles what you already built, it does not
+introduce a new subsystem.
 
-## Run sheet (85 minutes)
-
-```{list-table}
-:header-rows: 1
-:widths: 16 20 64
-:class: lrcc-runsheet
-
-* - Time
-  - Block
-  - Content
-* - 17:35–17:45
-  - Opening
-  - Recap the whole stack, session by session, in one sentence each
-* - 17:45–18:05
-  - Theory {{ core }}
-  - Startup order, the eight-step diagnostic procedure, rosbags
-* - 18:05–18:15
-  - Demonstration {{ core }}
-  - Live: instructor plants a fault, finds it using the procedure, narrating
-    each step
-* - 18:15–18:50
-  - Practical task {{ core }}
-  - Find your planted fault; run a complete mini-mission
-* - 18:50–19:00
-  - Wrap-up
-  - Which diagnostic step found it, across the room; preview the hackathon
-```
-
-## Theory
-
-{{ core }}
+## Core concepts
 
 ### Startup order
 
@@ -111,20 +79,56 @@ Always include `/tf` **and** `/tf_static`. Without both, nothing in the
 replay can be placed in space — the single most common thing people forget.
 :::
 
+## Guided example
+
+Practice the diagnostic procedure on a fault you introduce yourself, using
+your own working `robot_bringup` launch file from previous modules. Make a
+copy of it first, then apply exactly **one** of these changes:
+
+```{list-table}
+:header-rows: 1
+:widths: 45 30 25
+
+* - Change
+  - Diagnostic step that finds it
+  - Difficulty
+* - Rename a published topic in one launch argument
+  - Step 3 (names/QoS)
+  - Easy
+* - Set `use_sim_time` wrong on exactly one node
+  - Step 6 (parameters)
+  - Medium
+* - Remove one node from the lifecycle manager's `node_names`
+  - Step 5 (lifecycle)
+  - Medium
+* - Swap two arguments in a static transform publisher
+  - Step 4 (TF tree)
+  - Medium
+* - Point a map's `yaml_filename` at a file that does not exist
+  - Step 1–2 (node/topic)
+  - Easy
+```
+
+Launch your modified file, then work through the eight-step procedure
+**without changing anything yet**, and note which step first reveals the
+symptom. Compare it against the table — did the fault surface at the step
+you expected? If not, that mismatch is worth understanding before you move
+on to the practical task, where you will not know the answer in advance.
+
 ## Practical task
 
 ### Goal
-Find one deliberately planted fault using the eight-step procedure, fix it,
-then run a complete mini-mission (navigate, detect, report).
+Find one deliberately introduced fault using the eight-step procedure, fix
+it, then run a complete mini-mission end to end.
 
 ### Starting point
-A `robot_bringup` launch file identical to what your team has been building
-all course, except your facilitator has changed exactly **one** thing: a
-renamed topic, a wrong frame, a QoS mismatch, an incorrect `use_sim_time`,
-or a node missing from the lifecycle manager.
+A working `robot_bringup` launch file from your previous modules, and one
+fault from the guided example's table above — pick one you have not tried
+yet, or ask someone else to pick one for you without telling you which.
 
 ### Steps
-1. `ros2 launch robot_bringup robot.launch.yaml` — note what looks wrong.
+1. Apply one fault from the table to a copy of your launch file, then
+   `ros2 launch robot_bringup robot.launch.yaml` — note what looks wrong.
 2. Work through the eight-step procedure above, in order, **without
    changing anything yet**.
 3. Write down the step number where the fault first became visible.
@@ -132,22 +136,26 @@ or a node missing from the lifecycle manager.
 5. Re-launch and confirm the symptom is gone.
 6. Record a bag of the fixed system:
    `ros2 bag record -o mini_mission /scan /odom /tf /tf_static /cmd_vel`
-7. Run the full mini-mission from [session 7](07-autonomous-decisions.md):
+7. Run the full mini-mission from [module 7](07-autonomous-decisions.md):
    navigate, detect, report, return — while the bag records.
 
-### Expected result
+## Expected result
+
 The fault is found and named by diagnostic step number, not by lucky
 guessing, and the recorded mini-mission bag plays back and shows the whole
 run in RViz.
 
-### Verification
+## Verification
+
 ```bash
 ros2 bag info mini_mission
 ```
+
 Lists all five topics with sensible message counts, and
 `ros2 bag play mini_mission --clock` reproduces the run in RViz.
 
-### Common problems
+## Common problems
+
 - **Fixed the symptom, not the cause** — e.g., restarting a node instead of
   fixing the renamed topic. Confirm with a fresh launch, not a patched
   running system.
@@ -156,23 +164,25 @@ Lists all five topics with sensible message counts, and
   omitted from playback.
 - **`use_sim_time` fixed on one node, forgotten on another** — check every
   node, not just the one you just edited.
+- **Debugging by changing things.** Change one thing at a time and observe;
+  changing three and having it work teaches you nothing about which one
+  mattered.
+- **No logs at the decision points.** Add `info`-level logging where your
+  mission decides something, before you need it for real.
 
-### Extension
+## Optional extensions
 
 {{ optional }}
 
-Swap systems with another team, plant a fault of your own choosing in
-theirs, and compare: which diagnostic step found it, and how long did it
-take?
+Ask someone else to apply one of the table's faults to a copy of your
+launch file without telling you which, then time yourself finding it — a
+closer approximation of a real, unannounced fault than choosing your own.
 
-## Simulation fallback
+{{ simulation }} Identical task, and often the better choice for this
+exercise — instant resets mean you can try more faults from the table in
+the same sitting.
 
-{{ simulation }}
-
-Identical task, and often the better choice for this exercise — instant
-resets mean you can try more planted faults in the same 85 minutes.
-
-## Advanced: configuration and deployment
+## Advanced topics
 
 {{ advanced }}
 
@@ -215,28 +225,22 @@ for their actual inventory and playbook structure. This is one example of a
 deployment tool, not something every team needs to adopt.
 :::
 
-## Common mistakes
+## Readiness checklist
 
-**Debugging by changing things.** Change one thing at a time and observe;
-changing three and having it work teaches you nothing about which one
-mattered.
-
-**No logs at the decision points.** Add `info`-level logging where your
-mission decides something, *before* the hackathon, not during it.
-
-## Before the hackathon: a checklist
+Before attempting the [capstone project](hackathon.md):
 
 - [ ] One command brings up the whole system, from cold, with no manual
       steps.
-- [ ] Every configuration value lives in a config file, in git.
-- [ ] Rosbag recording is one command your whole team knows.
+- [ ] Every configuration value lives in a config file, in version control.
+- [ ] Rosbag recording is one command you know by heart.
 - [ ] You can restore a known-good state from git in under a minute.
-- [ ] Every team member has personally started the robot at least once.
+- [ ] You have personally started the robot at least once, end to end.
 
-## Transition to the hackathon
+## Connection to the next module
 
-Everything from eight sessions, on one robot, running on its own:
-[Hackathon: Autonomous Robot Challenge](hackathon.md).
+This module assembled every piece from the previous ones into one system.
+The [capstone project](hackathon.md) is where you run it as a complete
+autonomous mission, on one robot, on its own.
 
 ## Further reading
 
