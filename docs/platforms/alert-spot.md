@@ -279,7 +279,7 @@ guessing.
 
 {{ advanced }} A 2D occupancy grid cannot represent a rescue arena. Two 3D
 approaches, explained for general understanding in
-[module 5's advanced reading](../course/05-mapping-localization.md#advanced-topics)
+[module 5's 3D mapping subtopic](../course/05-mapping-localization/localization-and-3d-mapping.md#mapping-rough-3d-terrain)
 — this page adds only the ALeRT-specific repository pointers.
 
 ### Octomap
@@ -500,7 +500,7 @@ themselves are not repeated here.
   - Simulation
   - {{ spotsim }}
 * - 5
-  - [SLAM, map saving and localization](../course/05-mapping-localization.md#try-it-on-spot)
+  - [SLAM, map saving and localization](../course/05-mapping-localization/practical-exercise.md#try-it-on-spot)
   - Simulation; real Spot supervised only
   - {{ spotsim }} / {{ spotsupervised }}
 * - 6

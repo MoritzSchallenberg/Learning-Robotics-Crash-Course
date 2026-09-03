@@ -127,8 +127,9 @@ documentation](https://github.com/ros2/message_filters)
 **What it is.** `robot_localization`'s `ekf_node` fuses multiple sources of
 motion estimate — wheel odometry and an IMU, typically — into one smoother,
 more accurate `odom`→`base_link` transform than either source alone.
-[Module 5](../05-mapping-localization.md#core-concepts) covers *why* odometry
-drifts; this is the standard tool for reducing that drift.
+[Module 5](../05-mapping-localization/mapping-and-slam.md#how-it-works)
+covers *why* odometry drifts; this is the standard tool for reducing that
+drift.
 
 **Why it matters.** Wheel odometry alone drifts badly on wheel slip; an IMU
 alone drifts in orientation over time. Fused, each corrects the other's
@@ -191,9 +192,9 @@ binary layout described by the message's own field metadata rather than a
 flat array.
 
 **Why it matters.** [ALeRT/Spot's](../../platforms/alert-spot.md) 3D LiDAR
-publishes `PointCloud2`, not `LaserScan`; several of
-[module 5's](../05-mapping-localization.md#advanced-topics) advanced 3D
-mapping topics (Octomap, GLIM) consume it directly.
+publishes `PointCloud2`, not `LaserScan`; module 5's
+[3D mapping extensions](../05-mapping-localization/localization-and-3d-mapping.md#mapping-rough-3d-terrain)
+(Octomap, GLIM) consume it directly.
 
 **Needs.** A `PointCloud2` source — a simulated depth camera or 3D LiDAR.
 
