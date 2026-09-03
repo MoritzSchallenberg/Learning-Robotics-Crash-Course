@@ -11,6 +11,11 @@ _build/
 docs/_build/
 .doctrees/
 
+# --- colcon build output (examples/ packages) ---
+build/
+install/
+log/
+
 # --- Python ---
 .venv/
 venv/

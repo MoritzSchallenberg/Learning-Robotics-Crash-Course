@@ -10,7 +10,7 @@ Terms used throughout this course, in plain language.
 : A ROS 2 communication pattern for long-running tasks: a goal is sent,
   feedback arrives while it runs, a result comes at the end, and it can be
   cancelled. Navigation is an action. See
-  [module 2](../course/02-ros2.md#advanced-topics).
+  [module 2](../course/02-ros2/services-parameters-actions.md#try-it-yourself-actions).
 
 **AMCL**
 : Adaptive Monte Carlo Localization. Estimates the robot's pose on a known map
@@ -148,7 +148,7 @@ Terms used throughout this course, in plain language.
 **Launch file**
 : A file that starts several nodes together, with parameters and remappings.
   YAML, XML or Python. See
-  [module 2](../course/02-ros2.md#advanced-topics).
+  {ref}`module 2 <launch-files>`.
 
 **LaserScan**
 : The message type for 2D laser data: an array of ranges plus the geometry

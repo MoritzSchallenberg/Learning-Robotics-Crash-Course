@@ -392,7 +392,7 @@ blackboard](https://www.behaviortree.dev/docs/tutorial-basics/tutorial_02_basic_
 :icon: light-bulb
 
 **What it is.** Actively **cancelling** a running action
-([module 2's](02-ros2.md#core-concepts) goal → feedback → result pattern)
+([module 2's](02-ros2/services-parameters-actions.md#try-it-yourself-actions) goal → feedback → result pattern)
 before it finishes — e.g. abandoning a navigation goal because the mission
 decided on a better one — rather than only ever waiting for natural
 completion or timeout.
@@ -423,7 +423,7 @@ canceling goals](https://docs.ros.org/en/humble/Tutorials/Intermediate/Writing-a
 
 **What it is.** Using a mission's state machine to actively control
 subsystem **lifecycle** transitions
-([module 2's](02-ros2.md#continue-learning) lifecycle-node topic) — e.g.
+({ref}`module 2's <lifecycle-nodes>` lifecycle-node topic) — e.g.
 only activating a perception pipeline once the mission actually reaches a
 `SEARCH` state, rather than every subsystem running full-time from
 start-up.
@@ -432,8 +432,8 @@ start-up.
 onboard computer, and makes a subsystem's "is it supposed to be doing
 anything right now" question answerable from mission state alone.
 
-**Needs.** [Module 2's lifecycle
-nodes](02-ros2.md#continue-learning) and this module's practical task.
+**Needs.** {ref}`Module 2's lifecycle nodes <lifecycle-nodes>` and this
+module's practical task.
 
 **Try it.** Convert your practical task's marker detector into a lifecycle
 node, and have the `SEARCH` state call `ros2 lifecycle set` to activate it

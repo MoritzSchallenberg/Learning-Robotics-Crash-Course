@@ -90,6 +90,19 @@ myst_substitutions = {
     "spotsim": _level("spot-sim", "SIMULATION EXERCISE"),
     "spotreadonly": _level("spot-readonly", "READ-ONLY ON PHYSICAL SPOT"),
     "spotsupervised": _level("spot-supervised", "SUPERVISED PHYSICAL EXERCISE"),
+    # ---------------------------------------------------------------------
+    # Team-claim verification badges (Entwicklungsauftrag 6). Every "how
+    # ALeRT/Carologistics uses this" statement is marked with exactly one:
+    # confirmed by the team's own repository or documentation
+    # ({{ documented }}), runnable in Webots ({{ simulation }}, already
+    # defined above), actually checked on running hardware
+    # ({{ hardwareverified }}), technically plausible but not checked
+    # ({{ unverified }}, already defined above), or -- written as plain
+    # text, "Not documented", no badge needed -- no reliable information at
+    # all. Never use {{ hardwareverified }} from a passing simulation test.
+    # ---------------------------------------------------------------------
+    "documented": _badge("documented", "DOCUMENTED"),
+    "hardwareverified": _badge("hwverified", "HARDWARE-VERIFIED"),
 }
 
 # -- Options for HTML output -------------------------------------------------

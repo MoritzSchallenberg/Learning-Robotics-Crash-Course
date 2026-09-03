@@ -613,6 +613,8 @@ footer span {
 .lrcc-badge--carologistics { background: #c1512e; }
 .lrcc-badge--alert { background: #7a4bb5; }
 .lrcc-badge--unverified { background: #a02b47; }
+.lrcc-badge--documented { background: #0f6e5c; }
+.lrcc-badge--hwverified { background: #3d4f9e; }
 
 /* A row of badges directly under a heading gets a little breathing room. */
 .rst-content p > .lrcc-badge:first-child {

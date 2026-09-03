@@ -181,7 +181,7 @@ parameters to the *simulated* robot's actual size and speed, not a guess.
 :icon: light-bulb
 
 Navigation is exposed as an **action**
-([module 2](02-ros2.md#advanced-topics)) — it takes time, reports progress,
+([module 2](02-ros2/services-parameters-actions.md#try-it-yourself-actions)) — it takes time, reports progress,
 and can be cancelled:
 
 ```python

@@ -205,7 +205,7 @@ one subscriber-callback node, not a fill-in-the-blank template.
    `detectMarkers` call from the Guided example inside the callback.
 3. Add a publisher for `/detected_marker_id`
    (`std_msgs/msg/Int32`, or a custom type from
-   [module 2's Continue learning](../02-ros2.md#continue-learning) if
+   {ref}`module 2's Continue learning <custom-message-and-service-types>` if
    you want to publish more than an ID) and publish whenever a marker is
    found.
 4. Register the node as a console script in `setup.py`, then build:

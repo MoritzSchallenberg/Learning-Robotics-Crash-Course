@@ -373,8 +373,8 @@ process's memory usage grew unexpectedly over the ten minutes.
 :::{dropdown} Continuous Integration for a ROS 2 package — Advanced
 :icon: light-bulb
 
-**What it is.** Running [module 2's automated
-tests](02-ros2.md#continue-learning) automatically on every push, in a
+**What it is.** Running {ref}`module 2's automated tests
+<automated-tests-for-ros-2-packages>` automatically on every push, in a
 clean environment, via GitHub Actions or similar — the same principle this
 course's own website uses for its own build
 ([README](https://github.com/MoritzSchallenberg/Learning-Robotics-Crash-Course)),
@@ -384,8 +384,8 @@ applied to a ROS 2 package instead of a Sphinx site.
 locally gets skipped under time pressure — exactly when a regression is
 most likely to slip through unnoticed.
 
-**Needs.** [Module 2's automated
-tests](02-ros2.md#continue-learning) working locally first.
+**Needs.** {ref}`Module 2's automated tests
+<automated-tests-for-ros-2-packages>` working locally first.
 
 **Try it.** {{ unverified }} — write a minimal GitHub Actions workflow that
 checks out your package, installs ROS 2 Humble (or runs inside an

@@ -488,7 +488,7 @@ themselves are not repeated here.
   - Real Spot (inspection only) or the diagram above
   - {{ spotreadonly }}
 * - 2
-  - [Inspect the Webots Spot node/topic graph](../course/02-ros2.md#try-it-on-spot)
+  - [Inspect the Webots Spot node/topic graph](../course/02-ros2/practical-exercises.md#try-it-on-spot)
   - Simulation
   - {{ spotsim }}
 * - 3
