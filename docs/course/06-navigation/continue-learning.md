@@ -77,8 +77,8 @@ route through, layered onto the costmap), and **speed zones** (regions
 where maximum velocity is reduced, independent of the global speed limit).
 
 **Why it matters.** This is the direct bridge to the
-[capstone project's](../hackathon.md#the-mission) multi-step mission —
-"reach a target area", "handle more than one target" — expressed as Nav2
+{ref}`capstone project's <the-mission>` multi-step mission — "reach a
+target area", "handle more than one target" — expressed as Nav2
 primitives instead of one-off custom code.
 
 **Needs.** [The practical exercise](practical-exercise.md).
@@ -136,8 +136,8 @@ Poses](https://docs.nav2.org/humble/behavior_trees/trees/nav_through_poses_recov
 instead of "it seemed fine": **success rate** (goals reached ÷ goals
 attempted, over many trials), **time to goal**, and **minimum obstacle
 distance** during the run — the same three numbers the
-[capstone project's](../hackathon.md#self-assessment-checklist)
-self-assessment implicitly depends on being good.
+{ref}`capstone project's <self-assessment-checklist>` self-assessment
+implicitly depends on being good.
 
 **Why it matters.** A single successful demo run proves the system *can*
 work; a measured success rate over many runs is what tells you whether it

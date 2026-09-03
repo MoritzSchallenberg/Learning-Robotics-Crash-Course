@@ -137,8 +137,8 @@ growing covariance.
 **Why it matters.** A mission that keeps navigating confidently on a wrong
 pose estimate is worse than one that stops and asks for help — this is
 exactly the kind of silent failure the
-[capstone project's](../hackathon.md#self-assessment-checklist) safety
-thinking cares about.
+{ref}`capstone project's <self-assessment-checklist>` safety thinking
+cares about.
 
 **Needs.** [The practical exercise's Optional
 extensions](practical-exercise.md#optional-extensions) (deliberately

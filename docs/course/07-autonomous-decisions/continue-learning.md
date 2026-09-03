@@ -96,7 +96,8 @@ nodes](https://docs.ros.org/en/humble/Concepts/Intermediate/About-Ros2-Managed-N
 transitions and logs them with timing, without participating in the
 mission itself — you will meet exactly this pattern as the optional
 **Mission monitoring node** on the
-[capstone project page](../hackathon.md#mission-monitoring-node).
+[capstone project's mission monitoring
+page](../hackathon/mission-monitor.md).
 
 **Why it matters.** Debugging a mission after the fact needs a record of
 what it actually did and when; building that as a separate observer keeps
@@ -113,8 +114,7 @@ when the mission finishes.
 of one run, within a second or two.
 
 **Read more.** [Capstone project: mission monitoring
-node](../hackathon.md#mission-monitoring-node) has a complete, runnable
-example.
+node](../hackathon/mission-monitor.md) has a complete, runnable example.
 :::
 
 ## Advanced topics
@@ -190,7 +190,7 @@ searches, robot B always delivers) to an auction-based approach where
 robots bid on subtasks based on their own cost estimate.
 
 **Why it matters.** This is the natural extension of the
-[capstone project's](../hackathon.md#optional-extensions) "communicate
+{ref}`capstone project's <optional-extensions-capstone>` "communicate
 with a second robot" optional extension — coordinating two independent
 state machines is a different problem than running one.
 

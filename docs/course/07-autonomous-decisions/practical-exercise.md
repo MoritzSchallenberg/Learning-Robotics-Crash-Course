@@ -117,7 +117,7 @@ stand → navigate → detect → return → sit
 
 Log every state transition (state, timestamp, why) — the same discipline
 this exercise and the [capstone
-project's](../hackathon.md#continue-learning) failure-mode planning both
+project's](../hackathon/continue-learning.md) failure-mode planning both
 depend on. Add at least one explicit timeout and one explicit failure
 transition, not only the happy path.
 
