@@ -22,9 +22,9 @@ the next module assumes you can do.
   - Focus
   - Result
 * - 1
-  - [System Architecture and Robot Hardware](01-system-hardware.md)
-  - System and hardware
-  - Understand components and data flows
+  - [Hardware Design with KiCad and Fusion](01-system-hardware.md)
+  - Electrical and mechanical design
+  - Read and create a KiCad schematic and a parametric Fusion part
 * - 2
   - [ROS 2 Fundamentals](02-ros2.md)
   - ROS 2

@@ -114,9 +114,9 @@ simulations, so check yours before assuming `/scan` and `/cmd_vel`.
   - Module
   - In simulation
 * - 1
-  - [System hardware](../course/01-system-hardware.md)
-  - Inspect the simulated robot's model instead of physical hardware. The
-    sensors, frames and drive geometry are all visible in the scene tree.
+  - [Hardware design](../course/01-system-hardware.md)
+  - KiCad and Fusion are desktop design tools, independent of Webots — no
+    simulation-specific variation applies to this module.
 * - 2
   - [ROS 2 fundamentals](../course/02-ros2.md)
   - Identical. `turtlesim` needs no simulator at all.

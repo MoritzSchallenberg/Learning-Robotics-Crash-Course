@@ -109,9 +109,10 @@ it does not stop and re-plan at each one); **docking**
 reaching a charging station or a work cell.
 
 **Why it matters.** {{ carologistics }} Robotino's precision-docking task
-([module 1](../01-hardware/sense-process-act.md#how-it-works)) is exactly
-this problem — a generic navigation goal is not precise enough for docking
-to a production machine within millimetres.
+is exactly this problem — a generic navigation goal is not precise enough
+for docking to a production machine within millimetres. See the
+[platform page](../../platforms/carologistics-robotino.md) for why the
+platform's omnidirectional drive is well suited to it.
 
 **Needs.** [The practical exercise](practical-exercise.md).
 

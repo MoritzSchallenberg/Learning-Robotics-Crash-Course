@@ -4,53 +4,28 @@
 
 ## Start here
 
-::::{grid} 1 1 1 1
-:gutter: 2
-
-:::{grid-item-card} Spot for Safety and Incident Response
-:link: https://www.youtube.com/watch?v=zFUHi3_oiXk
-
-**Boston Dynamics · English · ~1.5 min**
-
-Covers: a real legged robot's sense-process-act loop in an actual
-operating environment — sensing a hazardous area, moving through it, and
-reporting back.
-
-*Why watch it*: a real-world, full-system counterpart to
-[Sense–process–act's](sense-process-act.md) own diagram — the same three
-stages, on hardware built for exactly the kind of environment
-[ALeRT/Spot's](../../platforms/alert-spot.md) RoboCup Rescue League track
-is modelled on.
-
-*Recommended part*: the whole video — it is already short.
-
-*Why this fits the module*: a real robot's power/sensor/actuator loop,
-seen from outside rather than diagrammed.
-
-*Compatibility*: conceptual — a product demonstration, not a technical
-tutorial; no commands to check for distribution compatibility.
-:::
-
-::::
+Not yet populated for this module's current scope (KiCad and Fusion). A
+previous version of this page carried a general robot-demonstration
+video; it did not fit the module's electrical/mechanical design focus
+and was removed rather than kept for the sake of having an entry here.
+Each tutorial's own page already links one checked video directly —
+[KiCad: Interesting
+videos](kicad-schematic.md#interesting-videos) and [Fusion: Interesting
+videos](fusion-mechanical-design.md#interesting-videos).
 
 ## Practical demonstrations
 
 Not yet populated.
 
-## ALeRT / Spot
+## KiCad
 
-Not yet populated beyond the video above — see
-[Try it on Spot](practical-exercise.md#try-it-on-spot) for the hands-on
-exercise.
+Not yet populated beyond
+[the video on the KiCad tutorial page itself](kicad-schematic.md#interesting-videos).
 
-## Carologistics / Robotino
+## Fusion
 
-Not yet populated.
-
-## Advanced topics
-
-Not yet populated — see [Continue learning](continue-learning.md) for
-official sources on hardware-in-the-loop testing instead.
+Not yet populated beyond
+[the video on the Fusion tutorial page itself](fusion-mechanical-design.md#interesting-videos).
 
 :::{note}
 Quality over quantity: every video on this site has its title, channel

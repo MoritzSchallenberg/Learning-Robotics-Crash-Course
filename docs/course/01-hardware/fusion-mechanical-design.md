@@ -33,8 +33,7 @@ By the end of this page you can:
 
 ## Prerequisites
 
-None specific to Fusion. Comfort with the general idea of components from
-[module 1](../01-system-hardware.md) helps but is not required.
+None. No prior CAD experience is assumed.
 
 ## Core concepts
 
@@ -63,7 +62,7 @@ instead of `d3`. Reference a parameter's name in another dimension's
 expression field (e.g. `plate_thickness / 2`) and the two stay linked
 automatically. This is the mechanical equivalent of using `$ROS_DISTRO`
 instead of hard-coding a distribution name
-([installation guide](../../prerequisites/installation.md)) — one named
+([module 2's installation guide](../02-ros2/installation.md)) — one named
 value, referenced everywhere it matters, instead of copies that can drift
 out of sync.
 
@@ -81,9 +80,8 @@ exists; both take an edge selection and a radius or distance.
 
 A single part is a **body**; a **component** is what Fusion actually
 positions, constrains and reuses. This page stays inside one component, but
-know that a real robot design is many components joined together — the
-mechanical equivalent of module 1's "the robot is many parts, not one" —
-covered further in Continue learning below.
+a real robot design is many components joined together — covered further
+in Continue learning below.
 
 ## Guided example: a fully-defined rectangle
 
@@ -390,11 +388,11 @@ README](https://github.com/MoritzSchallenberg/Learning-Robotics-Crash-Course).
 
 ## Connection to the next module
 
-This page and the [KiCad tutorial](kicad-schematic.md) are the two concrete
-sides of [module 1's](../01-system-hardware.md) block diagram: electrical
-and mechanical detail behind the same boxes and arrows. From here, the
-course returns to software — [module 2](../02-ros2.md) turns those boxes
-into running ROS 2 nodes.
+This page and the [KiCad tutorial](kicad-schematic.md) are this module's
+two concrete design documents: electrical and mechanical detail for the
+same robot. From here, the course turns to software —
+[module 2](../02-ros2.md) covers the ROS 2 nodes that run on top of this
+hardware.
 
 ## Further reading
 

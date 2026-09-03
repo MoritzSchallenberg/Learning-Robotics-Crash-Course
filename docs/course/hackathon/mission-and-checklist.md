@@ -98,10 +98,10 @@ without having to reproduce it live.
   whoever is operating alongside you.
 - If the robot is about to injure someone or destroy itself or its
   surroundings, stop it immediately. A stopped run is always the right
-  call over letting something get hurt or broken; see
-  [module 1's safety
-  section](../01-hardware/sense-process-act.md#safety-and-emergency-stops)
-  for why the E-stop is independent of software in the first place.
+  call over letting something get hurt or broken. The physical E-stop
+  cuts motor power independently of whatever the software is doing — see
+  your [platform page](../../platforms/index.md) for its exact location
+  and behaviour.
 - Confirm the area is clear of people and fragile objects before starting
   a run, and check the robot's actual footprint against the space
   available — a wider turning radius than expected is a common way a

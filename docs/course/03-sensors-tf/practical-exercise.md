@@ -106,10 +106,8 @@ already-finished list:
 1. Set **Fixed Frame** to `base_footprint` and add a `TF` display —
    confirm the tree is connected with `ros2 run tf2_tools view_frames`,
    exactly as in the guided example above.
-2. Add `RobotModel` (topic `/robot_description`) — this is the mechanical
-   equivalent of the block diagram from
-   [module 1](../01-hardware/practical-exercise.md), now rendered from a
-   real URDF instead of drawn by hand.
+2. Add `RobotModel` (topic `/robot_description`) — this is a robot's own
+   structure, rendered from a real URDF instead of drawn as a diagram.
 3. Add `PointCloud2` on the 3D LiDAR topic, `Odometry`, and `LaserScan` on
    `/scan` — and apply this page's own QoS lesson **before** being told
    the answer: if `/scan` shows nothing, check reliability first, not the

@@ -1,94 +1,81 @@
-# 1. System Architecture and Robot Hardware
+# 1. Hardware Design with KiCad and Fusion
 
 {{ common }}
 
 ## Module overview
 
-Before any software makes sense, you need a picture of the machine it
-runs on. This module is about that picture: what an autonomous robot is
-made of, how the parts connect, and why the software is structured the
-way it is.
+A robot is a physical machine before it is any software. This module
+covers how that machine's design is actually captured and communicated:
+an **electrical schematic**, drawn in KiCad, and a **mechanical CAD
+model**, built in Autodesk Fusion.
 
-**The problem it solves**: without a shared picture of sense/process/act,
-every later module's terminology ("this node processes that sensor's
-data and commands this actuator") has nothing to attach to.
+**The problem it solves**: "what powers what" and "how is this part
+actually shaped and mounted" are questions a block diagram or a verbal
+description cannot answer precisely enough to build or debug real
+hardware from. A schematic and a CAD model are the two documents a team
+actually works from.
 
-**Where it sits in the system**: everywhere, structurally — this module
-does not teach one subsystem, it teaches the *shape* every subsystem in
-every later module fits into.
+**Where it sits in the system**: this module is self-contained — the two
+tutorials teach general electrical and mechanical design skills that
+apply to any robot project, not a specific ROS 2 subsystem covered later
+in the course.
 
-**Needs**: nothing. This is the one module with no software prerequisite
-— [module 2](02-ros2.md) is where the
-[prerequisites](../prerequisites/index.md) start to matter.
+**Needs**: nothing. This is the one module with no software prerequisite.
 
-**Leads into**: every later module. [Module 2](02-ros2.md) turns this
-module's boxes into running nodes; the KiCad and Fusion pages here turn
-the same boxes into a real electrical and mechanical design.
+**Leads into**: KiCad and Fusion produce the electrical and mechanical
+design a real robot is built from; [module 2](02-ros2.md) is where the
+course turns to the software that runs on top of that hardware.
 
 ## Learning objectives
 
 By the end of this module you can:
 
-1. describe the sense–process–act loop and place any robot component in
-   it;
-2. read a robot's power and data topology and say what fails if one link
-   breaks;
-3. compare a wheeled robot and a legged robot using the same
-   architecture;
-4. draw and defend your own system diagram of a robot you have access to,
-   or one you only have a description of.
+1. explain why an electrical schematic and a mechanical CAD model are
+   each needed, and what question each one answers;
+2. read and draw a KiCad electrical schematic — symbols, wiring, net
+   labels — and run an Electrical Rules Check;
+3. build a fully-constrained, parametric mechanical part in Fusion, where
+   changing a named parameter updates the part without rebuilding it;
+4. export both a schematic and a CAD model in a form someone else can
+   actually use.
 
 ## How the complete system fits together
 
-```{figure} ../_static/images/diagrams/01-sensor-processing-actuator-loop.svg
-:alt: A closed loop diagram showing Sensors feeding Processing, Processing commanding Actuators, Actuators changing the World, and the World being observed again by Sensors. A Battery powers all three blocks through dashed power lines, and an Emergency Stop can cut power to the Actuators directly.
-:width: 100%
+An electrical schematic and a mechanical CAD model describe the same
+physical robot from two different, complementary angles. The schematic
+answers "what is wired to what, and at what voltage" — power rails,
+signal nets, connectors, the emergency-stop path. The CAD model answers
+"what shape is this part, and how is it mounted" — a sensor bracket's
+dimensions, its mounting holes, its clearance against everything around
+it. Neither replaces the other: a correct schematic can still describe a
+part that does not physically fit, and a correct mechanical design can
+still wire a sensor to the wrong voltage.
 
-The sense–process–act loop: data flows in a circle (solid blue), power
-branches out from the battery to every stage (dashed amber), and the
-E-stop can cut actuator power independently of software (red).
-```
-
-Every autonomous robot, from a vacuum cleaner to a Mars rover, runs the
-same loop over and over: **sense** (LiDAR, cameras, IMU, encoders) feeds
-**process** (the onboard computer — where ROS 2 lives, and where the rest
-of this course happens), which commands **act** (motor controllers,
-grippers, arms), which changes the world, which is sensed again. Power
-branches to every stage from one battery; a physical E-stop can cut
-actuator power independently of any of it. See
-[Sense–process–act](01-hardware/sense-process-act.md) for the full
-explanation, including drive types, compute, networking and safety.
+KiCad and Fusion are the two tools this module uses to produce each of
+those documents. [The KiCad tutorial](01-hardware/kicad-schematic.md)
+covers the electrical side; [the Fusion
+tutorial](01-hardware/fusion-mechanical-design.md) covers the mechanical
+side.
 
 ## How ALeRT uses this topic
 
 {{ alert }} {{ documented }}
 
-Spot is a quadruped: legs instead of wheels, because the RoboCup Rescue
-League's terrain (rubble, stairs, uneven ground) has no other answer. Its
-main range sensor is a 3D LiDAR rather than a 2D scanner, because the
-environment has vertical structure a flat scan cannot represent. See the
-[platform page](../platforms/alert-spot.md) for the full hardware list.
-**Typical team task**: confirming which of Spot's own onboard sensors and
-which of the workstation-side tools (RViz, `rqt`) a given exercise
-actually needs, since Spot itself is not the only compute involved.
-**Verification status**: {{ documented }} via the platform page and the
-team's own repository.
+Spot's electrical and mechanical design decisions are documented on the
+[platform page](../platforms/alert-spot.md) at the level of stated
+component choices — a full internal schematic or CAD model for the
+production Spot platform is not published as part of this course.
+**Verification status**: {{ documented }} via the platform page.
 
 ## How Carologistics uses this topic
 
 {{ carologistics }} {{ documented }}
 
-Robotino is a wheeled, **omnidirectional** platform: it can translate in
-any direction while rotating, because the RoboCup Logistics League's
-factory floor rewards millimetre-precise docking over rough-terrain
-capability. Its main range sensors are two 2D SICK TiM571 laser
-scanners, merged into one by the `laser_scan_integrator` node — see the
-[platform page](../platforms/carologistics-robotino.md#hardware) for the
-full component list. **Typical team task**: checking the omnidirectional
-drive's actual degrees of freedom are being used by whichever Nav2
-controller is configured, since a controller written for differential
-drive silently ignores the lateral degree of freedom. **Verification
-status**: {{ documented }} via the platform page's hardware table.
+Robotino's hardware is documented on the [platform
+page](../platforms/carologistics-robotino.md) at the same level — stated
+components and a hardware table, not a published internal schematic or
+CAD model. **Verification status**: {{ documented }} via the platform
+page's hardware table.
 
 ## ALeRT and Carologistics compared
 
@@ -100,37 +87,27 @@ status**: {{ documented }} via the platform page's hardware table.
   - ALeRT / Spot
   - Carologistics / Robotino
   - Shared principle
-* - Drive
-  - Quadruped, legged
-  - Wheeled, omnidirectional
-  - Both are answers to their own competition's terrain
-* - Main range sensor
-  - 3D LiDAR
-  - Two merged 2D laser scanners
-  - Both need a documented sensor mount and TF frame
-* - What the drive is shaped by
-  - Traversing terrain, reaching into gaps
-  - Precision docking, repeatability
-  - Neither is "better"; both answer different questions
-* - Manipulation
-  - An arm, for the Dexterity competition category
-  - A custom stepper-driven gripper
-  - Both separate locomotion from manipulation hardware
+* - Published internal schematic/CAD
+  - {{ unverified }} — not published as part of this course
+  - {{ unverified }} — not published as part of this course
+  - Both teams work from real electrical and mechanical design documents;
+    this module teaches the tools, not the teams' own files
+* - Design tools
+  - {{ unverified }} — not documented on the platform page
+  - {{ unverified }} — not documented on the platform page
+  - This module's KiCad/Fusion exercises use invented example values, not
+    either team's real design
 ```
-
-See [Sense–process–act's own comparison
-table](01-hardware/sense-process-act.md#two-robots-one-architecture) for
-the sensor/drive/environment breakdown this table summarises.
 
 ## Core learning path
 
 ```text
-1. Sense–process–act
-2. Practical hardware exercise
+1. KiCad: schematics for robotic systems
+2. Autodesk Fusion: mechanical robot parts
 ```
 
-That is this module's roughly 80–100 minute core learning time. KiCad,
-Fusion, **Interesting videos** and **Continue learning** are worthwhile
+That is this module's roughly 80–100 minute core learning time.
+**Interesting videos** and **Continue learning** are worthwhile
 afterwards but not required for the core path.
 
 ## Subtopics
@@ -138,27 +115,11 @@ afterwards but not required for the core path.
 ::::{grid} 1 1 2 2
 :gutter: 2
 
-:::{grid-item-card} Sense–process–act
-:link: 01-hardware/sense-process-act
-:link-type: doc
-
-{{ core }} The loop, drive/power/compute/network/safety, and the
-Robotino-vs-Spot comparison.
-:::
-
-:::{grid-item-card} Practical hardware exercise
-:link: 01-hardware/practical-exercise
-:link-type: doc
-
-{{ core }} This module's practical task: draw your own system diagram,
-plus this module's Try it on Spot section.
-:::
-
 :::{grid-item-card} KiCad: schematics for robotic systems
 :link: 01-hardware/kicad-schematic
 :link-type: doc
 
-{{ optional }} Turn a block diagram into a real electrical schematic —
+{{ core }} Turn a block diagram into a real electrical schematic —
 symbols, wiring, net labels, and an Electrical Rules Check.
 :::
 
@@ -166,8 +127,8 @@ symbols, wiring, net labels, and an Electrical Rules Check.
 :link: 01-hardware/fusion-mechanical-design
 :link-type: doc
 
-{{ optional }} Design a parametric mechanical part — a sensor mount —
-where a dimension you change updates the whole part.
+{{ core }} Design a parametric mechanical part — a sensor mount — where a
+dimension you change updates the whole part.
 :::
 
 :::{grid-item-card} Interesting videos
@@ -181,8 +142,8 @@ One carefully checked video recommendation.
 :link: 01-hardware/continue-learning
 :link-type: doc
 
-Choosing sensors and actuators, power budgeting, communication
-interfaces, fuses and wire sizing, diagnostics, hardware-in-the-loop.
+Hierarchical schematics, custom symbols, PCB layout, sheet metal, DFAM,
+STEP exchange between KiCad and Fusion, and more.
 :::
 
 ::::
@@ -193,17 +154,15 @@ None. This is the one module with no software prerequisite.
 
 ## Connection to the next module
 
-This module produced a diagram of boxes and arrows.
-[Module 2](02-ros2.md) turns them into running software: the boxes become
-**nodes**, the arrows become **topics**, and you start, inspect and modify a
-real ROS 2 system.
+This module produced an electrical schematic and a mechanical CAD model —
+what the robot's hardware actually is.
+[Module 2](02-ros2.md) turns to the software that runs on top of that
+hardware: nodes, topics, and a first running ROS 2 system.
 
 ## Further reading
 
-- [ROS 2 concepts](https://docs.ros.org/en/humble/Concepts.html) — the
-  software side of what you just drew
-- [RoboCup Logistics League](https://ll.robocup.org/) {{ carologistics }}
-- [RoboCup Rescue League](https://rescuesim.robocup.org/) {{ alert }}
+- [KiCad documentation](https://docs.kicad.org/)
+- [Autodesk Fusion help](https://help.autodesk.com/view/fusion360/ENU/)
 - Platform detail: [Carologistics/Robotino](../platforms/carologistics-robotino.md) ·
   [ALeRT/Spot](../platforms/alert-spot.md) ·
   [Simulation](../platforms/simulation.md)
@@ -212,8 +171,6 @@ real ROS 2 system.
 :maxdepth: 1
 :hidden:
 
-01-hardware/sense-process-act
-01-hardware/practical-exercise
 01-hardware/kicad-schematic
 01-hardware/fusion-mechanical-design
 01-hardware/videos

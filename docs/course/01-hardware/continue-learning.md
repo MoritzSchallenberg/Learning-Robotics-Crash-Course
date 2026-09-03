@@ -6,35 +6,6 @@ Fusion are full pages with their own practical task, linked from the
 
 ## Next steps
 
-:::{dropdown} Choosing sensors and actuators — Next step
-:icon: light-bulb
-
-**What it is.** Picking a specific sensor or actuator for a task, based on
-its actual specifications — range, field of view, update rate, current
-draw — rather than "the one the last team used".
-
-**Why it matters.** [Sense–process–act](sense-process-act.md) tells you a
-stage needs a sensor; it does not tell you *which* one. A LiDAR with too
-narrow a field of view, or a motor that cannot supply enough torque at
-the robot's target speed, produces a system that "should" work and does
-not.
-
-**Needs.** [Sense–process–act](sense-process-act.md).
-
-**Try it.** Pick one sensor and one actuator from a platform page
-([Carologistics/Robotino](../../platforms/carologistics-robotino.md) or
-[ALeRT/Spot](../../platforms/alert-spot.md)) and write down, from its
-datasheet, the one specification that most limits what the robot can do
-with it.
-
-**Check.** You can name the limiting number (not just the part name) and
-explain, in one sentence, what breaks if that number is exceeded.
-
-**Read more.** [ROS 2 hardware
-integration](https://docs.ros.org/en/humble/) — start from a driver
-package's README for the sensor family you picked.
-:::
-
 :::{dropdown} Power and battery budgeting — Next step
 :icon: light-bulb
 
@@ -45,10 +16,11 @@ total to estimate runtime.
 **Why it matters.** "The battery died mid-run" is one of the most common,
 most avoidable robot failures, and it is arithmetic, not guesswork — a
 computer, a LiDAR, and two motors under load draw a very predictable
-current.
+current. It is also the number
+{ref}`the KiCad tutorial's fuse-sizing step <fuses-and-a-safe-stop-path>`
+needs before a fuse can be sized correctly.
 
-**Needs.** [Sense–process–act's power
-section](sense-process-act.md#power-supply-and-energy-budgeting).
+**Needs.** Nothing beyond a platform page's listed components.
 
 **Try it.** For a platform page's listed components, estimate each
 component's typical current draw (from its datasheet or a reasonable
@@ -105,10 +77,11 @@ to a different job:
 
 **Why it matters.** Picking the wrong interface for a job — I²C across a
 robot chassis, for instance — produces exactly the kind of noise-sensitive,
-intermittent fault that looks like a software bug.
+intermittent fault that looks like a software bug, and it decides which
+connector symbol belongs in
+{ref}`the KiCad tutorial's <connectors-and-interfaces>` schematic.
 
-**Needs.** [Sense–process–act's computing
-section](sense-process-act.md#computing-and-microcontrollers).
+**Needs.** Nothing beyond a platform page's listed components.
 
 **Try it.** For each interface above, name one component from a platform
 page that plausibly uses it, based on the interface's characteristics.
@@ -146,9 +119,9 @@ the wire's maximum.
 lower than what the wire can safely carry — if either is not true, the
 choice is wrong.
 
-**Read more.** [KiCad tutorial: fuses and a safe-stop
-path](kicad-schematic.md#core-concepts-in-the-editor) covers how
-to represent this in a schematic.
+**Read more.** {ref}`KiCad tutorial: fuses and a safe-stop path
+<fuses-and-a-safe-stop-path>` covers how to represent this in a
+schematic.
 :::
 
 :::{dropdown} Diagnostics: adding measurement points — Intermediate
@@ -165,11 +138,10 @@ diagnostic procedure assumes you *can* check each layer; hardware with no
 measurement points makes step 1 ("is it powered?") surprisingly hard to
 answer.
 
-**Needs.** [Sense–process–act's power
-section](sense-process-act.md#power-supply-and-energy-budgeting).
+**Needs.** The power-budgeting topic above.
 
-**Try it.** Pick one power rail from your practical exercise's diagram and
-name one concrete, physical way you could check its voltage without
+**Try it.** Pick one power rail from your KiCad or Fusion practical task
+and name one concrete, physical way you could check its voltage without
 disassembling anything.
 
 **Check.** Your answer names an actual accessible point (a connector pin, a

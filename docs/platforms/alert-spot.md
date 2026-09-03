@@ -483,10 +483,6 @@ themselves are not repeated here.
   - Spot exercise
   - Environment
   - Safety level
-* - 1
-  - [Identify sensors, compute, actuators and the safety chain](../course/01-hardware/practical-exercise.md#try-it-on-spot)
-  - Real Spot (inspection only) or the diagram above
-  - {{ spotreadonly }}
 * - 2
   - [Inspect the Webots Spot node/topic graph](../course/02-ros2/practical-exercises.md#try-it-on-spot)
   - Simulation

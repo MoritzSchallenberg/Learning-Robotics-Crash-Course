@@ -15,11 +15,9 @@ down each one's **interface** — exactly which topics, services or actions
 it consumes and produces — as a short document or a diagram, before you
 integrate any of them.
 
-**Why it matters.** [Module 1's](../01-hardware/practical-exercise.md)
-system diagram did this for hardware; doing the same for software
-subsystems here catches interface mismatches (a topic name or message type
-two subsystems disagree on) on paper, before they cost an integration
-session.
+**Why it matters.** Writing the interfaces down catches mismatches (a
+topic name or message type two subsystems disagree on) on paper, before
+they cost an integration session.
 
 **Needs.** Modules 1–8 completed.
 
@@ -30,8 +28,8 @@ type — not just "navigation talks to perception".
 **Check.** Someone who has not seen your code can tell, from the diagram
 alone, exactly which ROS 2 interface connects any two subsystems.
 
-**Read more.** [Module 1: system
-diagrams](../01-hardware/practical-exercise.md)
+**Read more.** N/A — this is a planning habit, not a tool with
+documentation to link.
 :::
 
 :::{dropdown} Integration order and a test matrix — Next step

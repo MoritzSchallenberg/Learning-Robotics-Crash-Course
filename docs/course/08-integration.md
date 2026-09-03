@@ -45,8 +45,8 @@ guessing.
 ```
 
 Everything in this diagram is a module you already built: drivers and TF
-([modules 1](01-system-hardware.md) and [3](03-sensors-tf.md)),
-localization ([module 5](05-mapping-localization.md)), navigation
+([module 3](03-sensors-tf.md)), localization
+([module 5](05-mapping-localization.md)), navigation
 ([module 6](06-navigation.md)), and mission control
 ([module 7](07-autonomous-decisions.md)). This module's only new content
 is the order to start them in, and the procedure to debug them together.

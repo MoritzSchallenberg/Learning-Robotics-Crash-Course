@@ -76,8 +76,8 @@ Carologistics/Robotino, or ALeRT/Spot.
   - Module
   - Focus
 * - 1
-  - [System Architecture and Robot Hardware](course/01-system-hardware.md)
-  - How a robot is built: sensors, compute, drives, power, safety
+  - [Hardware Design with KiCad and Fusion](course/01-system-hardware.md)
+  - Electrical schematics in KiCad, parametric mechanical parts in Fusion
 * - 2
   - [ROS 2 Fundamentals](course/02-ros2.md)
   - Workspaces, packages, nodes, topics, parameters, launch files

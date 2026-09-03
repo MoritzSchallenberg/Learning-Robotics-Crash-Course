@@ -2,9 +2,9 @@
 
 {{ optional }}
 
-[Module 1](../01-system-hardware.md) taught the sense–process–act loop as a
-*block diagram* — boxes and arrows, no electrical detail. This page teaches
-the next level down: a real **electrical schematic**, drawn in
+A block diagram of a robot — boxes and arrows, no electrical detail — is
+not enough to build or debug real hardware from. This page teaches the
+next level down: a real **electrical schematic**, drawn in
 [KiCad](https://www.kicad.org/), the free and open-source EDA tool most
 robotics teams actually use.
 
@@ -17,8 +17,8 @@ and where the emergency stop actually cuts power.
 
 By the end of this page you can:
 
-1. explain the difference between a system diagram (module 1) and an
-   electrical schematic;
+1. explain the difference between a block diagram and an electrical
+   schematic;
 2. place, wire and label symbols in KiCad, distinguishing data and power
    nets;
 3. run and interpret an Electrical Rules Check (ERC);
@@ -26,13 +26,11 @@ By the end of this page you can:
 
 ## Prerequisites
 
-[Module 1's core concepts](sense-process-act.md#how-it-works) —
-specifically the sense–process–act loop and the idea of separate data and
-power paths. No prior electronics or CAD experience is assumed.
+None. No prior electronics or CAD experience is assumed.
 
 ## System diagram vs. electrical schematic
 
-Module 1's diagram answered *"what talks to what, at the block level"*. A
+A block diagram answers *"what talks to what, at the block level"*. A
 schematic answers a more specific question: *"what is actually wired to
 what pin, and at what voltage"*. A block diagram might show one box labelled
 "motor controller"; the schematic shows its power input pin, its signal
@@ -111,13 +109,13 @@ wire across the whole page.
 
 ### Separating data and power paths visually
 
-Nothing in KiCad forces this, but it is the single habit worth carrying
-over from [module 1](sense-process-act.md#how-it-works): keep power
+Nothing in KiCad forces this, but it is a habit worth keeping: keep power
 nets (battery, regulators, motor supply) visually grouped on one part of
 the sheet, and signal/data nets (UART, I²C, GPIO) on another. A reader
-should be able to tell power from data at a glance, the same way the
-practical task in module 1 asked for two visually distinct arrow styles.
+should be able to tell power from data at a glance, without you
+explaining it.
 
+(connectors-and-interfaces)=
 ### Connectors and interfaces
 
 Use the `Connector` library for headers and terminal blocks (`Conn_01x02`,
@@ -125,6 +123,7 @@ Use the `Connector` library for headers and terminal blocks (`Conn_01x02`,
 symbol documents how the real cable actually terminates, which a floating
 wire does not.
 
+(fuses-and-a-safe-stop-path)=
 ### Fuses and a safe-stop path
 
 Represent a fuse with the `Device:Fuse` symbol in series with the supply
@@ -133,9 +132,9 @@ see [sensor and actuator
 selection](continue-learning.md) for how to get that
 number. Represent the emergency-stop path as what it actually is on a real
 robot: a switch (`Device:SW_SPDT` or similar) placed **in the motor power
-path itself**, not as a signal into a microcontroller — matching
-[module 1's point](sense-process-act.md#how-it-works) that the E-stop
-cuts power independently of software.
+path itself**, not as a signal into a microcontroller — the E-stop cuts
+power independently of software, so it must sit in the power path itself
+to actually do that.
 
 ### Annotation
 
@@ -201,8 +200,8 @@ A one-sheet schematic where power and data paths are visually distinguishable, e
 
 Hand the exported PDF/SVG to someone who has not seen it: can they point to
 where the E-stop cuts power, and which connector is a sensor versus a
-motor, without you explaining it? If not, add labels and revise — the same
-"someone else must be able to read it" standard as module 1's diagram.
+motor, without you explaining it? If not, add labels and revise — a
+schematic only fulfils its purpose once someone else can read it.
 
 ```{list-table}
 :header-rows: 1
@@ -353,11 +352,9 @@ Check](https://docs.kicad.org/9.0/en/pcbnew/pcbnew.html#design-rules-check)
 manufacturing files (Gerbers, drill files) a PCB fabricator needs.
 
 **Why it matters.** A robot with badly routed grounds and hand-wavy EMC
-practice on real hardware is a common source of exactly the kind of
-"looks like a software bug but is not" symptom [module
-1](sense-process-act.md#how-it-works) warns about — a noisy ground
-plane can corrupt sensor readings in ways no amount of ROS 2 debugging will
-find.
+practice on real hardware produces symptoms that look like a software
+bug but are not — a noisy ground plane can corrupt sensor readings in
+ways no amount of ROS 2 debugging will find.
 
 **Needs.** A DRC-clean routed board.
 
@@ -435,10 +432,10 @@ README](https://github.com/MoritzSchallenberg/Learning-Robotics-Crash-Course).
 
 ## Connection to the next module
 
-This schematic is the electrical ground truth behind the block diagram from
-[module 1](../01-system-hardware.md). The mechanical side of the same robot
-— how the parts you just wired are actually mounted — is the subject of
-[the Fusion tutorial](fusion-mechanical-design.md).
+This schematic is the electrical side of a robot's design. The
+mechanical side of the same robot — how the parts you just wired are
+actually mounted — is the subject of [the Fusion
+tutorial](fusion-mechanical-design.md).
 
 ## Further reading
 
