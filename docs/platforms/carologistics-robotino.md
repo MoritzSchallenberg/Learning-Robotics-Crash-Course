@@ -2,10 +2,11 @@
 
 {{ carologistics }}
 
-[Carologistics](https://www.carologistics.org/) is the joint RoboCup Logistics
-League team of FH Aachen and RWTH Aachen. The robots are Festo Robotinos,
-adapted for an industrial logistics scenario: they drive to production
-machines, dock precisely, and move workpieces through a manufacturing chain.
+[Carologistics](https://www.carologistics.org/) is the joint RoboCup Smart
+Manufacturing League team of FH Aachen and RWTH Aachen. The robots are Festo
+Robotinos, adapted for an industrial logistics scenario: they drive to
+production machines, dock precisely, and move workpieces through a
+manufacturing chain.
 
 This page covers what is specific to that system. The fundamentals are in the
 [course modules](../course/index.md).
@@ -53,7 +54,8 @@ course's fixed environment, not necessarily the exact configuration of every
 production system.
 :::
 
-## The RoboCup Logistics League
+(the-robocup-smart-manufacturing-league)=
+## The RoboCup Smart Manufacturing League
 
 Understanding the competition explains most of the design decisions.
 
@@ -63,9 +65,11 @@ work out where the machines are, then transport workpieces between them in the
 right order to complete production orders. A **referee box (refbox)** issues
 orders and scores the game over the network.
 
-The first three minutes are the **exploration phase**: machine positions are
-unknown and must be discovered and reported for points. After that, the ground
-truth is published to all teams.
+An early phase of each game is an **exploration phase**: machine positions
+are unknown and must be discovered and reported for points. After that, the
+ground truth is published to all teams. {{ unverified }} — this course does
+not document the current league's exact phase length or scoring rules;
+check the league's own rulebook for the current, authoritative figures.
 
 Two consequences run through the whole system:
 
@@ -73,7 +77,7 @@ Two consequences run through the whole system:
 millimetre-scale operation, which is why the robot is omnidirectional and why
 so much effort goes into laser-based machine detection.
 
-**The clock is running.** Exploration is scored on speed, which is why
+**The clock is running.** Exploration rewards speed, which is why
 markerless detection is an active research topic for the team.
 
 ## Hardware
@@ -142,9 +146,11 @@ Public repositories under the
   real robots. Documents a two-SICK-TiM571 setup with 3D-printed mounts.
 
 `rcll_simulation_webots`
-: Webots simulation of the RCLL game field with Robotino robots — robot and
-  machine descriptions, sensor interfaces, an omnidirectional controller, SLAM
-  Toolbox integration and Nav2.
+: Webots simulation of the competition game field with Robotino robots —
+  robot and machine descriptions, sensor interfaces, an omnidirectional
+  controller, SLAM Toolbox integration and Nav2. The repository name is a
+  fixed technical identifier and is unaffected by any league naming
+  change.
 
 `mps-map-gen`
 : Extends a map from a map server with game-specific information — machines on
@@ -319,8 +325,8 @@ laser line supplies the depth that the bounding box cannot.
 finished, ready-to-run system, and not part of any module's core task.
 
 **Purpose, in one sentence**: during the three-minute exploration phase
-([module 1](../course/01-system-hardware.md) explains why that phase
-exists), machines currently must carry a visible marker to be located
+(see [The RoboCup Smart Manufacturing League](#the-robocup-smart-manufacturing-league)
+above), machines currently must carry a visible marker to be located
 quickly; markerless detection aims to find them from appearance alone,
 because the league scores exploration speed and a marker-free approach
 generalises to machines the team's cameras have never specifically been
@@ -385,8 +391,8 @@ the steppers.
 
 **Sensors**: the motor encoders report shaft position, which is what lets
 the controller know where the gripper actually is rather than only where it
-was commanded to be — the same open-loop-vs-closed-loop distinction as the
-drive motors in [module 1](../course/01-system-hardware.md).
+was commanded to be — a closed feedback loop, not just an open-loop
+command.
 
 **Control**: a custom PCB carries an Arduino Giga, which exposes a ROS
 interface to the rest of the robot's software — the gripper is a node like
@@ -394,11 +400,10 @@ any other from the perspective of
 [module 2](../course/02-ros2.md), just one whose "actuator" output is a
 motor controller board instead of `/cmd_vel`.
 
-**Safety**: as with the rest of the robot, the platform E-stop
-([module 1](../course/01-system-hardware.md)) cuts gripper power along
-with drive power. A brake-equipped axis is a deliberate safety property in
-its own right — it will not drop whatever it is holding purely because power
-was cut.
+**Safety**: as with the rest of the robot, the platform E-stop cuts
+gripper power along with drive power. A brake-equipped axis is a
+deliberate safety property in its own right — it will not drop whatever
+it is holding purely because power was cut.
 
 :::{note}
 {{ unverified }} This is the mechanism's general design as documented in the
@@ -446,6 +451,10 @@ substitutions:
 
 - [Carologistics on GitHub](https://github.com/carologistics)
 - [Carologistics team website](https://www.carologistics.org/)
-- [RoboCup Logistics League](https://ll.robocup.org/)
+- [RoboCup Logistics League](https://ll.robocup.org/) — {{ unverified }} the
+  league's own site was retrieved under this name; this course refers to
+  the team's league as the RoboCup Smart Manufacturing League per current
+  course guidance, and has not independently confirmed a rename on the
+  league's own materials
 - [Festo Robotino](https://www.festo-didactic.com/)
 - [Nav2 documentation](https://docs.nav2.org/)

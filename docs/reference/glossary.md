@@ -176,8 +176,8 @@ Terms used throughout this course, in plain language.
 : The motion planning framework for manipulators in ROS.
 
 **MPS**
-: Modular Production Station. The Festo machines used in the RoboCup Logistics
-  League. {{ carologistics }}
+: Modular Production Station. The Festo machines used in the RoboCup Smart
+  Manufacturing League. {{ carologistics }}
 
 ## N
 
@@ -249,7 +249,11 @@ Terms used throughout this course, in plain language.
 : The Python client library for ROS 2. (`rclcpp` is the C++ one.)
 
 **RCLL**
-: RoboCup Logistics League. {{ carologistics }}
+: Abbreviation for RoboCup Logistics League, the former name of the
+  league Carologistics competes in — now called the RoboCup Smart
+  Manufacturing League. The abbreviation itself is unchanged in
+  technical identifiers such as repository and package names
+  (`rcll_simulation_webots`, `expertino-rcll`). {{ carologistics }}
 
 **Recovery behavior**
 : What Nav2 does when planning or control fails: clear the costmap, spin, back

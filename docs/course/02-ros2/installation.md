@@ -344,8 +344,8 @@ Which simulator you install depends on your platform track.
 
 {{ simulation }} {{ carologistics }} {{ alert }}
 
-Both the Carologistics RCLL simulation and the ALeRT Spot simulation are
-built on [Webots](https://cyberbotics.com/).
+Both the Carologistics Smart Manufacturing League simulation and the ALeRT
+Spot simulation are built on [Webots](https://cyberbotics.com/).
 
 ```bash
 sudo apt install ros-humble-webots-ros2

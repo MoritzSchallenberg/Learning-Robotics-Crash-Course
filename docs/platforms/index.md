@@ -25,8 +25,8 @@ if you are learning, or if the hardware is booked.
 :link: carologistics-robotino
 :link-type: doc
 
-Festo Robotino in the RoboCup Logistics League. Omnidirectional drive, laser
-lines, vision, gripper.
+Festo Robotino in the RoboCup Smart Manufacturing League. Omnidirectional
+drive, laser lines, vision, gripper.
 :::
 
 :::{grid-item-card} ALeRT / Spot
@@ -75,7 +75,7 @@ mapping, manipulation.
   - Arm with gripper
 * - Competition
   - —
-  - RoboCup Logistics League
+  - RoboCup Smart Manufacturing League
   - RoboCup Rescue League
 ```
 
