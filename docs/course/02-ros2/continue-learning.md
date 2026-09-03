@@ -166,7 +166,7 @@ no error message.
 
 **Why it matters.** A QoS mismatch is one of the few ROS 2 failures with
 **zero** error output — the node runs, the topic exists, and nothing
-arrives. [Module 3's](../03-sensors-tf.md#common-problems) "RViz shows
+arrives. [Module 3's](../03-sensors-tf/practical-exercise.md#common-problems) "RViz shows
 nothing" diagnosis exists largely because of this.
 
 **Needs.** [The turtle controller task](turtle-controller.md) and a

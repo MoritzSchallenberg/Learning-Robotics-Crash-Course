@@ -46,7 +46,7 @@ licenses of the software the course teaches.
 
 **"RViz shows nothing and there is no error."**
 → QoS mismatch.
-[Module 3](../course/03-sensors-tf.md#common-problems)
+[Module 3](../course/03-sensors-tf/practical-exercise.md#common-problems)
 
 **"What exact software versions does this course use?"**
 → [Supported environment](compatibility.md)

@@ -237,7 +237,7 @@ Terms used throughout this course, in plain language.
 : Quality of Service. Policies governing how messages are delivered.
   Incompatible policies mean **no data flows, with no error message** — one of
   the most common problems in ROS 2. See
-  [module 3](../course/03-sensors-tf.md#common-problems).
+  [module 3](../course/03-sensors-tf/practical-exercise.md#common-problems).
 
 ## R
 

@@ -142,7 +142,7 @@ ros2 run tf2_ros tf2_echo base_link Standard41h12:7
 
 ### A TF listener for a detected marker
 
-Adapting the [module 3](../03-sensors-tf.md#advanced-topics)
+Adapting the [module 3](../03-sensors-tf/laserscan-and-frames.md#small-example-a-minimal-tf-listener-node)
 listener pattern to a marker:
 
 ```python

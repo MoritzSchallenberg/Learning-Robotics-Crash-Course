@@ -42,7 +42,7 @@ ros2 topic info -v /turtle1/cmd_vel
 The plain version names the type and counts publishers/subscribers; `-v`
 additionally prints each side's QoS profile — the setting behind the
 "nothing arrives and there is no error" failure class you will meet
-properly in [module 3](../03-sensors-tf.md#common-problems), and
+properly in [module 3](../03-sensors-tf/practical-exercise.md#common-problems), and
 reproduce on purpose in [Continue learning](continue-learning.md).
 
 ```bash

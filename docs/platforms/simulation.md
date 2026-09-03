@@ -206,7 +206,7 @@ the `webots_ros2` version.
 
 **RViz shows nothing.**
 QoS — simulated sensors often publish Best Effort. See
-[module 3](../course/03-sensors-tf.md#common-problems).
+[module 3](../course/03-sensors-tf/practical-exercise.md#common-problems).
 
 **The simulation runs very slowly.**
 No 3D acceleration. This is the usual outcome inside a virtual machine, and the

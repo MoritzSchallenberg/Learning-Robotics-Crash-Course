@@ -147,7 +147,7 @@ Set **Fixed Frame** to `base_footprint`, then add:
 :::{note}
 The Best Effort setting on `/scan` is not optional. The publisher uses it, and
 an RViz display left on Reliable shows nothing at all, with no error. See
-[module 3](../course/03-sensors-tf.md#common-problems).
+[module 3](../course/03-sensors-tf/practical-exercise.md#common-problems).
 :::
 
 Save the configuration once it works.
@@ -492,7 +492,7 @@ themselves are not repeated here.
   - Simulation
   - {{ spotsim }}
 * - 3
-  - [Build the RViz setup yourself, then diagnose a fault in it](../course/03-sensors-tf.md#try-it-on-spot)
+  - [Build the RViz setup yourself, then diagnose a fault in it](../course/03-sensors-tf/practical-exercise.md#try-it-on-spot)
   - Simulation (or read-only on real Spot)
   - {{ spotsim }} / {{ spotreadonly }}
 * - 4

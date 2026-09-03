@@ -201,7 +201,7 @@ Continue learning below.
 **What it is.** Combining multiple components into an **assembly**, and
 connecting them with **joints** (revolute, slider, rigid) that define how
 they can move relative to each other — the mechanical equivalent of a TF2
-transform chain ([module 3](../03-sensors-tf.md#core-concepts)).
+transform chain ([module 3](../03-sensors-tf/laserscan-and-frames.md)).
 
 **Why it matters.** A robot is never one part; understanding how Fusion
 models multi-part motion is what lets you design something that actually

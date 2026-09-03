@@ -6,7 +6,7 @@ detect something in the image ([fiducial markers](fiducial-markers.md)
 or [object detection](object-detection.md)), then turn that detection
 into a pose and a TF frame
 ([the practical exercise's](practical-exercise.md) Optional extensions,
-and [module 3](../03-sensors-tf.md#core-concepts)). The topics below
+and [module 3](../03-sensors-tf/laserscan-and-frames.md)). The topics below
 extend that same path rather than starting a new one.
 
 ## Next steps
@@ -106,7 +106,7 @@ known size solves indirectly.
 known size; depth gives you 3D position for *any* detected pixel region,
 marker or not.
 
-**Needs.** [PointCloud2](../03-sensors-tf.md#advanced-topics)
+**Needs.** {ref}`PointCloud2 <pointcloud2-advanced>`
 (module 3's advanced topics) and a depth camera, real or simulated.
 
 **Try it.** {{ unverified }} — subscribe to a depth camera's `Image` topic
