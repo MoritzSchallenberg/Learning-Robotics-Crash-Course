@@ -310,7 +310,7 @@ constrains the search considerably.
 The Pi camera plus YOLOv8-nano detects workpieces; the position is then
 triangulated using the laser lines, giving a 6D pose (with pitch and roll
 assumed zero). This is exactly the detection-to-localization step described in
-[module 4](../course/04-perception/index.md#detection-versus-localization) — the
+[module 4](../course/04-perception/perception-pipeline.md#why-a-robot-needs-it) — the
 laser line supplies the depth that the bounding box cannot.
 
 ### Markerless MPS detection

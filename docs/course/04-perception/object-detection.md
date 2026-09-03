@@ -121,7 +121,7 @@ annotated image** — install `vision_msgs`
 (`sudo apt install ros-$ROS_DISTRO-vision-msgs`) — and **copy `msg.header`
 into the output**, which carries the timestamp and `frame_id` without which
 no downstream node can place the detection in space (see
-[detection versus localization](index.md#detection-versus-localization)).
+[detection versus localization](perception-pipeline.md#why-a-robot-needs-it)).
 
 ## Training a custom model
 

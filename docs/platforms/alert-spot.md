@@ -496,7 +496,7 @@ themselves are not repeated here.
   - Simulation (or read-only on real Spot)
   - {{ spotsim }} / {{ spotreadonly }}
 * - 4
-  - [ArUco detection and line following on the gripper camera](../course/04-perception/index.md#try-it-on-spot)
+  - [ArUco detection and line following on the gripper camera](../course/04-perception/practical-exercise.md#try-it-on-spot)
   - Simulation
   - {{ spotsim }}
 * - 5

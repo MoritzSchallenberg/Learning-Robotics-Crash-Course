@@ -82,7 +82,7 @@ Terms used throughout this course, in plain language.
 **Detection**
 : Finding *what* is in an image, in image coordinates. Distinct from
   localization. See
-  [module 4](../course/04-perception/index.md#detection-versus-localization).
+  [module 4](../course/04-perception/perception-pipeline.md#why-a-robot-needs-it).
 
 **Domain ID**
 : An integer that partitions a network into independent ROS 2 systems. Nodes

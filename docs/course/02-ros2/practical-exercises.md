@@ -32,7 +32,6 @@ twice produces the same shape, not a random one.
 **Verification**: re-run your controller from a fresh `turtlesim_node`
 twice, and confirm both runs draw the same figure.
 
-(try-it-on-spot)=
 ## Try it on Spot
 
 {{ alert }} {{ spotsim }}

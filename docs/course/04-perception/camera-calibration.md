@@ -38,7 +38,7 @@ If the `k` and `d` arrays are all zeros, it is not calibrated.
 Depth cameras such as the Intel RealSense arrive calibrated from the factory
 and publish valid `CameraInfo` immediately. A plain USB webcam does not.
 Simulated cameras also publish valid `CameraInfo` already — see
-[module 4's optional extensions](index.md#optional-extensions).
+[the practical exercise's optional extensions](practical-exercise.md#optional-extensions).
 :::
 
 ## Calibrating a webcam
