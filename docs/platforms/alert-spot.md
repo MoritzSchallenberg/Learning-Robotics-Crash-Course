@@ -508,7 +508,7 @@ themselves are not repeated here.
   - Simulation
   - {{ spotsim }}
 * - 7
-  - [A stand → navigate → detect → return → sit mission state machine](../course/07-autonomous-decisions.md#try-it-on-spot)
+  - [A stand → navigate → detect → return → sit mission state machine](../course/07-autonomous-decisions/practical-exercise.md#try-it-on-spot)
   - Simulation; real Spot supervised only
   - {{ spotsim }} / {{ spotsupervised }}
 * - 8

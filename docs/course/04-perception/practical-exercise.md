@@ -128,7 +128,7 @@ Turning a detection into a **movement command** (driving toward a
 detected marker or line) is a simulation-only exercise. Do not send
 `cmd_vel` commands derived from live image processing on a physical
 Spot outside a supervised exercise — see
-[module 7](../07-autonomous-decisions.md#try-it-on-spot).
+[module 7](../07-autonomous-decisions/practical-exercise.md#try-it-on-spot).
 :::
 
 **Verification**: `ros2 topic echo /detected_marker_id` reports a value

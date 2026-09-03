@@ -99,7 +99,7 @@ description of it if you have no access.
 **Read-only on physical Spot**: sensor and safety-chain identification
 only. Do not open any covers or panels, and do not operate any actuator —
 this is an inspection exercise, not an operating one. See
-[module 7](../07-autonomous-decisions.md#try-it-on-spot) and the
+[module 7](../07-autonomous-decisions/practical-exercise.md#try-it-on-spot) and the
 [platform page](../../platforms/alert-spot.md) for what actually moving
 Spot requires.
 :::

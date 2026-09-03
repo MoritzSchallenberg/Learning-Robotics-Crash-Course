@@ -230,7 +230,7 @@ natural fit, since standing up either succeeds or does not, with no
 meaningful "progress" to report partway through. See the [platform
 page](../../platforms/alert-spot.md#services-and-actions) for the exact
 calls, and [module 7's Try it on
-Spot](../07-autonomous-decisions.md#try-it-on-spot) for building a
+Spot](../07-autonomous-decisions/practical-exercise.md#try-it-on-spot) for building a
 mission state machine around them.
 
 ## How Carologistics applies it

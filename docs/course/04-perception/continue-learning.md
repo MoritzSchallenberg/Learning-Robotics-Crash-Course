@@ -90,7 +90,7 @@ hand in front of the camera.
 report, while genuinely removing the marker still does after N frames.
 
 **Read more.** [Module 7: state
-machines](../07-autonomous-decisions.md#core-concepts) — the same
+machines](../07-autonomous-decisions/mission-logic.md#how-it-works) — the same
 debounce pattern applies to any noisy binary signal, not just detections.
 :::
 

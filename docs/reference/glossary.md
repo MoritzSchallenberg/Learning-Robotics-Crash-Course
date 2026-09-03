@@ -45,7 +45,7 @@ Terms used throughout this course, in plain language.
 **Behavior tree**
 : A tree of nodes, ticked repeatedly, that decides what a robot does. Nav2 uses
   one internally. See
-  [module 7](../course/07-autonomous-decisions.md#behavior-trees-in-contrast).
+  [module 7](../course/07-autonomous-decisions/mission-logic.md#behavior-trees-in-contrast).
 
 **Bringup**
 : The set of launch files that start a robot's software. See
@@ -297,7 +297,7 @@ Terms used throughout this course, in plain language.
 **State machine**
 : A model where the system is in exactly one state, with defined transitions
   between them. See
-  [module 7](../course/07-autonomous-decisions.md#finite-state-machines).
+  [module 7](../course/07-autonomous-decisions/mission-logic.md#finite-state-machines).
 
 **Subscriber**
 : The side of a topic that receives messages.

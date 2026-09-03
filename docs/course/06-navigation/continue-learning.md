@@ -42,7 +42,7 @@ configuration](https://docs.nav2.org/humble/configuration_and_development/config
 up, wait) when the planner or controller gets stuck; the **BT Navigator**
 coordinates the whole sequence — planning, following, recovering — using a
 behavior tree, the same formalism
-[module 7](../07-autonomous-decisions.md#core-concepts) covers for mission
+[module 7](../07-autonomous-decisions/mission-logic.md#how-it-works) covers for mission
 logic.
 
 **Why it matters.** [The practical exercise's](practical-exercise.md#common-problems)

@@ -228,8 +228,9 @@ through a range and flag **interference** — two bodies occupying the same
 space — automatically, rather than you eyeballing it.
 
 **Why it matters.** This is the mechanical-design equivalent of the
-collision checking [module 7](../07-autonomous-decisions.md#advanced-topics)
-covers for a manipulator's planning scene — catching a physical collision
+collision checking
+{ref}`module 7 <planning-scene-and-collision-objects>` covers for a
+manipulator's planning scene — catching a physical collision
 before it happens on the real robot.
 
 **Needs.** An assembly with at least one joint (the previous topic).
