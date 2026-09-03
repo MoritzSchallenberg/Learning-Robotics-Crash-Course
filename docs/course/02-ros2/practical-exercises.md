@@ -17,7 +17,7 @@ least one extension:
 - Have the controller stop early if the turtle's `x` or `y` gets within a
   fixed margin of the window edge (turtlesim's window is roughly 11×11
   units, origin at the bottom-left) — a first taste of the obstacle-margin
-  thinking [module 6](../06-navigation.md#core-concepts) covers properly.
+  thinking [module 6](../06-navigation/nav2-architecture-and-costmaps.md#how-it-works) covers properly.
 - Spawn a second turtle and have your controller's node publish to
   `/turtle2/cmd_vel` as well, driving both through different paths at
   once from one process.

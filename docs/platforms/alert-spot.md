@@ -504,7 +504,7 @@ themselves are not repeated here.
   - Simulation; real Spot supervised only
   - {{ spotsim }} / {{ spotsupervised }}
 * - 6
-  - [Nav2 goals, recovery behaviour and a before/after comparison](../course/06-navigation.md#try-it-on-spot)
+  - [Nav2 goals, recovery behaviour and a before/after comparison](../course/06-navigation/practical-exercise.md#try-it-on-spot)
   - Simulation
   - {{ spotsim }}
 * - 7

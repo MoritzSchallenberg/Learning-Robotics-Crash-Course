@@ -236,6 +236,6 @@ sensible margin, or explain why they legitimately would not (e.g. the
 LiDAR's beam missing the marker entirely).
 
 **Read more.** [Module 6: costmaps built from multiple
-sensors](../06-navigation.md#core-concepts) is the same principle applied
+sensors](../06-navigation/nav2-architecture-and-costmaps.md#how-it-works) is the same principle applied
 at the navigation layer.
 :::

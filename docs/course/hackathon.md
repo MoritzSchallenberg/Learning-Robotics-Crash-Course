@@ -313,7 +313,7 @@ order](08-integration.md#core-concepts)
 **What it is.** Turning each self-assessment checklist item above into a
 number where possible — not just "the target area is reached" but "reached
 within N seconds, within M centimetres of the marked target" — the same
-discipline as [module 6's](06-navigation.md#continue-learning) navigation
+discipline as [module 6's](06-navigation/continue-learning.md) navigation
 metrics, applied to the whole mission.
 
 **Why it matters.** A binary pass/fail can hide a mission that barely
@@ -330,7 +330,7 @@ next attempt.
 real run.
 
 **Read more.** [Module 6: systematic tuning and navigation
-metrics](06-navigation.md#continue-learning)
+metrics](06-navigation/continue-learning.md)
 :::
 
 :::{dropdown} Failure modes and a logging strategy — Intermediate
@@ -395,7 +395,7 @@ example's fault table](08-integration.md#guided-example)
 **What it is.** Running the full mission several times in a row from a
 clean, cold state, and recording success/failure for each — rather than
 treating one successful run as proof the mission works, the same
-distinction [module 6's](06-navigation.md#continue-learning) navigation
+distinction [module 6's](06-navigation/continue-learning.md) navigation
 metrics topic makes for a single navigation goal.
 
 **Why it matters.** The self-assessment checklist's first item — "the
@@ -411,7 +411,7 @@ between each, and record a simple pass/fail for each attempt.
 anecdote, and — for any failure — which checklist item it failed on.
 
 **Read more.** [Module 6: systematic tuning and navigation
-metrics](06-navigation.md#continue-learning)
+metrics](06-navigation/continue-learning.md)
 :::
 
 :::{dropdown} A short technical retrospective — Next step

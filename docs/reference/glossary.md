@@ -67,7 +67,7 @@ Terms used throughout this course, in plain language.
 **Costmap**
 : A grid where each cell holds the cost of driving there, from 0 to 254. Nav2
   keeps a global one and a local one. See
-  [module 6](../course/06-navigation.md#costmaps-global-vs-local).
+  [module 6](../course/06-navigation/nav2-architecture-and-costmaps.md#how-it-works).
 
 **CUDA**
 : NVIDIA's platform for general-purpose GPU computation. Used to accelerate
@@ -141,7 +141,7 @@ Terms used throughout this course, in plain language.
 **Inflation**
 : Expanding obstacles in a costmap by the robot's radius plus a margin, so the
   planner can treat the robot as a point. See
-  [module 6](../course/06-navigation.md#costmaps-global-vs-local).
+  [module 6](../course/06-navigation/nav2-architecture-and-costmaps.md#how-it-works).
 
 ## L
 

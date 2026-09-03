@@ -197,7 +197,7 @@ settings](https://docs.ros.org/en/humble/Concepts/Intermediate/About-Quality-of-
 **What it is.** A node with an explicit state machine
 (`unconfigured → inactive → active → finalized`) instead of "doing its job
 the moment it starts" — you already ran `ros2 lifecycle get` against one in
-[module 6](../06-navigation.md#core-concepts) without building one yourself.
+[module 6](../06-navigation/nav2-architecture-and-costmaps.md#how-it-works) without building one yourself.
 
 **Why it matters.** A lifecycle node lets a supervisor (or you, by hand)
 control exactly when it starts doing real work — critical for a system

@@ -137,7 +137,7 @@ that visibly recovers instead of hanging when the marker is not found.
 A new package (call it `mission_demo`, or reuse an existing one from
 earlier modules) into which you copy two pieces of code you already have
 working: the navigation action client from
-[module 6](06-navigation.md#advanced-topics), and the marker-detection
+[module 6](06-navigation/nav2-architecture-and-costmaps.md#inputs-and-outputs), and the marker-detection
 pattern from [module 4](04-perception/index.md). Wrap each as a small
 helper class or function your state machine can call — you are writing
 the state machine itself in this task, not the underlying clients, so
@@ -197,7 +197,7 @@ position, before giving up — the smallest possible recovery behaviour.
 
 {{ simulation }} Failing "on purpose" is easier in simulation — remove the
 marker from the scene, or block the path with a dragged object, exactly as
-in [module 6](06-navigation.md#optional-extensions).
+in [module 6](06-navigation/practical-exercise.md#optional-extensions).
 
 **Sketch the same mission as a behavior tree.** On paper, redraw your
 practical task's `IDLE → NAVIGATE → SEARCH → RETURN → DONE` state machine
@@ -325,7 +325,7 @@ stand → navigate → detect → return → sit
 ```
 
 - `stand`: call `/Spot/stand_up`, wait for the response.
-- `navigate`: reuse [module 6's](06-navigation.md#advanced-topics) action
+- `navigate`: reuse [module 6's](06-navigation/nav2-architecture-and-costmaps.md#inputs-and-outputs) action
   client to send a `NavigateToPose` goal.
 - `detect`: reuse [module 4's](04-perception/index.md) marker detection,
   with a timeout — no marker found in N seconds is a **named** failure
@@ -400,10 +400,10 @@ completion or timeout.
 **Why it matters.** This module's practical task only ever *waits* for
 `NAVIGATE` to finish or fail; a more responsive mission needs to actively
 abandon a stale goal, the same responsiveness
-[module 6's](06-navigation.md#advanced-topics) action client dropdown
+[module 6's](06-navigation/nav2-architecture-and-costmaps.md#inputs-and-outputs) action client dropdown
 introduces but does not use.
 
-**Needs.** [Module 6's action client](06-navigation.md#advanced-topics)
+**Needs.** [Module 6's action client](06-navigation/nav2-architecture-and-costmaps.md#inputs-and-outputs)
 example.
 
 **Try it.** Send a navigation goal, wait two seconds, then call
