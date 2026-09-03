@@ -56,6 +56,12 @@ built-HTML property (Sphinx's `rellinks`, driven by the *global*
 `course/index.md` toctree order) -- covered by the browser-level checks
 list in verify-site.py's own docstring, not here.
 
+Also checks four regression guards added for Entwicklungsauftrag 7's
+content-management changes (installation moved into module 2, module 1
+reduced to KiCad/Fusion, the public sources page removed) -- see the
+"Entwicklungsauftrag 7 regression checks" section below for what each one
+catches and why it exists.
+
 Exit code is 0 if every check passed, 1 otherwise.
 """
 
@@ -71,7 +77,7 @@ COURSE = DOCS / "course"
 
 # module id -> (overview file, subdirectory holding its subpages)
 MODULES: dict[str, tuple[Path, Path]] = {
-    "1: System and Hardware": (COURSE / "01-system-hardware.md", COURSE / "01-hardware"),
+    "1: Hardware Design with KiCad and Fusion": (COURSE / "01-system-hardware.md", COURSE / "01-hardware"),
     "2: ROS 2 Fundamentals": (COURSE / "02-ros2.md", COURSE / "02-ros2"),
     "3: Sensors, TF2 and RViz": (COURSE / "03-sensors-tf.md", COURSE / "03-sensors-tf"),
     "4: Perception and Object Detection": (COURSE / "04-perception" / "index.md", COURSE / "04-perception"),
@@ -229,6 +235,81 @@ def check_no_instructor_page() -> list[str]:
     return failures
 
 
+# -- Entwicklungsauftrag 7 regression checks --------------------------------
+# Content-management fixes from Entwicklungsauftrag 7 (installation moved
+# into module 2, module 1 reduced to KiCad/Fusion, the public sources page
+# removed) are easy to silently reintroduce with an unrelated later edit --
+# e.g. re-adding installation.md to prerequisites/index.md's toctree, or a
+# stray docs/reference/sources.md reappearing. These four checks exist
+# purely to catch that kind of regression, not to re-derive the module
+# checks above.
+
+def check_module_1_is_kicad_fusion_only() -> list[str]:
+    """Module 1 must carry exactly kicad-schematic, fusion-mechanical-design,
+    videos and continue-learning -- no sense-process-act or
+    practical-exercise subpage, and no other unexpected subpage."""
+    expected = {"kicad-schematic", "fusion-mechanical-design", "videos", "continue-learning"}
+    overview, subdir = MODULES["1: Hardware Design with KiCad and Fusion"]
+    entries = {Path(e).name for e in parse_toctree(overview)}
+    failures: list[str] = []
+    if entries != expected:
+        missing = expected - entries
+        unexpected = entries - expected
+        if missing:
+            failures.append(f"module 1 toctree is missing expected entries: {sorted(missing)}")
+        if unexpected:
+            failures.append(f"module 1 toctree has unexpected entries: {sorted(unexpected)}")
+    for removed_name in ("sense-process-act.md", "practical-exercise.md"):
+        if (subdir / removed_name).exists():
+            failures.append(
+                f"module 1 subdirectory still contains a removed page: "
+                f"{(subdir / removed_name).relative_to(REPO_ROOT)}"
+            )
+    return failures
+
+
+def check_module_2_installation_is_first() -> list[str]:
+    """Module 2's toctree must list installation as its first subtopic."""
+    overview, _ = MODULES["2: ROS 2 Fundamentals"]
+    entries = [Path(e).name for e in parse_toctree(overview)]
+    if not entries or entries[0] != "installation":
+        return [
+            f"module 2 toctree does not start with 'installation' "
+            f"(starts with {entries[0] if entries else '(empty)'!r})"
+        ]
+    return []
+
+
+def check_prerequisites_has_no_installation_page() -> list[str]:
+    """The public Prerequisites navigation must not list an installation
+    page -- that content now lives at docs/course/02-ros2/installation.md."""
+    failures: list[str] = []
+    prereq_dir = DOCS / "prerequisites"
+    if (prereq_dir / "installation.md").exists():
+        failures.append("docs/prerequisites/installation.md still exists on disk")
+    index = prereq_dir / "index.md"
+    if index.is_file():
+        text = index.read_text(encoding="utf-8")
+        m = TOCTREE_RE.search(text)
+        if m and "installation" in {l.strip() for l in m.group(1).splitlines()}:
+            failures.append("docs/prerequisites/index.md's toctree still lists 'installation'")
+    return failures
+
+
+def check_reference_has_no_sources_page() -> list[str]:
+    """The Reference section must not list a sources/licenses page."""
+    failures: list[str] = []
+    if (DOCS / "reference" / "sources.md").exists():
+        failures.append("docs/reference/sources.md still exists on disk")
+    index = DOCS / "reference" / "index.md"
+    if index.is_file():
+        text = index.read_text(encoding="utf-8")
+        m = TOCTREE_RE.search(text)
+        if m and "sources" in {l.strip() for l in m.group(1).splitlines()}:
+            failures.append("docs/reference/index.md's toctree still lists 'sources'")
+    return failures
+
+
 def main() -> int:
     all_failures: list[str] = []
 
@@ -238,6 +319,10 @@ def main() -> int:
     all_failures.extend(check_no_duplicate_video_urls())
     all_failures.extend(check_video_cards_carry_metadata())
     all_failures.extend(check_no_instructor_page())
+    all_failures.extend(check_module_1_is_kicad_fusion_only())
+    all_failures.extend(check_module_2_installation_is_first())
+    all_failures.extend(check_prerequisites_has_no_installation_page())
+    all_failures.extend(check_reference_has_no_sources_page())
 
     print("=== verify-structure.py results ===")
     if all_failures:
