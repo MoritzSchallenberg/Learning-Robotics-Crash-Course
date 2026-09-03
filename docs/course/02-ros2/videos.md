@@ -28,9 +28,8 @@ this course leans on hardest afterwards.
 
 *Compatibility*: conceptual and applicable to ROS 2 Humble — the commands
 shown are the stable `ros2` CLI surface, not distribution-specific
-syntax. Verify any install command shown against [this course's own
-installation guide](../../prerequisites/installation.md) rather than
-following it directly.
+syntax. Verify any install command shown against [this module's own
+installation guide](installation.md) rather than following it directly.
 :::
 
 ::::

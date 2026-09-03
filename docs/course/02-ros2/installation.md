@@ -12,12 +12,18 @@ Every command below was checked against the official ROS 2 Humble
 documentation (`docs.ros.org/en/humble/`, retrieved 2026-09-02), the one
 distribution this course uses throughout.
 
+This page is preparation for the rest of this module — a system install and
+several downloads, which take a different amount of time on every machine.
+Its duration does not count toward this module's own 80–100 minute core
+learning time; that time starts once ROS 2 is installed and you move on to
+[Nodes and packages](nodes-and-packages.md).
+
 ## Learning objectives
 
 After this page you have:
 
 - confirmed your machine meets the course's [supported
-  environment](../reference/compatibility.md);
+  environment](../../reference/compatibility.md);
 - ROS 2 Humble installed, sourced automatically in every new terminal;
 - a working `colcon` workspace with one example package built;
 - rosdep initialised;
@@ -26,7 +32,7 @@ After this page you have:
 ## Step 1 — Check your operating system
 
 The course's fixed baseline is **Ubuntu 22.04 LTS (Jammy)** — see [Supported
-environment](../reference/compatibility.md) for why.
+environment](../../reference/compatibility.md) for why.
 
 ```bash
 cat /etc/os-release
@@ -351,9 +357,9 @@ Install Webots itself from the [official installation
 guide](https://cyberbotics.com/doc/guide/installation-procedure), then
 follow your platform page for the actual simulation package:
 
-- [Simulation track](../platforms/simulation.md)
-- [Carologistics / Robotino](../platforms/carologistics-robotino.md)
-- [ALeRT / Spot](../platforms/alert-spot.md)
+- [Simulation track](../../platforms/simulation.md)
+- [Carologistics / Robotino](../../platforms/carologistics-robotino.md)
+- [ALeRT / Spot](../../platforms/alert-spot.md)
 
 ## Step 15 — An editor
 
@@ -376,10 +382,11 @@ Opening that file later restores the session.
 
 ## Preflight check
 
-Run this before starting [module 1](../course/01-system-hardware.md), and
-again any time something feels wrong — a read-only script that checks your
-OS, `ROS_DISTRO`, the `ros2` CLI, your workspace, RViz, the simulator and
-basic network settings, then tells you exactly what to fix.
+Run this once the steps above are done, before continuing to [Nodes and
+packages](nodes-and-packages.md), and again any time something feels
+wrong — a read-only script that checks your OS, `ROS_DISTRO`, the `ros2`
+CLI, your workspace, RViz, the simulator and basic network settings, then
+tells you exactly what to fix.
 
 ```bash
 bash scripts/course-preflight.sh
@@ -421,9 +428,15 @@ Step 7 was skipped or failed — re-run `sudo apt install ros-dev-tools`.
 Revisit step 3; a non-UTF-8 locale causes exactly this class of unrelated-
 looking warning.
 
+## Next subtopic
+
+With ROS 2 installed, sourced, and one example package built, continue to
+[Nodes and packages](nodes-and-packages.md), where this module's own
+turtlesim lab starts.
+
 ## Further reading
 
 - [ROS 2 Humble installation guide](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debs.html) — retrieved 2026-09-02, the authoritative source this page was checked against
 - [colcon documentation](https://colcon.readthedocs.io/en/released/)
 - [rosdep documentation](https://docs.ros.org/en/independent/api/rosdep/html/)
-- [Supported environment](../reference/compatibility.md) on this site
+- [Supported environment](../../reference/compatibility.md) on this site

@@ -16,9 +16,9 @@ RViz2
 Course simulation environment (Webots)
 ```
 
-Install it with the [installation guide](../prerequisites/installation.md),
-then confirm it with the commands in
-[Checking your own system](#checking-your-own-system) below.
+Install it with [module 2's installation
+guide](../course/02-ros2/installation.md), then confirm it with the
+commands in [Checking your own system](#checking-your-own-system) below.
 
 :::{important}
 Every package name, API and available feature on this site is specific to
@@ -66,7 +66,7 @@ Some Carologistics robots and workstations run Fedora rather than Ubuntu,
 with setup automated through Ansible. `dnf` commands are Fedora commands and
 have no meaning on Ubuntu; the ROS 2 installation procedure differs
 substantially between the two. This course's own [installation
-guide](../prerequisites/installation.md) is written for Ubuntu 22.04 — if
+guide](../course/02-ros2/installation.md) is written for Ubuntu 22.04 — if
 you are setting up a Fedora machine, follow that repository's own
 documentation instead.
 
@@ -100,7 +100,7 @@ echo $RMW_IMPLEMENTATION
 Expect `humble` from the first command and `22.04` (Jammy) from the second.
 Anything else means either the setup script did not complete, or `.bashrc`
 is not sourcing `/opt/ros/humble/setup.bash` — see the [installation
-guide's troubleshooting section](../prerequisites/installation.md#common-installation-problems).
+guide's troubleshooting section](../course/02-ros2/installation.md#common-installation-problems).
 
 ## Status legend
 
