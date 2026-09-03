@@ -118,7 +118,3 @@ includes real Spot hardware rather than only Webots, keep it stationary
 
 [Interesting videos](videos.md) — recording and replaying a rosbag,
 step by step.
-
-## Sources
-
-- [Diagnostic sequence](../../reference/ros2-cheatsheet.md#diagnostic-sequence)

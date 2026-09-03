@@ -95,7 +95,3 @@ the three categories above and name the node that publishes it.
 [Interesting videos](videos.md) — one carefully checked recommendation —
 and then [Continue learning](continue-learning.md) for what to build
 next.
-
-## Sources
-
-- [ROS 2: Recording and playing back data](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Recording-And-Playing-Back-Data/Recording-And-Playing-Back-Data.html)

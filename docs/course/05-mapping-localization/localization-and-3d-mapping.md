@@ -128,7 +128,3 @@ repository state.
 
 [Practical exercise](practical-exercise.md) — map an area, then localize
 on it end to end.
-
-## Sources
-
-- [Nav2 AMCL configuration](https://docs.nav2.org/humble/configuration_and_development/configuration_guide/others/configuring_amcl/)

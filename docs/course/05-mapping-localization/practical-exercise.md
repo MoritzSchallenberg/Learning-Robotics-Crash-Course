@@ -120,7 +120,3 @@ mapped walls once localized, and stays there as Spot moves.
 ## Next subtopic
 
 [Interesting videos](videos.md) — one carefully checked SLAM Toolbox video.
-
-## Sources
-
-- [Nav2: map_saver_cli](https://docs.nav2.org/commands/index.html)

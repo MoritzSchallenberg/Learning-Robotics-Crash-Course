@@ -134,8 +134,3 @@ page teaches.
 
 [Practical TF and RViz exercise](practical-exercise.md) — diagnose and
 fix a missing transform yourself.
-
-## Sources
-
-- [TF2 tutorials](https://docs.ros.org/en/humble/Tutorials/Intermediate/Tf2/Tf2-Main.html)
-- [REP 105: Coordinate frames for mobile platforms](https://www.ros.org/reps/rep-0105.html)

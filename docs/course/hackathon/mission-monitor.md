@@ -122,7 +122,3 @@ without having to reproduce it live.
 
 [Interesting videos](videos.md) — a short demonstration of a real robot
 running an autonomous mission end to end.
-
-## Sources
-
-- [ros2 bag](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Recording-And-Playing-Back-Data.html)

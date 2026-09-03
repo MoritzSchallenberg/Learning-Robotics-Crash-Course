@@ -29,14 +29,6 @@ Every term used in the course, in plain language, with a link to where it is
 explained properly.
 :::
 
-:::{grid-item-card} Sources and licenses
-:link: sources
-:link-type: doc
-
-Where this material came from, how it was used, what was excluded, and the
-licenses of the software the course teaches.
-:::
-
 ::::
 
 ## Quick answers
@@ -65,5 +57,4 @@ licenses of the software the course teaches.
 ros2-cheatsheet
 compatibility
 glossary
-sources
 ```

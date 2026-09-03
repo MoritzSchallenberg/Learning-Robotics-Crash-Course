@@ -144,8 +144,3 @@ than for one robot.
 [Planning and manipulation approaches](planning-and-manipulation.md) —
 what to reach for when a state machine or behavior tree is not the right
 tool.
-
-## Sources
-
-- [BehaviorTree.CPP](https://www.behaviortree.dev/) — the library Nav2 uses
-- [Nav2 behavior trees](https://docs.nav2.org/humble/configuration_and_development/configuration_guide/core_servers/bt_plugins/)

@@ -155,8 +155,3 @@ adds a competition-area boundary to the global costmap specifically.
 
 [Practical exercise](practical-exercise.md) — send the robot to a goal and
 watch it re-plan around an obstacle you introduce yourself.
-
-## Sources
-
-- [Nav2 documentation](https://docs.nav2.org/humble/)
-- [Nav2 configuration guide](https://docs.nav2.org/humble/configuration_and_development/configuration_guide/)

@@ -144,8 +144,3 @@ documented in public repository READMEs at the time of writing.
 
 [Practical perception exercise](practical-exercise.md) — wire this
 pipeline into a real node that publishes a detected marker ID.
-
-## Sources
-
-- [OpenCV: ArUco marker
-  detection](https://docs.opencv.org/4.x/d5/dae/tutorial_aruco_detection.html)

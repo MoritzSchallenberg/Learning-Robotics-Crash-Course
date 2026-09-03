@@ -146,8 +146,3 @@ sequence](../../platforms/alert-spot.md#operating-the-physical-robot).
 
 [Interesting videos](videos.md) — a longer, hands-on look at behavior
 trees.
-
-## Sources
-
-- [ROS 2: managed
-  nodes](https://docs.ros.org/en/humble/Concepts/Intermediate/About-Ros2-Managed-Nodes.html)

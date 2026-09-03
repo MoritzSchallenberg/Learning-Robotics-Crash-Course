@@ -111,7 +111,3 @@ without having to reproduce it live.
 
 [Platform notes](platform-notes.md) — how the mission looks on
 simulation, Carologistics/Robotino, and ALeRT/Spot specifically.
-
-## Sources
-
-- [Nav2 tutorials](https://docs.nav2.org/humble/tutorials/)

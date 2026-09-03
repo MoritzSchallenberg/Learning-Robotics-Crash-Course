@@ -100,8 +100,3 @@ map is built differs.
 
 [Localization and 3D mapping](localization-and-3d-mapping.md) — finding the
 robot's pose on a map that already exists.
-
-## Sources
-
-- [SLAM Toolbox](https://github.com/SteveMacenski/slam_toolbox) and its
-  configuration guide

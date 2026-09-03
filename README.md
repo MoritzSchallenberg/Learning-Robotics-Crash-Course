@@ -125,7 +125,6 @@ docs/                          <-- published website; nothing else is built
     compatibility.md          "Supported environment": the fixed toolchain
                               (Ubuntu 22.04 / ROS 2 Humble) and per-track versions
     glossary.md
-    sources.md                Attribution and licensing
 
   _static/
     css/custom.css            Theme layer, badges, light/dark palette
@@ -387,8 +386,9 @@ See `SECURITY_REVIEW.md` for the full review of the source material.
 ## Sources and licenses
 
 Built from teaching material by the **MASKOR Institute, FH Aachen** and the
-Carologistics and ALeRT teams. Full attribution on the site's
-[Sources and licenses](docs/reference/sources.md) page and in `LICENSES.md`.
+Carologistics and ALeRT teams. The public site deliberately carries no
+separate source/provenance chapter; full attribution and licensing detail
+lives in `LICENSES.md` in this repository instead.
 
 > **The content license has not yet been decided by the institute**, so this
 > repository ships no `LICENSE` file. See `LICENSES.md`.

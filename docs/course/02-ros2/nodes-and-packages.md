@@ -176,8 +176,3 @@ exercise.
 [Topics and messages](topics-and-messages.md) — inspect what
 `/turtle1/cmd_vel` actually carries, and drive the turtle yourself
 without the keyboard at all.
-
-## Sources
-
-- [ROS 2: Understanding nodes](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Nodes/Understanding-ROS2-Nodes.html)
-- [ROS 2: Using turtlesim, ros2, and rqt](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Introducing-Turtlesim/Introducing-Turtlesim.html)

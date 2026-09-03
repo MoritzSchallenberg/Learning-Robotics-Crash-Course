@@ -88,7 +88,3 @@ marked location.
 
 [Mission monitoring and recovery](mission-monitor.md) — an optional
 development node, and what to do after an unexpected stop.
-
-## Sources
-
-- Your [platform track](../../platforms/index.md)

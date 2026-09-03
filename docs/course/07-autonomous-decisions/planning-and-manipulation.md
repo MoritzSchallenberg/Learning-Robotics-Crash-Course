@@ -127,10 +127,3 @@ reason explained above.
 
 [Practical exercise](practical-exercise.md) — implement a mission that
 recovers instead of hanging when a step fails.
-
-## Sources
-
-- [RAFCON documentation](https://rafcon.readthedocs.io/en/stable/concepts.html)
-- [PlanSys2](https://plansys2.github.io/) and its
-  [behavior tree actions tutorial](https://plansys2.github.io/tutorials/docs/bt_actions.html)
-- [MoveIt 2](https://moveit.picknik.ai/)

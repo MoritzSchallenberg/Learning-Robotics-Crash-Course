@@ -254,9 +254,3 @@ comparison](../02-ros2.md#alert-and-carologistics-compared).
 [Write your own turtle controller](turtle-controller.md) — this
 module's practical task, replacing `turtle_teleop_key` with your own
 `rclpy` node.
-
-## Sources
-
-- [ROS 2: Understanding services](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Services/Understanding-ROS2-Services.html)
-- [ROS 2: Understanding parameters](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Parameters/Understanding-ROS2-Parameters.html)
-- [ROS 2: Understanding actions](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Actions/Understanding-ROS2-Actions.html)

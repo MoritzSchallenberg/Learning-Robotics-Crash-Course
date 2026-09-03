@@ -159,8 +159,3 @@ principle. Full detail in
 
 [Practical exercise](practical-exercise.md) — find one deliberately
 introduced fault, fix it, then run a complete mini-mission end to end.
-
-## Sources
-
-- [ROS 2 launch documentation](https://docs.ros.org/en/humble/Tutorials/Intermediate/Launch/Launch-Main.html)
-- [ros2 bag](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Recording-And-Playing-Back-Data.html)

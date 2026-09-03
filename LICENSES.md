@@ -41,17 +41,22 @@ This site consolidates and rewrites three internal MASKOR teaching resources:
   minimal teaching examples; where an example derives substantially from an
   external project, the page links to it.
 - Attribution to the MASKOR Institute and to each currently listed source
-  course is given on [Sources and licenses](docs/reference/sources.md).
+  course was, until the public source-and-license page was removed (see the
+  note below), given there.
 
 > **Note (2026-09-02):** since this repository record was first written, the
 > course text has gone through two further full rewrites (restructuring into
 > a practical-task format, then removing all event- and facilitator-specific
 > framing), with every technical claim re-verified against official primary
-> documentation for the ROS 2 Humble baseline. The public
-> [Sources and licenses](docs/reference/sources.md) page reflects that
-> current, independently-checked state and, per that page's own editorial
-> policy, lists only sources still directly attributed today. This document
-> keeps the full historical record for legal completeness.
+> documentation for the ROS 2 Humble baseline.
+>
+> **Update:** the public `docs/reference/sources.md` page this note used to
+> point to has since been removed from the built website, per a later
+> content-management decision to keep the public site free of a dedicated
+> source/provenance chapter. This document (`LICENSES.md`) remains the
+> authoritative, repository-only record of attribution and licensing; it
+> intentionally does not appear in the site's navigation, search index or
+> built HTML.
 
 ### Logos
 

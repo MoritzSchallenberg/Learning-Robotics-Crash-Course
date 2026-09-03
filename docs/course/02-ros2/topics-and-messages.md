@@ -173,7 +173,3 @@ transformation, not a special ROS 2 mechanism.
 [Services, parameters and actions](services-parameters-actions.md) — the
 three tools ROS 2 offers when a continuous stream is the wrong shape for
 the job.
-
-## Sources
-
-- [ROS 2: Understanding topics](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Topics/Understanding-ROS2-Topics.html)

@@ -118,7 +118,3 @@ for the same principle applied more systematically.
 
 [Interesting videos](videos.md) — a maintainer's-eye demonstration of Nav2
 features.
-
-## Sources
-
-- [Nav2 first-time setup](https://docs.nav2.org/humble/configuration_and_development/first_time_robot_setup_guide/)
