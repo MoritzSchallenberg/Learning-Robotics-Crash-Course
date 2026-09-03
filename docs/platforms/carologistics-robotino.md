@@ -376,7 +376,7 @@ not established. See `CONTENT_REVIEW.md` in the repository.
 
 The gripper is a custom mechanism, built from the following pieces, in
 general-principle terms — the same
-[sense–process–act pattern](../course/01-system-hardware.md#core-concepts) as the
+[sense–process–act pattern](../course/01-hardware/sense-process-act.md#how-it-works) as the
 rest of the robot, at a smaller scale:
 
 **Actuators**: NEMA 17 stepper motors (with an encoder) for the finer

@@ -287,7 +287,7 @@ record what actually changed.
 controls doorway behaviour; this task makes you verify that claim yourself
 rather than take it on faith — the same "measure it, do not guess"
 standard as this course's power-budgeting exercise in
-[module 1](01-system-hardware.md#continue-learning).
+[module 1](01-hardware/continue-learning.md).
 
 **Needs.** This module's practical task, working end to end.
 
@@ -371,7 +371,7 @@ it does not stop and re-plan at each one); **docking**
 reaching a charging station or a work cell.
 
 **Why it matters.** {{ carologistics }} Robotino's precision-docking task
-([module 1](01-system-hardware.md#core-concepts)) is exactly this
+([module 1](01-hardware/sense-process-act.md#how-it-works)) is exactly this
 problem — a generic navigation goal is not precise enough for docking to a
 production machine within millimetres.
 

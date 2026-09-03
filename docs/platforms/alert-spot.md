@@ -484,7 +484,7 @@ themselves are not repeated here.
   - Environment
   - Safety level
 * - 1
-  - [Identify sensors, compute, actuators and the safety chain](../course/01-system-hardware.md#try-it-on-spot)
+  - [Identify sensors, compute, actuators and the safety chain](../course/01-hardware/practical-exercise.md#try-it-on-spot)
   - Real Spot (inspection only) or the diagram above
   - {{ spotreadonly }}
 * - 2

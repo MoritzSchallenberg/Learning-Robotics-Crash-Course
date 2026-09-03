@@ -26,7 +26,7 @@ By the end of this page you can:
 
 ## Prerequisites
 
-[Module 1's core concepts](../01-system-hardware.md#core-concepts) —
+[Module 1's core concepts](sense-process-act.md#how-it-works) —
 specifically the sense–process–act loop and the idea of separate data and
 power paths. No prior electronics or CAD experience is assumed.
 
@@ -112,7 +112,7 @@ wire across the whole page.
 ### Separating data and power paths visually
 
 Nothing in KiCad forces this, but it is the single habit worth carrying
-over from [module 1](../01-system-hardware.md#core-concepts): keep power
+over from [module 1](sense-process-act.md#how-it-works): keep power
 nets (battery, regulators, motor supply) visually grouped on one part of
 the sheet, and signal/data nets (UART, I²C, GPIO) on another. A reader
 should be able to tell power from data at a glance, the same way the
@@ -130,11 +130,11 @@ wire does not.
 Represent a fuse with the `Device:Fuse` symbol in series with the supply
 rail it protects, sized to the actual current draw of what is downstream —
 see [sensor and actuator
-selection](../01-system-hardware.md#continue-learning) for how to get that
+selection](continue-learning.md) for how to get that
 number. Represent the emergency-stop path as what it actually is on a real
 robot: a switch (`Device:SW_SPDT` or similar) placed **in the motor power
 path itself**, not as a signal into a microcontroller — matching
-[module 1's point](../01-system-hardware.md#core-concepts) that the E-stop
+[module 1's point](sense-process-act.md#how-it-works) that the E-stop
 cuts power independently of software.
 
 ### Annotation
@@ -355,7 +355,7 @@ manufacturing files (Gerbers, drill files) a PCB fabricator needs.
 **Why it matters.** A robot with badly routed grounds and hand-wavy EMC
 practice on real hardware is a common source of exactly the kind of
 "looks like a software bug but is not" symptom [module
-1](../01-system-hardware.md#core-concepts) warns about — a noisy ground
+1](sense-process-act.md#how-it-works) warns about — a noisy ground
 plane can corrupt sensor readings in ways no amount of ROS 2 debugging will
 find.
 

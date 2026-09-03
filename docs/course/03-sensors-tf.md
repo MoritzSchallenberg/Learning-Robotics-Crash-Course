@@ -237,7 +237,7 @@ already-finished list:
    exactly as in this module's guided example.
 2. Add `RobotModel` (topic `/robot_description`) — this is the mechanical
    equivalent of the block diagram from
-   [module 1](01-system-hardware.md#practical-task), now rendered from a
+   [module 1](01-hardware/practical-exercise.md), now rendered from a
    real URDF instead of drawn by hand.
 3. Add `PointCloud2` on the 3D LiDAR topic, `Odometry`, and `LaserScan` on
    `/scan` — and apply this module's own QoS lesson **before** being told

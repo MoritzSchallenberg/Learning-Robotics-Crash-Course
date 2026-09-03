@@ -91,7 +91,7 @@ else's.
 - If the robot is about to injure someone or destroy itself or its
   surroundings, stop it immediately. A stopped run is always the right
   call over letting something get hurt or broken; see
-  [module 1's safety section](01-system-hardware.md#core-concepts) for why
+  [module 1's safety section](01-hardware/sense-process-act.md#safety-and-emergency-stops) for why
   the E-stop is independent of software in the first place.
 - Confirm the area is clear of people and fragile objects before starting
   a run, and check the robot's actual footprint against the space
@@ -260,7 +260,7 @@ down each one's **interface** — exactly which topics, services or actions
 it consumes and produces — as a short document or a diagram, before you
 integrate any of them.
 
-**Why it matters.** [Module 1's](01-system-hardware.md#practical-task)
+**Why it matters.** [Module 1's](01-hardware/practical-exercise.md)
 system diagram did this for hardware; doing the same for software
 subsystems here catches interface mismatches (a topic name or message type
 two subsystems disagree on) on paper, before they cost an integration
@@ -276,7 +276,7 @@ type — not just "navigation talks to perception".
 alone, exactly which ROS 2 interface connects any two subsystems.
 
 **Read more.** [Module 1: system
-diagrams](01-system-hardware.md#practical-task)
+diagrams](01-hardware/practical-exercise.md)
 :::
 
 :::{dropdown} Integration order and a test matrix — Next step
