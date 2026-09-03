@@ -202,7 +202,7 @@ the moment it starts" — you already ran `ros2 lifecycle get` against one in
 **Why it matters.** A lifecycle node lets a supervisor (or you, by hand)
 control exactly when it starts doing real work — critical for a system
 where bring-up order matters, which is the entire subject of
-[module 8](../08-integration.md#core-concepts).
+[module 8](../08-integration/system-bringup-and-diagnostics.md).
 
 **Needs.** Comfort with plain `rclpy` nodes.
 
@@ -305,7 +305,7 @@ for its style checks.
 **Why it matters.** A change that breaks a node's behaviour should fail a
 test, not get discovered when the [capstone project](../hackathon.md)
 breaks in front of you — this is what
-[module 8's](../08-integration.md#core-concepts) "reproducible" standard
+[module 8's](../08-integration/system-bringup-and-diagnostics.md) "reproducible" standard
 looks like applied to code instead of launch files.
 
 **Needs.** A working package with at least one node.

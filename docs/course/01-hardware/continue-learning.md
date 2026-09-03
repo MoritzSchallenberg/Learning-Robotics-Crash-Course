@@ -130,10 +130,9 @@ current overheats), and keeping a **bill of materials (BOM)** — every part,
 its value, and its source — as the design's single source of truth.
 
 **Why it matters.** This is the mechanical/electrical equivalent of
-[module 8's](../08-integration.md#core-concepts) "one command, one source
-of truth" for software configuration — a design that lives only in one
-person's head, or an out-of-date drawing, fails the same way undocumented
-config does.
+{ref}`module 8's <startup-order>` "one command, one source of truth" for
+software configuration — a design that lives only in one person's head,
+or an out-of-date drawing, fails the same way undocumented config does.
 
 **Needs.** The power-budgeting topic above, and (optionally) the
 [KiCad tutorial](kicad-schematic.md).
@@ -160,10 +159,11 @@ voltage — a test point, an accessible connector, a status LED — rather than
 discovering after the fact that nothing is probeable without desoldering
 something.
 
-**Why it matters.** [Module 8's](../08-integration.md#core-concepts)
-eight-step diagnostic procedure assumes you *can* check each layer;
-hardware with no measurement points makes step 1 ("is it powered?")
-surprisingly hard to answer.
+**Why it matters.**
+{ref}`Module 8's <the-eight-step-diagnostic-procedure>` eight-step
+diagnostic procedure assumes you *can* check each layer; hardware with no
+measurement points makes step 1 ("is it powered?") surprisingly hard to
+answer.
 
 **Needs.** [Sense–process–act's power
 section](sense-process-act.md#power-supply-and-energy-budgeting).
@@ -175,8 +175,8 @@ disassembling anything.
 **Check.** Your answer names an actual accessible point (a connector pin, a
 test pad), not just "measure it somehow".
 
-**Read more.** [Module 8: the eight-step diagnostic
-procedure](../08-integration.md#core-concepts)
+**Read more.** {ref}`Module 8: the eight-step diagnostic procedure
+<the-eight-step-diagnostic-procedure>`
 :::
 
 ## Advanced topics
@@ -194,7 +194,8 @@ your software that pure simulation cannot see, without needing the whole
 robot assembled.
 
 **Needs.** A working simulation setup ([module 8's simulation
-notes](../08-integration.md#optional-extensions)) and access to at least one
+notes](../08-integration/practical-exercise.md#optional-extensions)) and
+access to at least one
 piece of real hardware (a motor controller or sensor board).
 
 **Try it.** {{ unverified }} — describe, on paper, how you would connect

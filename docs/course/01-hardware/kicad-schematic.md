@@ -257,7 +257,7 @@ page's practical task feels comfortable.
 **What it is.** Splitting one large schematic into multiple sub-sheets
 (power, motor drive, sensors) connected through hierarchical labels, the
 same way a large ROS 2 system is split into launch files per subsystem
-([module 8](../08-integration.md#advanced-topics)).
+({ref}`module 8 <startup-order>`).
 
 **Why it matters.** A one-sheet schematic for a real robot with a dozen
 sensors becomes unreadable fast; hierarchy is what keeps a big design
@@ -379,7 +379,7 @@ git-friendly, unlike most proprietary CAD formats.
 
 **Why it matters.** A schematic that only exists as a single person's local
 file is exactly the single point of failure
-[module 8](../08-integration.md#core-concepts) warns against for software;
+[module 8](../08-integration/system-bringup-and-diagnostics.md) warns against for software;
 the same discipline (version control, reproducible state) applies to
 hardware design files.
 

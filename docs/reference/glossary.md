@@ -263,7 +263,7 @@ Terms used throughout this course, in plain language.
 
 **rosbag**
 : A recording of ROS 2 topics that can be replayed. See
-  [module 8](../course/08-integration.md#rosbags-briefly).
+  [module 8](../course/08-integration/system-bringup-and-diagnostics.md).
 
 **RRL**
 : RoboCup Rescue League. {{ alert }}

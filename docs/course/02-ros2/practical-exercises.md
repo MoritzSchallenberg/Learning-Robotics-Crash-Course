@@ -24,7 +24,7 @@ least one extension:
 - Record the run: `ros2 bag record /turtle1/cmd_vel /turtle1/pose`, then
   play it back and confirm `ros2 topic echo` during playback matches what
   you saw live — the same rosbag pattern
-  [module 8](../08-integration.md#core-concepts) uses for a real robot.
+  [module 8](../08-integration/system-bringup-and-diagnostics.md) uses for a real robot.
 
 **Expected result**: a reproducible path — running the same controller
 twice produces the same shape, not a random one.

@@ -262,7 +262,7 @@ ros2 run rqt_graph rqt_graph            # 7. look at the whole graph
 ```
 
 Full explanation in
-[module 8](../course/08-integration.md#the-eight-step-diagnostic-procedure).
+[module 8](../course/08-integration/system-bringup-and-diagnostics.md).
 
 ## Message types you will meet
 

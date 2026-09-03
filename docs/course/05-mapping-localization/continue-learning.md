@@ -81,7 +81,7 @@ that as a second version.
 commit messages alone which is current.
 
 **Read more.** [Module 8: reproducible
-systems](../08-integration.md#core-concepts) — the same "one source of
+systems](../08-integration/system-bringup-and-diagnostics.md) — the same "one source of
 truth, in version control" principle.
 :::
 

@@ -512,7 +512,7 @@ themselves are not repeated here.
   - Simulation; real Spot supervised only
   - {{ spotsim }} / {{ spotsupervised }}
 * - 8
-  - [Full-system diagnostics and a fault-injection exercise](../course/08-integration.md#try-it-on-spot)
+  - [Full-system diagnostics and a fault-injection exercise](../course/08-integration/practical-exercise.md#try-it-on-spot)
   - Simulation (or read-only on real Spot)
   - {{ spotsim }} / {{ spotreadonly }}
 ```

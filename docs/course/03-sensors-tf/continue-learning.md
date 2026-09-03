@@ -70,7 +70,7 @@ travel](https://docs.ros.org/en/humble/Tutorials/Intermediate/Tf2/Time-Travel-Wi
 **What it is.** `ros2 bag record` captures every message on chosen topics
 to disk with their original timestamps; `ros2 bag play` replays them as if
 they were live — you will use this properly in
-[module 8](../08-integration.md#core-concepts), but the underlying tool
+[module 8](../08-integration/system-bringup-and-diagnostics.md), but the underlying tool
 matters here too: a bag is the easiest way to debug a TF problem offline.
 
 **Why it matters.** Recording once and replaying repeatedly turns a
@@ -87,7 +87,7 @@ moving the sensor (or the simulated robot), then play the bag back with
 same points in the recording.
 
 **Read more.** [Module 8: rosbags,
-briefly](../08-integration.md#core-concepts) ·
+briefly](../08-integration/system-bringup-and-diagnostics.md) ·
 [ros2 bag](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Recording-And-Playing-Back-Data.html)
 :::
 

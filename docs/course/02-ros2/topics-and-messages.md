@@ -60,7 +60,7 @@ ros2 topic hz /turtle1/pose
 
 **Expected result**: an average rate around 62 Hz (turtlesim's fixed
 simulation rate), printed continuously. This is the same tool
-[module 8](../08-integration.md#continue-learning) uses to check whether
+[module 8](../08-integration/continue-learning.md) uses to check whether
 a real sensor is actually publishing at the rate it claims to.
 
 ```bash

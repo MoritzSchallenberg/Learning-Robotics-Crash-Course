@@ -103,7 +103,7 @@ else's.
 Record a rosbag of your attempt, containing at minimum `/tf`, `/tf_static`,
 `/scan` (or your platform's equivalent range sensor), `/cmd_vel` and
 `/mission_status`, following the practice from
-[module 8](08-integration.md#rosbags-briefly). This is what lets you check
+[module 8](08-integration/system-bringup-and-diagnostics.md). This is what lets you check
 the self-assessment checklist against evidence rather than memory, and lets
 you replay a failed attempt to see exactly where it went wrong.
 
@@ -230,7 +230,7 @@ hope. Work through it like any other fault:
 
 1. Check the last few log lines and the last `mission_status` value before
    the stop; often the mission logic already told you what it was doing.
-2. Run the [eight-step diagnostic procedure](08-integration.md#the-eight-step-diagnostic-procedure)
+2. Run the [eight-step diagnostic procedure](08-integration/system-bringup-and-diagnostics.md)
    before touching anything.
 3. If a physical E-stop was pressed, the platform typically needs an
    explicit re-enable step before it will move again — check your
@@ -283,7 +283,7 @@ diagrams](01-hardware/practical-exercise.md)
 :icon: light-bulb
 
 **What it is.** Deciding the order subsystems come online in
-([module 8's](08-integration.md#core-concepts) startup order, applied to
+([module 8's](08-integration/system-bringup-and-diagnostics.md) startup order, applied to
 your mission specifically), and a **test matrix** — which subsystem
 combinations you have actually tested together, and which you have only
 tested alone.
@@ -304,7 +304,7 @@ to the diagonal (each subsystem paired with the one it directly talks to)
 is marked tested.
 
 **Read more.** [Module 8: startup
-order](08-integration.md#core-concepts)
+order](08-integration/system-bringup-and-diagnostics.md)
 :::
 
 :::{dropdown} Measurable acceptance criteria beyond the checklist — Intermediate
@@ -342,12 +342,12 @@ drop) and deciding, for each, what should be logged at the moment it
 happens — rather than discovering after a failed run that the one piece of
 information you needed was never recorded.
 
-**Why it matters.** [Module 8's](08-integration.md#continue-learning)
+**Why it matters.** [Module 8's](08-integration/continue-learning.md)
 logging-levels topic covers *how* to log; this is deciding *what* is worth
 logging, specific to your mission's actual failure modes.
 
 **Needs.** [Module 8's logging
-levels](08-integration.md#continue-learning) and your subsystem
+levels](08-integration/continue-learning.md) and your subsystem
 decomposition above.
 
 **Try it.** For each failure mode you listed, write the exact log line
@@ -358,13 +358,13 @@ it later from a log alone, without having watched the run live.
 log actually contains the line you designed for it.
 
 **Read more.** [Module 8: logging
-levels](08-integration.md#continue-learning)
+levels](08-integration/continue-learning.md)
 :::
 
 :::{dropdown} A fault-injection test for the whole mission — Intermediate
 :icon: light-bulb
 
-**What it is.** Applying [module 8's](08-integration.md#guided-example)
+**What it is.** Applying [module 8's](08-integration/system-bringup-and-diagnostics.md)
 fault-injection table to the **whole mission** rather than one subsystem —
 deliberately breaking one thing (a renamed topic, a missing static
 transform) and confirming the mission fails safely rather than hanging or
@@ -376,7 +376,7 @@ state" item, under a condition you actually chose and can reproduce, not
 just when something happens to break on its own.
 
 **Needs.** [Module 8's fault
-table](08-integration.md#guided-example) and a working mission attempt.
+table](08-integration/system-bringup-and-diagnostics.md) and a working mission attempt.
 
 **Try it.** Pick one fault from module 8's table, apply it to a copy of
 your mission's launch configuration, and run the mission end to end.
@@ -386,7 +386,7 @@ silence, never a hang) within a reasonable time of the fault taking
 effect.
 
 **Read more.** [Module 8: the guided
-example's fault table](08-integration.md#guided-example)
+example's fault table](08-integration/system-bringup-and-diagnostics.md)
 :::
 
 :::{dropdown} Repeatability across multiple mission runs — Next step
