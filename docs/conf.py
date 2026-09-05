@@ -1,13 +1,14 @@
 # Configuration file for the Sphinx documentation builder.
 #
-# Learning Robotics Crash Course -- MASKOR Institute, FH Aachen.
+# ALeRT Advanced Robotics Tutorial -- ALeRT (Aachen Legged Rescue Team),
+# MASKOR Institute, FH Aachen.
 # Full reference: https://www.sphinx-doc.org/en/master/usage/configuration.html
 
 # -- Project information -----------------------------------------------------
 
-project = "Learning Robotics Crash Course"
-author = "MASKOR Institute, FH Aachen"
-copyright = "2026, MASKOR Institute, FH Aachen"
+project = "ALeRT Advanced Robotics Tutorial"
+author = "ALeRT, MASKOR Institute, FH Aachen"
+copyright = "2026, ALeRT, MASKOR Institute, FH Aachen"
 version = "0.1"
 release = "0.1.0"
 
@@ -108,7 +109,7 @@ myst_substitutions = {
 # -- Options for HTML output -------------------------------------------------
 
 html_theme = "sphinx_rtd_theme"
-html_title = "Learning Robotics Crash Course"
+html_title = "ALeRT Advanced Robotics Tutorial"
 
 # Logo rights for the MASKOR / team logos found in the source material are not
 # established, so the site deliberately uses a text title instead of an image.

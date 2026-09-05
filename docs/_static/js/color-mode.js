@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Learning Robotics Crash Course -- light / dark mode switcher.
+   ALeRT Advanced Robotics Tutorial -- light / dark mode switcher.
 
    Written from scratch for this project (no third-party code is copied).
    Behaviour:

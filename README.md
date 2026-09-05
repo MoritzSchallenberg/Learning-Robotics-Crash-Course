@@ -1,38 +1,55 @@
-# Learning Robotics Crash Course
+# ALeRT Advanced Robotics Tutorial
 
-A shared introduction to autonomous mobile robotics for the teams and research
-groups of the **MASKOR Institute at FH Aachen**.
+A technical reference and tutorial site for **ALeRT** (Aachen Legged Rescue
+Team), the RoboCup Rescue League team at the **MASKOR Institute, FH Aachen**.
 
 **Website:** <https://moritzschallenberg.github.io/Learning-Robotics-Crash-Course/>
+(repository name and Pages URL are unchanged for now — see
+[`maintainers/rebrand-followups.md`](maintainers/rebrand-followups.md) for
+what a later transfer to an `RRL-ALeRT` repository would require)
 
-Eight modules build up from the anatomy of a robot to a fully autonomous
-mission, and a closing capstone project puts it all together. The site is a
-semester-independent learning platform: it carries no dates, schedules or
-event logistics — see [`maintainers/`](maintainers/) for that.
+This is a long-lived technical reference, not a scheduled course: it
+carries no dates, sessions or event logistics — see
+[`maintainers/`](maintainers/) for anything organisational.
+
+> **Note:** the site is mid-restructuring from an earlier eight-module
+> layout into a topic-based navigation (Getting Started, ROS 2, ALeRT
+> Platforms and Safety, Simulation, Sensors and Coordinate Frames,
+> Perception, Mapping and World Models, Localization/Navigation/
+> Exploration, Robot Manipulation, Autonomous Decision-Making,
+> Integration/Diagnostics/Testing, Rescue Applications and Projects,
+> Reference). The table below reflects the current, still-module-shaped
+> structure; see `maintainers/` for the restructuring plan.
 
 ## Goal
 
-New members of the robotics teams should be able to work through one course
-and arrive at a shared foundation, regardless of which robot their team runs.
-The general fundamentals are explained **once**; team-specific commands and
-systems live on separate platform pages that link back to them.
+Explain the robotics, ROS 2 and ALeRT-specific systems this team's
+software is built on, as a reference anyone can consult — not only
+newcomers working through it top to bottom. General fundamentals are
+explained **once**; ALeRT-specific commands and systems live on separate
+platform pages that link back to them, each one tied to a real, current
+ALeRT repository wherever possible.
 
-**Audience:** new members of the robotics teams with some technical grounding.
-Some programming (Python is enough), comfort with a terminal, and an interest
-in how autonomous robots work. No prior ROS experience is needed, and no robot
-— every module can be completed in simulation.
+**Audience:** anyone working on or learning from ALeRT's software, with
+some technical grounding (Python is enough) and comfort with a terminal.
+No prior ROS 2 experience is needed, and no physical robot — most topics
+can be worked through in simulation.
+
+**ALeRT on GitHub:** <https://github.com/RRL-ALeRT> — the team's public
+repositories this site's topics link back to throughout.
 
 **Language:** English.
 
-## Course structure
+## Current structure
 
-Eight modules, each built around one central concept and one practical task,
-plus a closing capstone project. Module 1 has two hands-on hardware-design
-sub-pages (KiCad, Fusion) reachable directly from it.
+Eight topic groups, each built around one central concept and one
+practical task, plus a set of rescue-mission worked examples. Topic 1 has
+two hands-on hardware-design sub-pages (KiCad, Fusion) reachable directly
+from it.
 
-| # | Module | Focus |
+| # | Topic | Focus |
 |---|---|---|
-| 1 | System Architecture and Robot Hardware | Components, data flows, schematics, mechanical CAD |
+| 1 | Hardware Design with KiCad and Fusion | Schematics, mechanical CAD |
 | 2 | ROS 2 Fundamentals | Nodes, topics, packages |
 | 3 | Sensors, TF2 and RViz | Sensor data placed in space |
 | 4 | Perception and Object Detection | Marker/object detection |
@@ -40,13 +57,13 @@ sub-pages (KiCad, Fusion) reachable directly from it.
 | 6 | Autonomous Navigation | Reach autonomous goals |
 | 7 | Autonomous Decisions and Manipulation | Model a mission |
 | 8 | System Integration and Testing | Start and debug the whole system |
-| — | Capstone: Autonomous Robot Mission | Combine every module |
+| — | Rescue mission projects | Worked examples combining several topics |
 
-Three platform tracks run alongside: **Simulation**,
-**Carologistics/Robotino** and **ALeRT/Spot** — all three on the same fixed
-toolchain, **Ubuntu 22.04 LTS and ROS 2 Humble**
-(`docs/reference/compatibility.md`). There is no distribution choice on this
-site; every command assumes Humble.
+Two platform tracks run alongside: **Simulation** and **ALeRT/Spot** — both
+on the same fixed toolchain, **Ubuntu 22.04 LTS and ROS 2 Humble**
+(`docs/reference/compatibility.md`), unless a specific ALeRT repository is
+documented to need something else. There is no distribution choice on this
+site by default; every command assumes Humble unless stated otherwise.
 
 ## Building the site locally
 
@@ -103,11 +120,12 @@ docs/                          <-- published website; nothing else is built
 
   prerequisites/
     linux-terminal.md         Terminal, filesystem, .bashrc
-    installation.md           Ubuntu, ROS 2, workspace, simulator, preflight
     git.md                    Git workflow and team conventions
     networking.md             Domain IDs, SSH, subnets
+                              (ROS 2/Ubuntu installation moved into
+                              course/02-ros2/installation.md)
 
-  course/                     The eight modules
+  course/                     The eight topic groups (pending rename to topics/)
     01-system-hardware.md   … 08-integration.md
     01-hardware/              KiCad and Fusion sub-pages, linked from module 1
       kicad-schematic.md

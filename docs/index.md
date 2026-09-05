@@ -1,47 +1,53 @@
-# Learning Robotics Crash Course
+# ALeRT Advanced Robotics Tutorial
 
-A hands-on introduction to autonomous mobile robotics for the teams and
-research groups of the **MASKOR Institute at FH Aachen**.
+A technical reference and tutorial site for **ALeRT** (Aachen Legged
+Rescue Team), the RoboCup Rescue League team at the **MASKOR Institute,
+FH Aachen**. It explains the robotics, ROS 2 and ALeRT-specific systems
+this team's software is built on, for anyone who wants to understand or
+extend it.
 
-Eight modules build up from the anatomy of a robot to a fully autonomous
-mission — sensing, transforms, perception, mapping and localization,
-navigation, and high-level decision making — and a closing capstone project
-puts everything together on a real or simulated robot.
+<a class="lrcc-cta" href="course/index.html">Browse the topics →</a>
 
-<a class="lrcc-cta" href="course/index.html">Start the Course →</a>
+:::{admonition} This site is being restructured
+:class: important
+
+This page still links to the site's earlier module-based structure while
+the move to a topic-based navigation (Getting Started, ROS 2, ALeRT
+Platforms and Safety, Simulation, Sensors and Coordinate Frames,
+Perception, Mapping and World Models, Localization/Navigation/Exploration,
+Robot Manipulation, Autonomous Decision-Making, Integration/Diagnostics/
+Testing, Rescue Applications and Projects, Reference) is completed. Links
+below remain valid; their location in the navigation will change.
+:::
 
 ## Who this is for
 
-New members of the robotics teams who already bring some technical
-grounding — you can program a little (Python is enough), you are not afraid
-of a terminal, and you want to understand how an autonomous robot actually
-works. This is not a general first-semester introduction to programming or
-computing.
+Anyone working on or learning from ALeRT's software — team members getting
+started, and anyone consulting a specific topic (ROS 2 concepts, a sensor,
+Nav2, MoveIt 2, a specific ALeRT repository) as a reference. Some prior
+programming ability (Python is enough) is assumed; no prior ROS 2
+experience is required.
 
-You do **not** need prior ROS experience. You do **not** need to own a
-robot: every module can be completed in simulation.
+Every topic states what it needs, what is documented versus verified only
+in simulation versus verified on physical hardware, and links to the
+ALeRT repositories it is grounded in.
 
-By the end of the course you will be able to bring up a robot system,
-inspect it with the ROS 2 command line, read its sensors, build a map,
-navigate autonomously in that map, detect objects with a camera, and tie the
-pieces together into a mission that runs without a human in the loop.
+## What this site covers
 
-## What the course covers
-
-The course is built on **ROS 2**, the middleware that nearly all modern
-research robots use. Around it you work through the classic autonomy stack:
-sensing, transforms, perception, mapping and localization, navigation, and
-high-level decision making — always with a practical task, and always on
-hardware or a simulator you can actually run.
+Built around **ROS 2**, the middleware ALeRT's software uses throughout.
+Topics cover the full autonomy stack — sensing, transforms, perception,
+mapping, localization, navigation, decision-making and manipulation — each
+explained in general terms first, then tied to how ALeRT's own systems
+(Spot, its manipulator, and the surrounding sensor and compute stack)
+actually use it.
 
 ## Before you start
 
-:::{admonition} Work through the prerequisites first
+:::{admonition} Work through Getting Started first
 :class: important
 
-The course starts at the hardware, not at the installer. Complete the
-[prerequisites](prerequisites/index.md) first — a working Linux system with
-ROS 2 installed makes every module go smoothly.
+A working Linux system with ROS 2 Humble installed makes every later topic
+go smoothly. See [Prerequisites](prerequisites/index.md).
 :::
 
 ::::{grid} 1 1 2 2
@@ -59,92 +65,72 @@ you need to talk to a robot.
 :link: platforms/index
 :link-type: doc
 
-The same course, on your team's system: pure simulation,
-Carologistics/Robotino, or ALeRT/Spot.
+The same material, on your system: pure simulation, or ALeRT/Spot.
 :::
 
 ::::
 
-## The eight course modules
+## Current topics
 
 ```{list-table}
 :header-rows: 1
-:widths: 6 34 60
-:class: lrcc-schedule
+:widths: 34 66
 
-* - #
-  - Module
-  - Focus
-* - 1
-  - [Hardware Design with KiCad and Fusion](course/01-system-hardware.md)
+* - Topic
+  - Covers
+* - [Hardware Design with KiCad and Fusion](course/01-system-hardware.md)
   - Electrical schematics in KiCad, parametric mechanical parts in Fusion
-* - 2
-  - [ROS 2 Fundamentals](course/02-ros2.md)
+* - [ROS 2 Fundamentals](course/02-ros2.md)
   - Workspaces, packages, nodes, topics, parameters, launch files
-* - 3
-  - [Sensors, TF2 and RViz](course/03-sensors-tf.md)
+* - [Sensors, TF2 and RViz](course/03-sensors-tf.md)
   - Sensor messages, coordinate frames, transforms, visualization
-* - 4
-  - [Perception and Object Detection](course/04-perception/index.md)
+* - [Perception and Object Detection](course/04-perception/index.md)
   - Camera calibration, OpenCV, markers, YOLO, data labeling
-* - 5
-  - [Mapping and Localization](course/05-mapping-localization.md)
+* - [Mapping and Localization](course/05-mapping-localization.md)
   - Odometry, occupancy grids, SLAM Toolbox, AMCL
-* - 6
-  - [Autonomous Navigation](course/06-navigation.md)
+* - [Autonomous Navigation](course/06-navigation.md)
   - Nav2, costmaps, planners, controllers, recoveries, exploration
-* - 7
-  - [Autonomous Decisions and Manipulation](course/07-autonomous-decisions.md)
+* - [Autonomous Decisions and Manipulation](course/07-autonomous-decisions.md)
   - State machines, behavior trees, RAFCON, MoveIt
-* - 8
-  - [System Integration and Testing](course/08-integration.md)
+* - [System Integration and Testing](course/08-integration.md)
   - Startup order, configuration, logging, rosbags, debugging
 ```
 
-The modules build on each other in order — module 3 gives you transforms,
-which module 5 needs to build a map, which module 6 needs to navigate,
-which module 7 needs to run a mission. If you are joining partway through,
-[the course overview](course/index.md) lists each module's prerequisites so
-you can see what to catch up on first.
+Topics build on each other where a real dependency exists — transforms
+are needed before mapping, mapping before navigation, navigation before a
+full mission — each topic's own Prerequisites section states exactly what
+it assumes.
 
-## Capstone project
+## Rescue applications
 
-[Autonomous Robot Mission](course/hackathon.md) — a robot has to cross an
-operation area on its own, avoid obstacles, find a target and reach it.
-Extended tasks add picking the object up, transporting it, or reporting its
-position to another system. It draws on every module above and is the
-course's final self-check: if you can complete it, the course has done its
-job.
+[Rescue mission projects](course/hackathon.md) — worked examples that
+combine several topics into one autonomous task (crossing an area,
+finding a target, an optional pick-and-place extension). These are
+technical worked examples, not a scored or scheduled event.
 
 ## How to read this site
 
-The **course modules** explain the shared fundamentals once. They are
-written to be readable no matter which robot your team runs.
+**Topic pages** explain shared fundamentals once, in general terms.
 
-The **platform pages** carry only what is specific to one system — Robotino
-commands, Spot startup, simulation launch files — and link back to the
-shared explanation instead of repeating it.
+**Platform pages** carry only what is specific to ALeRT's own systems —
+Spot startup, manipulator control, simulation launch files — and link back
+to the shared explanation instead of repeating it.
 
-Commands that only apply to one system carry a badge:
+Every topic is marked with a difficulty level:
 
-{{ common }} works everywhere &nbsp;
-{{ simulation }} simulation only &nbsp;
-{{ carologistics }} Carologistics/Robotino &nbsp;
-{{ alert }} ALeRT/Spot
+{{ core }} foundational &nbsp;
+{{ optional }} intermediate &nbsp;
+{{ advanced }} advanced, for later reading
 
-Content within a module is also marked by how essential it is to that
-module's core learning objective:
+and, where a claim is about ALeRT's own systems specifically, a
+verification status — Documented, Simulation verified, Hardware verified,
+Hardware verification required, Experimental, or Historical — rather than
+a badge implying it applies to every team.
 
-{{ core }} the module's central concept and task &nbsp;
-{{ optional }} worth doing if you have the time &nbsp;
-{{ advanced }} deliberately beyond the module's core scope, for later
-reading &nbsp;
-{{ platformspecific }} Robotino, Spot or simulation only
-
-The whole course runs on one fixed toolchain — Ubuntu 22.04 LTS and ROS 2
-Humble — so no command needs its own distribution badge. See
-[Supported environment](reference/compatibility.md) for the exact versions
-and how to check them on your own machine.
+This site runs on one fixed toolchain — Ubuntu 22.04 LTS and ROS 2
+Humble — unless a specific ALeRT repository is documented to need
+something else. See [Supported environment](reference/compatibility.md)
+for the exact versions and how to check them on your own machine.
 
 ```{toctree}
 :hidden:
@@ -157,7 +143,7 @@ prerequisites/index
 ```{toctree}
 :hidden:
 :maxdepth: 2
-:caption: Course
+:caption: Topics
 
 course/index
 ```
@@ -165,7 +151,7 @@ course/index
 ```{toctree}
 :hidden:
 :maxdepth: 2
-:caption: Platform tracks
+:caption: Platforms
 
 platforms/index
 ```
