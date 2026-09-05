@@ -48,13 +48,6 @@ verified yet. See the [platform page's mapping and navigation
 section](../../platforms/alert-spot.md#mapping-and-navigation) for
 Spot-specific written detail instead.
 
-## Carologistics
-
-{{ carologistics }} No Carologistics-specific navigation video has been
-independently verified yet. See the [platform page's key
-repositories](../../platforms/carologistics-robotino.md#key-repositories)
-(`robotino_navigation`) for Robotino-specific written detail instead.
-
 ## Next subtopic
 
 [Continue learning](continue-learning.md) — costmap tuning, behavior

@@ -133,9 +133,8 @@ docs/                          <-- published website; nothing else is built
     04-perception/           Split into a core page + 4 deeper chapters
     hackathon.md              Capstone: Autonomous Robot Mission
 
-  platforms/                  Team-specific material only
+  platforms/                  ALeRT-specific material only
     simulation.md
-    carologistics-robotino.md
     alert-spot.md
 
   reference/
@@ -248,7 +247,7 @@ Instructions that only apply to one system must be marked. Write the
 substitution and it renders as a styled badge:
 
 ```markdown
-{{ common }}  {{ simulation }}  {{ carologistics }}  {{ alert }}  {{ unverified }}
+{{ common }}  {{ simulation }}  {{ alert }}  {{ unverified }}
 ```
 
 The whole course is fixed to one toolchain — Ubuntu 22.04 LTS, ROS 2 Humble
@@ -404,9 +403,9 @@ See `SECURITY_REVIEW.md` for the full review of the source material.
 ## Sources and licenses
 
 Built from teaching material by the **MASKOR Institute, FH Aachen** and the
-Carologistics and ALeRT teams. The public site deliberately carries no
-separate source/provenance chapter; full attribution and licensing detail
-lives in `LICENSES.md` in this repository instead.
+**ALeRT** team. The public site deliberately carries no separate
+source/provenance chapter; full attribution and licensing detail lives in
+`LICENSES.md` in this repository instead.
 
 > **The content license has not yet been decided by the institute**, so this
 > repository ships no `LICENSE` file. See `LICENSES.md`.

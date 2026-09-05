@@ -26,11 +26,15 @@ the model that the surrounding background is part of the object, and
 detection accuracy collapses. If an image is blurred, estimate the true
 extent rather than guessing generously.
 
-{{ carologistics }} The Carologistics team's specific labeling rules for
-conveyors, slides and workpieces are on the
-[Carologistics/Robotino platform page](../../platforms/carologistics-robotino.md#data-labeling) —
-this page covers the general workflow; that page covers what "tight" means
-for their specific objects.
+{{ alert }} {{ documented }} ALeRT's own
+[`estop_keypoints_dataset_generation`](https://github.com/RRL-ALeRT/estop_keypoints_dataset_generation)
+repository documents a related, more specific case: **keypoint** (not just
+bounding-box) annotation for training a YOLOv8-Pose E-Stop-button
+detector, using [CVAT](https://www.cvat.ai/) for annotation and phone
+photos as the source images. Keypoints mark exact points (e.g. the
+button's centre and edges) rather than a box, which is the right choice
+when a detector needs to know precisely *where* to press, not only *that*
+something is there.
 :::
 
 ## 3. Organise the dataset

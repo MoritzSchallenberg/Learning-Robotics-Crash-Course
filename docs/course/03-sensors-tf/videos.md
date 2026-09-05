@@ -41,10 +41,6 @@ Not yet populated beyond the video above — see
 [Try it on Spot](practical-exercise.md#try-it-on-spot) for the hands-on
 exercise.
 
-## Carologistics / Robotino
-
-Not yet populated.
-
 ## Advanced topics
 
 Not yet populated — see [Continue learning](continue-learning.md) for

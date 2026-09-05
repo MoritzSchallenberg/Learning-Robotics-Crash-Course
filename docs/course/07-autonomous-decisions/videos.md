@@ -51,13 +51,6 @@ approaches](planning-and-manipulation.md) and the [platform page's
 high-level control section](../../platforms/alert-spot.md#high-level-control)
 for written detail instead.
 
-## Carologistics
-
-{{ carologistics }} No `expertino-rcll`-specific video has been
-independently verified yet. See the [platform page's key
-repositories](../../platforms/carologistics-robotino.md#key-repositories)
-for written detail instead.
-
 ## Next subtopic
 
 [Continue learning](continue-learning.md) — blackboards, action

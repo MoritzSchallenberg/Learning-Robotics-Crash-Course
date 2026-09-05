@@ -110,4 +110,4 @@ without having to reproduce it live.
 ## Next subtopic
 
 [Platform notes](platform-notes.md) — how the mission looks on
-simulation, Carologistics/Robotino, and ALeRT/Spot specifically.
+simulation and ALeRT/Spot specifically.

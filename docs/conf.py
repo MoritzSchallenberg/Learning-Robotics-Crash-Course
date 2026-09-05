@@ -49,11 +49,11 @@ myst_heading_anchors = 3
 # Platform badges.
 #
 # Every platform-specific instruction on this site must be marked, so that
-# readers never run a Robotino command on Spot or vice versa. The whole
-# course is fixed to ROS 2 Humble (see docs/reference/compatibility.md), so
-# there is deliberately no distribution badge -- Humble is the implicit
-# baseline for every command on the site.
-# Authors write e.g. `{{ carologistics }}` in Markdown; the substitution below
+# readers never mistake a simulation-only instruction for one verified on
+# real hardware. The whole site is fixed to ROS 2 Humble (see
+# docs/reference/compatibility.md), so there is deliberately no distribution
+# badge -- Humble is the implicit baseline for every command on the site.
+# Authors write e.g. `{{ alert }}` in Markdown; the substitution below
 # expands to a styled badge (see _static/css/custom.css).
 # ---------------------------------------------------------------------------
 
@@ -69,7 +69,6 @@ def _level(css_class: str, label: str) -> str:
 myst_substitutions = {
     "common": _badge("common", "COMMON"),
     "simulation": _badge("simulation", "SIMULATION"),
-    "carologistics": _badge("carologistics", "CAROLOGISTICS"),
     "alert": _badge("alert", "ALERT"),
     "unverified": _badge("unverified", "UNVERIFIED"),
     # ---------------------------------------------------------------------
@@ -93,7 +92,7 @@ myst_substitutions = {
     "spotsupervised": _level("spot-supervised", "SUPERVISED PHYSICAL EXERCISE"),
     # ---------------------------------------------------------------------
     # Team-claim verification badges (Entwicklungsauftrag 6). Every "how
-    # ALeRT/Carologistics uses this" statement is marked with exactly one:
+    # ALeRT uses this" statement is marked with exactly one:
     # confirmed by the team's own repository or documentation
     # ({{ documented }}), runnable in Webots ({{ simulation }}, already
     # defined above), actually checked on running hardware

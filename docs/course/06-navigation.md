@@ -69,49 +69,6 @@ wheeled one's — see this module's [Try it on
 Spot](06-navigation/practical-exercise.md#try-it-on-spot).
 **Verification status**: {{ simulation }} confirmed in Webots.
 
-## How Carologistics uses this topic
-
-{{ carologistics }} {{ documented }}
-
-Robotino runs [`robotino_navigation`](../platforms/carologistics-robotino.md#key-repositories),
-Nav2 configuration working with both the simulation and real robots, with
-a documented two-SICK-TiM571 sensor setup. **Sensors/actuators**: the
-merged laser scan from [module 3's](03-sensors-tf.md)
-`laser_scan_integrator`, feeding the same costmap architecture.
-**Typical team task**: precision docking to a production machine within
-millimetres — see this module's
-{ref}`Continue learning: docking and navigating through poses <docking-and-navigating-through-poses>`.
-**Verification status**: {{ documented }} via the platform page's
-repository description.
-
-## ALeRT and Carologistics compared
-
-```{list-table}
-:header-rows: 1
-:widths: 22 26 26 26
-
-* - Aspect
-  - ALeRT / Spot
-  - Carologistics / Robotino
-  - Shared principle
-* - Navigation goal precision
-  - A reachable area is usually enough
-  - Millimetre-precision docking to a machine
-  - Both use the same `NavigateToPose`/`NavigateThroughPoses` actions
-* - Local costmap challenge
-  - Legged footprint, less predictable per step
-  - {{ unverified }} — not documented; likely a standard footprint model
-  - Both keep the local costmap in `odom` so it stays smooth
-* - Area constraint
-  - {{ unverified }} — not documented
-  - `mps_map_bounded` layers a competition-area boundary
-  - Both can add costmap layers beyond the raw sensor data
-* - Repeat-run comparison
-  - Explicitly compared across attempts (this module's Spot task)
-  - {{ unverified }} — not documented as a standard team practice
-  - A single successful run does not prove reliability
-```
-
 ## Core learning path
 
 ```text

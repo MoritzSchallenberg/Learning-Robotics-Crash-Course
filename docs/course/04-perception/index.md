@@ -76,52 +76,6 @@ is available. **Verification status**: {{ simulation }} confirmed in
 Webots; the physical-hardware inference performance is not independently
 re-verified by this course.
 
-## How Carologistics uses this topic
-
-{{ carologistics }} {{ documented }}
-
-Robotino's vision stack includes a "Tag vision" node for ArUco-based
-machine identification and an "Object tracking" node using YOLOv8-nano
-with triangulation for workpieces — see the [platform
-page](../../platforms/carologistics-robotino.md#software-stack).
-**Typical team task**: identifying a production machine's exact position
-and side from its ArUco tag before docking — precision perception feeding
-a precision docking manoeuvre. **Known peculiarity**:
-{{ unverified }} the team also researches **markerless** machine
-detection (`ros2-markerless-mps`), since the exploration phase of a
-competition run is scored on speed and reading a marker up close costs
-time. **Verification status**: {{ documented }} via the team wiki and
-repository metadata cited on the platform page; exact model weights and
-calibration parameters are `Not documented` publicly.
-
-## ALeRT and Carologistics compared
-
-```{list-table}
-:header-rows: 1
-:widths: 22 26 26 26
-
-* - Aspect
-  - ALeRT / Spot
-  - Carologistics / Robotino
-  - Shared principle
-* - Environment
-  - Cluttered, changeable rescue arena
-  - Structured, mostly static factory floor
-  - Both still calibrate once, detect continuously
-* - Primary marker use
-  - ArUco on the gripper camera, for manipulation targets
-  - ArUco tags on machines, for docking precision
-  - Detection → pose → TF, the same three steps
-* - Beyond markers
-  - Red-line HSV detection; Hazmat sign detection via YOLO
-  - Markerless machine detection (research), workpiece tracking via YOLO
-  - Both push past markers once markers alone are not enough
-* - Speed vs. precision
-  - {{ unverified }} not a scored constraint in the same way
-  - Exploration-phase detection is scored on speed
-  - {{ unverified }} — no reliable cross-team comparison available
-```
-
 ## Core learning path
 
 ```text

@@ -193,14 +193,13 @@ someone else, or just to yourself — without looking anything up:
   in `rqt_graph` — what does it publish, and what, if anything, does it
   subscribe to?
 
-## How ALeRT and Carologistics apply this
+## How ALeRT applies this
 
-{{ alert }} {{ carologistics }} Both teams' driver and controller nodes
-are the same shape as `turtle_controller`: a publisher, a timer or
-sensor-driven callback, and internal state — just with real sensor
-feedback closing the loop instead of a fixed timer, which is exactly the
-gap [module 3](../03-sensors-tf.md) and
-[module 6](../06-navigation.md) close.
+{{ alert }} ALeRT's own driver and controller nodes are the same shape as
+`turtle_controller`: a publisher, a timer or sensor-driven callback, and
+internal state — just with real sensor feedback closing the loop instead
+of a fixed timer, which is exactly the gap [module 3](../03-sensors-tf.md)
+and [module 6](../06-navigation.md) close.
 
 ## Common problems
 

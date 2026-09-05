@@ -340,12 +340,9 @@ installation it was built against.
 
 ## Step 14 — The simulator
 
-Which simulator you install depends on your platform track.
+{{ simulation }} {{ alert }}
 
-{{ simulation }} {{ carologistics }} {{ alert }}
-
-Both the Carologistics Smart Manufacturing League simulation and the ALeRT
-Spot simulation are built on [Webots](https://cyberbotics.com/).
+The ALeRT Spot simulation is built on [Webots](https://cyberbotics.com/).
 
 ```bash
 sudo apt install ros-humble-webots-ros2
@@ -358,12 +355,11 @@ guide](https://cyberbotics.com/doc/guide/installation-procedure), then
 follow your platform page for the actual simulation package:
 
 - [Simulation track](../../platforms/simulation.md)
-- [Carologistics / Robotino](../../platforms/carologistics-robotino.md)
 - [ALeRT / Spot](../../platforms/alert-spot.md)
 
 ## Step 15 — An editor
 
-Any editor works. Most of the teams use
+Any editor works. ALeRT mostly uses
 [Visual Studio Code](https://code.visualstudio.com/), which matters later
 because its Remote-SSH extension lets you edit code directly on a robot.
 

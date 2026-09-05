@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 #
-# course-preflight.sh -- read-only readiness check for the Learning Robotics
-# Crash Course.
+# course-preflight.sh -- read-only readiness check for the ALeRT Advanced
+# Robotics Tutorial.
 #
-# Run this the day before a session, not during it. It only reads state; it
-# never installs anything, changes configuration, deletes a file, reads a
-# credential, or contacts a private network target.
+# Run this before starting a topic that needs it, not partway through. It
+# only reads state; it never installs anything, changes configuration,
+# deletes a file, reads a credential, or contacts a private network target.
 #
 # Usage:
 #   bash scripts/course-preflight.sh
@@ -46,16 +46,15 @@ if [ -r /etc/os-release ]; then
     echo "  Detected: ${OS_NAME} ${OS_VERSION}"
 
     case "${OS_VERSION}" in
-        24.04) _pass "Ubuntu 24.04 detected (matches the Jazzy / Carologistics track)" ;;
-        22.04) _pass "Ubuntu 22.04 detected (matches the Humble / ALeRT track)" ;;
+        22.04) _pass "Ubuntu 22.04 detected (matches this site's fixed ROS 2 Humble baseline)" ;;
         *)
-            _warn "Ubuntu ${OS_VERSION} is not one of the two versions this course tests against (22.04, 24.04)" \
-                "check docs/reference/compatibility.md for which release your track expects"
+            _warn "Ubuntu ${OS_VERSION} is not the version this site tests against (22.04)" \
+                "check docs/reference/compatibility.md, or a specific ALeRT repository's own README if it documents a different requirement"
             ;;
     esac
 else
     _warn "Could not read /etc/os-release -- are you on Ubuntu?" \
-        "this course assumes Ubuntu 22.04 or 24.04; see docs/prerequisites/installation.md"
+        "this site assumes Ubuntu 22.04; see docs/course/02-ros2/installation.md"
 fi
 
 # ---------------------------------------------------------------------------
@@ -75,7 +74,7 @@ if have ros2; then
     _pass "the 'ros2' command is available"
 else
     _fail "'ros2' is not on PATH" \
-        "ROS 2 is not sourced in this terminal -- see docs/prerequisites/installation.md"
+        "ROS 2 is not sourced in this terminal -- see docs/course/02-ros2/installation.md"
 fi
 
 if have ros2; then
@@ -152,14 +151,14 @@ elif [ -d "/usr/local/webots" ] || [ -d "/opt/webots" ]; then
     _pass "a Webots installation directory was found"
 else
     _warn "Webots was not found" \
-        "only relevant if your session uses simulation -- see docs/platforms/simulation.md"
+        "only relevant if your topic uses simulation -- see docs/platforms/simulation.md"
 fi
 
 if have ros2 && timeout 5 ros2 pkg prefix webots_ros2 >/dev/null 2>&1; then
     _pass "the 'webots_ros2' ROS 2 package is installed"
 else
     _warn "the 'webots_ros2' ROS 2 package was not found (or the CLI timed out)" \
-        "only relevant if your session uses simulation -- sudo apt install ros-\$ROS_DISTRO-webots-ros2"
+        "only relevant if your topic uses simulation -- sudo apt install ros-\$ROS_DISTRO-webots-ros2"
 fi
 
 # ---------------------------------------------------------------------------
@@ -177,7 +176,7 @@ fi
 
 if [ "${ROS_LOCALHOST_ONLY:-0}" = "1" ]; then
     _warn "ROS_LOCALHOST_ONLY=1 is set" \
-        "this machine will not see any other machine on the network -- expected for solo simulation, wrong if you plan to reach a robot tonight"
+        "this machine will not see any other machine on the network -- expected for solo simulation, wrong if you plan to reach a real robot"
 fi
 
 # ---------------------------------------------------------------------------
@@ -188,14 +187,14 @@ section "Basic network resolution"
 
 # Only a well-known PUBLIC hostname is resolved, and only resolved -- never
 # connected to. This deliberately never queries anything on a private network
-# or anything internal to the course infrastructure.
+# or anything internal to ALeRT's own infrastructure.
 if have getent && getent hosts docs.ros.org >/dev/null 2>&1; then
     _pass "DNS resolution works (resolved docs.ros.org)"
 elif have host && host docs.ros.org >/dev/null 2>&1; then
     _pass "DNS resolution works (resolved docs.ros.org)"
 else
     _warn "could not resolve a public hostname" \
-        "fine if you are offline on purpose; needed for pip/apt installs and this course's linked documentation"
+        "fine if you are offline on purpose; needed for pip/apt installs and this site's linked documentation"
 fi
 
 # ---------------------------------------------------------------------------
@@ -209,17 +208,17 @@ echo "=================================================="
 
 if [ "$FAIL" -gt 0 ]; then
     echo
-    echo "Resolve every FAIL above before the session -- each one names the"
-    echo "exact next step. See docs/prerequisites/installation.md for the"
+    echo "Resolve every FAIL above before continuing -- each one names the"
+    echo "exact next step. See docs/course/02-ros2/installation.md for the"
     echo "full installation guide."
     exit 1
 fi
 
 if [ "$WARN" -gt 0 ]; then
     echo
-    echo "No FAILs. The WARNINGs above may or may not matter for tonight's"
-    echo "specific session -- check against that session's 'Preparation'"
-    echo "section."
+    echo "No FAILs. The WARNINGs above may or may not matter for the specific"
+    echo "topic you are about to work through -- check against that topic's"
+    echo "own Prerequisites section."
 fi
 
 exit 0

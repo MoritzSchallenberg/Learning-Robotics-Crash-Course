@@ -46,13 +46,6 @@ list stays short rather than padded with unchecked links.
 verified yet. See [Platform notes](platform-notes.md) and the [platform
 page](../../platforms/alert-spot.md) for written detail instead.
 
-## Carologistics
-
-{{ carologistics }} No Carologistics-specific mission-demo video has been
-independently verified yet. See [Platform notes](platform-notes.md) and
-the [platform page](../../platforms/carologistics-robotino.md) for
-written detail instead.
-
 ## Next subtopic
 
 [Continue learning](continue-learning.md) — engineering practices for

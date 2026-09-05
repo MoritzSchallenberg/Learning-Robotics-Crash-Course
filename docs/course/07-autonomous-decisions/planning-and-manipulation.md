@@ -100,8 +100,6 @@ and `RELEASE` as states with their own failure exits (a `None`
 inverse-kinematics result is "unreachable," not a crash). Full example on
 the [ALeRT/Spot platform
 page](../../platforms/alert-spot.md#manipulation-with-moveit).
-{{ carologistics }} Robotino's simpler custom gripper is covered on the
-[Carologistics platform page](../../platforms/carologistics-robotino.md#gripper).
 
 ## How ALeRT applies it
 
@@ -111,17 +109,6 @@ RAFCON for high-level mission control, and MoveIt 2 for the arm — see the
 section](../../platforms/alert-spot.md#high-level-control) and
 [manipulation-with-MoveIt
 section](../../platforms/alert-spot.md#manipulation-with-moveit).
-
-## How Carologistics applies it
-
-{{ carologistics }} {{ documented }} Carologistics uses neither PlanSys2
-nor Golog++ nor RAFCON for competition missions — the team's central
-[`expertino-rcll`](../../platforms/carologistics-robotino.md#key-repositories)
-agent and Robotino's [custom
-gripper](../../platforms/carologistics-robotino.md#gripper) use the
-state-machine/behavior-tree pattern from [Mission
-logic](mission-logic.md) instead, for the same predictability-under-time-pressure
-reason explained above.
 
 ## Next subtopic
 

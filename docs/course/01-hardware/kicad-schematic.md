@@ -165,8 +165,8 @@ clean (or with only explicitly understood, suppressed warnings), and export
 it.
 
 :::{note}
-This is a **teaching exercise with example values**, not a real Robotino or
-Spot circuit — this course does not publish those teams' actual internal
+This is a **teaching exercise with example values**, not a real Spot
+circuit — this course does not publish the team's actual internal
 schematics. Invent plausible values for anything not given, and mark them
 clearly as example values in your own documentation.
 :::

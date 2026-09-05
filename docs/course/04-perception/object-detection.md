@@ -4,9 +4,8 @@
 
 {{ advanced }} **Status: advanced reading.** Not required for
 [module 4](index.md)'s core task, which uses a fiducial marker. This page
-is for objects that cannot carry a marker — people, tools, hazmat signs —
-and for teams whose platform track uses YOLO
-({{ carologistics }} {{ alert }}).
+is for objects that cannot carry a marker — people, tools, hazmat
+signs — and for the ALeRT track, which uses YOLO ({{ alert }}).
 
 Markers require you to put markers on things. For everything else you need
 a learned detector. **YOLO** ("You Only Look Once") runs a single network

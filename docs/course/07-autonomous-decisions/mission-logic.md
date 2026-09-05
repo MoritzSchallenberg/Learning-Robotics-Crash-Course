@@ -79,12 +79,10 @@ failure mode is familiar rather than surprising:
 import time
 from enum import Enum, auto
 
-
 class State(Enum):
     IDLE = auto()
     WAIT_FOR_INPUT = auto()
     DONE = auto()
-
 
 def run_mission(get_input, timeout_s=5.0):
     state = State.IDLE
@@ -122,14 +120,6 @@ mission — a state with no timeout is a state that can hang forever.
 editor, for exactly this pattern in practice — see
 {ref}`Planning and manipulation approaches <rafcon-a-graphical-state-machine-tool>`
 for the full walkthrough.
-
-## How Carologistics applies it
-
-{{ carologistics }} {{ documented }} The central goal-reasoning agent,
-[`expertino-rcll`](../../platforms/carologistics-robotino.md#key-repositories),
-plays the same role as this page's state machine — deciding what the
-robot does next and reacting when a step fails — at fleet scale rather
-than for one robot.
 
 ## Common problems
 

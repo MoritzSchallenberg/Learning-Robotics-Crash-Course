@@ -64,48 +64,6 @@ before deliberately introducing a fault, so there is always a known-good
 reference to diff against. **Verification status**: {{ simulation }}
 confirmed in Webots.
 
-## How Carologistics uses this topic
-
-{{ carologistics }} {{ documented }}
-
-The team uses [Ansible](https://docs.ansible.com/) for fleet-wide
-deployment and workstation setup — a different reproducibility answer than
-this module's launch-file structure, solving the same "one source of
-truth" problem at the machine-configuration level instead of the
-ROS-graph level. See
-{ref}`Continue learning: Ansible as a deployment example <ansible-as-a-deployment-example>`.
-**Typical team task**: {{ unverified }} — not documented in detail beyond
-the Ansible workflow itself. **Verification status**: {{ documented }} via
-the platform page's own setup instructions.
-
-## ALeRT and Carologistics compared
-
-```{list-table}
-:header-rows: 1
-:widths: 22 26 26 26
-
-* - Aspect
-  - ALeRT / Spot
-  - Carologistics / Robotino
-  - Shared principle
-* - System complexity
-  - Many sensor and motion nodes on one robot
-  - Multiple Robotinos plus a central goal-reasoning agent
-  - Both need a fixed startup order, not ad hoc launching
-* - Deployment
-  - {{ unverified }} — not documented as a formal process
-  - Ansible playbooks, safe to re-run
-  - Both solve "does every machine run the same software"
-* - Fault-finding
-  - The eight-step procedure, applied to the Webots stack
-  - {{ unverified }} — not documented as a standard team practice
-  - A systematic procedure beats guessing on any system this size
-* - Central coordination
-  - {{ unverified }} — one robot, not documented
-  - `expertino-rcll` coordinates the whole fleet
-  - Neither replaces per-robot startup order with something ad hoc
-```
-
 ## Core learning path
 
 ```text

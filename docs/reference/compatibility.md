@@ -42,10 +42,6 @@ what differs between the platform tracks themselves.
 * - **Simulation** {{ simulation }}
   - Webots
   - `webots_ros2`, `nav2_bringup`, `slam_toolbox`
-* - **Carologistics / Robotino** {{ carologistics }}
-  - Webots
-  - `robotino_navigation`, `rcll_simulation_webots`, `mps-map-gen`,
-    `laser_scan_integrator`, `nav2_bringup`
 * - **ALeRT / Spot** {{ alert }}
   - Webots R2023b
   - `webots_ros2_spot`, `nav2_bringup`, `slam_toolbox`, `octomap`,
@@ -59,16 +55,6 @@ version at any given time. Check the README of a repository before building
 it, and treat the table above as the course's teaching baseline, not a
 guarantee about a specific production deployment.
 :::
-
-## Fedora on some Carologistics workstations
-
-Some Carologistics robots and workstations run Fedora rather than Ubuntu,
-with setup automated through Ansible. `dnf` commands are Fedora commands and
-have no meaning on Ubuntu; the ROS 2 installation procedure differs
-substantially between the two. This course's own [installation
-guide](../course/02-ros2/installation.md) is written for Ubuntu 22.04 — if
-you are setting up a Fedora machine, follow that repository's own
-documentation instead.
 
 ## Hardware-specific names in the general examples
 
@@ -114,8 +100,6 @@ guide's troubleshooting section](../course/02-ros2/installation.md#common-instal
   - Applies to every platform
 * - {{ simulation }}
   - Simulation only
-* - {{ carologistics }}
-  - Specific to Carologistics / Robotino
 * - {{ alert }}
   - Specific to ALeRT / Spot
 * - {{ unverified }}

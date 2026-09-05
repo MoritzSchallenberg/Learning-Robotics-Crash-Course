@@ -119,20 +119,27 @@ process's memory usage grew unexpectedly over the ten minutes.
 :::{dropdown} Ansible as a deployment example — Advanced
 :icon: light-bulb
 
-{{ carologistics }} Once several robots run the same software, updating by
-hand does not scale. [Ansible](https://docs.ansible.com/) describes the
-desired state of a machine in a *playbook* and makes it so — safe to re-run,
-works over plain SSH.
+**What it is.** Once several robots or workstations run the same
+software, updating each one by hand does not scale.
+[Ansible](https://docs.ansible.com/) describes the desired state of a
+machine in a *playbook* and makes it so — safe to re-run, works over
+plain SSH, with no agent needed on the managed machine.
 
 ```bash
 ansible-playbook -i robots.inv -t fast-deploy robot.yml -l robot-1 -K
 ```
 
-The Carologistics team uses it for both robot deployment and workstation
-setup — see the
-[Carologistics platform page](../../platforms/carologistics-robotino.md#setup)
-for their actual inventory and playbook structure. This is one example of a
-deployment tool, not something every team needs to adopt.
+**Why it matters.** Ansible is presented here as one widely-used example
+of the general reproducible-deployment problem, not as a claim about
+what ALeRT specifically uses. {{ alert }} {{ documented }} ALeRT's own
+public repositories document a different approach: manual, scripted
+setup steps for the Steam Deck operator console
+([`steam_deck_ros2`](https://github.com/RRL-ALeRT/steam_deck_ros2)) and
+a FastAPI/WebSocket "tmux API server" running on the robot PC for remote
+process control
+([`alert_dashboard_rqt`](https://github.com/RRL-ALeRT/alert_dashboard_rqt)),
+rather than a playbook-based tool — a real example of solving the same
+problem differently, worth comparing against Ansible's approach.
 :::
 
 :::{dropdown} Continuous Integration for a ROS 2 package — Advanced

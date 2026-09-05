@@ -138,15 +138,6 @@ know the answer in advance.
 Spot](practical-exercise.md#try-it-on-spot) for running the same
 diagnostic procedure against the full Webots Spot stack.
 
-## How Carologistics applies it
-
-{{ carologistics }} {{ documented }} Once several robots run the same
-software, updating by hand does not scale — the team uses
-[Ansible](https://docs.ansible.com/) for both deployment and workstation
-setup, a different answer to the same "one source of truth" reproducibility
-principle. Full detail in
-{ref}`Continue learning: Ansible as a deployment example <ansible-as-a-deployment-example>`.
-
 ## Common problems
 
 - **`use_sim_time` fixed on one node, forgotten on another.** Check every

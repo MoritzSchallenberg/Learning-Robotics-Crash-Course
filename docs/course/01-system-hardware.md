@@ -67,38 +67,6 @@ component choices — a full internal schematic or CAD model for the
 production Spot platform is not published as part of this course.
 **Verification status**: {{ documented }} via the platform page.
 
-## How Carologistics uses this topic
-
-{{ carologistics }} {{ documented }}
-
-Robotino's hardware is documented on the [platform
-page](../platforms/carologistics-robotino.md) at the same level — stated
-components and a hardware table, not a published internal schematic or
-CAD model. **Verification status**: {{ documented }} via the platform
-page's hardware table.
-
-## ALeRT and Carologistics compared
-
-```{list-table}
-:header-rows: 1
-:widths: 22 26 26 26
-
-* - Aspect
-  - ALeRT / Spot
-  - Carologistics / Robotino
-  - Shared principle
-* - Published internal schematic/CAD
-  - {{ unverified }} — not published as part of this course
-  - {{ unverified }} — not published as part of this course
-  - Both teams work from real electrical and mechanical design documents;
-    this module teaches the tools, not the teams' own files
-* - Design tools
-  - {{ unverified }} — not documented on the platform page
-  - {{ unverified }} — not documented on the platform page
-  - This module's KiCad/Fusion exercises use invented example values, not
-    either team's real design
-```
-
 ## Core learning path
 
 ```text
@@ -163,8 +131,7 @@ hardware: nodes, topics, and a first running ROS 2 system.
 
 - [KiCad documentation](https://docs.kicad.org/)
 - [Autodesk Fusion help](https://help.autodesk.com/view/fusion360/ENU/)
-- Platform detail: [Carologistics/Robotino](../platforms/carologistics-robotino.md) ·
-  [ALeRT/Spot](../platforms/alert-spot.md) ·
+- Platform detail: [ALeRT/Spot](../platforms/alert-spot.md) ·
   [Simulation](../platforms/simulation.md)
 
 ```{toctree}

@@ -12,7 +12,9 @@ It checks, per module (the 8 numbered course modules plus the capstone):
  1. an overview page exists;
  2. the overview has a subordinate toctree (a `{toctree}` block pointing
     into the module's own subdirectory);
- 3. the overview mentions both ALeRT and Carologistics;
+ 3. the overview mentions ALeRT (site-wide Carologistics content was
+    removed in Entwicklungsauftrag 8 -- see check_no_carologistics_content
+    below for the corresponding anti-check);
  4. the module has a videos.md;
  5. the module has a continue-learning.md;
  6. the module's toctree links both videos.md and continue-learning.md,
@@ -134,11 +136,9 @@ def check_module(name: str, overview: Path, subdir: Path) -> list[str]:
     if not entries:
         failures.append(f"[{name}] overview has no subordinate toctree")
 
-    # 3. mentions both ALeRT and Carologistics
+    # 3. mentions ALeRT
     if "ALeRT" not in text:
         failures.append(f"[{name}] overview does not mention ALeRT")
-    if "Carologistics" not in text:
-        failures.append(f"[{name}] overview does not mention Carologistics")
 
     # 4 & 5. videos.md and continue-learning.md exist
     videos_md = subdir / "videos.md"
@@ -235,6 +235,36 @@ def check_no_instructor_page() -> list[str]:
     return failures
 
 
+# -- Entwicklungsauftrag 8 regression check ---------------------------------
+# Carologistics content (the team, Robotino, the RoboCup Smart Manufacturing
+# League, RCLL, MPS, expertino-rcll, the {{ carologistics }} substitution and
+# its comparison tables) was removed from the public site entirely. This is
+# the anti-check for the old "mentions Carologistics" requirement above --
+# catches a later edit accidentally reintroducing any of it, including the
+# platform page itself reappearing.
+
+_CAROLOGISTICS_TERMS = (
+    "carologistics",
+    "robotino",
+    "smart manufacturing league",
+    "expertino-rcll",
+    "{{ carologistics }}",
+)
+
+
+def check_no_carologistics_content() -> list[str]:
+    failures: list[str] = []
+    carologistics_page = DOCS / "platforms" / "carologistics-robotino.md"
+    if carologistics_page.exists():
+        failures.append(f"Carologistics platform page still exists: {carologistics_page.relative_to(REPO_ROOT)}")
+    for p in DOCS.rglob("*.md"):
+        text = p.read_text(encoding="utf-8", errors="ignore").lower()
+        for term in _CAROLOGISTICS_TERMS:
+            if term in text:
+                failures.append(f"{p.relative_to(REPO_ROOT)} still mentions {term!r}")
+    return failures
+
+
 # -- Entwicklungsauftrag 7 regression checks --------------------------------
 # Content-management fixes from Entwicklungsauftrag 7 (installation moved
 # into module 2, module 1 reduced to KiCad/Fusion, the public sources page
@@ -319,6 +349,7 @@ def main() -> int:
     all_failures.extend(check_no_duplicate_video_urls())
     all_failures.extend(check_video_cards_carry_metadata())
     all_failures.extend(check_no_instructor_page())
+    all_failures.extend(check_no_carologistics_content())
     all_failures.extend(check_module_1_is_kicad_fusion_only())
     all_failures.extend(check_module_2_installation_is_first())
     all_failures.extend(check_prerequisites_has_no_installation_page())

@@ -49,13 +49,6 @@ verified yet. See the [platform page's mapping and navigation
 section](../../platforms/alert-spot.md#mapping-and-navigation) for
 Spot-specific written detail instead.
 
-## Carologistics
-
-{{ carologistics }} No Carologistics-specific mapping video has been
-independently verified yet. See the [platform page's localizing-a-robot
-section](../../platforms/carologistics-robotino.md#localizing-a-robot) for
-Robotino-specific written detail instead.
-
 ## Next subtopic
 
 [Continue learning](continue-learning.md) — loop closure, map versioning,

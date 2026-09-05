@@ -124,16 +124,6 @@ easy to generate in the wrong dictionary by mistake.
 pipeline in Webots, using the same `DICT_6X6_50` dictionary — see
 [the practical exercise's Try it on Spot](practical-exercise.md#try-it-on-spot).
 
-## How Carologistics applies it
-
-{{ carologistics }} {{ unverified }} Robotino's vision stack (see the
-[platform page](../../platforms/carologistics-robotino.md#software-stack))
-includes a "Tag vision" node for ArUco-based machine identification and
-an "Object tracking" node using YOLOv8-nano with triangulation — the same
-detection/localization split this page teaches, at production scale. The
-exact marker dictionary and camera calibration parameters used are not
-documented in public repository READMEs at the time of writing.
-
 ## Common problems
 
 - **No detections, no errors** — wrong dictionary, or the image topic

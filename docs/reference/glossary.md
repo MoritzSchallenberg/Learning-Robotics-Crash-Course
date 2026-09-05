@@ -23,8 +23,7 @@ Terms used throughout this course, in plain language.
 
 **Ansible**
 : An automation tool that configures machines from declarative playbooks over
-  SSH. Used by Carologistics for fleet deployment. See
-  [module 8](../course/08-integration.md).
+  SSH. See [module 8](../course/08-integration.md).
 
 **AprilTag**
 : A family of fiducial markers, robust at distance and in poor lighting. See
@@ -175,10 +174,6 @@ Terms used throughout this course, in plain language.
 **MoveIt**
 : The motion planning framework for manipulators in ROS.
 
-**MPS**
-: Modular Production Station. The Festo machines used in the RoboCup Smart
-  Manufacturing League. {{ carologistics }}
-
 ## N
 
 **Namespace**
@@ -248,19 +243,9 @@ Terms used throughout this course, in plain language.
 **rclpy**
 : The Python client library for ROS 2. (`rclcpp` is the C++ one.)
 
-**RCLL**
-: Abbreviation for RoboCup Logistics League, the former name of the
-  league Carologistics competes in — now called the RoboCup Smart
-  Manufacturing League. The abbreviation itself is unchanged in
-  technical identifiers such as repository and package names
-  (`rcll_simulation_webots`, `expertino-rcll`). {{ carologistics }}
-
 **Recovery behavior**
 : What Nav2 does when planning or control fails: clear the costmap, spin, back
   up, wait.
-
-**Refbox**
-: Referee box. Issues orders and scores a RoboCup game. {{ carologistics }}
 
 **Remapping**
 : Renaming a topic, service or node at launch time without changing code.

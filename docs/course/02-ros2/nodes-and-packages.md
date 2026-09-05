@@ -155,15 +155,6 @@ one job. See [this module's overview](../02-ros2.md#how-alert-uses-this-topic)
 and [Try it on Spot](practical-exercises.md#try-it-on-spot) for the
 exercise applying `ros2 node list`/`ros2 node info` there directly.
 
-## How Carologistics applies it
-
-{{ carologistics }} {{ documented }} Robotino's node graph (see the
-[platform page](../../platforms/carologistics-robotino.md#software-stack))
-includes a base-motion driver, a laser driver, vision nodes and Nav2 —
-the same "many small nodes, not one program" architecture, run
-continuously on real hardware rather than started fresh for a lab
-exercise.
-
 ## Common problems
 
 - **`Package 'turtlesim' not found`** — the install above did not

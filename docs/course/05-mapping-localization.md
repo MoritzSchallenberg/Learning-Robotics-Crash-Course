@@ -77,53 +77,6 @@ it. **Verification status**: {{ simulation }} confirmed in Webots; the
 physical robot is a supervised-only exercise (see this module's [Try it on
 Spot](05-mapping-localization/practical-exercise.md#try-it-on-spot)).
 
-## How Carologistics uses this topic
-
-{{ carologistics }} {{ documented }}
-
-Robotino localizes against a **pre-built** map rather than mapping live
-during competition: [`mps-map-gen`](../platforms/carologistics-robotino.md#key-repositories)
-extends a map-server map with game-specific information (machine positions,
-a legal-area boundary), publishing `mps_map` for localization and
-`mps_map_bounded` for navigation. **Sensors/actuators**: two merged 2D
-laser scanners (`laser_scan_integrator`, see [module 3](03-sensors-tf.md)),
-feeding AMCL. **Typical team task**: setting **2D Pose Estimate** and
-confirming the laser aligns with the map's walls before trusting a
-navigation goal — see the [platform page's localization
-steps](../platforms/carologistics-robotino.md#localizing-a-robot), which
-are the same procedure as this module's practical task, run per-robot under
-a namespace. **Verification status**: {{ documented }} via the platform
-page's own operating instructions.
-
-## ALeRT and Carologistics compared
-
-```{list-table}
-:header-rows: 1
-:widths: 22 26 26 26
-
-* - Aspect
-  - ALeRT / Spot
-  - Carologistics / Robotino
-  - Shared principle
-* - Map source
-  - Live SLAM per mission (`slam_launch.py`)
-  - Pre-built once, extended with game info (`mps-map-gen`)
-  - Both still localize live with AMCL against whatever map is loaded
-* - Map dimensionality
-  - 2D for navigation, plus 3D (Octomap/GLIM) for terrain
-  - {{ unverified }} — 2D only, not documented otherwise
-  - A flat-floor environment rarely needs 3D; a rescue arena usually does
-* - Localization tool
-  - AMCL, per this module's practical task
-  - AMCL, per the platform page's localizing-a-robot steps
-  - Same particle-filter approach, same "check the scan against the walls"
-    verification
-* - Multi-robot map handling
-  - {{ unverified }} — single robot, not documented
-  - Namespaced per robot (`/robotinobase<i>/...`), shared field map
-  - Both follow REP 105's map/odom/base convention underneath
-```
-
 ## Core learning path
 
 ```text

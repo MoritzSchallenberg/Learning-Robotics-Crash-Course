@@ -59,11 +59,9 @@ one at random works until two people pick the same one.
 
 ### Restricting discovery to one interface
 
-{{ carologistics }}
-
 If broadcasting across the whole lab network is a problem, the DDS
-implementation can be told which interface to use. The Carologistics setup
-configures Cyclone DDS with an XML file:
+implementation can be told which interface to use — configure Cyclone DDS
+with an XML file:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
@@ -96,9 +94,8 @@ ros2 daemon stop
 
 :::{note}
 The `127.0.0.1` address above confines ROS 2 to the local machine — the same
-effect as `ROS_LOCALHOST_ONLY=1`, which is what the Carologistics lab setup
-wants for local development. To talk to a robot, this must name the interface
-that reaches the robot instead.
+effect as `ROS_LOCALHOST_ONLY=1`, useful for local development. To talk to a
+robot, this must name the interface that reaches the robot instead.
 :::
 
 ## SSH

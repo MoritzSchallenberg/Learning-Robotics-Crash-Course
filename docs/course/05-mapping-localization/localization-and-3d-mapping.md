@@ -61,13 +61,6 @@ nav_launch.py` against a previously saved map — see the [platform page's
 note on where the map file needs to
 live](../../platforms/alert-spot.md#mapping-and-navigation).
 
-## How Carologistics applies it
-
-{{ carologistics }} {{ documented }} Robotino sets **2D Pose Estimate**
-and checks scan-to-wall alignment exactly as described above, per robot,
-under a namespace — see the [platform page's localizing-a-robot
-steps](../../platforms/carologistics-robotino.md#localizing-a-robot).
-
 ## Common problems
 
 - **AMCL never publishes `map`→`odom`.** No initial pose was set, or the

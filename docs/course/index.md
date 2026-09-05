@@ -7,7 +7,7 @@ Every module marks its content by how essential it is:
 {{ core }} (the module's central concept and task),
 {{ optional }} (worth doing with extra time), {{ advanced }} (deliberately
 beyond the module's core scope, for later reading) or
-{{ platformspecific }} (Robotino, Spot or simulation only). If you only have
+{{ platformspecific }} (Spot or simulation only). If you only have
 time for one thing on any page, do the **Core** practical task — it is what
 the next module assumes you can do.
 

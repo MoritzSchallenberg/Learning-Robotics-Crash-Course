@@ -45,13 +45,6 @@ its own.
 See [Platform notes](hackathon/platform-notes.md) for detail specific to
 the mission.
 
-## How Carologistics uses this topic
-
-{{ carologistics }} Robotino's omnidirectional drive is a genuine
-advantage for tight turns, and the transport extension maps naturally
-onto its existing gripper. See [Platform notes](hackathon/platform-notes.md)
-for detail specific to the mission.
-
 ## Subtopics
 
 ::::{grid} 1 1 2 2
@@ -69,8 +62,8 @@ self-assessment checklist, and safety.
 :link: hackathon/platform-notes
 :link-type: doc
 
-{{ core }} Simulation, Carologistics/Robotino and ALeRT/Spot specifics,
-and the schematic mission area.
+{{ core }} Simulation and ALeRT/Spot specifics, and the schematic
+mission area.
 :::
 
 :::{grid-item-card} Mission monitoring and recovery

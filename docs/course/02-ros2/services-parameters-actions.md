@@ -233,15 +233,6 @@ calls, and [module 7's Try it on
 Spot](../07-autonomous-decisions/practical-exercise.md#try-it-on-spot) for building a
 mission state machine around them.
 
-## How Carologistics applies it
-
-{{ carologistics }} {{ unverified }} The exact ROS 2 service and action
-interfaces used by Robotino's gripper controller and its CLIPS-Executive
-agent are not documented in public repository READMEs at the time of
-writing. Treat any specific interface name for those two components as
-`Not documented` rather than assumed — see [this module's team
-comparison](../02-ros2.md#alert-and-carologistics-compared).
-
 ## Common problems
 
 - **`ros2 param set` reports the set failed.** Either a typo in the

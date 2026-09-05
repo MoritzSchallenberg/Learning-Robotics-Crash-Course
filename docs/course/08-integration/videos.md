@@ -48,13 +48,6 @@ independently verified yet. See this module's [Try it on
 Spot](practical-exercise.md#try-it-on-spot) for Spot-specific written
 detail instead.
 
-## Carologistics
-
-{{ carologistics }} No Carologistics-specific deployment video has been
-independently verified yet. See the [platform page's Ansible
-setup](../../platforms/carologistics-robotino.md#setup) for written
-detail instead.
-
 ## Next subtopic
 
 [Continue learning](continue-learning.md) — logging levels, diagnostics,

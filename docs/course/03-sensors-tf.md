@@ -70,51 +70,6 @@ setting on `/scan` is "not optional" per the platform page — the
 publisher uses it, and a Reliable display shows nothing, with no error.
 **Verification status**: {{ simulation }} confirmed in Webots.
 
-## How Carologistics uses this topic
-
-{{ carologistics }} {{ documented }}
-
-Robotino's `laser_scan_integrator` node "merges two laser scans into one,
-accounting for their relative positions via TF and the robot's
-footprint" — see the [platform
-page](../platforms/carologistics-robotino.md#key-repositories) — a
-direct production use of the exact static-transform mechanism this
-module teaches, at a scale (two physically offset scanners, continuously
-merged) beyond this module's own single-sensor practical task.
-**Typical team task**: verifying a new or moved sensor's static transform
-is correct before trusting any detection derived from it, since a wrong
-mount transform silently misplaces every downstream reading.
-**Verification status**: {{ documented }} via the platform page's
-repository description.
-
-## ALeRT and Carologistics compared
-
-```{list-table}
-:header-rows: 1
-:widths: 22 26 26 26
-
-* - Aspect
-  - ALeRT / Spot
-  - Carologistics / Robotino
-  - Shared principle
-* - Main range sensor
-  - One 3D LiDAR
-  - Two merged 2D laser scanners
-  - Both need an accurate static transform to trust
-* - TF tree root
-  - `base_footprint`
-  - {{ unverified }} — not explicitly named on the platform page
-  - Both follow REP 105's map/odom/base convention
-* - QoS gotcha
-  - `/scan` must be Best Effort in RViz
-  - {{ unverified }} — not documented, but the same ROS 2 default applies
-  - Sensor drivers rarely publish Reliable
-* - Multi-sensor fusion
-  - {{ unverified }} — not documented at the TF level
-  - Two scanners merged into one via TF-aware integration
-  - Both need `message_filters` or manual TF-aware merging for more
-```
-
 ## Core learning path
 
 ```text

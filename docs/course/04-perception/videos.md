@@ -47,10 +47,6 @@ Not yet populated for this module specifically — see
 [Try it on Spot](practical-exercise.md#try-it-on-spot) for the hands-on
 exercise instead.
 
-## Carologistics / Robotino
-
-Not yet populated.
-
 ## Advanced topics
 
 Not yet populated — see [Continue learning](continue-learning.md) for

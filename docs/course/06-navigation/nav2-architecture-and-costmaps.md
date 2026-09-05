@@ -135,15 +135,6 @@ platform whose local costmap accounts for a wider, less predictable
 footprint than a wheeled robot's. See [this module's Try it on
 Spot](practical-exercise.md#try-it-on-spot).
 
-## How Carologistics applies it
-
-{{ carologistics }} {{ documented }} Robotino runs
-[`robotino_navigation`](../../platforms/carologistics-robotino.md#key-repositories),
-Nav2 configuration working with both the simulation and real robots. The
-same Planner/Controller/Behavior split applies; the team's
-`mps_map_bounded` layer (see [module 5](../05-mapping-localization.md#how-carologistics-uses-this-topic))
-adds a competition-area boundary to the global costmap specifically.
-
 ## Common problems
 
 - **Nav2 starts but nothing happens on a goal.** Lifecycle nodes not

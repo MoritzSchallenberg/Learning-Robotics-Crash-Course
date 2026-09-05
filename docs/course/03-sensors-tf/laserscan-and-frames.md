@@ -116,15 +116,6 @@ with the 3D LiDAR, gripper camera and odometry all as frames off it — see
 [the practical exercise's Try it on Spot](practical-exercise.md#try-it-on-spot)
 for building it yourself in RViz.
 
-## How Carologistics applies it
-
-{{ carologistics }} {{ documented }} Robotino's `laser_scan_integrator`
-node merges two `LaserScan` topics into one, "accounting for their
-relative positions via TF and the robot's footprint" — see the
-[platform page](../../platforms/carologistics-robotino.md#key-repositories)
-— a direct, production use of exactly the static-transform mechanism this
-page teaches.
-
 ## Common problems
 
 - **`No transform from [X] to [Y]`.** Either the transform genuinely is

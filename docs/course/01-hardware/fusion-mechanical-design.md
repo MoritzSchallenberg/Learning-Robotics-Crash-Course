@@ -109,7 +109,7 @@ changed after the fact without rebuilding the part.
 
 :::{note}
 Use clearly invented example dimensions, or pick your own — this exercise
-does not reproduce a real Robotino or Spot mounting bracket.
+does not reproduce a real Spot mounting bracket.
 :::
 
 ### Starting point

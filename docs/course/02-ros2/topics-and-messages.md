@@ -151,15 +151,6 @@ image are all topics, continuously published exactly like
 Spot](practical-exercises.md#try-it-on-spot) for sorting Spot's real
 topics into sensor/motion/state categories yourself.
 
-## How Carologistics applies it
-
-{{ carologistics }} {{ documented }} Robotino's laser scans and base
-odometry are topics in the same sense; the
-[`laser_scan_integrator`](../../platforms/carologistics-robotino.md#key-repositories)
-node specifically exists to merge two scan topics into one, using TF to
-account for the sensors' relative positions — a topic-to-topic
-transformation, not a special ROS 2 mechanism.
-
 ## Common problems
 
 - **`ros2 topic pub` seems to hang.** It is not hanging — it is

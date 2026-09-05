@@ -59,12 +59,11 @@ ros2 launch webots_ros2_universal_robot multirobot_launch.py
 Other examples are listed in the
 [webots_ros2 documentation](https://docs.ros.org/en/humble/p/webots_ros2/).
 
-### Team simulations
+### The ALeRT simulation
 
-Both teams maintain a Webots simulation of their robot and competition arena.
-These are the ones to use if you are following a team track:
+ALeRT maintains a Webots simulation of Spot and its competition arena. This
+is the one to use if you are following the ALeRT track:
 
-- {{ carologistics }} [Carologistics / Robotino](carologistics-robotino.md)
 - {{ alert }} [ALeRT / Spot](alert-spot.md)
 
 ## Simulation time

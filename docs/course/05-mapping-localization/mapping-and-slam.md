@@ -81,14 +81,6 @@ slam_launch.py` — the same SLAM Toolbox this page teaches, just a
 platform-specific launch file. See this module's [Try it on
 Spot](practical-exercise.md#try-it-on-spot).
 
-## How Carologistics applies it
-
-{{ carologistics }} {{ documented }} Robotino does not typically map live
-during competition — [`mps-map-gen`](../../platforms/carologistics-robotino.md#key-repositories)
-extends a pre-built map-server map with game-specific information instead.
-The underlying occupancy-grid representation is identical; only *when* the
-map is built differs.
-
 ## Common problems
 
 - **The map is doubled or smeared.** Driven too fast, or collided with

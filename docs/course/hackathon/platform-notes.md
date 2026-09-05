@@ -50,40 +50,6 @@ Legged locomotion is the advantage on any non-flat terrain (see the
 budget extra iteration time — MoveIt planning failures are a normal part of
 a first attempt, not a sign something is broken.
 
-## How Carologistics applies it
-
-{{ carologistics }}
-
-Robotino's omnidirectional drive is a genuine advantage for tight turns —
-plan for it in your navigation parameters (see the
-[platform page](../../platforms/carologistics-robotino.md)). The transport
-extension maps naturally onto Robotino's gripper carrying a workpiece to a
-marked location.
-
-## ALeRT and Carologistics compared
-
-```{list-table}
-:header-rows: 1
-:widths: 22 26 26 26
-
-* - Aspect
-  - ALeRT / Spot
-  - Carologistics / Robotino
-  - Shared principle
-* - Mission-relevant advantage
-  - Legged locomotion over non-flat terrain
-  - Omnidirectional drive for tight turns
-  - Both plan navigation parameters around the platform's own strength
-* - Optional transport extension
-  - Budget extra iteration time for MoveIt planning
-  - Maps naturally onto the existing gripper
-  - Manipulation stays optional, not required, on either platform
-* - Physical safety
-  - {{ spotsupervised }} for real-hardware runs
-  - {{ unverified }} — not documented as a formal policy
-  - The E-stop stays independent of software on both platforms
-```
-
 ## Next subtopic
 
 [Mission monitoring and recovery](mission-monitor.md) — an optional

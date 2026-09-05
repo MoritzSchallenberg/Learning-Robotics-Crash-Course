@@ -70,46 +70,6 @@ confirmed in Webots; the physical robot is a supervised-only exercise
 (see this module's [Try it on
 Spot](07-autonomous-decisions/practical-exercise.md#try-it-on-spot)).
 
-## How Carologistics uses this topic
-
-{{ carologistics }} {{ documented }}
-
-The central goal-reasoning agent,
-[`expertino-rcll`](../platforms/carologistics-robotino.md#key-repositories),
-plays the same role as this module's state machine — deciding what the
-robot does next and reacting when a step fails — at fleet scale.
-**Typical team task**: {{ unverified }} — not documented in detail on the
-platform page beyond the repository's existence. **Verification status**:
-{{ documented }} via the platform page's repository description.
-
-## ALeRT and Carologistics compared
-
-```{list-table}
-:header-rows: 1
-:widths: 22 26 26 26
-
-* - Aspect
-  - ALeRT / Spot
-  - Carologistics / Robotino
-  - Shared principle
-* - Decision tool
-  - RAFCON (graphical state machine)
-  - `expertino-rcll` (central agent)
-  - Both use explicit, named failure exits, not planning
-* - Scope
-  - One robot's mission
-  - Fleet-wide goal reasoning across several Robotinos
-  - Neither team runs PlanSys2 or Golog++ for competition
-* - Manipulation
-  - MoveIt 2 for the arm
-  - A simpler custom gripper
-  - Both treat "grasp failed" as a named state, not a crash
-* - Physical safety
-  - Supervised-only for real hardware sequences
-  - {{ unverified }} — not documented as a formal policy
-  - An automated multi-step sequence needs a human confirming steps
-```
-
 ## Core learning path
 
 ```text

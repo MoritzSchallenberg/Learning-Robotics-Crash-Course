@@ -108,11 +108,11 @@ it does not stop and re-plan at each one); **docking**
 (`opennav_docking`) is a specialised final-approach behaviour for precisely
 reaching a charging station or a work cell.
 
-**Why it matters.** {{ carologistics }} Robotino's precision-docking task
-is exactly this problem — a generic navigation goal is not precise enough
-for docking to a production machine within millimetres. See the
-[platform page](../../platforms/carologistics-robotino.md) for why the
-platform's omnidirectional drive is well suited to it.
+**Why it matters.** A generic navigation goal is not precise enough for
+reliably reaching a charging station's contacts or a tight final
+approach — `opennav_docking` exists specifically for that
+millimetre-precision last step, separate from the coarser navigation goal
+that gets the robot into the general area first.
 
 **Needs.** [The practical exercise](practical-exercise.md).
 
