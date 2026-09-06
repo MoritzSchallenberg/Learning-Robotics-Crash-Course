@@ -1,17 +1,17 @@
 #!/usr/bin/env python3
 """
-Module 2 practical task -- reference solution.
+ROS 2 practical task -- reference solution.
 
 Drives turtlesim's turtle through a square with no keyboard input, using
 a timer callback and a DRIVE/TURN/DONE state machine.
 
 Try the starter file yourself before reading this -- it is
-`turtle_course/turtle_course/turtle_controller.py`, one directory up.
+`turtle_tutorial/turtle_tutorial/turtle_controller.py`, one directory up.
 
 To run this exact file (rather than working through the starter's TODOs):
 copy it over the starter file's location, keeping the same filename, then
-`colcon build --packages-select turtle_course` and
-`ros2 run turtle_course turtle_controller`.
+`colcon build --packages-select turtle_tutorial` and
+`ros2 run turtle_tutorial turtle_controller`.
 """
 
 from enum import auto, Enum

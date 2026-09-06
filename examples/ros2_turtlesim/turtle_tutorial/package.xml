@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
-  <name>turtle_course</name>
+  <name>turtle_tutorial</name>
   <version>0.1.0</version>
   <description>
-    Module 2 example package for the Learning Robotics Crash Course:
+    ROS 2 example package for the ALeRT Advanced Robotics Tutorial:
     a turtlesim controller that drives a geometric figure without
     keyboard input.
   </description>
-  <maintainer email="noreply@example.invalid">Learning Robotics Crash Course</maintainer>
+  <maintainer email="noreply@example.invalid">ALeRT Advanced Robotics Tutorial</maintainer>
   <license>Apache-2.0</license>
 
   <exec_depend>rclpy</exec_depend>

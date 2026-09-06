@@ -1,22 +1,23 @@
 #!/usr/bin/env python3
 """
-Module 2 practical task -- starter file.
+ROS 2 practical task -- starter file.
 
 Drive turtlesim's turtle through a square, with no keyboard input, using
 only a timer callback and a small state machine (DRIVE / TURN / DONE) --
-the same state-machine shape module 7 formalises later in the course.
+the same state-machine shape Autonomous Decision-Making formalises later
+on this site.
 
 Fill in every ``# TODO`` block below. Nothing here is a trick: every piece
 you need (the publisher, the message type, the timer pattern) was already
-used in this module's guided example against the exact same topic,
+used in this topic's guided example against the exact same topic,
 `/turtle1/cmd_vel`.
 
 Run it with:
 
-    ros2 run turtle_course turtle_controller
+    ros2 run turtle_tutorial turtle_controller
 
 ...against a running `turtlesim_node` in another terminal. The solution is
-in `examples/module02_turtlesim/solutions/turtle_controller_solution.py`
+in `examples/ros2_turtlesim/solutions/turtle_controller_solution.py`
 in this repository -- try it yourself first.
 """
 

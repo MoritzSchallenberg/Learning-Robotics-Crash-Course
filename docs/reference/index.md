@@ -17,7 +17,7 @@ plus a diagnostic sequence for when nothing works.
 :link: compatibility
 :link-type: doc
 
-The course's fixed toolchain — Ubuntu 22.04, ROS 2 Humble — and the
+The site's fixed toolchain — Ubuntu 22.04, ROS 2 Humble — and the
 per-track simulator and package versions.
 :::
 
@@ -25,7 +25,7 @@ per-track simulator and package versions.
 :link: glossary
 :link-type: doc
 
-Every term used in the course, in plain language, with a link to where it is
+Every term used in the site, in plain language, with a link to where it is
 explained properly.
 :::
 
@@ -38,9 +38,9 @@ explained properly.
 
 **"RViz shows nothing and there is no error."**
 → QoS mismatch.
-[Module 3](../course/03-sensors-tf/practical-exercise.md#common-problems)
+[Sensors and Coordinate Frames](../sensors-frames/practical-exercise.md#common-problems)
 
-**"What exact software versions does this course use?"**
+**"What exact software versions does this site use?"**
 → [Supported environment](compatibility.md)
 
 **"What does that acronym mean?"**
@@ -48,7 +48,7 @@ explained properly.
 
 **"Everything times out in simulation."**
 → `use_sim_time`.
-[Simulation](../platforms/simulation.md#simulation-time)
+[Simulation](../simulation/index.md#simulation-time)
 
 ```{toctree}
 :hidden:

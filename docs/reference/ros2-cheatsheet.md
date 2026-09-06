@@ -1,9 +1,9 @@
 # ROS 2 cheat sheet
 
-{{ common }}
+{{ foundation }}
 
 The commands you will actually use, in one place. Everything here is
-verified against [ROS 2 Humble](compatibility.md), the course's fixed
+verified against [ROS 2 Humble](compatibility.md), the site's fixed
 distribution.
 
 :::{tip}
@@ -262,7 +262,7 @@ ros2 run rqt_graph rqt_graph            # 7. look at the whole graph
 ```
 
 Full explanation in
-[module 8](../course/08-integration/system-bringup-and-diagnostics.md).
+[Integration, Diagnostics and Testing](../integration-testing/system-bringup-and-diagnostics.md).
 
 ## Message types you will meet
 

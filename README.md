@@ -12,14 +12,12 @@ This is a long-lived technical reference, not a scheduled course: it
 carries no dates, sessions or event logistics — see
 [`maintainers/`](maintainers/) for anything organisational.
 
-> **Note:** the site is mid-restructuring from an earlier eight-module
-> layout into a topic-based navigation (Getting Started, ROS 2, ALeRT
-> Platforms and Safety, Simulation, Sensors and Coordinate Frames,
-> Perception, Mapping and World Models, Localization/Navigation/
-> Exploration, Robot Manipulation, Autonomous Decision-Making,
-> Integration/Diagnostics/Testing, Rescue Applications and Projects,
-> Reference). The table below reflects the current, still-module-shaped
-> structure; see `maintainers/` for the restructuring plan.
+> **Note:** the site was restructured from an earlier eight-module layout
+> into the 13-topic navigation described below (`feat/alert-advanced-
+> robotics-tutorial`). Twelve larger content-extension work packages
+> (a full BehaviorTree.CPP tutorial, a full MoveIt 2 path, a pick-and-place
+> project and others) are planned but not yet written — see
+> `maintainers/` for the roadmap.
 
 ## Goal
 
@@ -42,28 +40,29 @@ repositories this site's topics link back to throughout.
 
 ## Current structure
 
-Eight topic groups, each built around one central concept and one
-practical task, plus a set of rescue-mission worked examples. Topic 1 has
-two hands-on hardware-design sub-pages (KiCad, Fusion) reachable directly
-from it.
+Thirteen top-level topics, each with its own overview page:
 
-| # | Topic | Focus |
-|---|---|---|
-| 1 | Hardware Design with KiCad and Fusion | Schematics, mechanical CAD |
-| 2 | ROS 2 Fundamentals | Nodes, topics, packages |
-| 3 | Sensors, TF2 and RViz | Sensor data placed in space |
-| 4 | Perception and Object Detection | Marker/object detection |
-| 5 | Mapping and Localization | Build a map, locate the robot |
-| 6 | Autonomous Navigation | Reach autonomous goals |
-| 7 | Autonomous Decisions and Manipulation | Model a mission |
-| 8 | System Integration and Testing | Start and debug the whole system |
-| — | Rescue mission projects | Worked examples combining several topics |
+| Topic | Focus |
+|---|---|
+| Getting Started | Linux, Git, networking |
+| ROS 2 | Nodes, topics, packages, installation |
+| ALeRT Platforms and Safety | Spot, hardware design (KiCad, Fusion), safety levels |
+| Simulation | Webots, the ALeRT Spot simulation, simulation time |
+| Sensors and Coordinate Frames | Sensor data placed in space, TF2 |
+| Perception | Marker/object detection |
+| Mapping and World Models | Build a map, occupancy grids, 3D mapping |
+| Localization, Navigation and Exploration | AMCL, Nav2, autonomous goals |
+| Robot Manipulation | Arm fundamentals, MoveIt 2 (overview; full tutorials planned) |
+| Autonomous Decision-Making | State machines, behavior trees, planners |
+| Integration, Diagnostics and Testing | Start and debug the whole system |
+| Rescue Applications and Projects | Worked examples combining several topics |
+| Reference | Cheat sheet, supported environment, glossary |
 
-Two platform tracks run alongside: **Simulation** and **ALeRT/Spot** — both
-on the same fixed toolchain, **Ubuntu 22.04 LTS and ROS 2 Humble**
-(`docs/reference/compatibility.md`), unless a specific ALeRT repository is
-documented to need something else. There is no distribution choice on this
-site by default; every command assumes Humble unless stated otherwise.
+Simulation and ALeRT/Spot both run on the same fixed toolchain, **Ubuntu
+22.04 LTS and ROS 2 Humble** (`docs/reference/compatibility.md`), unless a
+specific ALeRT repository is documented to need something else. There is
+no distribution choice on this site by default; every command assumes
+Humble unless stated otherwise.
 
 ## Building the site locally
 
@@ -115,53 +114,57 @@ below for what that guarantees.
 .github/workflows/pages.yml   Build, secret-scan and deploy to GitHub Pages
 
 docs/                          <-- published website; nothing else is built
-  conf.py                     Sphinx configuration, incl. platform badges
-  index.md                    Landing page
+  conf.py                     Sphinx configuration, incl. badges
+  index.md                    Landing page, one toctree per topic
 
-  prerequisites/
-    linux-terminal.md         Terminal, filesystem, .bashrc
-    git.md                    Git workflow and team conventions
-    networking.md             Domain IDs, SSH, subnets
-                              (ROS 2/Ubuntu installation moved into
-                              course/02-ros2/installation.md)
-
-  course/                     The eight topic groups (pending rename to topics/)
-    01-system-hardware.md   … 08-integration.md
-    01-hardware/              KiCad and Fusion sub-pages, linked from module 1
-      kicad-schematic.md
-      fusion-mechanical-design.md
-    04-perception/           Split into a core page + 4 deeper chapters
-    hackathon.md              Capstone: Autonomous Robot Mission
-
-  platforms/                  ALeRT-specific material only
-    simulation.md
-    alert-spot.md
+  getting-started/             Linux, Git, networking
+  ros2/                        Nodes, topics, packages, installation
+  platforms/                   ALeRT Platforms and Safety
+    spot/                      ALeRT / Spot platform reference
+    hardware-design/           KiCad and Fusion tutorials
+  simulation/                  Webots, the ALeRT Spot simulation
+  sensors-frames/               Sensors and Coordinate Frames (TF2, RViz)
+  perception/                  Core page + 4 deeper chapters
+  mapping-world-models/         Mapping and World Models
+  navigation-exploration/       Localization, Navigation and Exploration
+  manipulation/                 Robot Manipulation (overview page)
+  decision-making/              Autonomous Decision-Making
+  integration-testing/          Integration, Diagnostics and Testing
+  rescue-projects/              Rescue Applications and Projects
+                                (autonomous-rescue-mission.md is the
+                                worked-example mission)
 
   reference/
     ros2-cheatsheet.md        Commands, grouped by intent
     compatibility.md          "Supported environment": the fixed toolchain
-                              (Ubuntu 22.04 / ROS 2 Humble) and per-track versions
+                              (Ubuntu 22.04 / ROS 2 Humble), per-path
+                              versions, and the difficulty/verification
+                              badge legend
     glossary.md
 
   _static/
     css/custom.css            Theme layer, badges, light/dark palette
     js/color-mode.js          Light/dark toggle (name must not be theme.js,
                               which would shadow the RTD theme's own script)
-    images/diagrams/          10 original SVG diagrams
+    images/diagrams/          Original SVG diagrams
   _extra/.nojekyll
 
 maintainers/                   NOT built, NOT deployed, NOT in any toctree
   instructors/                 Facilitator/event material -- see below
+  content-audit.md             Audit of the archived Spot-tutorial source
+  repository-audit.md          Live inventory of public RRL-ALeRT repos
+  rebrand-followups.md         What a future repo transfer would need
 
 examples/                      Real, colcon-buildable starter packages
-  module02_turtlesim/          Module 2's practical task
-    turtle_course/             The actual ROS 2 package -- build this
+  ros2_turtlesim/               ROS 2 topic's practical task
+    turtle_tutorial/            The actual ROS 2 package -- build this
     solutions/                 Reference solution, kept separate from
                                the package so it is never accidentally
                                built or imported by it
 
 scripts/
-  course-preflight.sh          Read-only environment check (linked from the site)
+  tutorial-preflight.sh        Read-only environment check (linked from the site)
+  verify-structure.py           Source-level structure checks (no build needed)
   verify-site.py                Browser-level checks (not part of the build)
 
 requirements.txt              Pinned documentation toolchain
@@ -186,7 +189,7 @@ previously part of the site (`docs/instructors/`) and has been moved out:
 it is not in `docs/`, not referenced by any `toctree`, not linked from any
 public page, and consequently never reaches the Sphinx build, the search
 index, or the GitHub Pages artifact. `DECISIONS_NEEDED.md`,
-`course-preflight.sh` and `verify-site.py` remain in the repository root /
+`tutorial-preflight.sh` and `verify-site.py` remain in the repository root /
 `scripts/` because they are genuinely useful to keep versioned, without
 being part of the website either.
 
@@ -227,33 +230,48 @@ being part of the website either.
    page, catching a related stock-theme bug where a non-current link
    inside an expanded branch was painted with a hardcoded light-gray
    background the site's own dark-sidebar override did not reach.
-10. **Added `examples/module02_turtlesim/`** — a real, `colcon`-buildable
-    ROS 2 Humble package (`turtle_course`) backing module 2's practical
-    task, with its own CI job (`.github/workflows/pages.yml`, the
-    `examples` job) that builds and lints it on every push, independent
-    of the Sphinx site build/deploy.
+10. **Added `examples/ros2_turtlesim/`** (renamed from `module02_turtlesim`
+    during the ALeRT Advanced Robotics Tutorial migration) — a real,
+    `colcon`-buildable ROS 2 Humble package (`turtle_tutorial`, renamed
+    from `turtle_course`) backing the ROS 2 topic's practical task, with
+    its own CI job (`.github/workflows/pages.yml`, the `examples` job)
+    that builds and lints it on every push, independent of the Sphinx
+    site build/deploy.
 11. **Added three "Try it on Spot" safety-level badges**
     (`{{ spotsim }}` / `{{ spotreadonly }}` / `{{ spotsupervised }}`) and
-    a matching section in every course module, indexed from
-    `platforms/alert-spot.md`.
+    a matching section in every topic, indexed from
+    `platforms/spot/index.md`.
+12. **Restructured the whole `course/` tree into 13 topic-based
+    directories** (Entwicklungsauftrag 8 / 8A: rebrand to "ALeRT Advanced
+    Robotics Tutorial", removal of all Carologistics/Robotino content,
+    migration to the topic layout in "Project structure" above). Module
+    numbers, "Core Learning Path" headings and processing-time estimates
+    were removed; `{{ core }}` / `{{ optional }}` / `{{ common }}` /
+    `{{ platformspecific }}` were replaced by the Foundation / Intermediate
+    / Advanced / Research difficulty badges described in "Content levels"
+    below. Items 1–10 above describe decisions made against the earlier
+    `course/`-based layout and are kept here as a historical record; the
+    "Project structure" tree above is the current, authoritative one.
 
 ## Editing the content
 
 All content is **MyST Markdown**. Edit the `.md` files and rebuild.
 
-### Platform and version badges
+### Platform and verification badges
 
-Instructions that only apply to one system must be marked. Write the
-substitution and it renders as a styled badge:
+Content that is ALeRT-specific, simulation-only, or of a given verification
+status must be marked. Write the substitution and it renders as a styled
+badge:
 
 ```markdown
-{{ common }}  {{ simulation }}  {{ alert }}  {{ unverified }}
+{{ alert }}  {{ simulation }}  {{ documented }}  {{ hardwareverified }}
+{{ unverified }}  {{ hwverificationrequired }}  {{ experimental }}  {{ historical }}
 ```
 
-The whole course is fixed to one toolchain — Ubuntu 22.04 LTS, ROS 2 Humble
-(see `docs/reference/compatibility.md`) — so there is deliberately no
-distribution badge; Humble is the implicit baseline for every command on the
-site.
+See `docs/reference/compatibility.md`'s "Status legend" for what each one
+means. The whole site is fixed to one toolchain — Ubuntu 22.04 LTS, ROS 2
+Humble (see the same page) — so there is deliberately no distribution
+badge; Humble is the implicit baseline for every command on the site.
 
 Badges are defined in `docs/conf.py` and styled in `custom.css`.
 
@@ -285,24 +303,30 @@ What needs checking, and why.
 :::
 ```
 
-### Page template
+### Page templates
 
-See "Content levels" below for the current 12-part module structure and the
-"Continue learning" convention — this replaced an earlier, shorter template
-from the first version of the site.
+Every one of the 13 top-level topics has its own overview page (what
+belongs to it, where ALeRT uses it, its subtopics as cards, content
+already present versus planned, required knowledge, related ALeRT
+repositories, verification status) — see `docs/platforms/index.md` or
+`docs/manipulation/index.md` for the current template.
+
+Individual tutorial subpages below a topic follow the older, still-current
+structure described in "Content levels" below.
 
 ## Contributing
 
 1. Branch from `main`. Name it `<scope>/<description>` — for example
    `jdoe/fix-nav2-params`.
 2. Build with `-W` before you push. CI will reject warnings.
-3. Keep the general/specific split: shared concepts in `course/`,
-   team-specific detail in `platforms/`, linking back rather than repeating.
+3. Keep the general/specific split: shared concepts on the general topic
+   pages (`docs/ros2/`, `docs/perception/`, etc.), team-specific detail
+   under `docs/platforms/`, linking back rather than repeating.
 4. Explain each thing once. If you find yourself writing something that already
    exists elsewhere, link to it instead.
 5. **Never invent** a command, topic name or package name. If you are unsure,
    add a `TODO-REVIEW` block rather than a plausible guess.
-6. Mark anything platform- or version-specific with a badge.
+6. Mark anything platform-, difficulty- or verification-specific with a badge.
 7. Update `CONTENT_REVIEW.md` if you add, remove or move substantial content.
 
 ### Verify technical claims
@@ -314,30 +338,33 @@ documentation, and the README of whichever package you are describing.
 
 ### Content levels
 
-Every course module marks its content by how essential it is, using four
-badges — `{{ core }}` (the module's central concept and task), `{{ optional }}`
-(worth doing with extra time), `{{ advanced }}` (deliberately beyond the
-module's core scope, for later reading) or `{{ platformspecific }}` —
-defined in `docs/conf.py` as MyST substitutions. Check that a module's Core
-practical task is genuinely completable as described, not just plausible.
-See any existing `course/0*.md` file for the pattern.
+Every tutorial subpage marks its content by genuine technical difficulty,
+using four badges — `{{ foundation }}` (needs no prior topic beyond its own
+Prerequisites section), `{{ intermediate }}` (builds directly on one or
+more Foundation topics), `{{ advanced }}` (a real capability, actively
+used by ALeRT, that takes more background or care) or `{{ research }}`
+(documented for completeness, not part of ALeRT's competition-ready path
+today) — defined in `docs/conf.py` as MyST substitutions and explained in
+`docs/reference/compatibility.md`. Check that a Foundation page's practical
+task is genuinely completable as described, not just plausible. See any
+existing page under `docs/ros2/` or `docs/perception/` for the pattern.
 
-Each module follows the same structure: Overview, Learning objectives,
-Prerequisites, Core concepts, Guided example, Practical task, Expected
-result, Verification, Common problems, Optional extensions, Advanced
-topics, Continue learning, Connection to the next module. Write for a
-participant working through the material independently — no "tonight",
+Each tutorial subpage follows the same structure: Overview, Learning
+objectives, Prerequisites, Core concepts, Guided example, Practical task,
+Expected result, Verification, Common problems, Optional extensions,
+Advanced topics, Continue learning, Connection to the next topic. Write for
+a participant working through the material independently — no "tonight",
 "next week", "your facilitator provides X", or references to a live
 audience. Where a demonstration would traditionally be shown live, write it
 as a **Guided example** the reader can run themselves.
 
-**Continue learning** is every module's deep-dive section — deliberately
+**Continue learning** is every subpage's deep-dive section — deliberately
 more than a keyword list. Each topic inside it is a `:::{dropdown}` with:
 what it is, why it matters, what it needs, a concrete first task or
 mini-project, a way to check the result, an official further-reading link,
 and a **Next step / Intermediate / Advanced** label in its title. A topic
 big enough to need more than that (KiCad, Fusion) gets its own page instead,
-linked as a card from the parent module. Keep every dropdown title on its
+linked as a card from the parent topic. Keep every dropdown title on its
 own line, on a `(target-name)=` MyST anchor line if you need to link to it
 from elsewhere — dropdown titles are not headings and get no automatic
 anchor.

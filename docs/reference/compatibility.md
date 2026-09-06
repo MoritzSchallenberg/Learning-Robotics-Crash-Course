@@ -1,11 +1,11 @@
 # Supported environment
 
-{{ common }}
+{{ foundation }}
 
-This course is fixed to one toolchain. Every command, package name and
+This site is fixed to one toolchain. Every command, package name and
 example on this site is written for the environment below — there is no
 distribution choice to make, and no per-command version badge, because this
-is simply what the whole course assumes.
+is simply what the whole site assumes.
 
 ```text
 Ubuntu 22.04 LTS
@@ -13,30 +13,31 @@ ROS 2 Humble
 Python 3
 colcon
 RViz2
-Course simulation environment (Webots)
+ALeRT simulation environment (Webots)
 ```
 
-Install it with [module 2's installation
-guide](../course/02-ros2/installation.md), then confirm it with the
+Install it with [ROS 2's installation
+guide](../ros2/installation.md), then confirm it with the
 commands in [Checking your own system](#checking-your-own-system) below.
 
 :::{important}
 Every package name, API and available feature on this site is specific to
 the one distribution above. If you ever consult another ROS 2
 distribution's documentation for reference, treat its package prefixes and
-APIs as informative only, not copy-pasteable onto this course's material.
+APIs as informative only, not copy-pasteable onto this site's material.
 :::
 
-## Per-track versions
+## Simulation-only vs. ALeRT / Spot versions
 
 Everything below runs on the one baseline above; this table only records
-what differs between the platform tracks themselves.
+what differs between working through this site with no team hardware
+(Simulation) and working through it on ALeRT's own platform.
 
 ```{list-table}
 :header-rows: 1
 :widths: 20 20 60
 
-* - Track
+* - Path
   - Simulator
   - Key packages
 * - **Simulation** {{ simulation }}
@@ -49,19 +50,19 @@ what differs between the platform tracks themselves.
 ```
 
 :::{note}
-The team's own production repositories evolve independently of this course
-and may run a different Ubuntu release, ROS 2 distribution, or Webots
-version at any given time. Check the README of a repository before building
-it, and treat the table above as the course's teaching baseline, not a
+ALeRT's own production repositories evolve independently of this site and
+may run a different Ubuntu release, ROS 2 distribution, or Webots version
+at any given time. Check the README of a repository before building it,
+and treat the table above as this site's documented baseline, not a
 guarantee about a specific production deployment.
 :::
 
 ## Hardware-specific names in the general examples
 
-Where a course module uses a generic topic or frame name — `/scan`,
+Where a topic uses a generic topic or frame name — `/scan`,
 `/cmd_vel`, `base_link` — check what your own system actually publishes with
 `ros2 topic list` or `ros2 run tf2_tools view_frames`; a real robot's exact
-names depend on its drivers and URDF, and this course deliberately teaches
+names depend on its drivers and URDF, and this site deliberately teaches
 the general pattern rather than one specific robot's naming.
 
 ## Checking your own system
@@ -86,9 +87,12 @@ echo $RMW_IMPLEMENTATION
 Expect `humble` from the first command and `22.04` (Jammy) from the second.
 Anything else means either the setup script did not complete, or `.bashrc`
 is not sourcing `/opt/ros/humble/setup.bash` — see the [installation
-guide's troubleshooting section](../course/02-ros2/installation.md#common-installation-problems).
+guide's troubleshooting section](../ros2/installation.md#common-installation-problems).
 
 ## Status legend
+
+Difficulty, based on genuine technical difficulty rather than how central a
+topic is:
 
 ```{list-table}
 :header-rows: 1
@@ -96,21 +100,53 @@ guide's troubleshooting section](../course/02-ros2/installation.md#common-instal
 
 * - Marker
   - Meaning
-* - {{ common }}
-  - Applies to every platform
+* - {{ foundation }}
+  - Needs no prior topic on this site beyond what its own Prerequisites
+    section states.
+* - {{ intermediate }}
+  - Builds directly on one or more Foundation topics.
+* - {{ advanced }}
+  - A real capability, actively used by ALeRT, that takes more background
+    or care to apply correctly.
+* - {{ research }}
+  - Documented for completeness; not part of ALeRT's competition-ready
+    path today.
+```
+
+Verification, describing what has actually been checked rather than what
+is merely plausible:
+
+```{list-table}
+:header-rows: 1
+:widths: 25 75
+
+* - Marker
+  - Meaning
+* - {{ documented }}
+  - Confirmed via a repository or written documentation.
 * - {{ simulation }}
-  - Simulation only
-* - {{ alert }}
-  - Specific to ALeRT / Spot
+  - Runs in Webots.
+* - {{ hardwareverified }}
+  - Actually checked on running hardware.
 * - {{ unverified }}
   - Taken from source material and **not verified** on current hardware.
     Confirm before relying on it.
+* - {{ hwverificationrequired }}
+  - Plausible from documentation, but needs a real hardware check before
+    being trusted for a competition run.
+* - {{ experimental }}
+  - Known to be incomplete or unstable; expect rough edges.
+* - {{ historical }}
+  - No longer current; kept for context only.
 ```
+
+{{ alert }} marks content specific to the ALeRT team rather than a general
+ROS 2 concept.
 
 ## A note on how this site handles uncertainty
 
 Where a technical detail could not be verified — because it depends on
-hardware this course cannot test, or on an internal repository — this site
+hardware this site cannot test, or on an internal repository — this site
 does one of two things rather than inventing an answer:
 
 1. Marks the statement with the {{ unverified }} badge.
@@ -127,5 +163,5 @@ a newer distribution's documentation.
 
 - [ROS 2 Humble documentation](https://docs.ros.org/en/humble/)
 - [ROS 2 distributions](https://docs.ros.org/en/rolling/Releases.html) — the
-  release schedule and support windows, for context on why this course
+  release schedule and support windows, for context on why this site
   chose Humble

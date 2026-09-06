@@ -18,7 +18,7 @@ what is specific to each of the eight evenings.
   - One per group — group size is not yet fixed, see
     [`DECISIONS_NEEDED.md`](https://github.com/MoritzSchallenberg/Learning-Robotics-Crash-Course/blob/main/DECISIONS_NEEDED.md)
     item 6 — with [prerequisites](../prerequisites/index.md) already
-    installed and `scripts/course-preflight.sh` passing with no `FAIL`.
+    installed and `scripts/tutorial-preflight.sh` passing with no `FAIL`.
 * - Robot(s) or simulation-capable machines
   - See [`DECISIONS_NEEDED.md`](https://github.com/MoritzSchallenberg/Learning-Robotics-Crash-Course/blob/main/DECISIONS_NEEDED.md)
     item 5 — real availability is an open organisational question this site

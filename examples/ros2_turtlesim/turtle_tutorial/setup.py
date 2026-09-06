@@ -1,6 +1,6 @@
 from setuptools import find_packages, setup
 
-package_name = 'turtle_course'
+package_name = 'turtle_tutorial'
 
 setup(
     name=package_name,
@@ -13,16 +13,16 @@ setup(
     ],
     install_requires=['setuptools'],
     zip_safe=True,
-    maintainer='Learning Robotics Crash Course',
+    maintainer='ALeRT Advanced Robotics Tutorial',
     maintainer_email='noreply@example.invalid',
     description=(
-        'Module 2 example package: a turtlesim controller that drives '
+        'ROS 2 example package: a turtlesim controller that drives '
         'a geometric figure without keyboard input.'
     ),
     license='Apache-2.0',
     entry_points={
         'console_scripts': [
-            'turtle_controller = turtle_course.turtle_controller:main',
+            'turtle_controller = turtle_tutorial.turtle_controller:main',
         ],
     },
 )

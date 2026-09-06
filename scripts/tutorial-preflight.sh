@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# course-preflight.sh -- read-only readiness check for the ALeRT Advanced
+# tutorial-preflight.sh -- read-only readiness check for the ALeRT Advanced
 # Robotics Tutorial.
 #
 # Run this before starting a topic that needs it, not partway through. It
@@ -8,7 +8,7 @@
 # deletes a file, reads a credential, or contacts a private network target.
 #
 # Usage:
-#   bash scripts/course-preflight.sh
+#   bash scripts/tutorial-preflight.sh
 #
 # Exit code is 0 if there is no FAIL, 1 if there is at least one FAIL.
 # WARNING never affects the exit code -- it is worth reading, not blocking.
