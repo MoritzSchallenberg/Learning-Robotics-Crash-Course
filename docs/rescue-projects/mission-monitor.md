@@ -1,6 +1,6 @@
 # Mission monitoring and recovery
 
-{{ common }} {{ core }}
+{{ foundation }}
 
 ## What this topic is
 
@@ -20,7 +20,7 @@ status the whole time, independent of the mission logic itself.
 Record a rosbag of your attempt, containing at minimum `/tf`, `/tf_static`,
 `/scan` (or your platform's equivalent range sensor), `/cmd_vel` and
 `/mission_status`, following the practice from
-[module 8](../08-integration/system-bringup-and-diagnostics.md). This is
+[Integration, Diagnostics and Testing](../integration-testing/system-bringup-and-diagnostics.md). This is
 what lets you check the
 {ref}`self-assessment checklist <self-assessment-checklist>` against
 evidence rather than memory, and lets you replay a failed attempt to see
@@ -91,7 +91,7 @@ Publish `mission_status` with the values `succeeded`, `failed_safe` or
 `aborted` — never leave it unset. Both this node and you, reading the log
 afterwards, need exactly one clear signal for how an attempt ended, which
 is the same discipline the state machine in
-[module 7](../07-autonomous-decisions.md) already asks of every state.
+[Autonomous Decision-Making](../decision-making/index.md) already asks of every state.
 :::
 
 ## Handling an unexpected stop
@@ -103,11 +103,11 @@ hope. Work through it like any other fault:
 1. Check the last few log lines and the last `mission_status` value before
    the stop; often the mission logic already told you what it was doing.
 2. Run the [eight-step diagnostic
-   procedure](../08-integration/system-bringup-and-diagnostics.md) before
+   procedure](../integration-testing/system-bringup-and-diagnostics.md) before
    touching anything.
 3. If a physical E-stop was pressed, the platform typically needs an
    explicit re-enable step before it will move again — check your
-   [platform page](../../platforms/index.md) for the exact procedure.
+   [platform page](../platforms/index.md) for the exact procedure.
 4. Once you understand what happened, restart from a clean, known state
    rather than from wherever the system was left.
 

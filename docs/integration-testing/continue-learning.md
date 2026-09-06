@@ -34,7 +34,7 @@ transitions, not a scrolling wall of routine detail; running with
 :icon: light-bulb
 
 **What it is.** `ros2 topic hz`
-({ref}`this module's own eight-step procedure <the-eight-step-diagnostic-procedure>`,
+({ref}`this topic's own eight-step procedure <the-eight-step-diagnostic-procedure>`,
 step 2) measures publish rate; `ros2 topic delay` measures the gap between
 a message's timestamp and when it was received — two different, both
 useful, numbers.
@@ -44,7 +44,7 @@ growing delay (a node falling behind under load); rate alone would miss
 that.
 
 **Needs.**
-{ref}`This module's eight-step procedure <the-eight-step-diagnostic-procedure>`.
+{ref}`This topic's eight-step procedure <the-eight-step-diagnostic-procedure>`.
 
 **Try it.** Run `ros2 topic hz /scan` and `ros2 topic delay /scan`
 side by side while the system is under normal load, then again while
@@ -55,7 +55,7 @@ and compare both numbers.
 with actual numbers from both runs.
 
 **Read more.** [ROS 2 cheat sheet: diagnostic
-sequence](../../reference/ros2-cheatsheet.md#diagnostic-sequence)
+sequence](../reference/ros2-cheatsheet.md#diagnostic-sequence)
 :::
 
 ## Intermediate projects
@@ -70,7 +70,7 @@ publish structured `OK`/`WARN`/`ERROR` status per subsystem on
 answer "which part of the system is unhappy" without grepping logs.
 
 **Why it matters.**
-{ref}`This module's eight-step diagnostic procedure <the-eight-step-diagnostic-procedure>`
+{ref}`This topic's eight-step diagnostic procedure <the-eight-step-diagnostic-procedure>`
 is something *you* run by hand; `diagnostic_updater` is the same idea
 running continuously and automatically, the natural next step once a
 system has enough subsystems that manual checking does not scale.
@@ -145,10 +145,10 @@ problem differently, worth comparing against Ansible's approach.
 :::{dropdown} Continuous Integration for a ROS 2 package — Advanced
 :icon: light-bulb
 
-**What it is.** Running {ref}`module 2's automated tests
+**What it is.** Running {ref}`ROS 2's automated tests
 <automated-tests-for-ros-2-packages>` automatically on every push, in a
 clean environment, via GitHub Actions or similar — the same principle this
-course's own website uses for its own build
+site's own repository uses for its own build
 ([README](https://github.com/MoritzSchallenberg/Learning-Robotics-Crash-Course)),
 applied to a ROS 2 package instead of a Sphinx site.
 
@@ -156,7 +156,7 @@ applied to a ROS 2 package instead of a Sphinx site.
 locally gets skipped under time pressure — exactly when a regression is
 most likely to slip through unnoticed.
 
-**Needs.** {ref}`Module 2's automated tests
+**Needs.** {ref}`ROS 2's automated tests
 <automated-tests-for-ros-2-packages>` working locally first.
 
 **Try it.** {{ unverified }} — write a minimal GitHub Actions workflow that
@@ -164,7 +164,7 @@ checks out your package, installs ROS 2 Humble (or runs inside an
 `osrf/ros:humble-desktop` container image), and runs `colcon test`.
 
 **Check.** The workflow shows green on a passing commit and red on a
-commit that deliberately breaks your test from module 2.
+commit that deliberately breaks your test from ROS 2.
 
 **Read more.** [ros-tooling/action-ros-ci](https://github.com/ros-tooling/action-ros-ci)
 — a maintained GitHub Action for exactly this.
@@ -204,13 +204,13 @@ approach
 
 **What it is.** SROS2 adds authentication, encryption and access control to
 ROS 2's DDS communication — by default, anything on the same
-[`ROS_DOMAIN_ID`](../../prerequisites/networking.md) can publish, subscribe
+[`ROS_DOMAIN_ID`](../getting-started/networking.md) can publish, subscribe
 and call services on anything else, with no authentication at all.
 
 **Why it matters.** A robot that only ever runs on an isolated lab network
 may reasonably accept that default; one reachable from a shared or
 less-trusted network should not — the same reasoning as
-[the networking prerequisite's](../../prerequisites/networking.md) domain-ID
+[the networking prerequisite's](../getting-started/networking.md) domain-ID
 isolation advice, taken further.
 
 **Needs.** A working multi-node system and comfort with the ROS 2 CLI.

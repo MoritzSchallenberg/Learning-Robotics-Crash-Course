@@ -19,7 +19,7 @@ integrate any of them.
 topic name or message type two subsystems disagree on) on paper, before
 they cost an integration session.
 
-**Needs.** Modules 1–8 completed.
+**Needs.** Every earlier topic completed.
 
 **Try it.** Draw a box for each subsystem in your mission plan, and label
 every arrow between them with the actual topic/service/action name and
@@ -36,7 +36,7 @@ documentation to link.
 :icon: light-bulb
 
 **What it is.** Deciding the order subsystems come online in
-([module 8's](../08-integration/system-bringup-and-diagnostics.md) startup
+([Integration, Diagnostics and Testing's](../integration-testing/system-bringup-and-diagnostics.md) startup
 order, applied to your mission specifically), and a **test matrix** —
 which subsystem combinations you have actually tested together, and which
 you have only tested alone.
@@ -56,8 +56,8 @@ actually integrate, not in advance.
 to the diagonal (each subsystem paired with the one it directly talks to)
 is marked tested.
 
-**Read more.** [Module 8: startup
-order](../08-integration/system-bringup-and-diagnostics.md)
+**Read more.** [Integration, Diagnostics and Testing: startup
+order](../integration-testing/system-bringup-and-diagnostics.md)
 :::
 
 :::{dropdown} Repeatability across multiple mission runs — Next step
@@ -66,7 +66,7 @@ order](../08-integration/system-bringup-and-diagnostics.md)
 **What it is.** Running the full mission several times in a row from a
 clean, cold state, and recording success/failure for each — rather than
 treating one successful run as proof the mission works, the same
-distinction [module 6's](../06-navigation/continue-learning.md) navigation
+distinction [Navigation and Exploration's](../navigation-exploration/continue-learning.md) navigation
 metrics topic makes for a single navigation goal.
 
 **Why it matters.** The self-assessment checklist's first item — "the
@@ -81,8 +81,8 @@ between each, and record a simple pass/fail for each attempt.
 **Check.** You can report an actual count (e.g. "4/5") instead of a single
 anecdote, and — for any failure — which checklist item it failed on.
 
-**Read more.** [Module 6: systematic tuning and navigation
-metrics](../06-navigation/continue-learning.md)
+**Read more.** [Navigation and Exploration: systematic tuning and navigation
+metrics](../navigation-exploration/continue-learning.md)
 :::
 
 :::{dropdown} A short technical retrospective — Next step
@@ -118,7 +118,7 @@ link.
 **What it is.** Turning each self-assessment checklist item above into a
 number where possible — not just "the target area is reached" but "reached
 within N seconds, within M centimetres of the marked target" — the same
-discipline as [module 6's](../06-navigation/continue-learning.md) navigation
+discipline as [Navigation and Exploration's](../navigation-exploration/continue-learning.md) navigation
 metrics, applied to the whole mission.
 
 **Why it matters.** A binary pass/fail can hide a mission that barely
@@ -135,8 +135,8 @@ next attempt.
 **Check.** You have two concrete numbers, not just two checkmarks, from a
 real run.
 
-**Read more.** [Module 6: systematic tuning and navigation
-metrics](../06-navigation/continue-learning.md)
+**Read more.** [Navigation and Exploration: systematic tuning and navigation
+metrics](../navigation-exploration/continue-learning.md)
 :::
 
 :::{dropdown} Failure modes and a logging strategy — Intermediate
@@ -148,12 +148,12 @@ drop) and deciding, for each, what should be logged at the moment it
 happens — rather than discovering after a failed run that the one piece of
 information you needed was never recorded.
 
-**Why it matters.** [Module 8's](../08-integration/continue-learning.md)
+**Why it matters.** [Integration, Diagnostics and Testing's](../integration-testing/continue-learning.md)
 logging-levels topic covers *how* to log; this is deciding *what* is worth
 logging, specific to your mission's actual failure modes.
 
-**Needs.** [Module 8's logging
-levels](../08-integration/continue-learning.md) and your subsystem
+**Needs.** [Integration, Diagnostics and Testing's logging
+levels](../integration-testing/continue-learning.md) and your subsystem
 decomposition above.
 
 **Try it.** For each failure mode you listed, write the exact log line
@@ -163,15 +163,15 @@ it later from a log alone, without having watched the run live.
 **Check.** Deliberately trigger one listed failure mode and confirm the
 log actually contains the line you designed for it.
 
-**Read more.** [Module 8: logging
-levels](../08-integration/continue-learning.md)
+**Read more.** [Integration, Diagnostics and Testing: logging
+levels](../integration-testing/continue-learning.md)
 :::
 
 :::{dropdown} A fault-injection test for the whole mission — Intermediate
 :icon: light-bulb
 
 **What it is.** Applying
-[module 8's](../08-integration/system-bringup-and-diagnostics.md)
+[Integration, Diagnostics and Testing's](../integration-testing/system-bringup-and-diagnostics.md)
 fault-injection table to the **whole mission** rather than one subsystem —
 deliberately breaking one thing (a renamed topic, a missing static
 transform) and confirming the mission fails safely rather than hanging or
@@ -182,17 +182,17 @@ checklist's "if something fails, the mission ends in a defined, safe
 state" item, under a condition you actually chose and can reproduce, not
 just when something happens to break on its own.
 
-**Needs.** [Module 8's fault
-table](../08-integration/system-bringup-and-diagnostics.md) and a working
+**Needs.** [Integration, Diagnostics and Testing's fault
+table](../integration-testing/system-bringup-and-diagnostics.md) and a working
 mission attempt.
 
-**Try it.** Pick one fault from module 8's table, apply it to a copy of
+**Try it.** Pick one fault from Integration, Diagnostics and Testing's table, apply it to a copy of
 your mission's launch configuration, and run the mission end to end.
 
 **Check.** `/mission_status` reports a defined failure value (never
 silence, never a hang) within a reasonable time of the fault taking
 effect.
 
-**Read more.** [Module 8: the guided
-example's fault table](../08-integration/system-bringup-and-diagnostics.md)
+**Read more.** [Integration, Diagnostics and Testing: the guided
+example's fault table](../integration-testing/system-bringup-and-diagnostics.md)
 :::

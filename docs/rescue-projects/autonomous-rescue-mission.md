@@ -1,6 +1,6 @@
-# The mission and self-assessment
+# Autonomous Rescue Mission
 
-{{ common }} {{ core }}
+{{ foundation }}
 
 ## What this topic is
 
@@ -10,7 +10,7 @@ attempt against — rather than a points-based score.
 
 ## Why a robot needs it
 
-Every earlier module exercised one subsystem in isolation. A real mission
+Every earlier topic exercised one subsystem in isolation. A real mission
 needs all of them cooperating, unattended, with no manual driving during
 the attempt, and a defined way to tell afterwards whether it actually
 worked.
@@ -34,7 +34,7 @@ The same seven-step mission applies regardless of platform:
 7. **Fail safely** — if something goes wrong, reach a safe, stopped state
    rather than continuing blindly.
 
-(optional-extensions-capstone)=
+(optional-extensions-rescue-mission)=
 ### Optional extensions
 
 - pick up and transport the recognised object;
@@ -71,17 +71,17 @@ and logs, not just from memory:
       than hanging or continuing blindly.
 
 A run that satisfies every item above is a complete demonstration of this
-course's learning objectives, independent of platform, of whether any
+mission's learning objectives, independent of platform, of whether any
 optional extension was attempted, and of how the run compares to anyone
 else's.
 
 ## Inputs and outputs
 
-The mission draws on every subsystem built in modules 2–7: localization
-([module 5](../05-mapping-localization.md)), navigation
-([module 6](../06-navigation.md)), perception
-([module 4](../04-perception/index.md)) and mission logic
-([module 7](../07-autonomous-decisions.md)). Its own output is a rosbag and
+The mission draws on every subsystem built in the earlier topics: localization
+([Mapping and World Models](../mapping-world-models/index.md)), navigation
+([Navigation and Exploration](../navigation-exploration/index.md)), perception
+([Perception](../perception/index.md)) and mission logic
+([Autonomous Decision-Making](../decision-making/index.md)). Its own output is a rosbag and
 a log — see [Mission monitoring and
 recovery](mission-monitor.md#required-logs).
 
@@ -100,7 +100,7 @@ without having to reproduce it live.
   surroundings, stop it immediately. A stopped run is always the right
   call over letting something get hurt or broken. The physical E-stop
   cuts motor power independently of whatever the software is doing — see
-  your [platform page](../../platforms/index.md) for its exact location
+  your [platform page](../platforms/index.md) for its exact location
   and behaviour.
 - Confirm the area is clear of people and fragile objects before starting
   a run, and check the robot's actual footprint against the space

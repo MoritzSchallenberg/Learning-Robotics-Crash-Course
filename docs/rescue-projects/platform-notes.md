@@ -1,11 +1,11 @@
 # Platform notes
 
-{{ common }} {{ core }}
+{{ foundation }}
 
 ## What this topic is
 
 The same seven-step mission from [The mission and
-self-assessment](mission-and-checklist.md), with the specific advantages
+self-assessment](autonomous-rescue-mission.md), with the specific advantages
 and considerations each platform track brings to it.
 
 ## Why a robot needs it
@@ -17,7 +17,7 @@ all change what "reliable" actually takes to achieve.
 
 ## How it works
 
-```{figure} ../../_static/images/diagrams/10-hackathon-arena-schematic.svg
+```{figure} ../_static/images/diagrams/rescue-mission-arena-schematic.svg
 :alt: A top-down schematic floor plan. A Start Zone sits bottom left. A dashed example route winds past two labelled obstacles and an unmapped-on-the-day area to a Target Zone top right containing a marker. An optional Drop Zone sits near the start for the transport extension.
 :width: 100%
 
@@ -36,7 +36,7 @@ it exercises every step of the mission above.
 
 {{ simulation }}
 
-Run the full mission in [Webots](../../platforms/simulation.md). The mission
+Run the full mission in [Webots](../simulation/index.md). The mission
 and the self-assessment checklist are identical; a crashed simulation can
 simply be restarted from a clean state, which is one of simulation's
 genuine advantages for practicing this project repeatedly.
@@ -46,7 +46,7 @@ genuine advantages for practicing this project repeatedly.
 {{ alert }}
 
 Legged locomotion is the advantage on any non-flat terrain (see the
-[platform page](../../platforms/alert-spot.md)). Manipulation attempts should
+[platform page](../platforms/spot/index.md)). Manipulation attempts should
 budget extra iteration time — MoveIt planning failures are a normal part of
 a first attempt, not a sign something is broken.
 

@@ -1,6 +1,6 @@
 # Interesting videos
 
-{{ optional }}
+{{ intermediate }}
 
 ## Start here
 
@@ -17,9 +17,9 @@ autonomous navigation mission end to end under ROS 2 — bring-up, sensing,
 and moving through an environment on its own.
 
 *Why watch it*: a short, concrete "this is what the finished thing looks
-like" reference for {ref}`the capstone's own mission <the-mission>` —
+like" reference for {ref}`the Autonomous Rescue Mission's own mission <the-mission>` —
 start correctly, localize, reach a target, avoid an obstacle — on real
-hardware rather than only in this course's own text description.
+hardware rather than only in this site's own text description.
 
 *Compatibility*: conceptual — a product demonstration, not a
 command-by-command tutorial.
@@ -44,7 +44,7 @@ list stays short rather than padded with unchecked links.
 
 {{ alert }} No ALeRT-specific mission-demo video has been independently
 verified yet. See [Platform notes](platform-notes.md) and the [platform
-page](../../platforms/alert-spot.md) for written detail instead.
+page](../platforms/spot/index.md) for written detail instead.
 
 ## Next subtopic
 

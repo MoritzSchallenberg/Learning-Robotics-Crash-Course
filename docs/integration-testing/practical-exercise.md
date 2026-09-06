@@ -1,6 +1,6 @@
 # Practical exercise
 
-{{ common }} {{ core }}
+{{ foundation }}
 
 ## Goal
 
@@ -9,7 +9,7 @@ it, then run a complete mini-mission end to end.
 
 ## Starting point
 
-A working `robot_bringup` launch file from your previous modules, and one
+A working `robot_bringup` launch file from your previous topics, and one
 fault from
 [System bring-up and diagnostics' Try it
 yourself](system-bringup-and-diagnostics.md#try-it-yourself) table — pick
@@ -29,7 +29,7 @@ without telling you which.
 6. Record a bag of the fixed system:
    `ros2 bag record -o mini_mission /scan /odom /tf /tf_static /cmd_vel`
 7. Run the full mini-mission from
-   [module 7](../07-autonomous-decisions.md): navigate, detect, report,
+   [Autonomous Decision-Making](../decision-making/index.md): navigate, detect, report,
    return — while the bag records.
 
 ## Expected result
@@ -65,7 +65,7 @@ Lists all five topics with sensible message counts, and
 
 ## Optional extensions
 
-{{ optional }}
+{{ intermediate }}
 
 Ask someone else to apply one of the table's faults to a copy of your
 launch file without telling you which, then time yourself finding it — a
@@ -79,7 +79,7 @@ the same sitting.
 
 {{ alert }} {{ spotsim }}
 
-Run this module's eight-step diagnostic procedure against the full Webots
+Run this topic's eight-step diagnostic procedure against the full Webots
 Spot stack instead of a small `robot_bringup` launch file — a genuinely
 bigger system is exactly where a systematic procedure earns its keep over
 guessing:
@@ -89,7 +89,7 @@ guessing:
    {ref}`System bring-up and diagnostics' startup order <startup-order>`
    describes (drivers and TF first, localization next, navigation last).
 2. Confirm node, topic and TF state with the same commands as this
-   module's practical task (`ros2 node list`, `ros2 topic hz` on at least
+   topic's practical task (`ros2 node list`, `ros2 topic hz` on at least
    the LiDAR and odometry topics, `ros2 run tf2_tools view_frames`).
 3. Record a rosbag of the whole system running normally for about a
    minute: `ros2 bag record /scan /Spot/odometry /tf /tf_static -o
@@ -102,7 +102,7 @@ guessing:
 6. Fix it, confirm the symptom is gone, and record a second, fixed-state
    rosbag.
 
-**Verification**: identical to this module's own — the fault is found and
+**Verification**: identical to this topic's own — the fault is found and
 named by diagnostic step number, and both rosbags (baseline and
 post-fault, or fixed) exist and replay correctly.
 

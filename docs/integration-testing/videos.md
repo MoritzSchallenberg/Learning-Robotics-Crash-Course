@@ -1,6 +1,6 @@
 # Interesting videos
 
-{{ optional }}
+{{ intermediate }}
 
 ## Start here
 
@@ -18,7 +18,7 @@ Covers: recording and replaying a rosbag, step by step — the same
 and [the practical exercise](practical-exercise.md) use throughout.
 
 *Why watch it*: a second, independently-explained pass through exactly
-this module's rosbag workflow, useful if recording `/tf` and
+this topic's rosbag workflow, useful if recording `/tf` and
 `/tf_static` alongside your data still feels like an arbitrary rule
 rather than something you understand.
 
@@ -38,13 +38,13 @@ README](https://github.com/MoritzSchallenberg/Learning-Robotics-Crash-Course).
 ## Practical demonstrations
 
 No additional practical-demonstration video has been independently
-verified for this module yet — see this page's closing note on why the
+verified for this topic yet — see this page's closing note on why the
 list stays short rather than padded with unchecked links.
 
 ## ALeRT
 
 {{ alert }} No ALeRT-specific integration/diagnostics video has been
-independently verified yet. See this module's [Try it on
+independently verified yet. See this topic's [Try it on
 Spot](practical-exercise.md#try-it-on-spot) for Spot-specific written
 detail instead.
 

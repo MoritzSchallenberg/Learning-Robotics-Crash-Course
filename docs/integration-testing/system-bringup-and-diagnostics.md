@@ -1,6 +1,6 @@
 # System bring-up and diagnostics
 
-{{ common }} {{ core }}
+{{ foundation }}
 
 ## What this topic is
 
@@ -12,12 +12,13 @@ to be replayable later.
 
 ## Why a robot needs it
 
-Seven modules of pieces do not become one working robot by themselves —
+Every earlier topic's pieces do not become one working robot by themselves —
 something has to start them all, in an order that actually works, and
 when something breaks, guessing at random wastes far more time than
 working down a fixed checklist. This is the skill that decides how the
-[capstone project](../hackathon.md) goes: finding out what is broken,
-fast.
+[Autonomous Rescue
+Mission](../rescue-projects/autonomous-rescue-mission.md) goes: finding
+out what is broken, fast.
 
 ## How it works
 
@@ -26,7 +27,7 @@ fast.
 
 Each layer needs the one above it already running:
 
-```{figure} ../../_static/images/diagrams/09-integration-test-flow.svg
+```{figure} ../_static/images/diagrams/integration-test-flow.svg
 :alt: Left, the bring-up order: Drivers and TF, then Localization, then Navigation, then Mission control, each depending on the layer above. Right, a five-question debugging flow chart: is the node running, is the topic publishing, do names and QoS match, is the TF tree complete, are lifecycle nodes activated, ending at problem located.
 :width: 100%
 
@@ -57,8 +58,8 @@ Values that change between robots or runs belong in config files, not
 code — velocity limits, frame names, map paths — and launch arguments for
 what changes per run: `ros2 launch robot_bringup robot.launch.yaml
 use_sim_time:=true`. One source of truth, in version control, is the same
-principle [module 1's](../01-system-hardware.md) and
-[module 5's](../05-mapping-localization.md) own version-control advice
+principle [Hardware Design's](../platforms/hardware-design/index.md) and
+[Mapping and World Models's](../mapping-world-models/index.md) own version-control advice
 already applies to hardware designs and maps.
 
 (the-eight-step-diagnostic-procedure)=
@@ -78,7 +79,7 @@ ros2 run rqt_graph rqt_graph            # 7. look at the whole graph
 # 8. read the data itself (rqt, rviz)
 ```
 
-Full version: [ROS 2 cheat sheet](../../reference/ros2-cheatsheet.md#diagnostic-sequence).
+Full version: [ROS 2 cheat sheet](../reference/ros2-cheatsheet.md#diagnostic-sequence).
 
 (rosbags-briefly)=
 ### rosbags, briefly
@@ -98,7 +99,7 @@ replay can be placed in space — the single most common thing people forget.
 ## Try it yourself
 
 Practice the diagnostic procedure on a fault you introduce yourself, using
-your own working `robot_bringup` launch file from previous modules. Make a
+your own working `robot_bringup` launch file from previous topics. Make a
 copy of it first, then apply exactly **one** of these changes:
 
 ```{list-table}
@@ -134,7 +135,7 @@ know the answer in advance.
 
 ## How ALeRT applies it
 
-{{ alert }} {{ simulation }} See this module's [Try it on
+{{ alert }} {{ simulation }} See this topic's [Try it on
 Spot](practical-exercise.md#try-it-on-spot) for running the same
 diagnostic procedure against the full Webots Spot stack.
 
