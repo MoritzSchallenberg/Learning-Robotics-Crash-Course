@@ -1,88 +1,151 @@
-# Platform tracks
+# ALeRT Platforms and Safety
 
-The [topic pages](../course/index.md) explain the shared fundamentals once.
-These pages carry only what is specific to one system: the launch commands, the
-topic names, the hardware quirks.
+## What belongs to this topic
 
-If a general concept is explained elsewhere on this site, these pages link to
-it rather than repeating it. That is deliberate — one explanation, kept
-correct in one place.
+The physical and simulated systems ALeRT actually builds and runs, and
+the safety rules that apply to them: the Spot platform itself, the
+electrical and mechanical design tools (KiCad, Fusion) used to build
+hardware for it, and the safe start/stop and E-stop procedures that apply
+whenever real hardware is involved.
 
-## Pick your track
+## What it does in the overall system
+
+Every other topic on this site (ROS 2, sensors, perception, mapping,
+navigation, manipulation, decision-making) is *general* — it applies to
+any ROS 2 robot. This category is where that general knowledge meets
+ALeRT's actual, specific systems: exact topic names, exact launch files,
+exact hardware, and the safety rules for the one platform this site
+documents.
+
+## Where ALeRT uses this
+
+{{ alert }} Every subpage in this category is ALeRT-specific by
+definition — there is no other team's platform documented on this site.
+
+## Platforms
 
 ::::{grid} 1 1 2 2
 :gutter: 3
 
-:::{grid-item-card} Simulation
-:link: simulation
+:::{grid-item-card} ALeRT / Spot
+:link: spot/index
 :link-type: doc
 
-No robot required. Webots, the ALeRT Spot simulation, reproducible tasks. The
-right choice if you are learning, or if the hardware is booked.
+{{ documented }} Boston Dynamics Spot, RoboCup Rescue League. Legged
+locomotion, 3D LiDAR, a manipulator arm. The team's primary platform.
 :::
 
-:::{grid-item-card} ALeRT / Spot
-:link: alert-spot
+:::{grid-item-card} Hardware Design with KiCad and Fusion
+:link: hardware-design/index
 :link-type: doc
 
-Boston Dynamics Spot in the RoboCup Rescue League. Legged locomotion, 3D
-mapping, manipulation.
+{{ foundation }} Electrical schematics in KiCad, parametric mechanical
+parts in Fusion — the tools used to design physical hardware, independent
+of any one robot.
 :::
 
 ::::
 
-## The tracks at a glance
+For the simulation-only path (no physical hardware needed to work
+through this site), see [Simulation](../simulation/index.md), a separate
+top-level topic.
+
+## Available tutorials
+
+- [ALeRT / Spot](spot/index.md) — the platform reference: hardware,
+  launch commands, RViz setup, services and actions, mapping and
+  navigation, 3D mapping, manipulation with MoveIt, object detection,
+  high-level control, and operating the physical robot.
+- [Hardware Design with KiCad and Fusion](hardware-design/index.md) — a
+  KiCad electrical-schematic tutorial and an Autodesk Fusion
+  parametric-CAD tutorial, each with a practical task.
+
+## Content already present
+
+Both subpages above are complete, existing tutorials — this category was
+assembled from already-migrated content, not written fresh.
+
+## Planned content
+
+- A **system architecture** overview tying the Spot platform's compute,
+  sensors and actuators together in one diagram (currently, this
+  information lives distributed across the Spot platform page's
+  individual sections).
+- Further verified platforms, if and when ALeRT documents one (see
+  [`webots_ros2_go2`](https://github.com/RRL-ALeRT/webots_ros2_go2),
+  whose Unitree Go2 support is explicitly marked "(Todo)" in its own
+  README — not a verified platform yet).
+
+## Required knowledge
+
+[ROS 2](../ros2/index.md) fundamentals (nodes, topics, services, actions)
+before the Spot-specific launch files and topic names on the platform
+page make sense.
+
+## Related ALeRT repositories
+
+See each subpage's own repository list — [ALeRT /
+Spot](spot/index.md#further-reading) and the audit in
+[Robot Manipulation](../manipulation/index.md#related-alert-repositories)
+for the manipulator specifically.
+
+## Verification status
+
+{{ simulation }} The Webots Spot simulation is confirmed working and is
+the primary way this site's exercises are actually run.
+{{ hardwareverified }} is claimed only where the platform page explicitly
+says so; supervised-only real-hardware exercises are marked
+accordingly — see [Safety levels](#safety-levels) below.
+
+(safety-levels)=
+## Safety levels
+
+Every hands-on exercise involving the physical Spot carries exactly one
+of three safety-level badges, defined once here and used throughout this
+site:
 
 ```{list-table}
 :header-rows: 1
-:widths: 30 35 35
+:widths: 30 70
 
-* -
-  - Simulation
-  - ALeRT / Spot
-* - Hardware needed
-  - None
-  - Spot
-* - Robot type
-  - Varies
-  - Quadruped
-* - Ubuntu / ROS 2
-  - 22.04 / Humble
-  - 22.04 / Humble
-* - Simulator
-  - Webots
-  - Webots
-* - Main range sensor
-  - Varies
-  - 3D LiDAR
-* - Manipulation
-  - Optional
-  - Arm with gripper
-* - Competition
-  - —
-  - RoboCup Rescue League
+* - Badge
+  - Meaning
+* - {{ spotsim }}
+  - Simulation only — no physical robot involved.
+* - {{ spotreadonly }}
+  - May be performed on the physical robot, but only by observing or
+    reading state — no commands that move it.
+* - {{ spotsupervised }}
+  - May be performed on the physical robot, but only with a trained team
+    member present, able to reach the E-stop.
 ```
 
-Both tracks run the same [supported environment](../reference/compatibility.md)
-— Ubuntu 22.04 LTS and ROS 2 Humble, unless a specific ALeRT repository is
-documented to need something else — so commands are portable between them
-wherever the underlying hardware is. Only the hardware-specific details
-(sensors, manipulation) actually differ.
+See [ALeRT / Spot: operating the physical
+robot](spot/index.md#operating-the-physical-robot) for the concrete
+start/stop sequence and E-stop locations these levels assume.
 
-## Can I follow this without hardware?
+## Common limitations
 
-Yes, in simulation — that is what the [simulation track](simulation.md) is
-for. Most topics on this site can be worked through without touching a
-physical robot.
+- **This site documents one platform.** Claims here do not generalise to
+  any other robot; general ROS 2 concepts are covered separately under
+  their own topics, precisely so they do not need repeating per platform.
+- **Real-hardware verification is the exception, not the default.** Most
+  claims here are {{ simulation }} or {{ documented }}, not
+  {{ hardwareverified }} — check the specific claim's badge before
+  assuming it was checked on the physical robot.
 
-If you plan to work with the physical Spot, follow the ALeRT/Spot track from
-the start: you get used to its topic names, its tooling and its conventions,
-which makes the transition to real hardware much shorter.
+## Continue learning
+
+See each subpage's own Continue learning section.
+
+## Interesting videos
+
+See each subpage's own video page where one exists.
 
 ```{toctree}
 :hidden:
 :maxdepth: 1
 
-simulation
-alert-spot
+spot/index
+hardware-design/index
 ```

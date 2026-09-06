@@ -1,6 +1,6 @@
 # Practical exercise
 
-{{ common }} {{ core }}
+{{ foundation }}
 
 ## Goal
 
@@ -10,10 +10,10 @@ that visibly recovers instead of hanging when the marker is not found.
 ## Starting point
 
 A new package (call it `mission_demo`, or reuse an existing one from
-earlier modules) into which you copy two pieces of code you already have
+earlier topics) into which you copy two pieces of code you already have
 working: the navigation action client from
-[module 6](../06-navigation/nav2-architecture-and-costmaps.md#inputs-and-outputs),
-and the marker-detection pattern from [module 4](../04-perception/index.md).
+[Navigation and Exploration](../navigation-exploration/nav2-architecture-and-costmaps.md#inputs-and-outputs),
+and the marker-detection pattern from [Perception](../perception/index.md).
 Wrap each as a small helper class or function your state machine can call
 — you are writing the state machine itself in this task, not the
 underlying clients, so reuse rather than rewrite them.
@@ -66,14 +66,14 @@ distinct outcomes, never silence.
 
 ## Optional extensions
 
-{{ optional }}
+{{ intermediate }}
 
 Add a fourth state that retries `SEARCH` once, from a slightly different
 position, before giving up — the smallest possible recovery behaviour.
 
 {{ simulation }} Failing "on purpose" is easier in simulation — remove the
 marker from the scene, or block the path with a dragged object, exactly as
-in [module 6](../06-navigation/practical-exercise.md#optional-extensions).
+in [Navigation and Exploration](../navigation-exploration/practical-exercise.md#optional-extensions).
 
 **Sketch the same mission as a behavior tree.** On paper, redraw your
 practical task's `IDLE → NAVIGATE → SEARCH → RETURN → DONE` state machine
@@ -107,17 +107,17 @@ stand → navigate → detect → return → sit
 
 - `stand`: call `/Spot/stand_up`, wait for the response.
 - `navigate`: reuse
-  [module 6's](../06-navigation/nav2-architecture-and-costmaps.md#inputs-and-outputs)
+  [Navigation and Exploration's](../navigation-exploration/nav2-architecture-and-costmaps.md#inputs-and-outputs)
   action client to send a `NavigateToPose` goal.
-- `detect`: reuse [module 4's](../04-perception/index.md) marker detection,
+- `detect`: reuse [Perception's](../perception/index.md) marker detection,
   with a timeout — no marker found in N seconds is a **named** failure
   exit, not a hang.
 - `return`: navigate back to the start pose.
 - `sit`: call `/Spot/sit_down`.
 
 Log every state transition (state, timestamp, why) — the same discipline
-this exercise and the [capstone
-project's](../hackathon/continue-learning.md) failure-mode planning both
+this exercise and the [Autonomous Rescue
+Mission's](../rescue-projects/continue-learning.md) failure-mode planning both
 depend on. Add at least one explicit timeout and one explicit failure
 transition, not only the happy path.
 
@@ -125,7 +125,7 @@ transition, not only the happy path.
 :class: task
 
 {{ advanced }} Add a sixth state that plans a MoveIt trajectory for
-Spot's arm ([platform page](../../platforms/alert-spot.md#manipulation-with-moveit))
+Spot's arm ([platform page](../platforms/spot/index.md#manipulation-with-moveit))
 once `detect` succeeds — with its own timeout, since "planning failed" is
 a normal MoveIt outcome, not a crash (see
 {ref}`Continue learning's Planning scene dropdown <planning-scene-and-collision-objects>`).
@@ -139,7 +139,7 @@ attempt. Simulate the entire sequence in Webots until every state and
 every failure exit has actually been exercised, before ever considering
 it on real hardware, and then only with a trained team member present who
 can reach the E-stop. See the [platform page's operating
-sequence](../../platforms/alert-spot.md#operating-the-physical-robot).
+sequence](../platforms/spot/index.md#operating-the-physical-robot).
 :::
 
 ## Next subtopic

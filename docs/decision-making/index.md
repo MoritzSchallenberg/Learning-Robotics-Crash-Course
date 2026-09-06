@@ -1,12 +1,10 @@
-# 7. Autonomous Decisions and Manipulation
+# Autonomous Decision-Making
 
-{{ common }}
-
-## Module overview
+## Overview
 
 You can navigate, perceive and localize. What is missing is the thing that
 decides *what to do next* — and what to do when a step fails. This
-module's core is that decision layer, not any one tool for building it.
+topic's core is that decision layer, not any one tool for building it.
 
 **The problem it solves**: chaining calls together
 (`drive(); detect(); grasp(); deliver()`) has no answer to "what if
@@ -14,32 +12,32 @@ module's core is that decision layer, not any one tool for building it.
 answer for every step that can fail.
 
 **Where it sits in the system**: directly after
-[module 6's](06-navigation.md) navigation action — this module treats
+[Navigation and Exploration's](../navigation-exploration/index.md) navigation action — this topic treats
 `NavigateToPose` as one action among several that a state machine or
 behavior tree can call, retry, or replace on failure — and directly
-underneath [module 8's](08-integration.md) system-wide integration.
+underneath [Integration, Diagnostics and Testing's](../integration-testing/index.md) system-wide integration.
 
-**Needs**: [module 6](06-navigation.md) — you can send a navigation goal
+**Needs**: [Navigation and Exploration](../navigation-exploration/index.md) — you can send a navigation goal
 from code and read its result.
 
-**Leads into**: [module 8](08-integration.md) assembles every piece from
-the previous modules, including this one's mission logic, into one system
+**Leads into**: [Integration, Diagnostics and Testing](../integration-testing/index.md) assembles every piece from
+the previous topics, including this one's mission logic, into one system
 started with one command.
 
 ## Learning objectives
 
-By the end of this module you can:
+By the end of this topic you can:
 
 1. model a small mission as a sequence of states with explicit failure
    exits;
 2. explain what a behavior tree adds over a plain state machine;
 3. implement and run a mission with at least one failure or retry branch;
-4. name at least one tool beyond a state machine (RAFCON, a planner, or
-   MoveIt) and what problem it is for.
+4. name at least one tool beyond a plain state machine (RAFCON, or a
+   planner such as PlanSys2/Golog++) and what problem it is for.
 
 ## How the complete system fits together
 
-```{figure} ../_static/images/diagrams/08-state-machine-behavior-tree.svg
+```{figure} ../_static/images/diagrams/state-machine-behavior-tree.svg
 :alt: Left, a finite state machine with states Idle, Navigate, Detect and Deliver in sequence, each with its own explicit failure transition to a shared Abort state. Right, a behavior tree with a Fallback root whose first child is a Sequence of Navigate, Detect and Deliver, and whose second child is a Recovery action used if the sequence fails.
 :width: 100%
 
@@ -48,8 +46,8 @@ needs one shared recovery branch.
 ```
 
 A mission's decision layer calls into the ROS 2 components built in
-earlier modules — a navigation goal ([module 6](06-navigation.md)), a
-detection check ([module 4](04-perception/index.md)) — as its "actions",
+earlier topics — a navigation goal ([Navigation and Exploration](../navigation-exploration/index.md)), a
+detection check ([Perception](../perception/index.md)) — as its "actions",
 and typically publishes its own status topic so an external observer can
 tell what it is doing.
 
@@ -58,29 +56,28 @@ tell what it is doing.
 {{ alert }} {{ documented }}
 
 Spot's high-level control uses [RAFCON](https://github.com/DLR-RM/RAFCON),
-a graphical state machine editor, for exactly this module's core pattern
+a graphical state machine editor, for exactly this topic's core pattern
 — see
-{ref}`Planning and manipulation approaches <rafcon-a-graphical-state-machine-tool>`.
+{ref}`Planning approaches <rafcon-a-graphical-state-machine-tool>`.
 **Sensors/actuators**: postures exposed as **services** (stand, sit, lie
 down — quick, either-succeeds-or-not calls, not actions), plus MoveIt 2
 for the arm. **Typical team task**: writing one RAFCON state per mission
-step, each with its own named failure exit, exactly this module's own
+step, each with its own named failure exit, exactly this topic's own
 practical task's discipline. **Verification status**: {{ simulation }}
 confirmed in Webots; the physical robot is a supervised-only exercise
-(see this module's [Try it on
-Spot](07-autonomous-decisions/practical-exercise.md#try-it-on-spot)).
+(see this topic's [Try it on
+Spot](practical-exercise.md#try-it-on-spot)).
 
-## Core learning path
+## Working through this topic
 
 ```text
 1. Mission logic (state machines vs. behavior trees)
 2. Practical mission exercise
 ```
 
-That is this module's roughly 80–100 minute core learning time.
-**Planning and manipulation approaches**, **Interesting videos** and
-**Continue learning** are worthwhile afterwards but not required for the
-core path.
+**Planning approaches**, **Interesting videos** and **Continue learning**
+are worthwhile afterwards, but are not required to move on to the next
+topic.
 
 ## Subtopics
 
@@ -88,37 +85,38 @@ core path.
 :gutter: 2
 
 :::{grid-item-card} Mission logic
-:link: 07-autonomous-decisions/mission-logic
+:link: mission-logic
 :link-type: doc
 
-{{ core }} State machines, behavior trees, and a guided example that
+{{ foundation }} State machines, behavior trees, and a guided example that
 deliberately hangs.
 :::
 
 :::{grid-item-card} Practical exercise
-:link: 07-autonomous-decisions/practical-exercise
+:link: practical-exercise
 :link-type: doc
 
-{{ core }} Build a mission that recovers instead of hanging — plus this
-module's Try it on Spot section.
+{{ foundation }} Build a mission that recovers instead of hanging — plus this
+topic's Try it on Spot section.
 :::
 
-:::{grid-item-card} Planning and manipulation approaches
-:link: 07-autonomous-decisions/planning-and-manipulation
+:::{grid-item-card} Planning approaches
+:link: planning-approaches
 :link-type: doc
 
-{{ advanced }} RAFCON, PlanSys2/Golog++, and MoveIt 2 manipulation.
+{{ advanced }} RAFCON, and planning systems (PlanSys2, Golog++) as an
+alternative to a hand-written state machine.
 :::
 
 :::{grid-item-card} Interesting videos
-:link: 07-autonomous-decisions/videos
+:link: videos
 :link-type: doc
 
 One carefully checked video recommendation.
 :::
 
 :::{grid-item-card} Continue learning
-:link: 07-autonomous-decisions/continue-learning
+:link: continue-learning
 :link-type: doc
 
 Blackboards, action cancellation, lifecycle-controlled subsystems,
@@ -130,13 +128,13 @@ allocation.
 
 ## Prerequisites
 
-[Module 6](06-navigation.md) completed — you can send a navigation goal
+[Navigation and Exploration](../navigation-exploration/index.md) completed — you can send a navigation goal
 from code and read its result.
 
-## Connection to the next module
+## Connection to the next topic
 
-This module's mission ran once, on its own. [Module 8](08-integration.md)
-assembles every piece from the previous modules into one system, starts it
+This topic's mission ran once, on its own. [Integration, Diagnostics and Testing](../integration-testing/index.md)
+assembles every piece from the previous topics into one system, starts it
 with one command, and covers how to find a fault fast.
 
 ## Further reading
@@ -152,9 +150,9 @@ with one command, and covers how to find a fault fast.
 :maxdepth: 1
 :hidden:
 
-07-autonomous-decisions/mission-logic
-07-autonomous-decisions/planning-and-manipulation
-07-autonomous-decisions/practical-exercise
-07-autonomous-decisions/videos
-07-autonomous-decisions/continue-learning
+mission-logic
+planning-approaches
+practical-exercise
+videos
+continue-learning
 ```

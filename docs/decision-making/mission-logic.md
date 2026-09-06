@@ -1,6 +1,6 @@
 # Mission logic
 
-{{ common }} {{ core }}
+{{ foundation }}
 
 ## What this topic is
 
@@ -22,7 +22,7 @@ explicit instead of buried in nested `if` statements.
 
 ### Finite state machines
 
-```{figure} ../../_static/images/diagrams/08-state-machine-behavior-tree.svg
+```{figure} ../_static/images/diagrams/state-machine-behavior-tree.svg
 :alt: Left, a finite state machine with states Idle, Navigate, Detect and Deliver in sequence, each with its own explicit failure transition to a shared Abort state. Right, a behavior tree with a Fallback root whose first child is a Sequence of Navigate, Detect and Deliver, and whose second child is a Recovery action used if the sequence fails.
 :width: 100%
 
@@ -37,7 +37,7 @@ what if this does not work?" for every step.
 ### Behavior trees, in contrast
 
 Nav2's BT Navigator, which you already used in
-[module 6](../06-navigation.md), is exactly this pattern.
+[Navigation and Exploration](../navigation-exploration/index.md), is exactly this pattern.
 
 ```{list-table}
 :header-rows: 1
@@ -62,9 +62,9 @@ the faster thing to get working.
 
 ## Inputs and outputs
 
-A mission's state machine calls into other modules' clients as its
-"actions" — a navigation goal ([module 6](../06-navigation.md)), a
-detection check ([module 4](../04-perception/index.md)) — and typically
+A mission's state machine calls into other topics' clients as its
+"actions" — a navigation goal ([Navigation and Exploration](../navigation-exploration/index.md)), a
+detection check ([Perception](../perception/index.md)) — and typically
 publishes its own status (`/mission_status`) so an external observer can
 tell what it is doing, per [the practical
 exercise's](practical-exercise.md#verification) verification step.
@@ -131,6 +131,6 @@ for the full walkthrough.
 
 ## Next subtopic
 
-[Planning and manipulation approaches](planning-and-manipulation.md) —
+[Planning and manipulation approaches](planning-approaches.md) —
 what to reach for when a state machine or behavior tree is not the right
 tool.

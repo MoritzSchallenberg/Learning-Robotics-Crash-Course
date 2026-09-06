@@ -1,21 +1,20 @@
-# Planning and manipulation approaches
+# Planning approaches
 
-{{ common }} {{ advanced }}
+{{ advanced }}
 
 ## What this topic is
 
-Three tools beyond the state machine/behavior tree pattern from [Mission
-logic](mission-logic.md): a graphical state machine editor (RAFCON), two
-**planning** systems that decide *what* to do rather than being told *how*
-(PlanSys2, Golog++), and motion planning for a physical arm (MoveIt 2).
+Two tools beyond the state machine/behavior tree pattern from [Mission
+logic](mission-logic.md): a graphical state machine editor (RAFCON), and
+two **planning** systems that decide *what* to do rather than being told
+*how* (PlanSys2, Golog++).
 
 ## Why a robot needs it
 
 [Mission logic's](mission-logic.md) state machines and behavior trees say
 *how* — every transition, explicitly. A planner says *what*, and works out
 the how itself; that trade-off matters once a mission has too many
-situations to enumerate by hand, or once "the mission" includes moving a
-physical arm rather than just navigating.
+situations to enumerate by hand.
 
 ## How it works
 
@@ -40,9 +39,13 @@ fetch it from there — never call `rclpy.shutdown()` inside a state, or every
 state after it fails.
 
 Full walkthrough and the ROS 2 subscription pattern:
-[ALeRT/Spot platform page](../../platforms/alert-spot.md#high-level-control).
+[ALeRT/Spot platform page](../platforms/spot/index.md#high-level-control).
 
 ### PlanSys2 and Golog++ — planning instead of programming the mission
+
+{{ research }} Neither is part of ALeRT's competition-ready path today —
+tag this subsection Research, distinct from RAFCON above (Advanced, but
+actively used).
 
 **[PlanSys2](https://plansys2.github.io/)** is a ROS 2 planning system based
 on PDDL. You describe the world as predicates ("robot is at the shelf",
@@ -51,7 +54,12 @@ goal, the planner produces — and re-plans — a sequence of actions.
 
 **[Golog++](https://github.com/MASKOR/gologpp)** is an action language,
 developed with institute involvement, sitting between the two: you write a
-partially specified procedure and leave the rest to the planner.
+partially specified procedure and leave the rest to the planner. ALeRT's
+own [`gologpp-ros`](https://github.com/RRL-ALeRT/gologpp-ros) fork
+documents a real Blocksworld example combining Webots, Spot and the
+manipulator — see
+[`gpp_action_examples`](https://github.com/RRL-ALeRT/gpp_action_examples)
+for further action examples.
 
 **How they compare to a state machine or behavior tree:**
 
@@ -82,35 +90,35 @@ partially specified procedure and leave the rest to the planner.
 ```
 
 Planning is the right tool when the world is too varied to enumerate in
-advance. It is not part of this course's hands-on track: neither institute
-team currently runs PlanSys2 or Golog++ for competition missions — both use
-state machines or behavior trees, because predictable behaviour under time
-pressure matters more than adapting to the unexpected. Treat this as
-orientation for further reading, not a tool this course walks through
-building.
+advance. {{ documented }} ALeRT does not currently run PlanSys2 or Golog++
+for competition missions — RAFCON is the team's primary high-level
+control tool. Treat this section as orientation for further reading, not
+a tool this site's tutorials build with.
 
-### MoveIt and manipulation
+## Verification status
 
-{{ alert }} Where [Mission logic's](mission-logic.md) general decision
-principles connect to a physical arm:
-[MoveIt 2](https://moveit.picknik.ai/) solves inverse kinematics and
-collision-free motion planning. A pick-and-place sequence is exactly the
-state-machine pattern from [Mission logic](mission-logic.md), with `GRASP`
-and `RELEASE` as states with their own failure exits (a `None`
-inverse-kinematics result is "unreachable," not a crash). Full example on
-the [ALeRT/Spot platform
-page](../../platforms/alert-spot.md#manipulation-with-moveit).
-
-## How ALeRT applies it
-
-{{ alert }} {{ documented }} All three approaches above are ALeRT-specific:
-RAFCON for high-level mission control, and MoveIt 2 for the arm — see the
+{{ documented }} RAFCON: confirmed via the team's own repositories and the
 [platform page's high-level control
-section](../../platforms/alert-spot.md#high-level-control) and
-[manipulation-with-MoveIt
-section](../../platforms/alert-spot.md#manipulation-with-moveit).
+section](../platforms/spot/index.md#high-level-control).
+{{ documented }} Golog++/`gologpp-ros`: repository exists and documents a
+real example; not independently re-verified on hardware or in simulation
+by this site.
 
-## Next subtopic
+## Common limitations
 
-[Practical exercise](practical-exercise.md) — implement a mission that
-recovers instead of hanging when a step fails.
+- **RAFCON's Global Variable Manager is a single shared namespace.** A key
+  collision between two states silently overwrites data rather than
+  raising an error — name keys carefully.
+- **Neither PlanSys2 nor Golog++ is part of ALeRT's competition-ready
+  path today.** Both are genuine, documented capabilities worth learning,
+  but a mission built for a live rescue task currently uses RAFCON, not
+  a PDDL planner.
+
+## Continue learning
+
+See [Continue learning](continue-learning.md) for hierarchical state
+machines, PDDL, PlanSys2 execution details, and Golog++ in more depth.
+
+## Interesting videos
+
+See [Interesting videos](videos.md).

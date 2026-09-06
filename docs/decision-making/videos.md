@@ -1,6 +1,6 @@
 # Interesting videos
 
-{{ optional }}
+{{ intermediate }}
 
 ## Start here
 
@@ -13,7 +13,7 @@
 **The Construct Robotics Institute · ROS2 Developers Open Class #162 · English · ~68 min**
 
 Covers: behavior trees as a decision-making tool for ROS 2 — Sequence,
-Fallback, and how they compare to the state machine this module teaches
+Fallback, and how they compare to the state machine this topic teaches
 as its core pattern.
 
 *Why watch it*: a much longer, hands-on look at exactly the "Behavior
@@ -40,15 +40,15 @@ README](https://github.com/MoritzSchallenberg/Learning-Robotics-Crash-Course).
 ## Practical demonstrations
 
 No additional practical-demonstration video has been independently
-verified for this module yet — see this page's closing note on why the
+verified for this topic yet — see this page's closing note on why the
 list stays short rather than padded with unchecked links.
 
 ## ALeRT
 
 {{ alert }} No RAFCON- or MoveIt-specific video has been independently
 verified yet. See [Planning and manipulation
-approaches](planning-and-manipulation.md) and the [platform page's
-high-level control section](../../platforms/alert-spot.md#high-level-control)
+approaches](planning-approaches.md) and the [platform page's
+high-level control section](../platforms/spot/index.md#high-level-control)
 for written detail instead.
 
 ## Next subtopic

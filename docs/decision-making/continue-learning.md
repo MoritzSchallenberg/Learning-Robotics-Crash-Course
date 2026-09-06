@@ -32,7 +32,7 @@ blackboard](https://www.behaviortree.dev/docs/tutorial-basics/tutorial_02_basic_
 :icon: light-bulb
 
 **What it is.** Actively **cancelling** a running action
-([module 2's](../02-ros2/services-parameters-actions.md#try-it-yourself-actions)
+([ROS 2's](../ros2/services-parameters-actions.md#try-it-yourself-actions)
 goal → feedback → result pattern) before it finishes — e.g. abandoning a
 navigation goal because the mission decided on a better one — rather than
 only ever waiting for natural completion or timeout.
@@ -40,11 +40,11 @@ only ever waiting for natural completion or timeout.
 **Why it matters.** [The practical exercise](practical-exercise.md) only
 ever *waits* for `NAVIGATE` to finish or fail; a more responsive mission
 needs to actively abandon a stale goal, the same responsiveness
-[module 6's](../06-navigation/nav2-architecture-and-costmaps.md#inputs-and-outputs)
+[Navigation and Exploration's](../navigation-exploration/nav2-architecture-and-costmaps.md#inputs-and-outputs)
 action client introduces but does not use.
 
-**Needs.** [Module 6's action
-client](../06-navigation/nav2-architecture-and-costmaps.md#inputs-and-outputs)
+**Needs.** [Navigation and Exploration's action
+client](../navigation-exploration/nav2-architecture-and-costmaps.md#inputs-and-outputs)
 example.
 
 **Try it.** Send a navigation goal, wait two seconds, then call
@@ -66,7 +66,7 @@ canceling goals](https://docs.ros.org/en/humble/Tutorials/Intermediate/Writing-a
 
 **What it is.** Using a mission's state machine to actively control
 subsystem **lifecycle** transitions
-({ref}`module 2's <lifecycle-nodes>` lifecycle-node topic) — e.g.
+({ref}`ROS 2's <lifecycle-nodes>` lifecycle-node topic) — e.g.
 only activating a perception pipeline once the mission actually reaches a
 `SEARCH` state, rather than every subsystem running full-time from
 start-up.
@@ -75,7 +75,7 @@ start-up.
 onboard computer, and makes a subsystem's "is it supposed to be doing
 anything right now" question answerable from mission state alone.
 
-**Needs.** {ref}`Module 2's lifecycle nodes <lifecycle-nodes>` and
+**Needs.** {ref}`ROS 2's lifecycle nodes <lifecycle-nodes>` and
 [the practical exercise](practical-exercise.md).
 
 **Try it.** Convert your practical exercise's marker detector into a
@@ -96,8 +96,8 @@ nodes](https://docs.ros.org/en/humble/Concepts/Intermediate/About-Ros2-Managed-N
 transitions and logs them with timing, without participating in the
 mission itself — you will meet exactly this pattern as the optional
 **Mission monitoring node** on the
-[capstone project's mission monitoring
-page](../hackathon/mission-monitor.md).
+[Rescue Applications and Projects: mission monitoring
+page](../rescue-projects/mission-monitor.md).
 
 **Why it matters.** Debugging a mission after the fact needs a record of
 what it actually did and when; building that as a separate observer keeps
@@ -113,8 +113,8 @@ when the mission finishes.
 **Check.** The summary's total duration matches your own stopwatch timing
 of one run, within a second or two.
 
-**Read more.** [Capstone project: mission monitoring
-node](../hackathon/mission-monitor.md) has a complete, runnable example.
+**Read more.** [Mission monitoring
+node](../rescue-projects/mission-monitor.md) has a complete, runnable example.
 :::
 
 ## Advanced topics
@@ -130,14 +130,13 @@ object being grasped). Motion planning fails deliberately rather than
 producing a colliding trajectory if the scene says a path is blocked.
 
 **Why it matters.** A pick-and-place sequence
-([the MoveIt and manipulation
-section](planning-and-manipulation.md#moveit-and-manipulation)) that plans
+([Robot Manipulation](../manipulation/index.md)) that plans
 without telling MoveIt about the table in front of the robot will happily
 plan a path *through* that table — the planning scene is what prevents
 that.
 
-**Needs.** [The MoveIt and manipulation
-section](planning-and-manipulation.md#moveit-and-manipulation).
+**Needs.** [Robot Manipulation](../manipulation/index.md), specifically
+the platform page's Manipulation with MoveIt procedure.
 
 **Try it.** {{ unverified }} — add a box collision object to the planning
 scene representing a table surface, then request a motion plan to a pose
@@ -156,18 +155,18 @@ objects](https://moveit.picknik.ai/main/doc/examples/planning_scene/planning_sce
 :icon: light-bulb
 
 {{ alert }} **What it is.** Chaining the pieces above into one mission:
-detect an object ([module 4](../04-perception/index.md)), plan a
+detect an object ([Perception](../perception/index.md)), plan a
 collision-free approach (planning scene, above), grasp, lift, and place —
 expressed as states with their own failure exits, exactly [Mission
 logic's](mission-logic.md) core pattern applied to manipulation instead of
 navigation.
 
-**Why it matters.** This is the concrete synthesis of most of this course:
+**Why it matters.** This is the concrete synthesis of most of this site:
 perception, TF, and now planning and manipulation, all inside one state
 machine.
 
 **Needs.** [Planning scene and collision objects](#planning-scene-and-collision-objects)
-above, and [module 4's](../04-perception/index.md) marker detection.
+above, and [Perception's](../perception/index.md) marker detection.
 
 **Try it.** {{ unverified }} — extend [the practical exercise's](practical-exercise.md)
 state machine with `APPROACH`, `GRASP` and `PLACE` states, each calling
@@ -178,7 +177,7 @@ returned no solution" → a named failure state, not a crash).
 target pose ends in your named failure state, not a hang or a traceback.
 
 **Read more.** [ALeRT/Spot: manipulation with
-MoveIt](../../platforms/alert-spot.md#manipulation-with-moveit)
+MoveIt](../platforms/spot/index.md#manipulation-with-moveit)
 :::
 
 :::{dropdown} Multi-robot task allocation — Advanced
@@ -190,7 +189,7 @@ searches, robot B always delivers) to an auction-based approach where
 robots bid on subtasks based on their own cost estimate.
 
 **Why it matters.** This is the natural extension of the
-{ref}`capstone project's <optional-extensions-capstone>` "communicate
+{ref}`Autonomous Rescue Mission's <optional-extensions-rescue-mission>` "communicate
 with a second robot" optional extension — coordinating two independent
 state machines is a different problem than running one.
 
@@ -207,7 +206,7 @@ leaving the other subtask unclaimed — trace through the message sequence
 by hand to confirm.
 
 **Read more.** {{ unverified }} — multi-robot coordination tooling in ROS 2
-is an active area with no single standard package this course pins;
+is an active area with no single standard package this site pins;
 search current literature on "multi-robot task allocation ROS 2" when you
 reach this point.
 :::

@@ -7,8 +7,9 @@ team. The platform is a Boston Dynamics Spot: a quadruped that walks over
 rubble, stairs and terrain where wheels are useless, fitted with a manipulator
 arm.
 
-This page covers what is specific to that system. The fundamentals are in the
-[course modules](../course/index.md).
+This page covers what is specific to that system. The fundamentals are in
+this site's own [topics](../../index.md), starting with [ROS
+2](../../ros2/index.md).
 
 ## System versions
 
@@ -28,12 +29,12 @@ This page covers what is specific to that system. The fundamentals are in the
   - Boston Dynamics Spot, with arm
 ```
 
-This matches the course's [supported environment](../reference/compatibility.md)
+This matches the site's [supported environment](../../reference/compatibility.md)
 exactly, so no distribution check is needed before following a command on
 this page.
 
 :::{note}
-The original course notes state that only Ubuntu 22 could be actively
+The original source notes state that only Ubuntu 22 could be actively
 supported. WSL was documented as a fallback with a specific set of version
 constraints and known issues; a native Ubuntu install avoids that entire class
 of problem and is what this site recommends.
@@ -62,7 +63,7 @@ has vertical structure. An arm because the tasks require manipulation.
 
 ## The Webots Spot simulation
 
-Most of the course can be done entirely in simulation, using the ALeRT-built
+Most of the site can be done entirely in simulation, using the ALeRT-built
 Webots Spot model and a relaxed version of the competition arena.
 
 ### Installation
@@ -147,7 +148,7 @@ Set **Fixed Frame** to `base_footprint`, then add:
 :::{note}
 The Best Effort setting on `/scan` is not optional. The publisher uses it, and
 an RViz display left on Reliable shows nothing at all, with no error. See
-[module 3](../course/03-sensors-tf/practical-exercise.md#common-problems).
+[Sensors and Coordinate Frames](../../sensors-frames/practical-exercise.md#common-problems).
 :::
 
 Save the configuration once it works.
@@ -161,7 +162,7 @@ To see the LiDAR rays in Webots: *View → Optional Rendering → Show Lidar Ray
 Paths*.
 
 :::{tip}
-A useful exercise from the source course: subscribe to `/scan`, keep only the
+A useful exercise from the source material: subscribe to `/scan`, keep only the
 points within roughly ±20° of straight ahead, and republish on `/cone_scan`.
 That gives you a simple "how far to the wall in front of me" signal — enough to
 walk forward and stop before a wall, and a good introduction to manipulating
@@ -216,7 +217,7 @@ yet fails silently in a way that looks like the robot ignoring you.
 The ALeRT tutorials use OpenCV directly on the gripper camera, which is a good
 way to learn perception before reaching for a neural network. Both exercises
 are described in general terms in
-[module 4](../course/04-perception/index.md).
+[Perception](../../perception/index.md).
 
 ### ArUco detection
 
@@ -230,13 +231,13 @@ corners, ids, rejected = detector.detectMarkers(image)
 ```
 
 Full node structure in
-[module 4](../course/04-perception/fiducial-markers.md#aruco-with-opencv).
+[Perception](../../perception/fiducial-markers.md#aruco-with-opencv).
 
 ### Line following
 
 Detect the red line on the floor and follow it by publishing `Twist` messages
 to `/cmd_vel`. The technique — convert to HSV, threshold, find contours — is in
-[module 4](../course/04-perception/fiducial-markers.md#colour-detection-with-hsv).
+[Perception](../../perception/fiducial-markers.md#colour-detection-with-hsv).
 
 The interesting part is the control: given the line's horizontal position in
 the image, compute a turn rate that keeps it centred. A proportional controller
@@ -245,8 +246,8 @@ start.
 
 ## Mapping and navigation
 
-The general workflow is [module 5](../course/05-mapping-localization.md) and
-[module 6](../course/06-navigation.md). Spot-specific launch files:
+The general workflow is [Mapping and World Models](../../mapping-world-models/index.md) and
+[Navigation and Exploration](../../navigation-exploration/index.md). Spot-specific launch files:
 
 ```bash
 # SLAM
@@ -279,7 +280,7 @@ guessing.
 
 {{ advanced }} A 2D occupancy grid cannot represent a rescue arena. Two 3D
 approaches, explained for general understanding in
-[module 5's 3D mapping subtopic](../course/05-mapping-localization/localization-and-3d-mapping.md#mapping-rough-3d-terrain)
+[Mapping and World Models's 3D mapping subtopic](../../mapping-world-models/localization-and-3d-mapping.md#mapping-rough-3d-terrain)
 — this page adds only the ALeRT-specific repository pointers.
 
 ### Octomap
@@ -297,7 +298,7 @@ a [3D planner working on the octomap](https://github.com/RRL-ALeRT/alert_ros2).
 
 [GLIM](https://github.com/koide3/glim_ros2) is a LiDAR–inertial SLAM system
 that tightly couples 3D LiDAR with IMU data to build accurate point cloud
-maps — see module 5 for when this matters over 2D SLAM. Installation is
+maps — see Mapping and World Models for when this matters over 2D SLAM. Installation is
 documented at
 [koide3.github.io/glim](https://koide3.github.io/glim/installation.html).
 
@@ -334,12 +335,12 @@ sliders, which is often the quickest way to get out of an awkward
 configuration.
 
 The general concepts and a pick-and-place structure are in
-[module 7](../course/07-autonomous-decisions.md).
+[Autonomous Decision-Making](../../decision-making/index.md).
 
 :::{tip}
 The simulation publishes TF frames for objects — for example the target
 workpiece and the place box. That means you can get a grasp pose with a TF
-listener ([module 3](../course/03-sensors-tf.md)) rather than computing it
+listener ([Sensors and Coordinate Frames](../../sensors-frames/index.md)) rather than computing it
 from an image, which makes the manipulation exercise tractable.
 :::
 
@@ -376,7 +377,7 @@ ros2 service call /hazmat_signs std_srvs/srv/Empty "{}"
 ```
 
 This is the trigger for training a custom model — see
-[module 4](../course/04-perception/object-detection.md#training-a-custom-model).
+[Perception](../../perception/object-detection.md#training-a-custom-model).
 
 ### Gesture control
 
@@ -400,7 +401,7 @@ setup publishes.
 ## High-level control
 
 The ALeRT stack uses several approaches, covered generally in
-[module 7](../course/07-autonomous-decisions.md):
+[Autonomous Decision-Making](../../decision-making/index.md):
 
 **RAFCON** — graphical state machines, the main tool in the tutorials.
 
@@ -446,13 +447,13 @@ public site. Get the current procedure and a hands-on briefing from the team
 before touching the robot.
 :::
 
-## Working through the course
+## Working through the site
 
 ```{list-table}
 :header-rows: 1
 :widths: 30 70
 
-* - Where the course says
+* - Where the site says
   - On Spot
 * - `/scan`
   - Present, derived from the 3D point cloud — Best Effort QoS
@@ -470,8 +471,8 @@ before touching the robot.
 
 ## Try it on Spot: where each exercise lives
 
-Every course module carries its own **Try it on Spot** section, applying
-that module's exercise directly to this platform rather than only to a
+Every topic on this site carries its own **Try it on Spot** section, applying
+that topic's exercise directly to this platform rather than only to a
 generic robot. This table is an index into them — the exercises
 themselves are not repeated here.
 
@@ -484,31 +485,31 @@ themselves are not repeated here.
   - Environment
   - Safety level
 * - 2
-  - [Inspect the Webots Spot node/topic graph](../course/02-ros2/practical-exercises.md#try-it-on-spot)
+  - [Inspect the Webots Spot node/topic graph](../../ros2/practical-exercises.md#try-it-on-spot)
   - Simulation
   - {{ spotsim }}
 * - 3
-  - [Build the RViz setup yourself, then diagnose a fault in it](../course/03-sensors-tf/practical-exercise.md#try-it-on-spot)
+  - [Build the RViz setup yourself, then diagnose a fault in it](../../sensors-frames/practical-exercise.md#try-it-on-spot)
   - Simulation (or read-only on real Spot)
   - {{ spotsim }} / {{ spotreadonly }}
 * - 4
-  - [ArUco detection and line following on the gripper camera](../course/04-perception/practical-exercise.md#try-it-on-spot)
+  - [ArUco detection and line following on the gripper camera](../../perception/practical-exercise.md#try-it-on-spot)
   - Simulation
   - {{ spotsim }}
 * - 5
-  - [SLAM, map saving and localization](../course/05-mapping-localization/practical-exercise.md#try-it-on-spot)
+  - [SLAM, map saving and localization](../../mapping-world-models/practical-exercise.md#try-it-on-spot)
   - Simulation; real Spot supervised only
   - {{ spotsim }} / {{ spotsupervised }}
 * - 6
-  - [Nav2 goals, recovery behaviour and a before/after comparison](../course/06-navigation/practical-exercise.md#try-it-on-spot)
+  - [Nav2 goals, recovery behaviour and a before/after comparison](../../navigation-exploration/practical-exercise.md#try-it-on-spot)
   - Simulation
   - {{ spotsim }}
 * - 7
-  - [A stand → navigate → detect → return → sit mission state machine](../course/07-autonomous-decisions/practical-exercise.md#try-it-on-spot)
+  - [A stand → navigate → detect → return → sit mission state machine](../../decision-making/practical-exercise.md#try-it-on-spot)
   - Simulation; real Spot supervised only
   - {{ spotsim }} / {{ spotsupervised }}
 * - 8
-  - [Full-system diagnostics and a fault-injection exercise](../course/08-integration/practical-exercise.md#try-it-on-spot)
+  - [Full-system diagnostics and a fault-injection exercise](../../integration-testing/practical-exercise.md#try-it-on-spot)
   - Simulation (or read-only on real Spot)
   - {{ spotsim }} / {{ spotreadonly }}
 ```

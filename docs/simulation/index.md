@@ -2,14 +2,14 @@
 
 {{ simulation }}
 
-Everything in this course can be done without a physical robot. A simulator
+Everything on this site can be done without a physical robot. A simulator
 gives you a robot that never runs out of battery, never breaks, and can be
 reset instantly — which makes it the better place to learn, and often the
 better place to develop.
 
 ## Why simulate
 
-**Availability.** There are more course participants than robots.
+**Availability.** There are more team members than robots.
 
 **Repeatability.** The same scenario, exactly, as often as you like. On real
 hardware, no two runs are identical.
@@ -27,8 +27,8 @@ simulation; validate on hardware.
 
 ## Webots
 
-Both institute teams use [Webots](https://cyberbotics.com/), an open-source
-robot simulator with a ROS 2 interface.
+ALeRT uses [Webots](https://cyberbotics.com/), an open-source robot
+simulator with a ROS 2 interface.
 
 ### Installation
 
@@ -40,10 +40,10 @@ Install Webots itself from the
 [official installation guide](https://cyberbotics.com/doc/guide/installation-procedure).
 
 :::{warning}
-Install the Webots version your team's simulation repository asks for, not the
-newest release. Both source courses were written against **Webots R2023b**, and
-simulation packages are frequently pinned to a specific version. The repository
-README is the authority, not this page. See
+Install the Webots version ALeRT's simulation repository asks for, not the
+newest release. This site's own examples were written against **Webots
+R2023b**, and simulation packages are frequently pinned to a specific
+version. The repository README is the authority, not this page. See
 [compatibility](../reference/compatibility.md).
 :::
 
@@ -61,10 +61,10 @@ Other examples are listed in the
 
 ### The ALeRT simulation
 
-ALeRT maintains a Webots simulation of Spot and its competition arena. This
-is the one to use if you are following the ALeRT track:
+ALeRT maintains a Webots simulation of Spot and its competition arena. Use
+this simulation for every hands-on exercise on this site:
 
-- {{ alert }} [ALeRT / Spot](alert-spot.md)
+- {{ alert }} [ALeRT / Spot](../platforms/spot/index.md)
 
 ## Simulation time
 
@@ -100,46 +100,37 @@ ros2 param get /my_node use_sim_time
 ```
 :::
 
-## Working through the course in simulation
+## Working through this site in simulation
 
-Every module works, with one adjustment: topic names differ between
+Every topic works, with one adjustment: topic names differ between
 simulations, so check yours before assuming `/scan` and `/cmd_vel`.
 
 ```{list-table}
 :header-rows: 1
-:widths: 8 32 60
+:widths: 32 68
 
-* - #
-  - Module
+* - Topic
   - In simulation
-* - 1
-  - [Hardware design](../course/01-system-hardware.md)
+* - [Hardware design](../platforms/hardware-design/index.md)
   - KiCad and Fusion are desktop design tools, independent of Webots — no
-    simulation-specific variation applies to this module.
-* - 2
-  - [ROS 2 fundamentals](../course/02-ros2.md)
+    simulation-specific variation applies to this topic.
+* - [ROS 2 fundamentals](../ros2/index.md)
   - Identical. `turtlesim` needs no simulator at all.
-* - 3
-  - [Sensors and TF2](../course/03-sensors-tf.md)
+* - [Sensors and TF2](../sensors-frames/index.md)
   - Identical, and easier — simulated TF trees are usually complete and
     correct from the start.
-* - 4
-  - [Perception](../course/04-perception/index.md)
+* - [Perception](../perception/index.md)
   - Simulated cameras publish valid `camera_info` already, so calibration is
     not needed. Do the calibration exercise anyway if you can borrow a webcam.
-* - 5
-  - [Mapping](../course/05-mapping-localization.md)
+* - [Mapping](../mapping-world-models/index.md)
   - Identical, and much faster: you can map a whole arena in minutes and reset
     if it goes wrong.
-* - 6
-  - [Navigation](../course/06-navigation.md)
+* - [Navigation](../navigation-exploration/index.md)
   - Identical. Set velocity limits to the simulated robot's actual limits.
-* - 7
-  - [Autonomous decisions](../course/07-autonomous-decisions.md)
+* - [Autonomous decisions](../decision-making/index.md)
   - Identical. The best place to develop mission logic — you can run the same
     failure scenario twenty times.
-* - 8
-  - [Integration](../course/08-integration.md)
+* - [Integration](../integration-testing/index.md)
   - Identical, except that you cannot simulate a flat battery or a loose
     connector. Those you learn on hardware.
 ```
@@ -172,27 +163,29 @@ ros2 topic list -t | grep Image
 :::{tip}
 Write the names down the first time. Simulated robots frequently namespace
 their topics — `/Spot/odometry` rather than `/odom` — and every later
-module depends on getting them right.
+topic depends on getting them right.
 :::
 
-## Reproducible tasks without team hardware
+## Reproducible tasks without ALeRT hardware
 
-If you are not on either team, these are enough to complete the whole course:
+If you are not on the ALeRT team, these are enough to work through this
+whole site:
 
-**Module 2** (ROS 2 fundamentals): `turtlesim`. No simulator required.
+**ROS 2** (ROS 2 fundamentals): `turtlesim`. No simulator required.
 
 ```bash
 ros2 run turtlesim turtlesim_node
 ```
 
-**Modules 3, 5 and 6** (sensors/TF, mapping/localization, navigation): any
-Webots example with a laser scanner and odometry, or the
-[Nav2 simulation tutorials](https://docs.nav2.org/humble/getting_started/),
-which ship a complete mapped environment.
+**Sensors and Coordinate Frames, Mapping and World Models, and
+Localization, Navigation and Exploration**: any Webots example with a
+laser scanner and odometry, or the [Nav2 simulation
+tutorials](https://docs.nav2.org/humble/getting_started/), which ship a
+complete mapped environment.
 
-**Modules 4 and 7** (perception, and the mission in autonomous decisions):
-print ArUco markers on paper and hold them in front of a webcam, or place
-them in the simulated world.
+**Perception, and Autonomous Decision-Making**: print ArUco markers on
+paper and hold them in front of a webcam, or place them in the simulated
+world.
 
 ## Common mistakes
 
@@ -205,7 +198,7 @@ the `webots_ros2` version.
 
 **RViz shows nothing.**
 QoS — simulated sensors often publish Best Effort. See
-[module 3](../course/03-sensors-tf/practical-exercise.md#common-problems).
+[Sensors and Coordinate Frames](../sensors-frames/practical-exercise.md#common-problems).
 
 **The simulation runs very slowly.**
 No 3D acceleration. This is the usual outcome inside a virtual machine, and the
