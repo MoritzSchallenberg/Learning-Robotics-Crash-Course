@@ -1,68 +1,72 @@
 #!/usr/bin/env python3
-"""verify-structure.py -- static, source-level checks for the hierarchical
-module/subtopic navigation introduced by Entwicklungsauftrag 6.
+"""verify-structure.py -- static, source-level checks for the topic-based
+documentation structure introduced by Entwicklungsauftrag 8 (Fortsetzung
+8A). Replaces the earlier version of this script, which checked the
+eight-module/capstone structure from Entwicklungsauftrag 6 -- that
+structure no longer exists.
 
 Unlike verify-site.py, this needs no build, no server and no browser -- it
-reads the Markdown sources in docs/course/ directly. Run it any time with:
+reads the Markdown sources in docs/ directly. Run it any time with:
 
     python3 scripts/verify-structure.py
 
-It checks, per module (the 8 numbered course modules plus the capstone):
+It checks:
 
- 1. an overview page exists;
- 2. the overview has a subordinate toctree (a `{toctree}` block pointing
-    into the module's own subdirectory);
- 3. the overview mentions ALeRT (site-wide Carologistics content was
-    removed in Entwicklungsauftrag 8 -- see check_no_carologistics_content
-    below for the corresponding anti-check);
- 4. the module has a videos.md;
- 5. the module has a continue-learning.md;
- 6. the module's toctree links both videos.md and continue-learning.md,
-    with continue-learning last (videos, then continue-learning, is the
-    required closing order before the next main module);
- 7. no subpage in the module's own subdirectory is orphaned (missing from
-    the overview's toctree);
- 8. every subpage is therefore reachable via navigation (a corollary of 7:
-    nothing is both present on disk and absent from every toctree).
+ 1. exactly 13 public top-level topic directories exist, no more, no
+    fewer, and no docs/course/ or docs/prerequisites/ directory exists
+    (the pre-migration structure);
+ 2. every topic directory has an index.md;
+ 3. every topic's index.md is referenced from docs/index.md's own
+    toctrees (the site's single navigation root);
+ 4. no page anywhere under docs/ contains a numbered-module heading
+    ("# 1.", "Module 1", ...), a processing-time estimate ("80-100
+    minutes", "80-100 minute", "core learning path"), or a
+    Hackathon/Capstone reference (case-insensitive) -- all replaced by
+    the topic-based structure and difficulty levels;
+ 5. no page is orphaned: every .md file under docs/ is reachable from
+    some toctree, directly or transitively from docs/index.md;
+ 6. Robot Manipulation (docs/manipulation/) and Autonomous
+    Decision-Making (docs/decision-making/) are distinct directories,
+    and no MoveIt-specific content lives under decision-making/ (the
+    planning-and-manipulation.md page from the old structure was split:
+    RAFCON/PlanSys2/Golog++ stayed in decision-making/, MoveIt moved to
+    manipulation/);
+ 7. ROS 2 installation lives at docs/ros2/installation.md, not under a
+    separate prerequisites/getting-started installation page;
+ 8. no internal link anywhere under docs/ still points at the deleted
+    docs/course/ or docs/prerequisites/ paths;
+ 9. no Carologistics content remains anywhere (carried over from
+    Entwicklungsauftrag 8's Carologistics-removal commit, still
+    relevant -- a later edit could reintroduce it);
+10. no page under docs/ is named or titled "Instructor";
+11. no video URL (a `grid-item-card` `:link:` on a video page) appears
+    more than once across the whole site;
+12. every video card carries the channel/duration metadata shape that
+    comes from an actually-checked video (a weak proxy for "no video ID
+    is unchecked" -- see the note on live oEmbed verification below);
+13. only the new difficulty/verification substitutions
+    ({{ foundation }}, {{ intermediate }}, {{ advanced }}, {{ research }},
+    {{ documented }}, {{ simulation }}, {{ hardwareverified }},
+    {{ unverified }}, {{ hwverificationrequired }}, {{ experimental }},
+    {{ historical }}) are used -- the old course-era
+    {{ core }}/{{ optional }}/{{ platformspecific }} substitutions no
+    longer exist in docs/conf.py and must not appear in content either.
 
-Site-wide (not per module):
+Two notes carried over from the previous version of this script, still
+true here:
 
- 9. every module directory's toctree entries actually exist on disk (the
-    complement of 7/8 -- no toctree entry pointing at a missing file);
-10. no video URL (a `grid-item-card` `:link:` on a video page) appears more
-    than once across the whole site;
-11. no page under docs/ is named or titled "Instructor" (an instructor-only
-    page must never ship in the built artifact).
-
-Two items from the task's 13-point list are intentionally NOT
-re-implemented here because a better tool already covers them and
-duplicating it would only rot out of sync:
-
-  - "no page links to an old/no-longer-existing anchor" is exactly what
+  - Broken/stale cross-references and anchors are exactly what
     `sphinx-build -W --keep-going` already fails on (MyST's
-    `local id not found` / `myst.xref_missing` checks) -- see the
-    clean-rebuild rule in every module-restructuring commit this project
-    made. Run that build, not a second anchor-checker here.
-  - "no video ID is unchecked" needs a live network call to YouTube's
-    oEmbed endpoint per video, which is exactly the kind of thing that
-    makes a CI check flaky (rate limits, network availability) rather
-    than a source-level property this script can assert. Every video
-    already on the site was checked manually against oEmbed at authoring
-    time (see each module's Interesting videos page); this script only
-    checks that every video card carries the fixed metadata shape
-    (channel/duration/language) that authoring process produces, as a
-    weak proxy that a card was not simply invented.
-
-Previous/Next chain completeness (point 9 in the task's numbering) is a
-built-HTML property (Sphinx's `rellinks`, driven by the *global*
-`course/index.md` toctree order) -- covered by the browser-level checks
-list in verify-site.py's own docstring, not here.
-
-Also checks four regression guards added for Entwicklungsauftrag 7's
-content-management changes (installation moved into module 2, module 1
-reduced to KiCad/Fusion, the public sources page removed) -- see the
-"Entwicklungsauftrag 7 regression checks" section below for what each one
-catches and why it exists.
+    `local id not found` / `myst.xref_missing` checks). Always run a full
+    clean rebuild (`rm -rf docs/_build/html docs/_build/doctrees` first)
+    before trusting a "0 warnings" result -- an incremental build can
+    silently miss a newly-broken reference in a file that was not itself
+    touched in that pass.
+  - "No video ID is unchecked" ultimately needs a live call to YouTube's
+    oEmbed endpoint per video, which is a network-dependent check unsuited
+    to a repo-committed test. Every video already on the site was checked
+    manually against oEmbed at authoring time; check 12 above only
+    verifies the metadata shape that process produces, not the ID itself.
 
 Exit code is 0 if every check passed, 1 otherwise.
 """
@@ -75,117 +79,242 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 DOCS = REPO_ROOT / "docs"
-COURSE = DOCS / "course"
 
-# module id -> (overview file, subdirectory holding its subpages)
-MODULES: dict[str, tuple[Path, Path]] = {
-    "1: Hardware Design with KiCad and Fusion": (COURSE / "01-system-hardware.md", COURSE / "01-hardware"),
-    "2: ROS 2 Fundamentals": (COURSE / "02-ros2.md", COURSE / "02-ros2"),
-    "3: Sensors, TF2 and RViz": (COURSE / "03-sensors-tf.md", COURSE / "03-sensors-tf"),
-    "4: Perception and Object Detection": (COURSE / "04-perception" / "index.md", COURSE / "04-perception"),
-    "5: Mapping and Localization": (COURSE / "05-mapping-localization.md", COURSE / "05-mapping-localization"),
-    "6: Autonomous Navigation": (COURSE / "06-navigation.md", COURSE / "06-navigation"),
-    "7: Autonomous Decisions and Manipulation": (COURSE / "07-autonomous-decisions.md", COURSE / "07-autonomous-decisions"),
-    "8: System Integration and Testing": (COURSE / "08-integration.md", COURSE / "08-integration"),
-    "Capstone: Autonomous Robot Mission": (COURSE / "hackathon.md", COURSE / "hackathon"),
-}
+TOPIC_DIRS = [
+    "getting-started",
+    "ros2",
+    "platforms",
+    "simulation",
+    "sensors-frames",
+    "perception",
+    "mapping-world-models",
+    "navigation-exploration",
+    "manipulation",
+    "decision-making",
+    "integration-testing",
+    "rescue-projects",
+    "reference",
+]
+
+REMOVED_DIRS = ["course", "prerequisites"]
 
 TOCTREE_RE = re.compile(r"```\{toctree\}\n(.*?)\n```", re.DOTALL)
 VIDEO_LINK_RE = re.compile(
     r":::\{grid-item-card\}[^\n]*\n:link:\s*(https://www\.youtube\.com/watch\?v=[\w-]+)"
 )
 
+OLD_SUBSTITUTIONS = ("{{ core }}", "{{ optional }}", "{{ platformspecific }}", "{{ common }}")
 
-def parse_toctree(overview_path: Path) -> list[str]:
-    """Every entry in the overview's own (first) toctree block, as raw
-    strings exactly as written (relative doc refs, no .md suffix)."""
-    text = overview_path.read_text(encoding="utf-8")
-    m = TOCTREE_RE.search(text)
-    if not m:
-        return []
-    entries = []
-    for line in m.group(1).splitlines():
-        line = line.strip()
-        if not line or line.startswith(":"):
-            continue
-        entries.append(line)
+NUMBERED_MODULE_RE = re.compile(r"^#\s+\d+\.\s", re.MULTILINE)
+MODULE_WORD_RE = re.compile(r"\bmodule\s+\d+\b", re.IGNORECASE)
+TIME_ESTIMATE_RE = re.compile(r"80.100 minute|core learning path", re.IGNORECASE)
+HACKATHON_CAPSTONE_RE = re.compile(r"\bhackathon\b|\bcapstone\b", re.IGNORECASE)
+
+_CAROLOGISTICS_TERMS = (
+    "carologistics",
+    "robotino",
+    "smart manufacturing league",
+    "expertino-rcll",
+    "{{ carologistics }}",
+)
+
+
+def all_md_files() -> list[Path]:
+    return [p for p in DOCS.rglob("*.md") if "_build" not in p.parts]
+
+
+_FENCE_RE = re.compile(r"^```.*?^```", re.MULTILINE | re.DOTALL)
+
+
+def strip_code_fences(text: str) -> str:
+    """Blank out fenced code blocks (```...```), keeping line numbers and
+    surrounding prose intact, so a shell comment like '# 8. do the thing'
+    inside a ```bash block is never mistaken for a Markdown heading or a
+    real 'module 8' content reference."""
+    return _FENCE_RE.sub(lambda m: "\n" * m.group(0).count("\n"), text)
+
+
+def parse_toctree_entries(md_path: Path) -> list[str]:
+    """Every entry across ALL toctree blocks in this file (docs/index.md
+    has one block per top-level topic), as raw doc-ref strings."""
+    text = md_path.read_text(encoding="utf-8")
+    entries: list[str] = []
+    for m in TOCTREE_RE.finditer(text):
+        for line in m.group(1).splitlines():
+            line = line.strip()
+            if not line or line.startswith(":"):
+                continue
+            entries.append(line)
     return entries
 
 
-def toctree_entry_to_path(entry: str, subdir: Path, overview_path: Path) -> Path:
-    """Resolve one toctree entry to the .md file it refers to. Entries are
-    written relative to the *document* they appear in (docs/course/ for
-    every module except module 4, whose overview already lives inside its
-    own subdirectory)."""
-    base = overview_path.parent
-    return (base / f"{entry}.md").resolve()
+def doc_ref_to_path(entry: str, from_dir: Path) -> Path:
+    return (from_dir / f"{entry}.md").resolve()
 
 
-def check_module(name: str, overview: Path, subdir: Path) -> list[str]:
+def check_topic_directories() -> list[str]:
     failures: list[str] = []
+    existing = {p.name for p in DOCS.iterdir() if p.is_dir() and not p.name.startswith("_")}
+    for d in REMOVED_DIRS:
+        if (DOCS / d).is_dir():
+            failures.append(f"pre-migration directory still exists: docs/{d}/")
+    missing = [d for d in TOPIC_DIRS if d not in existing]
+    for d in missing:
+        failures.append(f"expected topic directory missing: docs/{d}/")
+    unexpected = existing - set(TOPIC_DIRS) - set(REMOVED_DIRS)
+    for d in sorted(unexpected):
+        failures.append(f"unexpected top-level directory under docs/: docs/{d}/ (not one of the 13 topics)")
+    if len(set(TOPIC_DIRS) & existing) != 13 and not missing:
+        failures.append(f"expected exactly 13 topic directories, found {len(set(TOPIC_DIRS) & existing)}")
+    return failures
 
-    # 1. overview page exists
-    if not overview.is_file():
-        failures.append(f"[{name}] overview page missing: {overview.relative_to(REPO_ROOT)}")
-        return failures  # nothing else is checkable without it
 
-    text = overview.read_text(encoding="utf-8")
+def check_topic_index_pages() -> list[str]:
+    failures: list[str] = []
+    for d in TOPIC_DIRS:
+        index = DOCS / d / "index.md"
+        if not index.is_file():
+            failures.append(f"docs/{d}/ has no index.md")
+    return failures
 
-    # 2. subordinate toctree present
-    entries = parse_toctree(overview)
-    if not entries:
-        failures.append(f"[{name}] overview has no subordinate toctree")
 
-    # 3. mentions ALeRT
-    if "ALeRT" not in text:
-        failures.append(f"[{name}] overview does not mention ALeRT")
+def check_topics_in_root_toctree() -> list[str]:
+    failures: list[str] = []
+    root = DOCS / "index.md"
+    if not root.is_file():
+        return ["docs/index.md is missing"]
+    entries = parse_toctree_entries(root)
+    entry_targets = {doc_ref_to_path(e, DOCS) for e in entries}
+    for d in TOPIC_DIRS:
+        expected = (DOCS / d / "index.md").resolve()
+        if expected not in entry_targets:
+            failures.append(f"docs/index.md's toctrees do not reference docs/{d}/index.md")
+    return failures
 
-    # 4 & 5. videos.md and continue-learning.md exist
-    videos_md = subdir / "videos.md"
-    continue_md = subdir / "continue-learning.md"
-    if not videos_md.is_file():
-        failures.append(f"[{name}] missing {videos_md.relative_to(REPO_ROOT)}")
-    if not continue_md.is_file():
-        failures.append(f"[{name}] missing {continue_md.relative_to(REPO_ROOT)}")
 
-    # 6. toctree links both, continue-learning last
-    entry_names = [Path(e).name for e in entries]
-    if "videos" not in entry_names:
-        failures.append(f"[{name}] toctree does not link videos")
-    if "continue-learning" not in entry_names:
-        failures.append(f"[{name}] toctree does not link continue-learning")
-    elif entry_names[-1] != "continue-learning":
-        failures.append(
-            f"[{name}] toctree does not end with continue-learning "
-            f"(ends with {entry_names[-1]!r}); videos-then-continue-learning "
-            "must be the closing order before the next main module"
-        )
-    if "videos" in entry_names and "continue-learning" in entry_names:
-        if entry_names.index("videos") > entry_names.index("continue-learning"):
-            failures.append(f"[{name}] videos must come before continue-learning in the toctree")
+def check_no_course_language() -> list[str]:
+    failures: list[str] = []
+    for p in all_md_files():
+        text = strip_code_fences(p.read_text(encoding="utf-8", errors="ignore"))
+        rel = p.relative_to(REPO_ROOT)
+        if NUMBERED_MODULE_RE.search(text):
+            failures.append(f"{rel}: numbered-module-style heading ('# N. ...') found")
+        if MODULE_WORD_RE.search(text):
+            failures.append(f"{rel}: 'module N' reference found")
+        if TIME_ESTIMATE_RE.search(text):
+            failures.append(f"{rel}: processing-time estimate or 'core learning path' found")
+        if HACKATHON_CAPSTONE_RE.search(text):
+            failures.append(f"{rel}: 'Hackathon' or 'Capstone' reference found")
+    return failures
 
-    # 7/8. no orphaned subpage: every .md in subdir is in the toctree
-    # (module 4's overview lives inside its own subdir, so exclude it from
-    # the "subpage" set it is itself the parent of).
-    on_disk = {p for p in subdir.glob("*.md") if p.resolve() != overview.resolve()}
-    referenced = {toctree_entry_to_path(e, subdir, overview) for e in entries}
-    orphaned = on_disk - referenced
-    for p in sorted(orphaned):
-        failures.append(f"[{name}] orphaned subpage, not in overview's toctree: {p.relative_to(REPO_ROOT)}")
 
-    # 9. no toctree entry points at a missing file
-    missing = referenced - on_disk - {overview.resolve()}
-    for p in sorted(missing):
-        if not p.is_file():
-            failures.append(f"[{name}] toctree entry points at a missing file: {p.relative_to(REPO_ROOT)}")
+def check_no_orphans() -> list[str]:
+    """Every .md file under docs/ must be reachable from docs/index.md via
+    some chain of toctrees (each topic's index.md toctree, in turn,
+    referencing its own subpages)."""
+    failures: list[str] = []
+    reachable: set[Path] = set()
+    queue = [DOCS / "index.md"]
+    while queue:
+        current = queue.pop()
+        if current in reachable or not current.is_file():
+            continue
+        reachable.add(current)
+        for entry in parse_toctree_entries(current):
+            target = doc_ref_to_path(entry, current.parent)
+            if target not in reachable:
+                queue.append(target)
 
+    all_files = set(all_md_files())
+    orphans = all_files - reachable
+    for p in sorted(orphans):
+        failures.append(f"orphaned page, not reachable from docs/index.md via any toctree: {p.relative_to(REPO_ROOT)}")
+    return failures
+
+
+def check_manipulation_decision_making_separate() -> list[str]:
+    failures: list[str] = []
+    manipulation_dir = DOCS / "manipulation"
+    decision_dir = DOCS / "decision-making"
+    if not manipulation_dir.is_dir():
+        failures.append("docs/manipulation/ does not exist -- Robot Manipulation must be its own topic")
+        return failures
+    if not decision_dir.is_dir():
+        failures.append("docs/decision-making/ does not exist")
+        return failures
+    if manipulation_dir.resolve() == decision_dir.resolve():
+        failures.append("manipulation and decision-making resolve to the same directory")
+
+    # MoveIt-specific headings must not live under decision-making/ --
+    # they belong on the manipulation page instead.
+    moveit_heading_re = re.compile(r"^#{1,3}\s*MoveIt\b", re.MULTILINE)
+    for p in decision_dir.glob("*.md"):
+        text = p.read_text(encoding="utf-8", errors="ignore")
+        if moveit_heading_re.search(text):
+            failures.append(
+                f"{p.relative_to(REPO_ROOT)}: has a MoveIt-specific heading -- "
+                "MoveIt content belongs under docs/manipulation/, not decision-making/"
+            )
+    if not (manipulation_dir / "index.md").is_file():
+        failures.append("docs/manipulation/index.md is missing")
+    return failures
+
+
+def check_installation_under_ros2() -> list[str]:
+    failures: list[str] = []
+    expected = DOCS / "ros2" / "installation.md"
+    if not expected.is_file():
+        failures.append("docs/ros2/installation.md is missing -- installation must live under ROS 2")
+    for wrong in (
+        DOCS / "prerequisites" / "installation.md",
+        DOCS / "getting-started" / "installation.md",
+    ):
+        if wrong.is_file():
+            failures.append(f"installation page found at the wrong location: {wrong.relative_to(REPO_ROOT)}")
+    return failures
+
+
+def check_no_stale_removed_dir_links() -> list[str]:
+    failures: list[str] = []
+    pattern = re.compile(r"\]\([^)]*\b(?:course|prerequisites)/[^)]*\)")
+    linkfield_pattern = re.compile(r"^:link:\s*.*\b(?:course|prerequisites)/", re.MULTILINE)
+    for p in all_md_files():
+        text = p.read_text(encoding="utf-8", errors="ignore")
+        if pattern.search(text) or linkfield_pattern.search(text):
+            failures.append(f"{p.relative_to(REPO_ROOT)}: still links into a removed course/ or prerequisites/ path")
+    return failures
+
+
+def check_no_carologistics_content() -> list[str]:
+    failures: list[str] = []
+    carologistics_page = DOCS / "platforms" / "carologistics-robotino.md"
+    if carologistics_page.exists():
+        failures.append(f"Carologistics platform page still exists: {carologistics_page.relative_to(REPO_ROOT)}")
+    for p in all_md_files():
+        text = p.read_text(encoding="utf-8", errors="ignore").lower()
+        for term in _CAROLOGISTICS_TERMS:
+            if term in text:
+                failures.append(f"{p.relative_to(REPO_ROOT)} still mentions {term!r}")
+    return failures
+
+
+def check_no_instructor_page() -> list[str]:
+    failures: list[str] = []
+    for p in all_md_files():
+        if "instructor" in p.name.lower():
+            failures.append(f"instructor-named page present in docs/: {p.relative_to(REPO_ROOT)}")
+        else:
+            text = p.read_text(encoding="utf-8", errors="ignore")
+            first_heading = next((l for l in text.splitlines() if l.startswith("# ")), "")
+            if "instructor" in first_heading.lower():
+                failures.append(f"page titled 'Instructor...': {p.relative_to(REPO_ROOT)}")
     return failures
 
 
 def check_no_duplicate_video_urls() -> list[str]:
     failures: list[str] = []
     seen: dict[str, Path] = {}
-    for videos_md in COURSE.rglob("videos.md"):
+    for videos_md in DOCS.rglob("videos.md"):
         text = videos_md.read_text(encoding="utf-8")
         for url in VIDEO_LINK_RE.findall(text):
             if url in seen and seen[url] != videos_md:
@@ -199,17 +328,12 @@ def check_no_duplicate_video_urls() -> list[str]:
 
 
 def check_video_cards_carry_metadata() -> list[str]:
-    """Weak proxy for 'no video ID is unchecked': every video card must
-    carry the fixed channel/duration metadata line the authoring process
-    produces when a video was actually looked up (oEmbed + duration
-    scrape), not just a bare link. Does not re-verify the ID itself
-    against YouTube -- see the module docstring."""
     failures: list[str] = []
     card_re = re.compile(
         r":::\{grid-item-card\}[^\n]*\n:link:\s*https://www\.youtube\.com/watch\?v=[\w-]+\n\n"
         r"\*\*[^*]+\*\*"
     )
-    for videos_md in COURSE.rglob("videos.md"):
+    for videos_md in DOCS.rglob("videos.md"):
         text = videos_md.read_text(encoding="utf-8")
         cards = text.count(":link: https://www.youtube.com/watch?v=")
         metadata_cards = len(card_re.findall(text))
@@ -222,138 +346,36 @@ def check_video_cards_carry_metadata() -> list[str]:
     return failures
 
 
-def check_no_instructor_page() -> list[str]:
+def check_only_new_substitutions_used() -> list[str]:
     failures: list[str] = []
-    for p in DOCS.rglob("*.md"):
-        if "instructor" in p.name.lower():
-            failures.append(f"instructor-named page present in docs/: {p.relative_to(REPO_ROOT)}")
-        else:
-            text = p.read_text(encoding="utf-8", errors="ignore")
-            first_heading = next((l for l in text.splitlines() if l.startswith("# ")), "")
-            if "instructor" in first_heading.lower():
-                failures.append(f"page titled 'Instructor...': {p.relative_to(REPO_ROOT)}")
-    return failures
-
-
-# -- Entwicklungsauftrag 8 regression check ---------------------------------
-# Carologistics content (the team, Robotino, the RoboCup Smart Manufacturing
-# League, RCLL, MPS, expertino-rcll, the {{ carologistics }} substitution and
-# its comparison tables) was removed from the public site entirely. This is
-# the anti-check for the old "mentions Carologistics" requirement above --
-# catches a later edit accidentally reintroducing any of it, including the
-# platform page itself reappearing.
-
-_CAROLOGISTICS_TERMS = (
-    "carologistics",
-    "robotino",
-    "smart manufacturing league",
-    "expertino-rcll",
-    "{{ carologistics }}",
-)
-
-
-def check_no_carologistics_content() -> list[str]:
-    failures: list[str] = []
-    carologistics_page = DOCS / "platforms" / "carologistics-robotino.md"
-    if carologistics_page.exists():
-        failures.append(f"Carologistics platform page still exists: {carologistics_page.relative_to(REPO_ROOT)}")
-    for p in DOCS.rglob("*.md"):
-        text = p.read_text(encoding="utf-8", errors="ignore").lower()
-        for term in _CAROLOGISTICS_TERMS:
-            if term in text:
-                failures.append(f"{p.relative_to(REPO_ROOT)} still mentions {term!r}")
-    return failures
-
-
-# -- Entwicklungsauftrag 7 regression checks --------------------------------
-# Content-management fixes from Entwicklungsauftrag 7 (installation moved
-# into module 2, module 1 reduced to KiCad/Fusion, the public sources page
-# removed) are easy to silently reintroduce with an unrelated later edit --
-# e.g. re-adding installation.md to prerequisites/index.md's toctree, or a
-# stray docs/reference/sources.md reappearing. These four checks exist
-# purely to catch that kind of regression, not to re-derive the module
-# checks above.
-
-def check_module_1_is_kicad_fusion_only() -> list[str]:
-    """Module 1 must carry exactly kicad-schematic, fusion-mechanical-design,
-    videos and continue-learning -- no sense-process-act or
-    practical-exercise subpage, and no other unexpected subpage."""
-    expected = {"kicad-schematic", "fusion-mechanical-design", "videos", "continue-learning"}
-    overview, subdir = MODULES["1: Hardware Design with KiCad and Fusion"]
-    entries = {Path(e).name for e in parse_toctree(overview)}
-    failures: list[str] = []
-    if entries != expected:
-        missing = expected - entries
-        unexpected = entries - expected
-        if missing:
-            failures.append(f"module 1 toctree is missing expected entries: {sorted(missing)}")
-        if unexpected:
-            failures.append(f"module 1 toctree has unexpected entries: {sorted(unexpected)}")
-    for removed_name in ("sense-process-act.md", "practical-exercise.md"):
-        if (subdir / removed_name).exists():
-            failures.append(
-                f"module 1 subdirectory still contains a removed page: "
-                f"{(subdir / removed_name).relative_to(REPO_ROOT)}"
-            )
-    return failures
-
-
-def check_module_2_installation_is_first() -> list[str]:
-    """Module 2's toctree must list installation as its first subtopic."""
-    overview, _ = MODULES["2: ROS 2 Fundamentals"]
-    entries = [Path(e).name for e in parse_toctree(overview)]
-    if not entries or entries[0] != "installation":
-        return [
-            f"module 2 toctree does not start with 'installation' "
-            f"(starts with {entries[0] if entries else '(empty)'!r})"
-        ]
-    return []
-
-
-def check_prerequisites_has_no_installation_page() -> list[str]:
-    """The public Prerequisites navigation must not list an installation
-    page -- that content now lives at docs/course/02-ros2/installation.md."""
-    failures: list[str] = []
-    prereq_dir = DOCS / "prerequisites"
-    if (prereq_dir / "installation.md").exists():
-        failures.append("docs/prerequisites/installation.md still exists on disk")
-    index = prereq_dir / "index.md"
-    if index.is_file():
-        text = index.read_text(encoding="utf-8")
-        m = TOCTREE_RE.search(text)
-        if m and "installation" in {l.strip() for l in m.group(1).splitlines()}:
-            failures.append("docs/prerequisites/index.md's toctree still lists 'installation'")
-    return failures
-
-
-def check_reference_has_no_sources_page() -> list[str]:
-    """The Reference section must not list a sources/licenses page."""
-    failures: list[str] = []
-    if (DOCS / "reference" / "sources.md").exists():
-        failures.append("docs/reference/sources.md still exists on disk")
-    index = DOCS / "reference" / "index.md"
-    if index.is_file():
-        text = index.read_text(encoding="utf-8")
-        m = TOCTREE_RE.search(text)
-        if m and "sources" in {l.strip() for l in m.group(1).splitlines()}:
-            failures.append("docs/reference/index.md's toctree still lists 'sources'")
+    for p in all_md_files():
+        text = p.read_text(encoding="utf-8", errors="ignore")
+        for old in OLD_SUBSTITUTIONS:
+            if old in text:
+                failures.append(f"{p.relative_to(REPO_ROOT)}: uses the removed substitution {old}")
+    conf_py = (REPO_ROOT / "docs" / "conf.py").read_text(encoding="utf-8")
+    for name in ('"core"', '"optional"', '"platformspecific"', '"common"'):
+        if name in conf_py:
+            failures.append(f"docs/conf.py still defines the removed substitution {name}")
     return failures
 
 
 def main() -> int:
     all_failures: list[str] = []
 
-    for name, (overview, subdir) in MODULES.items():
-        all_failures.extend(check_module(name, overview, subdir))
-
+    all_failures.extend(check_topic_directories())
+    all_failures.extend(check_topic_index_pages())
+    all_failures.extend(check_topics_in_root_toctree())
+    all_failures.extend(check_no_course_language())
+    all_failures.extend(check_no_orphans())
+    all_failures.extend(check_manipulation_decision_making_separate())
+    all_failures.extend(check_installation_under_ros2())
+    all_failures.extend(check_no_stale_removed_dir_links())
+    all_failures.extend(check_no_carologistics_content())
+    all_failures.extend(check_no_instructor_page())
     all_failures.extend(check_no_duplicate_video_urls())
     all_failures.extend(check_video_cards_carry_metadata())
-    all_failures.extend(check_no_instructor_page())
-    all_failures.extend(check_no_carologistics_content())
-    all_failures.extend(check_module_1_is_kicad_fusion_only())
-    all_failures.extend(check_module_2_installation_is_first())
-    all_failures.extend(check_prerequisites_has_no_installation_page())
-    all_failures.extend(check_reference_has_no_sources_page())
+    all_failures.extend(check_only_new_substitutions_used())
 
     print("=== verify-structure.py results ===")
     if all_failures:
@@ -362,8 +384,7 @@ def main() -> int:
         print(f"\n{len(all_failures)} failure(s)")
         return 1
 
-    n_modules = len(MODULES)
-    print(f"All structural checks passed for {n_modules} modules (8 course modules + capstone).")
+    print(f"All structural checks passed for {len(TOPIC_DIRS)} topic directories.")
     return 0
 
 
