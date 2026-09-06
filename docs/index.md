@@ -6,19 +6,7 @@ FH Aachen**. It explains the robotics, ROS 2 and ALeRT-specific systems
 this team's software is built on, for anyone who wants to understand or
 extend it.
 
-<a class="lrcc-cta" href="course/index.html">Browse the topics →</a>
-
-:::{admonition} This site is being restructured
-:class: important
-
-This page still links to the site's earlier module-based structure while
-the move to a topic-based navigation (Getting Started, ROS 2, ALeRT
-Platforms and Safety, Simulation, Sensors and Coordinate Frames,
-Perception, Mapping and World Models, Localization/Navigation/Exploration,
-Robot Manipulation, Autonomous Decision-Making, Integration/Diagnostics/
-Testing, Rescue Applications and Projects, Reference) is completed. Links
-below remain valid; their location in the navigation will change.
-:::
+<a class="lrcc-cta" href="ros2/index.html">Browse the topics →</a>
 
 ## Who this is for
 
@@ -47,66 +35,114 @@ actually use it.
 :class: important
 
 A working Linux system with ROS 2 Humble installed makes every later topic
-go smoothly. See [Prerequisites](prerequisites/index.md).
+go smoothly. See [Getting Started](getting-started/index.md).
 :::
+
+## Topics
 
 ::::{grid} 1 1 2 2
 :gutter: 3
 
-:::{grid-item-card} Prerequisites
-:link: prerequisites/index
+:::{grid-item-card} Getting Started
+:link: getting-started/index
 :link-type: doc
 
-Linux and the terminal, ROS 2 installation, Git, and the networking basics
-you need to talk to a robot.
+Linux and the terminal, Git, networking, and ROS 2 installation.
 :::
 
-:::{grid-item-card} Platform tracks
+:::{grid-item-card} ROS 2
+:link: ros2/index
+:link-type: doc
+
+Nodes, topics, services, parameters, actions, launch files, `colcon` —
+the middleware everything else runs on.
+:::
+
+:::{grid-item-card} ALeRT Platforms and Safety
 :link: platforms/index
 :link-type: doc
 
-The same material, on your system: pure simulation, or ALeRT/Spot.
+Spot, its manipulator, hardware design (KiCad, Fusion), system
+architecture, and safe start/stop procedures.
+:::
+
+:::{grid-item-card} Simulation
+:link: simulation/index
+:link-type: doc
+
+Webots, the ALeRT Spot simulation, simulation time, and the difference
+between simulation and hardware.
+:::
+
+:::{grid-item-card} Sensors and Coordinate Frames
+:link: sensors-frames/index
+:link-type: doc
+
+Cameras, LiDAR, IMU, TF2, static and dynamic transforms.
+:::
+
+:::{grid-item-card} Perception
+:link: perception/index
+:link-type: doc
+
+Camera calibration, OpenCV, ArUco/AprilTag, YOLO, data labeling.
+:::
+
+:::{grid-item-card} Mapping and World Models
+:link: mapping-world-models/index
+:link-type: doc
+
+Occupancy grids, SLAM Toolbox, 3D mapping, saving and loading maps.
+:::
+
+:::{grid-item-card} Localization, Navigation and Exploration
+:link: navigation-exploration/index
+:link-type: doc
+
+AMCL, Nav2, costmaps, planners, controllers, recovery behavior.
+:::
+
+:::{grid-item-card} Robot Manipulation
+:link: manipulation/index
+:link-type: doc
+
+Arm fundamentals, MoveIt 2, planning scenes, grippers, perception-to-grasp.
+:::
+
+:::{grid-item-card} Autonomous Decision-Making
+:link: decision-making/index
+:link-type: doc
+
+State machines, behavior trees, RAFCON, PlanSys2, Golog++.
+:::
+
+:::{grid-item-card} Integration, Diagnostics and Testing
+:link: integration-testing/index
+:link-type: doc
+
+Startup order, configuration, logging, rosbags, systematic debugging.
+:::
+
+:::{grid-item-card} Rescue Applications and Projects
+:link: rescue-projects/index
+:link-type: doc
+
+Worked examples that combine several topics into one autonomous mission.
+:::
+
+:::{grid-item-card} Reference
+:link: reference/index
+:link-type: doc
+
+Cheat sheet, supported environment, glossary.
 :::
 
 ::::
 
-## Current topics
-
-```{list-table}
-:header-rows: 1
-:widths: 34 66
-
-* - Topic
-  - Covers
-* - [Hardware Design with KiCad and Fusion](course/01-system-hardware.md)
-  - Electrical schematics in KiCad, parametric mechanical parts in Fusion
-* - [ROS 2 Fundamentals](course/02-ros2.md)
-  - Workspaces, packages, nodes, topics, parameters, launch files
-* - [Sensors, TF2 and RViz](course/03-sensors-tf.md)
-  - Sensor messages, coordinate frames, transforms, visualization
-* - [Perception and Object Detection](course/04-perception/index.md)
-  - Camera calibration, OpenCV, markers, YOLO, data labeling
-* - [Mapping and Localization](course/05-mapping-localization.md)
-  - Odometry, occupancy grids, SLAM Toolbox, AMCL
-* - [Autonomous Navigation](course/06-navigation.md)
-  - Nav2, costmaps, planners, controllers, recoveries, exploration
-* - [Autonomous Decisions and Manipulation](course/07-autonomous-decisions.md)
-  - State machines, behavior trees, RAFCON, MoveIt
-* - [System Integration and Testing](course/08-integration.md)
-  - Startup order, configuration, logging, rosbags, debugging
-```
-
 Topics build on each other where a real dependency exists — transforms
 are needed before mapping, mapping before navigation, navigation before a
 full mission — each topic's own Prerequisites section states exactly what
-it assumes.
-
-## Rescue applications
-
-[Rescue mission projects](course/hackathon.md) — worked examples that
-combine several topics into one autonomous task (crossing an area,
-finding a target, an optional pick-and-place extension). These are
-technical worked examples, not a scored or scheduled event.
+it assumes, so you can start wherever your own knowledge runs out.
 
 ## How to read this site
 
@@ -118,14 +154,23 @@ to the shared explanation instead of repeating it.
 
 Every topic is marked with a difficulty level:
 
-{{ core }} foundational &nbsp;
-{{ optional }} intermediate &nbsp;
-{{ advanced }} advanced, for later reading
+{{ foundation }} foundational &nbsp;
+{{ intermediate }} intermediate &nbsp;
+{{ advanced }} advanced &nbsp;
+{{ research }} research / experimental
 
 and, where a claim is about ALeRT's own systems specifically, a
-verification status — Documented, Simulation verified, Hardware verified,
-Hardware verification required, Experimental, or Historical — rather than
-a badge implying it applies to every team.
+verification status:
+
+{{ documented }} confirmed via a repository or written documentation
+&nbsp;
+{{ simulation }} runs in Webots &nbsp;
+{{ hardwareverified }} actually checked on running hardware &nbsp;
+{{ unverified }} plausible, not checked &nbsp;
+{{ historical }} no longer current, kept for context
+
+rather than a badge implying a claim applies to every team or every
+robot.
 
 This site runs on one fixed toolchain — Ubuntu 22.04 LTS and ROS 2
 Humble — unless a specific ALeRT repository is documented to need
@@ -135,25 +180,97 @@ for the exact versions and how to check them on your own machine.
 ```{toctree}
 :hidden:
 :maxdepth: 2
-:caption: Getting started
+:caption: Getting Started
 
-prerequisites/index
+getting-started/index
 ```
 
 ```{toctree}
 :hidden:
 :maxdepth: 2
-:caption: Topics
+:caption: ROS 2
 
-course/index
+ros2/index
 ```
 
 ```{toctree}
 :hidden:
 :maxdepth: 2
-:caption: Platforms
+:caption: ALeRT Platforms and Safety
 
 platforms/index
+```
+
+```{toctree}
+:hidden:
+:maxdepth: 2
+:caption: Simulation
+
+simulation/index
+```
+
+```{toctree}
+:hidden:
+:maxdepth: 2
+:caption: Sensors and Coordinate Frames
+
+sensors-frames/index
+```
+
+```{toctree}
+:hidden:
+:maxdepth: 2
+:caption: Perception
+
+perception/index
+```
+
+```{toctree}
+:hidden:
+:maxdepth: 2
+:caption: Mapping and World Models
+
+mapping-world-models/index
+```
+
+```{toctree}
+:hidden:
+:maxdepth: 2
+:caption: Localization, Navigation and Exploration
+
+navigation-exploration/index
+```
+
+```{toctree}
+:hidden:
+:maxdepth: 2
+:caption: Robot Manipulation
+
+manipulation/index
+```
+
+```{toctree}
+:hidden:
+:maxdepth: 2
+:caption: Autonomous Decision-Making
+
+decision-making/index
+```
+
+```{toctree}
+:hidden:
+:maxdepth: 2
+:caption: Integration, Diagnostics and Testing
+
+integration-testing/index
+```
+
+```{toctree}
+:hidden:
+:maxdepth: 2
+:caption: Rescue Applications and Projects
+
+rescue-projects/index
 ```
 
 ```{toctree}

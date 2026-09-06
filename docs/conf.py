@@ -67,42 +67,49 @@ def _level(css_class: str, label: str) -> str:
 
 
 myst_substitutions = {
-    "common": _badge("common", "COMMON"),
     "simulation": _badge("simulation", "SIMULATION"),
     "alert": _badge("alert", "ALERT"),
     "unverified": _badge("unverified", "UNVERIFIED"),
     # ---------------------------------------------------------------------
-    # Content-level badges. Mark every heading or task with exactly one of
-    # these so a self-directed reader can tell at a glance what is core to
-    # the module, what is worth doing with extra time, and what is a later,
-    # optional deep dive.
+    # Difficulty-level badges (Entwicklungsauftrag 8, replacing the course-
+    # era Core/Optional/Common/Platform-specific scheme). These mark
+    # technical difficulty, not schedule priority -- a topic is Foundation
+    # because it needs no prior specialised knowledge, not because it is
+    # "session 1". Mark every heading or task with exactly one.
     # ---------------------------------------------------------------------
-    "core": _level("core", "CORE"),
-    "optional": _level("optional", "OPTIONAL"),
+    "foundation": _level("foundation", "FOUNDATION"),
+    "intermediate": _level("intermediate", "INTERMEDIATE"),
     "advanced": _level("advanced", "ADVANCED"),
-    "platformspecific": _level("platform", "PLATFORM-SPECIFIC"),
+    "research": _level("research", "RESEARCH"),
     # ---------------------------------------------------------------------
     # "Try it on Spot" safety-level badges (Entwicklungsauftrag 5). Every
-    # Spot exercise scattered across the modules is marked with exactly one
-    # of these three, so a reader can tell at a glance whether it is safe
-    # to try alone.
+    # Spot exercise scattered across this site's topics is marked with
+    # exactly one of these three, so a reader can tell at a glance whether
+    # it is safe to try alone.
     # ---------------------------------------------------------------------
     "spotsim": _level("spot-sim", "SIMULATION EXERCISE"),
     "spotreadonly": _level("spot-readonly", "READ-ONLY ON PHYSICAL SPOT"),
     "spotsupervised": _level("spot-supervised", "SUPERVISED PHYSICAL EXERCISE"),
     # ---------------------------------------------------------------------
-    # Team-claim verification badges (Entwicklungsauftrag 6). Every "how
-    # ALeRT uses this" statement is marked with exactly one:
-    # confirmed by the team's own repository or documentation
-    # ({{ documented }}), runnable in Webots ({{ simulation }}, already
-    # defined above), actually checked on running hardware
-    # ({{ hardwareverified }}), technically plausible but not checked
-    # ({{ unverified }}, already defined above), or -- written as plain
-    # text, "Not documented", no badge needed -- no reliable information at
-    # all. Never use {{ hardwareverified }} from a passing simulation test.
+    # Team-claim verification badges (Entwicklungsauftrag 6, extended in
+    # Entwicklungsauftrag 8). Every "how ALeRT uses this" statement is
+    # marked with exactly one: confirmed by the team's own repository or
+    # documentation ({{ documented }}), runnable in Webots
+    # ({{ simulation }}, already defined above), actually checked on
+    # running hardware ({{ hardwareverified }}), technically plausible but
+    # not checked ({{ unverified }}, already defined above), a specific
+    # call to actually check on real hardware before relying on it
+    # ({{ hwverificationrequired }}), a working but not yet
+    # production-ready approach ({{ experimental }}), no longer current but
+    # kept for context ({{ historical }}), or -- written as plain text,
+    # "Not documented", no badge needed -- no reliable information at all.
+    # Never use {{ hardwareverified }} from a passing simulation test.
     # ---------------------------------------------------------------------
     "documented": _badge("documented", "DOCUMENTED"),
     "hardwareverified": _badge("hwverified", "HARDWARE-VERIFIED"),
+    "hwverificationrequired": _badge("hwverification-required", "HARDWARE VERIFICATION REQUIRED"),
+    "experimental": _badge("experimental", "EXPERIMENTAL"),
+    "historical": _badge("historical", "HISTORICAL"),
 }
 
 # -- Options for HTML output -------------------------------------------------

@@ -608,12 +608,14 @@ footer span {
   font-family: "Roboto Slab", "ff-tisa-web-pro", Georgia, Arial, sans-serif;
 }
 
-.lrcc-badge--common { background: #4c6875; }
 .lrcc-badge--simulation { background: #246293; }
 .lrcc-badge--alert { background: #7a4bb5; }
 .lrcc-badge--unverified { background: #a02b47; }
 .lrcc-badge--documented { background: #0f6e5c; }
 .lrcc-badge--hwverified { background: #3d4f9e; }
+.lrcc-badge--hwverification-required { background: #a3521a; }
+.lrcc-badge--experimental { background: #8a3d7a; }
+.lrcc-badge--historical { background: #43484f; }
 
 /* A row of badges directly under a heading gets a little breathing room. */
 .rst-content p > .lrcc-badge:first-child {
@@ -763,10 +765,10 @@ footer span {
   color: #ffffff;
 }
 
-.lrcc-level--core { background: #19703c; }
-.lrcc-level--optional { background: #246293; }
+.lrcc-level--foundation { background: #19703c; }
+.lrcc-level--intermediate { background: #246293; }
 .lrcc-level--advanced { background: #7a4bb5; }
-.lrcc-level--platform { background: #c1512e; }
+.lrcc-level--research { background: #6b2545; }
 
 /* "Try it on Spot" safety levels. */
 .lrcc-level--spot-sim { background: #246293; }
