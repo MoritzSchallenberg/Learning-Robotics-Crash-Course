@@ -1,6 +1,6 @@
 # Topics and messages
 
-{{ common }} {{ core }}
+{{ foundation }}
 
 ## What this topic is
 
@@ -42,7 +42,7 @@ ros2 topic info -v /turtle1/cmd_vel
 The plain version names the type and counts publishers/subscribers; `-v`
 additionally prints each side's QoS profile — the setting behind the
 "nothing arrives and there is no error" failure class you will meet
-properly in [module 3](../03-sensors-tf/practical-exercise.md#common-problems), and
+properly in [Sensors and Coordinate Frames](../sensors-frames/practical-exercise.md#common-problems), and
 reproduce on purpose in [Continue learning](continue-learning.md).
 
 ```bash
@@ -60,7 +60,7 @@ ros2 topic hz /turtle1/pose
 
 **Expected result**: an average rate around 62 Hz (turtlesim's fixed
 simulation rate), printed continuously. This is the same tool
-[module 8](../08-integration/continue-learning.md) uses to check whether
+[Integration, Diagnostics and Testing](../integration-testing/continue-learning.md) uses to check whether
 a real sensor is actually publishing at the rate it claims to.
 
 ```bash
@@ -147,7 +147,7 @@ opposite. Cancel any still-running `topic pub` with
 
 {{ alert }} {{ simulation }} Spot's odometry, point cloud and camera
 image are all topics, continuously published exactly like
-`/turtle1/pose` — see [this module's Try it on
+`/turtle1/pose` — see [this topic's Try it on
 Spot](practical-exercises.md#try-it-on-spot) for sorting Spot's real
 topics into sensor/motion/state categories yourself.
 

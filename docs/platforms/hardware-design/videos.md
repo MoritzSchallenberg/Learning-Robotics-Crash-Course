@@ -1,12 +1,12 @@
 # Interesting videos
 
-{{ optional }}
+{{ intermediate }}
 
 ## Start here
 
-Not yet populated for this module's current scope (KiCad and Fusion). A
+Not yet populated for this topic's current scope (KiCad and Fusion). A
 previous version of this page carried a general robot-demonstration
-video; it did not fit the module's electrical/mechanical design focus
+video; it did not fit the topic's electrical/mechanical design focus
 and was removed rather than kept for the sake of having an entry here.
 Each tutorial's own page already links one checked video directly —
 [KiCad: Interesting

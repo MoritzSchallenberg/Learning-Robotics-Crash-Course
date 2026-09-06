@@ -1,6 +1,6 @@
 # Practical exercises
 
-{{ optional }}
+{{ intermediate }}
 
 ## The turtlesim challenge
 
@@ -17,14 +17,14 @@ least one extension:
 - Have the controller stop early if the turtle's `x` or `y` gets within a
   fixed margin of the window edge (turtlesim's window is roughly 11×11
   units, origin at the bottom-left) — a first taste of the obstacle-margin
-  thinking [module 6](../06-navigation/nav2-architecture-and-costmaps.md#how-it-works) covers properly.
+  thinking [Navigation and Exploration](../navigation-exploration/nav2-architecture-and-costmaps.md#how-it-works) covers properly.
 - Spawn a second turtle and have your controller's node publish to
   `/turtle2/cmd_vel` as well, driving both through different paths at
   once from one process.
 - Record the run: `ros2 bag record /turtle1/cmd_vel /turtle1/pose`, then
   play it back and confirm `ros2 topic echo` during playback matches what
   you saw live — the same rosbag pattern
-  [module 8](../08-integration/system-bringup-and-diagnostics.md) uses for a real robot.
+  [Integration, Diagnostics and Testing](../integration-testing/system-bringup-and-diagnostics.md) uses for a real robot.
 
 **Expected result**: a reproducible path — running the same controller
 twice produces the same shape, not a random one.
@@ -36,8 +36,8 @@ twice, and confirm both runs draw the same figure.
 
 {{ alert }} {{ spotsim }}
 
-Run this module's inspection commands against
-[Webots Spot](../../platforms/alert-spot.md#the-webots-spot-simulation)
+Run this topic's inspection commands against
+[Webots Spot](../platforms/spot/index.md#the-webots-spot-simulation)
 instead of turtlesim, and compare what changed and what did not.
 
 ```bash

@@ -1,6 +1,6 @@
 # Interesting videos
 
-{{ optional }}
+{{ intermediate }}
 
 ## Start here
 
@@ -17,18 +17,18 @@ ground as [Nodes and packages](nodes-and-packages.md) and
 [Topics and messages](topics-and-messages.md), walked through
 independently, against turtlesim.
 
-*Why watch it*: a second explanation of the exact commands this module's
+*Why watch it*: a second explanation of the exact commands this topic's
 subtopics just had you run, useful if the node/topic distinction still
 feels unclear after doing it once yourself.
 
 *Recommended part*: the whole video — it is already short.
 
-*Why this fits the module*: nodes and topics are the two ROS 2 concepts
-this course leans on hardest afterwards.
+*Why this fits the topic*: nodes and topics are the two ROS 2 concepts
+this site leans on hardest afterwards.
 
 *Compatibility*: conceptual and applicable to ROS 2 Humble — the commands
 shown are the stable `ros2` CLI surface, not distribution-specific
-syntax. Verify any install command shown against [this module's own
+syntax. Verify any install command shown against [this topic's own
 installation guide](installation.md) rather than following it directly.
 :::
 
@@ -36,12 +36,12 @@ installation guide](installation.md) rather than following it directly.
 
 ## Practical demonstrations
 
-Not yet populated — no additional video for this module cleared the
+Not yet populated — no additional video for this topic cleared the
 verification bar described below without duplicating the one above.
 
 ## ALeRT / Spot
 
-Not yet populated for module 2 specifically — see
+Not yet populated for ROS 2 specifically — see
 [Try it on Spot](practical-exercises.md#try-it-on-spot) for the hands-on
 Spot exercise instead.
 
@@ -65,4 +65,4 @@ for how.
 ## Next subtopic
 
 [Continue learning](continue-learning.md) — what to build next once this
-module's core path feels comfortable.
+topic's core content feels comfortable.

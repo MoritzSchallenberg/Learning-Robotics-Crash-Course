@@ -1,6 +1,6 @@
 # Autodesk Fusion: mechanical robot parts
 
-{{ optional }}
+{{ intermediate }}
 
 The [KiCad tutorial](kicad-schematic.md) designed the electrical side of a
 robot subsystem. This page designs the **mechanical** side — a single
@@ -14,7 +14,7 @@ platforms are Windows and macOS (checked against Autodesk's own system
 requirements page, 2026-09-02); there is also a browser-based version with
 more limited functionality, and running the Windows desktop app inside a
 Windows virtual machine or on a dual-boot machine is the common workaround
-on an otherwise Ubuntu setup. This course runs on Ubuntu
+on an otherwise Ubuntu setup. This site runs on Ubuntu
 ([Supported environment](../../reference/compatibility.md)), so plan for one
 of those options rather than expecting `apt install` to work here — check
 Autodesk's current system requirements before you install anything, since
@@ -62,7 +62,7 @@ instead of `d3`. Reference a parameter's name in another dimension's
 expression field (e.g. `plate_thickness / 2`) and the two stay linked
 automatically. This is the mechanical equivalent of using `$ROS_DISTRO`
 instead of hard-coding a distribution name
-([module 2's installation guide](../02-ros2/installation.md)) — one named
+([ROS 2's installation guide](../../ros2/installation.md)) — one named
 value, referenced everywhere it matters, instead of copies that can drift
 out of sync.
 
@@ -184,7 +184,7 @@ other geometry, plus a STEP file, a print-ready file, and one drawing view.
 
 ## Optional extensions
 
-{{ optional }}
+{{ intermediate }}
 
 Add a third, independent mounting variant (a different hole pattern) as a
 **second configuration** of named parameters you can switch between, rather
@@ -199,7 +199,7 @@ Continue learning below.
 **What it is.** Combining multiple components into an **assembly**, and
 connecting them with **joints** (revolute, slider, rigid) that define how
 they can move relative to each other — the mechanical equivalent of a TF2
-transform chain ([module 3](../03-sensors-tf/laserscan-and-frames.md)).
+transform chain ([Sensors and Coordinate Frames](../../sensors-frames/laserscan-and-frames.md)).
 
 **Why it matters.** A robot is never one part; understanding how Fusion
 models multi-part motion is what lets you design something that actually
@@ -227,7 +227,7 @@ space — automatically, rather than you eyeballing it.
 
 **Why it matters.** This is the mechanical-design equivalent of the
 collision checking
-{ref}`module 7 <planning-scene-and-collision-objects>` covers for a
+{ref}`Autonomous Decision-Making <planning-scene-and-collision-objects>` covers for a
 manipulator's planning scene — catching a physical collision
 before it happens on the real robot.
 
@@ -305,7 +305,7 @@ and deflection under a load.
 **Why it matters.** A design that is dimensionally "correct" on screen can
 still fail to assemble, or fail under load, if tolerances and material
 behaviour were never considered — the mechanical equivalent of the
-{{ unverified }} discipline this course applies to unverified technical
+{{ unverified }} discipline this site applies to unverified technical
 claims: do not assume a part will hold without checking.
 
 **Needs.** A completed, exported part.
@@ -352,7 +352,7 @@ files](https://help.autodesk.com/view/fusion360/ENU/)
 
 ## Interesting videos
 
-{{ optional }}
+{{ intermediate }}
 
 ::::{grid} 1 1 1 1
 :gutter: 2
@@ -386,12 +386,12 @@ is a documentation bug worth reporting — see the [repository
 README](https://github.com/MoritzSchallenberg/Learning-Robotics-Crash-Course).
 :::
 
-## Connection to the next module
+## Connection to the next topic
 
-This page and the [KiCad tutorial](kicad-schematic.md) are this module's
+This page and the [KiCad tutorial](kicad-schematic.md) are this topic's
 two concrete design documents: electrical and mechanical detail for the
-same robot. From here, the course turns to software —
-[module 2](../02-ros2.md) covers the ROS 2 nodes that run on top of this
+same robot. From here, the site turns to software —
+[ROS 2](../../ros2/index.md) covers the ROS 2 nodes that run on top of this
 hardware.
 
 ## Further reading

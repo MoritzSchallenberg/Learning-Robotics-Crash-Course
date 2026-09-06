@@ -1,8 +1,8 @@
 # Prerequisites
 
-Work through this section before starting [module 1](../course/01-system-hardware.md).
+Work through this section before starting [Hardware Design](../platforms/hardware-design/index.md).
 None of it needs a ROS 2 installation yet — that step is part of
-[module 2](../course/02-ros2/installation.md), where it is immediately
+[ROS 2](../ros2/installation.md), where it is immediately
 followed by the exercises that use it.
 
 ## What you need
@@ -15,16 +15,16 @@ followed by the exercises that use it.
   - Notes
 * - A 64-bit computer with Linux
   - Native install strongly preferred. A virtual machine works for the early
-    modules but struggles with 3D visualization and simulation.
+    topics but struggles with 3D visualization and simulation.
 * - Ubuntu 22.04 LTS
-  - The course's fixed baseline — see
+  - The site's fixed baseline — see
     [Supported environment](../reference/compatibility.md). Installed as
-    part of [module 2](../course/02-ros2/installation.md), not here.
+    part of [ROS 2](../ros2/installation.md), not here.
 * - ROS 2 Humble Hawksbill
-  - The only distribution this course uses; installed as part of
-    [module 2](../course/02-ros2/installation.md), not here.
+  - The only distribution this site uses; installed as part of
+    [ROS 2](../ros2/installation.md), not here.
 * - Basic Python
-  - Variables, functions, classes, imports. Every exercise in this course is
+  - Variables, functions, classes, imports. Every exercise in this site is
     solvable in Python.
 * - A GitHub account
   - With an SSH key, so you can clone and push team repositories.
@@ -49,13 +49,13 @@ networking
    and understanding why ROS 2 sometimes cannot see it.
 
 ROS 2 itself is installed later, as the first step of
-[module 2](../course/02-ros2/installation.md) — see that page rather than
+[ROS 2](../ros2/installation.md) — see that page rather than
 installing it here.
 
 ## Getting help
 
 If something does not work, that is normal. Bring the exact error message —
 not a paraphrase — when you ask your team for help. Once you reach
-module 2's installation, most problems there are one of three things: a
+ROS 2's installation, most problems there are one of three things: a
 distribution other than Humble installed by mistake, a workspace that was
 never sourced, or a network setting.

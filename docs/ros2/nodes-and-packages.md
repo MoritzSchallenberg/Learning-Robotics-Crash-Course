@@ -1,6 +1,6 @@
 # Nodes and packages
 
-{{ common }} {{ core }}
+{{ foundation }}
 
 ## What this topic is
 
@@ -15,7 +15,7 @@ A robot is not one program. Splitting it into many small, independent
 nodes means a sensor driver can crash and restart without taking the
 planner down with it, and means you can swap one node (a different
 camera driver, say) without touching anything else — the whole point of
-[module 2's system-level explanation](../02-ros2.md#how-the-complete-system-fits-together).
+[ROS 2's system-level explanation](index.md#how-the-complete-system-fits-together).
 
 ## How it works
 
@@ -27,7 +27,7 @@ code.
 
 Install turtlesim and rqt's plugin set — the second, `ros-humble-rqt*`,
 pulls in `rqt_graph` and the rest of rqt's plugins used later in this
-module:
+topic:
 
 ```bash
 sudo apt update
@@ -151,7 +151,7 @@ noticing: teleop only ever sends, it never listens.
 scale: `ros2 node list` after `ros2 launch webots_spot spot_launch.py`
 returns many more nodes than turtlesim's two — drivers, a state
 publisher, perception nodes — but each one is still one program doing
-one job. See [this module's overview](../02-ros2.md#how-alert-uses-this-topic)
+one job. See [this topic's overview](index.md#how-alert-uses-this-topic)
 and [Try it on Spot](practical-exercises.md#try-it-on-spot) for the
 exercise applying `ros2 node list`/`ros2 node info` there directly.
 

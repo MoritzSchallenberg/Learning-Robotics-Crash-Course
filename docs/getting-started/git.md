@@ -1,6 +1,6 @@
 # Git
 
-{{ common }}
+{{ foundation }}
 
 Every team at the institute keeps its robot software in Git. You will spend
 more time reading history and merging branches than you expect, so it is worth

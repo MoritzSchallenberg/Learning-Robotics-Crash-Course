@@ -5,7 +5,7 @@ work through a topic's "Try it" step, not only its description.
 
 ## Next steps
 
-Topics you can start on directly after this module's core path.
+Topics you can start on directly after this topic's core path.
 
 (launch-files)=
 :::{dropdown} Launch files — starting several nodes at once
@@ -14,12 +14,12 @@ Topics you can start on directly after this module's core path.
 **What it is.** A **launch file** starts nodes together, with parameters
 and remappings, instead of one `ros2 run` per terminal.
 
-**Why it matters.** Every module from here on starts more than one node
+**Why it matters.** Every topic from here on starts more than one node
 at once; you will build a real launch file in
-[module 8](../08-integration.md), where a whole robot starts from a
+[Integration, Diagnostics and Testing](../integration-testing/index.md), where a whole robot starts from a
 single command.
 
-**Needs.** This module's core path.
+**Needs.** This topic's core path.
 
 **Try it.** Write a two-node YAML launch file that starts two
 `turtlesim_node` instances, the second under a `second` namespace:
@@ -49,7 +49,7 @@ two windows but leaves both nodes competing for the same
 `/turtle1/cmd_vel` topic name.
 
 **Read more.** [Full launch file
-walkthrough](../../reference/ros2-cheatsheet.md#launch) for YAML vs
+walkthrough](../reference/ros2-cheatsheet.md#launch) for YAML vs
 Python launch files and composing them.
 :::
 
@@ -59,12 +59,12 @@ Python launch files and composing them.
 **What it is.** Declaring a parameter with a type and a default
 (`node.declare_parameter('rate', 10.0)`) instead of relying on an
 undeclared name — which, as
-[Services, parameters and actions](../02-ros2/services-parameters-actions.md)
+[Services, parameters and actions](services-parameters-actions.md)
 already showed, fails loudly rather than doing nothing — and reacting to
 a parameter change with a callback instead of only reading it once at
 startup.
 
-**Why it matters.** Every node you write for the rest of this course reads
+**Why it matters.** Every node you write for the rest of this site reads
 at least one parameter; getting declaration right now avoids exactly the
 failed-`param-set` you already triggered on purpose earlier.
 
@@ -97,7 +97,7 @@ parameters](https://docs.ros.org/en/humble/Tutorials/Beginner-Client-Libraries/U
 
 **Why it matters.** Real robot data — a detected object with a label and a
 confidence, a mission status with a reason string — rarely fits a bare
-`String` or `Float64`; this course's own capstone project uses a custom
+`String` or `Float64`; this site's own Autonomous Rescue Mission uses a custom
 `mission_status` message shape for exactly this reason.
 
 **Needs.** A working workspace and one built package.
@@ -166,7 +166,7 @@ no error message.
 
 **Why it matters.** A QoS mismatch is one of the few ROS 2 failures with
 **zero** error output — the node runs, the topic exists, and nothing
-arrives. [Module 3's](../03-sensors-tf/practical-exercise.md#common-problems) "RViz shows
+arrives. [Sensors and Coordinate Frames's](../sensors-frames/practical-exercise.md#common-problems) "RViz shows
 nothing" diagnosis exists largely because of this.
 
 **Needs.** [The turtle controller task](turtle-controller.md) and a
@@ -197,12 +197,12 @@ settings](https://docs.ros.org/en/humble/Concepts/Intermediate/About-Quality-of-
 **What it is.** A node with an explicit state machine
 (`unconfigured → inactive → active → finalized`) instead of "doing its job
 the moment it starts" — you already ran `ros2 lifecycle get` against one in
-[module 6](../06-navigation/nav2-architecture-and-costmaps.md#how-it-works) without building one yourself.
+[Navigation and Exploration](../navigation-exploration/nav2-architecture-and-costmaps.md#how-it-works) without building one yourself.
 
 **Why it matters.** A lifecycle node lets a supervisor (or you, by hand)
 control exactly when it starts doing real work — critical for a system
 where bring-up order matters, which is the entire subject of
-[module 8](../08-integration/system-bringup-and-diagnostics.md).
+[Integration, Diagnostics and Testing](../integration-testing/system-bringup-and-diagnostics.md).
 
 **Needs.** Comfort with plain `rclpy` nodes.
 
@@ -225,7 +225,7 @@ returns `None`) is treated as a failed transition, not a successful one.
 ## Advanced topics
 
 Research-adjacent frameworks, or content not yet fully tested on this
-course's own hardware.
+site's own hardware.
 
 :::{dropdown} Node composition — Advanced
 :icon: light-bulb
@@ -236,8 +236,7 @@ messages between them can be passed by pointer instead of copied and
 serialized.
 
 **Why it matters.** For a high-rate pipeline — a camera driver feeding a
-perception node feeding a detector, all in [module
-4](../04-perception/index.md) — process-per-node overhead adds real
+perception node feeding a detector, all in [Perception](../perception/index.md) — process-per-node overhead adds real
 latency; composition removes most of it.
 
 **Needs.** Two working nodes, in separate packages.
@@ -284,7 +283,7 @@ which callback-group setting fixed the stall.
 
 **Common difficulty.** Switching to a `MultiThreadedExecutor` alone does
 not make callbacks thread-safe against each other — shared state your
-callbacks both touch (like `self.state` in this module's own controller)
+callbacks both touch (like `self.state` in this topic's own controller)
 still needs a lock or a `ReentrantCallbackGroup` used deliberately, not by
 accident.
 
@@ -299,13 +298,13 @@ groups](https://docs.ros.org/en/humble/Concepts/Intermediate/About-Executors.htm
 **What it is.** Unit tests for plain Python logic via `pytest`
 (no ROS 2 needed), and integration tests via `launch_testing`, which starts
 real nodes and checks what they publish — both run automatically by
-`colcon test`, exactly as this course's own `turtle_course` package does
+`colcon test`, exactly as this site's own `turtle_tutorial` package does
 for its style checks.
 
 **Why it matters.** A change that breaks a node's behaviour should fail a
-test, not get discovered when the [capstone project](../hackathon.md)
+test, not get discovered when the [Autonomous Rescue Mission](../rescue-projects/autonomous-rescue-mission.md)
 breaks in front of you — this is what
-[module 8's](../08-integration/system-bringup-and-diagnostics.md) "reproducible" standard
+[Integration, Diagnostics and Testing's](../integration-testing/system-bringup-and-diagnostics.md) "reproducible" standard
 looks like applied to code instead of launch files.
 
 **Needs.** A working package with at least one node.
@@ -315,7 +314,7 @@ looks like applied to code instead of launch files.
 simulated `TIMER_PERIOD`-sized time steps — call `control_loop()` directly
 in the test rather than actually running ROS 2.
 
-**Check.** `colcon test --packages-select turtle_course` shows your new
+**Check.** `colcon test --packages-select turtle_tutorial` shows your new
 test passing (or correctly failing, if you deliberately break the
 transition logic first to confirm the test actually catches it).
 

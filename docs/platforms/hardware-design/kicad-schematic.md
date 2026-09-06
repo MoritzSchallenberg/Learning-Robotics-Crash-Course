@@ -1,6 +1,6 @@
 # KiCad: schematics for robotic systems
 
-{{ optional }}
+{{ intermediate }}
 
 A block diagram of a robot — boxes and arrows, no electrical detail — is
 not enough to build or debug real hardware from. This page teaches the
@@ -166,7 +166,7 @@ it.
 
 :::{note}
 This is a **teaching exercise with example values**, not a real Spot
-circuit — this course does not publish the team's actual internal
+circuit — this site does not publish the team's actual internal
 schematics. Invent plausible values for anything not given, and mark them
 clearly as example values in your own documentation.
 :::
@@ -238,7 +238,7 @@ schematic only fulfils its purpose once someone else can read it.
 
 ## Optional extensions
 
-{{ optional }}
+{{ intermediate }}
 
 Generate a bill of materials (**Tools → Generate Bill of Materials…**) from
 your annotated schematic, and check that every line item has a sensible
@@ -256,7 +256,7 @@ page's practical task feels comfortable.
 **What it is.** Splitting one large schematic into multiple sub-sheets
 (power, motor drive, sensors) connected through hierarchical labels, the
 same way a large ROS 2 system is split into launch files per subsystem
-({ref}`module 8 <startup-order>`).
+({ref}`Integration, Diagnostics and Testing <startup-order>`).
 
 **Why it matters.** A one-sheet schematic for a real robot with a dozen
 sensors becomes unreadable fast; hierarchy is what keeps a big design
@@ -376,11 +376,11 @@ git-friendly, unlike most proprietary CAD formats.
 
 **Why it matters.** A schematic that only exists as a single person's local
 file is exactly the single point of failure
-[module 8](../08-integration/system-bringup-and-diagnostics.md) warns against for software;
+[Integration, Diagnostics and Testing](../../integration-testing/system-bringup-and-diagnostics.md) warns against for software;
 the same discipline (version control, reproducible state) applies to
 hardware design files.
 
-**Needs.** [The Git prerequisite](../../prerequisites/git.md) and a
+**Needs.** [The Git prerequisite](../../getting-started/git.md) and a
 completed schematic.
 
 **Try it.** Initialise a git repository in your KiCad project folder,
@@ -396,7 +396,7 @@ control](https://docs.kicad.org/9.0/en/getting_started_in_kicad/getting_started_
 
 ## Interesting videos
 
-{{ optional }}
+{{ intermediate }}
 
 ::::{grid} 1 1 1 1
 :gutter: 2
@@ -430,7 +430,7 @@ is a documentation bug worth reporting — see the [repository
 README](https://github.com/MoritzSchallenberg/Learning-Robotics-Crash-Course).
 :::
 
-## Connection to the next module
+## Connection to the next topic
 
 This schematic is the electrical side of a robot's design. The
 mechanical side of the same robot — how the parts you just wired are

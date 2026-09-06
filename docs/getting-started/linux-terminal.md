@@ -1,6 +1,6 @@
 # Linux and the terminal
 
-{{ common }}
+{{ foundation }}
 
 Everything in robotics research happens in a terminal. Not because graphical
 tools are bad, but because a robot you are connected to over the network often
@@ -90,7 +90,7 @@ whoami   # your username
 pwd      # print working directory: where you are right now
 ```
 
-Whenever this course writes `<username>`, substitute what `whoami` prints.
+Whenever this site writes `<username>`, substitute what `whoami` prints.
 
 ### Listing directory contents
 

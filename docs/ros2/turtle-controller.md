@@ -1,21 +1,21 @@
 # Write your own turtle controller
 
-{{ common }} {{ core }}
+{{ foundation }}
 
 ## What this topic is
 
-This module's practical task: an `rclpy` node that replaces
+This topic's practical task: an `rclpy` node that replaces
 `turtle_teleop_key` entirely — driving turtlesim's turtle through a
 square using only a timer callback and a small state machine, no
 keyboard involved.
 
 ## Why a robot needs it
 
-Every node you have run so far in this module (`turtlesim_node`,
+Every node you have run so far in this topic (`turtlesim_node`,
 `turtle_teleop_key`) was written by someone else. This is where you find
 out that neither was doing anything magical — creating a publisher and a
 timer is a handful of lines, and the rest is exactly the state-machine
-thinking [module 7](../07-autonomous-decisions.md) formalises properly
+thinking [Autonomous Decision-Making](../decision-making/index.md) formalises properly
 later.
 
 ## Goal
@@ -26,19 +26,19 @@ small state machine — no keyboard involved.
 
 ## Starting point
 
-The `turtle_course` package in this repository, at
-`examples/module02_turtlesim/turtle_course/` — a real, `colcon`-buildable
+The `turtle_tutorial` package in this repository, at
+`examples/ros2_turtlesim/turtle_tutorial/` — a real, `colcon`-buildable
 ROS 2 Humble package with a starter file full of `# TODO` markers. Copy it
 into your own workspace:
 
 ```bash
-cp -r examples/module02_turtlesim/turtle_course ~/course_ws/src/
-cd ~/course_ws
-colcon build --packages-select turtle_course
+cp -r examples/ros2_turtlesim/turtle_tutorial ~/ros2_ws/src/
+cd ~/ros2_ws
+colcon build --packages-select turtle_tutorial
 source install/setup.bash
 ```
 
-Open `~/course_ws/src/turtle_course/turtle_course/turtle_controller.py` in
+Open `~/ros2_ws/src/turtle_tutorial/turtle_tutorial/turtle_controller.py` in
 your editor. It is one file, roughly 100 lines, with **8 numbered
 `# TODO` blocks**. Every piece you need — creating a publisher, creating a
 timer, building and publishing a `Twist` — is something you already ran
@@ -61,16 +61,16 @@ exact same topic.
 6. Build and run:
 
    ```bash
-   colcon build --packages-select turtle_course
+   colcon build --packages-select turtle_tutorial
    source install/setup.bash
-   ros2 run turtle_course turtle_controller
+   ros2 run turtle_tutorial turtle_controller
    ```
 
    against a `turtlesim_node` you have already reset with `/clear` and,
    if it is not centred, a fresh `turtlesim_node` restart.
 
 Stuck for more than a few minutes on any one `TODO`? The reference
-solution is in `examples/module02_turtlesim/solutions/`, and also
+solution is in `examples/ros2_turtlesim/solutions/`, and also
 reproduced below.
 
 :::{dropdown} Solution
@@ -198,14 +198,14 @@ someone else, or just to yourself — without looking anything up:
 {{ alert }} ALeRT's own driver and controller nodes are the same shape as
 `turtle_controller`: a publisher, a timer or sensor-driven callback, and
 internal state — just with real sensor feedback closing the loop instead
-of a fixed timer, which is exactly the gap [module 3](../03-sensors-tf.md)
-and [module 6](../06-navigation.md) close.
+of a fixed timer, which is exactly the gap [Sensors and Coordinate Frames](../sensors-frames/index.md)
+and [Navigation and Exploration](../navigation-exploration/index.md) close.
 
 ## Common problems
 
-- **My own node builds but `ros2 run turtle_course turtle_controller`
+- **My own node builds but `ros2 run turtle_tutorial turtle_controller`
   says "package not found".** The workspace was not sourced in *this*
-  terminal after the build — `source ~/course_ws/install/setup.bash`.
+  terminal after the build — `source ~/ros2_ws/install/setup.bash`.
 - **The turtle does not move at all when I run my node.** Check `ros2
   topic echo /turtle1/cmd_vel` in a second terminal while your node runs
   — if nothing appears there, TODO 7 (the actual `.publish(msg)` call) is
@@ -217,4 +217,4 @@ and [module 6](../06-navigation.md) close.
 ## Next subtopic
 
 [Practical exercises](practical-exercises.md) — the turtlesim challenge,
-and this module's Try it on Spot section.
+and this topic's Try it on Spot section.

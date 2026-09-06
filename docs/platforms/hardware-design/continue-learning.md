@@ -2,7 +2,7 @@
 
 Each topic below is a real next step, not just a keyword. KiCad and
 Fusion are full pages with their own practical task, linked from the
-[module overview](../01-system-hardware.md); the rest are dropdowns here.
+[topic overview](index.md); the rest are dropdowns here.
 
 ## Next steps
 
@@ -103,7 +103,7 @@ current overheats), and keeping a **bill of materials (BOM)** — every part,
 its value, and its source — as the design's single source of truth.
 
 **Why it matters.** This is the mechanical/electrical equivalent of
-{ref}`module 8's <startup-order>` "one command, one source of truth" for
+{ref}`Integration, Diagnostics and Testing's <startup-order>` "one command, one source of truth" for
 software configuration — a design that lives only in one person's head,
 or an out-of-date drawing, fails the same way undocumented config does.
 
@@ -133,7 +133,7 @@ discovering after the fact that nothing is probeable without desoldering
 something.
 
 **Why it matters.**
-{ref}`Module 8's <the-eight-step-diagnostic-procedure>` eight-step
+{ref}`Integration, Diagnostics and Testing's <the-eight-step-diagnostic-procedure>` eight-step
 diagnostic procedure assumes you *can* check each layer; hardware with no
 measurement points makes step 1 ("is it powered?") surprisingly hard to
 answer.
@@ -147,7 +147,7 @@ disassembling anything.
 **Check.** Your answer names an actual accessible point (a connector pin, a
 test pad), not just "measure it somehow".
 
-**Read more.** {ref}`Module 8: the eight-step diagnostic procedure
+**Read more.** {ref}`Integration, Diagnostics and Testing: the eight-step diagnostic procedure
 <the-eight-step-diagnostic-procedure>`
 :::
 
@@ -165,8 +165,8 @@ simulation and a full physical robot.
 your software that pure simulation cannot see, without needing the whole
 robot assembled.
 
-**Needs.** A working simulation setup ([module 8's simulation
-notes](../08-integration/practical-exercise.md#optional-extensions)) and
+**Needs.** A working simulation setup ([Integration, Diagnostics and Testing's simulation
+notes](../../integration-testing/practical-exercise.md#optional-extensions)) and
 access to at least one
 piece of real hardware (a motor controller or sensor board).
 

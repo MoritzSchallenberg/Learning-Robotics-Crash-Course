@@ -1,13 +1,11 @@
-# 2. ROS 2 Fundamentals
+# ROS 2
 
-{{ common }}
+## Overview
 
-## Module overview
-
-Module 1 covered the electrical and mechanical design a robot is built
+Hardware Design covered the electrical and mechanical design a robot is built
 from. **ROS 2** is the software that runs on top of that hardware: it
 organises a robot's software into **nodes** exchanging data over
-**topics**, and the rest of this module is a full, hands-on lab where you
+**topics**, and the rest of this topic is a full, hands-on lab where you
 install it, drive, inspect, script and eventually replace part of a small
 running ROS 2 system yourself.
 
@@ -17,29 +15,28 @@ that need to exchange data and commands without every one of them knowing
 about every other one, and without a change to one requiring a rebuild of
 the rest. ROS 2 is the middleware that makes that decoupling practical.
 
-**Where it sits in the system**: everywhere. Every module after this one
+**Where it sits in the system**: everywhere. Every topic after this one
 — sensors, perception, mapping, navigation, decisions, integration — is
 built out of ROS 2 nodes, topics, services, parameters and actions. This
-module is the one time the course teaches those five tools directly,
+topic is the one time this site teaches those five tools directly,
 without a sensor or a mission in the way.
 
-**Needs**: [module 1](01-system-hardware.md) completed, and the general
-[prerequisites](../prerequisites/index.md) (Linux, Git, networking). ROS 2
-itself is not yet installed at this point — this module's own
-[Installation and environment setup](02-ros2/installation.md) is the
-first subtopic below, and its duration is separate from the module's
-80–100 minute core lab.
+**Needs**: [Hardware Design](../platforms/hardware-design/index.md) completed, and the general
+[prerequisites](../getting-started/index.md) (Linux, Git, networking). ROS 2
+itself is not yet installed at this point — this topic's own
+[Installation and environment setup](installation.md) is the
+first subtopic below.
 
-**Leads into**: every later module assumes fluency with `ros2 node`,
+**Leads into**: every later topic assumes fluency with `ros2 node`,
 `ros2 topic`, `ros2 service`, `ros2 param` and `ros2 action`, and this
-module's own `turtle_controller` package is the pattern
-[module 4's](04-perception/index.md) and
-[module 7's](07-autonomous-decisions.md) practical tasks build on
+topic's own `turtle_controller` package is the pattern
+[Perception's](../perception/index.md) and
+[Autonomous Decision-Making's](../decision-making/index.md) practical tasks build on
 directly.
 
 ## Learning objectives
 
-By the end of this module you can:
+By the end of this topic you can:
 
 1. explain what a node, a topic, a message, a service, a parameter and an
    action are, and pick the right one for a given job;
@@ -56,7 +53,7 @@ By the end of this module you can:
 
 ## How the complete system fits together
 
-```{figure} ../_static/images/diagrams/02-ros2-node-topic-communication.svg
+```{figure} ../_static/images/diagrams/ros2-node-topic-communication.svg
 :alt: Two publisher nodes send data to a topic named /scan, which two subscriber nodes read from. A separate pair of nodes shows a two-way service call for contrast.
 :width: 100%
 
@@ -112,29 +109,29 @@ Spot's ROS 2 system is the same five primitives as turtlesim, just with
 many more nodes: sensor drivers (LiDAR, gripper camera, odometry),
 posture control exposed as **services** (`/Spot/stand_up`,
 `/Spot/sit_down`, `/Spot/lie_down`, of type `webots_spot_msgs/srv/SpotMotion`
-— see the [platform page](../platforms/alert-spot.md#services-and-actions)),
-one **action** you will use directly in this module's own Try it on Spot
+— see the [platform page](../platforms/spot/index.md#services-and-actions)),
+one **action** you will use directly in this topic's own Try it on Spot
 section (`/turtle1/rotate_absolute` has no Spot equivalent documented at
 this fundamentals level; Spot's own action usage is covered once
-navigation is introduced in [module 6](06-navigation.md)), and topics for
+navigation is introduced in [Navigation and Exploration](../navigation-exploration/index.md)), and topics for
 everything continuous — odometry, the point cloud, the camera image,
 `/cmd_vel`.
 
 **Typical team task**: bringing up the Webots Spot simulation and
-confirming, with exactly the CLI commands this module teaches, that the
+confirming, with exactly the CLI commands this topic teaches, that the
 expected nodes are running before attempting anything more advanced —
-the same triage habit this module's own diagnostic tasks build.
+the same triage habit this topic's own diagnostic tasks build.
 
 **Known peculiarity**: {{ unverified }} exact node and topic names change
-between branches of the simulation repository; this module (and the
-[platform page](../platforms/alert-spot.md)) both explicitly tell you to
+between branches of the simulation repository; this topic (and the
+[platform page](../platforms/spot/index.md)) both explicitly tell you to
 confirm with `ros2 topic list` rather than trust a fixed list.
 
 **Verification status**: {{ simulation }} confirmed in Webots; real-Spot
-node/topic names are documented on the platform page but this course does
+node/topic names are documented on the platform page but this site does
 not claim to have re-verified every one against current hardware.
 
-## Core learning path
+## Working through this topic
 
 Work through the subtopics below in this order — each one uses a command
 or an idea from the one before it:
@@ -148,12 +145,10 @@ or an idea from the one before it:
 6. Practical exercises (the turtlesim challenge, Try it on Spot)
 ```
 
-Installation's own duration does not count toward the core learning
-time below — a system install and several downloads take a different
-amount of time on every machine. From Nodes and packages onward, that
-core path is this module's roughly 80–100 minute core learning time.
+Installation is its own, separate first step — a system install and
+several downloads take a different amount of time on every machine.
 **Interesting videos** and **Continue learning** are worthwhile
-afterwards, but do not count toward it either.
+afterwards, but are not required to move on to the next topic.
 
 ## Subtopics
 
@@ -161,7 +156,7 @@ afterwards, but do not count toward it either.
 :gutter: 3
 
 :::{grid-item-card} Installation and environment setup
-:link: 02-ros2/installation
+:link: installation
 :link-type: doc
 
 Get from a bare Ubuntu machine to a working ROS 2 Humble workspace, with
@@ -169,7 +164,7 @@ nothing left implicit.
 :::
 
 :::{grid-item-card} Nodes and packages
-:link: 02-ros2/nodes-and-packages
+:link: nodes-and-packages
 :link-type: doc
 
 Install turtlesim, start it and drive it by keyboard, then inspect the
@@ -177,7 +172,7 @@ two nodes that just did that with `ros2 node info`.
 :::
 
 :::{grid-item-card} Topics and messages
-:link: 02-ros2/topics-and-messages
+:link: topics-and-messages
 :link-type: doc
 
 Inspect `/turtle1/cmd_vel`'s type and QoS, then drive the turtle
@@ -185,7 +180,7 @@ yourself with `ros2 topic pub` — no keyboard at all.
 :::
 
 :::{grid-item-card} Services, parameters and actions
-:link: 02-ros2/services-parameters-actions
+:link: services-parameters-actions
 :link-type: doc
 
 Spawn, clear and kill turtles with services; read and change a live
@@ -193,57 +188,57 @@ parameter; send a cancellable action goal.
 :::
 
 :::{grid-item-card} Write your own turtle controller
-:link: 02-ros2/turtle-controller
+:link: turtle-controller
 :link-type: doc
 
-This module's practical task: replace `turtle_teleop_key` with your own
+This topic's practical task: replace `turtle_teleop_key` with your own
 `rclpy` node that drives a square, no keyboard involved.
 :::
 
 :::{grid-item-card} Practical exercises
-:link: 02-ros2/practical-exercises
+:link: practical-exercises
 :link-type: doc
 
-The turtlesim challenge, and this module's Try it on Spot section.
+The turtlesim challenge, and this topic's Try it on Spot section.
 :::
 
 :::{grid-item-card} Interesting videos
-:link: 02-ros2/videos
+:link: videos
 :link-type: doc
 
 One carefully checked video recommendation.
 :::
 
 :::{grid-item-card} Continue learning
-:link: 02-ros2/continue-learning
+:link: continue-learning
 :link-type: doc
 
 Parameters done properly, custom interfaces, QoS mismatches, namespaces,
 lifecycle nodes, composition, executors, automated tests — and launch
-files, the one topic this module only touches in passing.
+files, the one topic this topic only touches in passing.
 :::
 
 ::::
 
 ## Preflight check
 
-`scripts/course-preflight.sh` is a read-only script that checks your OS,
+`scripts/tutorial-preflight.sh` is a read-only script that checks your OS,
 `ROS_DISTRO`, the `ros2` CLI, your workspace and RViz — nothing more — and
 tells you exactly what to fix if anything is missing:
 
 ```bash
-bash scripts/course-preflight.sh
+bash scripts/tutorial-preflight.sh
 ```
 
 Run it once [Installation and environment
-setup](02-ros2/installation.md) is done, before continuing to Nodes and
-packages, and again any time a command in this course behaves
+setup](installation.md) is done, before continuing to Nodes and
+packages, and again any time a command in this site behaves
 unexpectedly and you suspect your environment rather than your code.
 
-## Connection to the next module
+## Connection to the next topic
 
-This module gave you a running ROS 2 system: nodes talking over topics,
-services, parameters and actions. [Module 3](03-sensors-tf.md) has those
+This topic gave you a running ROS 2 system: nodes talking over topics,
+services, parameters and actions. [Sensors and Coordinate Frames](../sensors-frames/index.md) has those
 topics carry **sensor data**, and you learn where in space that data
 actually is.
 
@@ -251,12 +246,12 @@ actually is.
 :hidden:
 :maxdepth: 1
 
-02-ros2/installation
-02-ros2/nodes-and-packages
-02-ros2/topics-and-messages
-02-ros2/services-parameters-actions
-02-ros2/turtle-controller
-02-ros2/practical-exercises
-02-ros2/videos
-02-ros2/continue-learning
+installation
+nodes-and-packages
+topics-and-messages
+services-parameters-actions
+turtle-controller
+practical-exercises
+videos
+continue-learning
 ```

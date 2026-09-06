@@ -1,6 +1,6 @@
 # Networking and SSH
 
-{{ common }}
+{{ foundation }}
 
 A robot is a computer you cannot sit in front of. Everything you do with it —
 starting nodes, reading logs, editing code — happens over the network. This

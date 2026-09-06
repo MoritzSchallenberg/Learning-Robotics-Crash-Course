@@ -1,6 +1,6 @@
 # Services, parameters and actions
 
-{{ common }} {{ core }}
+{{ foundation }}
 
 ## What this topic is
 
@@ -228,9 +228,9 @@ spawning a turtle and *controlling* it are two separate things.
 `webots_spot_msgs/srv/SpotMotion`) rather than topics or actions — a
 natural fit, since standing up either succeeds or does not, with no
 meaningful "progress" to report partway through. See the [platform
-page](../../platforms/alert-spot.md#services-and-actions) for the exact
-calls, and [module 7's Try it on
-Spot](../07-autonomous-decisions/practical-exercise.md#try-it-on-spot) for building a
+page](../platforms/spot/index.md#services-and-actions) for the exact
+calls, and [Autonomous Decision-Making's Try it on
+Spot](../decision-making/practical-exercise.md#try-it-on-spot) for building a
 mission state machine around them.
 
 ## Common problems
@@ -243,5 +243,5 @@ mission state machine around them.
 ## Next subtopic
 
 [Write your own turtle controller](turtle-controller.md) — this
-module's practical task, replacing `turtle_teleop_key` with your own
+topic's practical task, replacing `turtle_teleop_key` with your own
 `rclpy` node.

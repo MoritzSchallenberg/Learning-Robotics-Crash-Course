@@ -1,6 +1,6 @@
 # Installation
 
-{{ common }}
+{{ foundation }}
 
 This page gets you from a bare Ubuntu machine to a working ROS 2 Humble
 workspace, with nothing left implicit. You should not need to leave this
@@ -10,20 +10,19 @@ for the steps here.
 
 Every command below was checked against the official ROS 2 Humble
 documentation (`docs.ros.org/en/humble/`, retrieved 2026-09-02), the one
-distribution this course uses throughout.
+distribution this site uses throughout.
 
-This page is preparation for the rest of this module — a system install and
+This page is preparation for the rest of this topic — a system install and
 several downloads, which take a different amount of time on every machine.
-Its duration does not count toward this module's own 80–100 minute core
-learning time; that time starts once ROS 2 is installed and you move on to
+Once ROS 2 is installed, move on to
 [Nodes and packages](nodes-and-packages.md).
 
 ## Learning objectives
 
 After this page you have:
 
-- confirmed your machine meets the course's [supported
-  environment](../../reference/compatibility.md);
+- confirmed your machine meets the site's [supported
+  environment](../reference/compatibility.md);
 - ROS 2 Humble installed, sourced automatically in every new terminal;
 - a working `colcon` workspace with one example package built;
 - rosdep initialised;
@@ -31,8 +30,8 @@ After this page you have:
 
 ## Step 1 — Check your operating system
 
-The course's fixed baseline is **Ubuntu 22.04 LTS (Jammy)** — see [Supported
-environment](../../reference/compatibility.md) for why.
+The site's fixed baseline is **Ubuntu 22.04 LTS (Jammy)** — see [Supported
+environment](../reference/compatibility.md) for why.
 
 ```bash
 cat /etc/os-release
@@ -154,7 +153,7 @@ sudo apt install ros-humble-desktop
 ```
 
 **Explanation**: the **desktop** variant includes RViz2 and the
-visualization tools every later module relies on — do not substitute
+visualization tools every later topic relies on — do not substitute
 `ros-humble-ros-base`, which omits them.
 
 **Expected result**: apt downloads and installs several hundred packages;
@@ -177,8 +176,8 @@ sudo apt install ros-dev-tools
 ```
 
 **Explanation**: this bundles `colcon` (the build tool), `rosdep`
-(dependency installer) and other command-line tools used throughout the
-course, so they do not need to be installed one by one.
+(dependency installer) and other command-line tools used throughout this
+site, so they do not need to be installed one by one.
 
 **Expected result**: installs with no errors.
 
@@ -354,8 +353,8 @@ Install Webots itself from the [official installation
 guide](https://cyberbotics.com/doc/guide/installation-procedure), then
 follow your platform page for the actual simulation package:
 
-- [Simulation track](../../platforms/simulation.md)
-- [ALeRT / Spot](../../platforms/alert-spot.md)
+- [Simulation track](../simulation/index.md)
+- [ALeRT / Spot](../platforms/spot/index.md)
 
 ## Step 15 — An editor
 
@@ -385,7 +384,7 @@ CLI, your workspace, RViz, the simulator and basic network settings, then
 tells you exactly what to fix.
 
 ```bash
-bash scripts/course-preflight.sh
+bash scripts/tutorial-preflight.sh
 ```
 
 It prints `PASS`, `WARNING` or `FAIL` for each check, with a concrete next
@@ -427,7 +426,7 @@ looking warning.
 ## Next subtopic
 
 With ROS 2 installed, sourced, and one example package built, continue to
-[Nodes and packages](nodes-and-packages.md), where this module's own
+[Nodes and packages](nodes-and-packages.md), where this topic's own
 turtlesim lab starts.
 
 ## Further reading
@@ -435,4 +434,4 @@ turtlesim lab starts.
 - [ROS 2 Humble installation guide](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debs.html) — retrieved 2026-09-02, the authoritative source this page was checked against
 - [colcon documentation](https://colcon.readthedocs.io/en/released/)
 - [rosdep documentation](https://docs.ros.org/en/independent/api/rosdep/html/)
-- [Supported environment](../../reference/compatibility.md) on this site
+- [Supported environment](../reference/compatibility.md) on this site
