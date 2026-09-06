@@ -1,6 +1,6 @@
 # Nav2 architecture and costmaps
 
-{{ common }} {{ core }}
+{{ foundation }}
 
 ## What this topic is
 
@@ -12,7 +12,7 @@ Server**, and a **Behavior Server**, dispatched by the **BT Navigator**. A
 
 ## Why a robot needs it
 
-A robot with a map and a position ([module 5](../05-mapping-localization.md))
+A robot with a map and a position ([Mapping and World Models](../mapping-world-models/index.md))
 still cannot get anywhere on its own: something has to turn "go to this
 point" into an actual path, and actual velocity commands that react to
 whatever the map did not know about. Splitting that into cooperating
@@ -22,7 +22,7 @@ own, very different, rates.
 
 ## How it works
 
-```{figure} ../../_static/images/diagrams/07-nav2-architecture-simplified.svg
+```{figure} ../_static/images/diagrams/nav2-architecture-simplified.svg
 :alt: A navigation goal enters the BT Navigator, which coordinates a Planner Server reading the Global Costmap, a Controller Server reading the Local Costmap, and a Behavior Server for recovery actions. The Controller Server outputs cmd_vel.
 :width: 100%
 
@@ -79,7 +79,7 @@ for measuring this yourself.
 ## Inputs and outputs
 
 Navigation is exposed as a ROS 2 action
-([module 2](../02-ros2/services-parameters-actions.md#try-it-yourself-actions)):
+([ROS 2](../ros2/services-parameters-actions.md#try-it-yourself-actions)):
 `NavigateToPose` takes a goal pose, reports feedback while driving, and
 returns a result — the same goal/feedback/result/cancel shape as
 turtlesim's `RotateAbsolute`, at a much larger scale.
@@ -112,7 +112,7 @@ Bring up Nav2 and send one goal before attempting the full re-plan task in
 [the practical exercise](practical-exercise.md), so you can see each
 server's role separately:
 
-1. Bring up drivers, TF and localization (modules 3–5's launch files), then
+1. Bring up drivers, TF and localization (the Sensors and Coordinate Frames, Perception and Mapping and World Models topics' launch files), then
    `ros2 launch nav2_bringup navigation_launch.py params_file:=<config path>`.
 2. `ros2 lifecycle get /planner_server` and `ros2 lifecycle get
    /controller_server` — both should report `active`. If either does not,
@@ -132,7 +132,7 @@ server's role separately:
 {{ alert }} {{ simulation }} Spot navigates with `ros2 launch webots_spot
 nav_launch.py` — the same two-costmap distinction above, on a legged
 platform whose local costmap accounts for a wider, less predictable
-footprint than a wheeled robot's. See [this module's Try it on
+footprint than a wheeled robot's. See [this topic's Try it on
 Spot](practical-exercise.md#try-it-on-spot).
 
 ## Common problems

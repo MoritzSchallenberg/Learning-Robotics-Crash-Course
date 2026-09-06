@@ -1,11 +1,9 @@
 # Object detection with YOLO
 
-{{ common }}
-
 {{ advanced }} **Status: advanced reading.** Not required for
-[module 4](index.md)'s core task, which uses a fiducial marker. This page
+[Perception](index.md)'s core task, which uses a fiducial marker. This page
 is for objects that cannot carry a marker — people, tools, hazmat
-signs — and for the ALeRT track, which uses YOLO ({{ alert }}).
+signs — and for ALeRT specifically, which uses YOLO ({{ alert }}).
 
 Markers require you to put markers on things. For everything else you need
 a learned detector. **YOLO** ("You Only Look Once") runs a single network
@@ -47,9 +45,8 @@ python3 -c "import torch; print(torch.cuda.is_available())"
 faster inference than CPU.
 
 :::{note}
-Without a GPU, inference is still workable with an optimised runtime. The
-ALeRT course uses OpenVINO for CPU inference: `pip3 install openvino-dev`.
-{{ alert }} See the [ALeRT/Spot page](../../platforms/alert-spot.md).
+Without a GPU, inference is still workable with an optimised runtime. ALeRT uses OpenVINO for CPU inference: `pip3 install openvino-dev`.
+{{ alert }} See the [ALeRT/Spot page](../platforms/spot/index.md).
 :::
 
 ## YOLO in a ROS 2 node
@@ -174,4 +171,4 @@ training and validation sets overlap — see
 
 - [Ultralytics YOLO documentation](https://docs.ultralytics.com/)
 - [vision_msgs](https://github.com/ros-perception/vision_msgs)
-- Back to [module 4](index.md)
+- Back to [Perception](index.md)

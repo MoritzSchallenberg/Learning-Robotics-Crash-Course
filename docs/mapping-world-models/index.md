@@ -1,11 +1,9 @@
-# 5. Mapping and Localization
+# Mapping and Localization
 
-{{ common }}
-
-## Module overview
+## Overview
 
 The robot has sensors, knows where they are mounted, and can detect a
-marker. It still has no idea where *it* is. This module gives it a map,
+marker. It still has no idea where *it* is. This topic gives it a map,
 and then a position in that map.
 
 **The problem it solves**: navigating anywhere on purpose needs two
@@ -14,20 +12,20 @@ of where the robot is within it (localization) — built and maintained by
 two different tools, not one.
 
 **Where it sits in the system**: directly after
-[module 3's](03-sensors-tf.md) TF tree and laser scan — mapping and
+[Sensors and Coordinate Frames's](../sensors-frames/index.md) TF tree and laser scan — mapping and
 localization both consume `/scan` and the `odom`→`base_link` transform
-this module's `map`→`odom` correction sits on top of.
+this topic's `map`→`odom` correction sits on top of.
 
-**Needs**: [module 3](03-sensors-tf.md) — a working TF tree and a visible
+**Needs**: [Sensors and Coordinate Frames](../sensors-frames/index.md) — a working TF tree and a visible
 laser scan; you cannot map without both.
 
-**Leads into**: [module 6](06-navigation.md) plans paths using the map and
-pose this module produces; without a converged localization, navigation has
+**Leads into**: [Navigation and Exploration](../navigation-exploration/index.md) plans paths using the map and
+pose this topic produces; without a converged localization, navigation has
 nothing reliable to plan from.
 
 ## Learning objectives
 
-By the end of this module you can:
+By the end of this topic you can:
 
 1. explain the difference between mapping and localization, and why they
    need different tools;
@@ -37,7 +35,7 @@ By the end of this module you can:
 
 ## How the complete system fits together
 
-```{figure} ../_static/images/diagrams/06-mapping-localization-dataflow.svg
+```{figure} ../_static/images/diagrams/mapping-localization-dataflow.svg
 :alt: Two modes sharing laser scan and odometry as inputs. Mapping mode feeds SLAM Toolbox, producing an occupancy grid map and the map to odom transform. Localization mode feeds a saved map plus scan and odometry into AMCL, producing a corrected pose and the same map to odom transform.
 :width: 100%
 
@@ -45,7 +43,7 @@ Both modes publish the same `map`→`odom` transform — the correction that
 keeps `odom`'s smooth drift from accumulating forever.
 ```
 
-This is why the `map`/`odom`/`base_link` split from [module 3](03-sensors-tf.md)
+This is why the `map`/`odom`/`base_link` split from [Sensors and Coordinate Frames](../sensors-frames/index.md)
 exists: `odom`→`base_link` stays smooth and local; `map`→`odom` is the
 correction, published by whichever of SLAM Toolbox or AMCL is currently
 running — never both at once.
@@ -61,23 +59,23 @@ answers.
 {{ alert }} {{ documented }}
 
 Spot maps and localizes with the same `webots_spot` launch files this
-module's practical task uses (`slam_launch.py`, then `nav_launch.py` with a
+topic's practical task uses (`slam_launch.py`, then `nav_launch.py` with a
 saved map) — see the [platform page's mapping and
-navigation section](../platforms/alert-spot.md#mapping-and-navigation).
+navigation section](../platforms/spot/index.md#mapping-and-navigation).
 **Sensors/actuators**: the 3D LiDAR flattened to a 2D `/scan`, feeding
-SLAM Toolbox and AMCL exactly as in this module's practical task.
+SLAM Toolbox and AMCL exactly as in this topic's practical task.
 **Known peculiarity**: {{ documented }} a rescue arena is rarely flat, so a
 2D occupancy grid alone is not enough — ALeRT additionally uses two 3D
-approaches (Octomap, GLIM), covered in this module's [3D mapping
-subtopic](05-mapping-localization/localization-and-3d-mapping.md#mapping-rough-3d-terrain).
+approaches (Octomap, GLIM), covered in this topic's [3D mapping
+subtopic](localization-and-3d-mapping.md#mapping-rough-3d-terrain).
 **Typical team task**: mapping a new arena slowly enough to avoid the
-doubled-wall smearing this module's Common problems section warns about,
+doubled-wall smearing this topic's Common problems section warns about,
 then confirming localization converges before trusting navigation on top of
 it. **Verification status**: {{ simulation }} confirmed in Webots; the
-physical robot is a supervised-only exercise (see this module's [Try it on
-Spot](05-mapping-localization/practical-exercise.md#try-it-on-spot)).
+physical robot is a supervised-only exercise (see this topic's [Try it on
+Spot](practical-exercise.md#try-it-on-spot)).
 
-## Core learning path
+## Working through this topic
 
 ```text
 1. Mapping and SLAM (odometry, occupancy grids, SLAM Toolbox)
@@ -85,9 +83,8 @@ Spot](05-mapping-localization/practical-exercise.md#try-it-on-spot)).
 3. Practical mapping and localization exercise
 ```
 
-That is this module's roughly 80–100 minute core learning time.
-**Interesting videos** and **Continue learning** are worthwhile afterwards
-but not required for the core path.
+**Interesting videos** and **Continue learning** are worthwhile afterwards,
+but are not required to move on to the next topic.
 
 ## Subtopics
 
@@ -95,38 +92,38 @@ but not required for the core path.
 :gutter: 2
 
 :::{grid-item-card} Mapping and SLAM
-:link: 05-mapping-localization/mapping-and-slam
+:link: mapping-and-slam
 :link-type: doc
 
-{{ core }} Odometry drift, occupancy grids, and building a map with SLAM
+{{ foundation }} Odometry drift, occupancy grids, and building a map with SLAM
 Toolbox.
 :::
 
 :::{grid-item-card} Localization and 3D mapping
-:link: 05-mapping-localization/localization-and-3d-mapping
+:link: localization-and-3d-mapping
 :link-type: doc
 
-{{ core }} Finding the robot's pose with AMCL, recovering from a lost pose,
+{{ foundation }} Finding the robot's pose with AMCL, recovering from a lost pose,
 and ALeRT's 3D mapping extensions.
 :::
 
 :::{grid-item-card} Practical exercise
-:link: 05-mapping-localization/practical-exercise
+:link: practical-exercise
 :link-type: doc
 
-{{ core }} Map an area, then localize on it — plus this module's Try it on
+{{ foundation }} Map an area, then localize on it — plus this topic's Try it on
 Spot section.
 :::
 
 :::{grid-item-card} Interesting videos
-:link: 05-mapping-localization/videos
+:link: videos
 :link-type: doc
 
 One carefully checked video recommendation.
 :::
 
 :::{grid-item-card} Continue learning
-:link: 05-mapping-localization/continue-learning
+:link: continue-learning
 :link-type: doc
 
 Loop closure, map versioning, parameter tuning, the kidnapped-robot
@@ -137,12 +134,12 @@ problem, multi-session mapping.
 
 ## Prerequisites
 
-[Module 3](03-sensors-tf.md) completed — a working TF tree and a visible
+[Sensors and Coordinate Frames](../sensors-frames/index.md) completed — a working TF tree and a visible
 laser scan are required; you cannot map without both.
 
-## Connection to the next module
+## Connection to the next topic
 
-This module found the robot's own position. [Module 6](06-navigation.md)
+This topic found the robot's own position. [Navigation and Exploration](../navigation-exploration/index.md)
 uses that position to decide how to get somewhere else on its own.
 
 ## Further reading
@@ -156,9 +153,9 @@ uses that position to decide how to get somewhere else on its own.
 :maxdepth: 1
 :hidden:
 
-05-mapping-localization/mapping-and-slam
-05-mapping-localization/localization-and-3d-mapping
-05-mapping-localization/practical-exercise
-05-mapping-localization/videos
-05-mapping-localization/continue-learning
+mapping-and-slam
+localization-and-3d-mapping
+practical-exercise
+videos
+continue-learning
 ```

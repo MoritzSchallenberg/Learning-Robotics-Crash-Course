@@ -1,6 +1,6 @@
 # Practical exercise
 
-{{ common }} {{ core }}
+{{ foundation }}
 
 ## Goal
 
@@ -11,7 +11,7 @@ path and watch it re-plan.
 
 A workspace with `my_robot_navigation` already configured with velocity and
 inflation parameters matched to your robot — configuring Nav2 from scratch
-is not part of this module.
+is not part of this topic.
 
 ## Steps
 
@@ -45,19 +45,19 @@ the verification, not just "the robot arrived."
 - **The robot spins in place and gives up.** The goal is unreachable, or
   fully blocked; recovery behaviours are doing exactly what they should.
 - **"Goal rejected" or transform timeouts.** `use_sim_time` inconsistent, or
-  the transform chain from [module 5](../05-mapping-localization.md) is
+  the transform chain from [Mapping and World Models](../mapping-world-models/index.md) is
   broken — fix localization first.
 - **Nav2 commands are ignored.** Nav2 publishes `/cmd_vel` by default; your
   driver may listen on a different, possibly namespaced, topic.
 
 ## Optional extensions
 
-{{ optional }}
+{{ intermediate }}
 
 Fully surround the robot with obstacles after it starts driving and watch
 which recovery behaviours trigger, in what order, from the Nav2 terminal
 output — this is a preview of the failure handling
-[module 7](../07-autonomous-decisions.md) formalises.
+[Autonomous Decision-Making](../decision-making/index.md) formalises.
 
 {{ simulation }} Identical task. Placing a "new" obstacle is easier in
 Webots — drag any object into the scene mid-run. Set velocity and inflation
@@ -71,7 +71,7 @@ parameters to the *simulated* robot's actual size and speed, not a guess.
 ros2 launch webots_spot nav_launch.py
 ```
 
-Run this module's practical task against Spot's own navigation launch
+Run this topic's practical task against Spot's own navigation launch
 file instead of a generic one:
 
 1. Set the initial pose, send a goal, and watch the global (planned) and

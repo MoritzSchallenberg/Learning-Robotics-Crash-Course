@@ -6,7 +6,7 @@ detect something in the image ([fiducial markers](fiducial-markers.md)
 or [object detection](object-detection.md)), then turn that detection
 into a pose and a TF frame
 ([the practical exercise's](practical-exercise.md) Optional extensions,
-and [module 3](../03-sensors-tf/laserscan-and-frames.md)). The topics below
+and [Sensors and Coordinate Frames](../sensors-frames/laserscan-and-frames.md)). The topics below
 extend that same path rather than starting a new one.
 
 ## Next steps
@@ -20,7 +20,7 @@ version of the same stream — subscribed to with the same API, just a
 different topic suffix (`/image_raw/compressed`).
 
 **Why it matters.** A raw `Image` topic over Wi-Fi to a robot
-([networking prerequisite](../../prerequisites/networking.md)) can saturate
+([networking prerequisite](../getting-started/networking.md)) can saturate
 the link almost by itself; compressed transport is often the difference
 between a usable remote view and a stalled one.
 
@@ -89,8 +89,8 @@ hand in front of the camera.
 **Check.** A brief, sub-second occlusion no longer triggers a "lost"
 report, while genuinely removing the marker still does after N frames.
 
-**Read more.** [Module 7: state
-machines](../07-autonomous-decisions/mission-logic.md#how-it-works) — the same
+**Read more.** [Autonomous Decision-Making: state
+machines](../decision-making/mission-logic.md#how-it-works) — the same
 debounce pattern applies to any noisy binary signal, not just detections.
 :::
 
@@ -107,7 +107,7 @@ known size; depth gives you 3D position for *any* detected pixel region,
 marker or not.
 
 **Needs.** {ref}`PointCloud2 <pointcloud2-advanced>`
-(module 3's advanced topics) and a depth camera, real or simulated.
+(Sensors and Coordinate Frames's advanced topics) and a depth camera, real or simulated.
 
 **Try it.** {{ unverified }} — subscribe to a depth camera's `Image` topic
 alongside its color image, and read the depth value at the pixel
@@ -219,8 +219,8 @@ that direction — rather than trusting a single detection outright.
 
 **Why it matters.** Every sensor can be wrong in its own specific way (a
 camera can misclassify; a LiDAR cannot see glass); a mission-critical
-decision — such as this course's own
-[capstone project](../hackathon.md) reporting mission success — is more
+decision — such as this site's own
+[Autonomous Rescue Mission](../rescue-projects/autonomous-rescue-mission.md) reporting mission success — is more
 trustworthy if two independent sensors agree, not just one.
 
 **Needs.** Two independent sensors covering overlapping data — camera plus
@@ -235,7 +235,7 @@ camera-derived distance to the marker.
 sensible margin, or explain why they legitimately would not (e.g. the
 LiDAR's beam missing the marker entirely).
 
-**Read more.** [Module 6: costmaps built from multiple
-sensors](../06-navigation/nav2-architecture-and-costmaps.md#how-it-works) is the same principle applied
+**Read more.** [Navigation and Exploration: costmaps built from multiple
+sensors](../navigation-exploration/nav2-architecture-and-costmaps.md#how-it-works) is the same principle applied
 at the navigation layer.
 :::

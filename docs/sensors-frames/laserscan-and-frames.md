@@ -1,6 +1,6 @@
 # LaserScan and coordinate frames
 
-{{ common }} {{ core }}
+{{ foundation }}
 
 ## What this topic is
 
@@ -11,7 +11,7 @@ message that carries the reading (`LaserScan` here), and the machinery
 ## Why a robot needs it
 
 A LiDAR measures "2.4 metres, that way." That is useless until you know
-*where the sensor is* and *where the robot is* — every later module's
+*where the sensor is* and *where the robot is* — every later topic's
 sensor data (camera, point cloud, odometry) is placed in space the same
 way this page teaches for a 2D laser scan.
 
@@ -20,7 +20,7 @@ way this page teaches for a 2D laser scan.
 A `LaserScan` is not a list of points — it is a list of *distances*, plus
 enough metadata to work out the direction of each one.
 
-```{figure} ../../_static/images/diagrams/04-lidar-scan-angles.svg
+```{figure} ../_static/images/diagrams/lidar-scan-angles.svg
 :alt: A robot at the centre of a fan of laser rays sweeping from angle_min to angle_max, with two example rays hitting a wall labelled with their measured range, and one ray showing an infinite reading meaning no obstacle was found within range_max.
 :width: 100%
 
@@ -51,7 +51,7 @@ Each part of the robot gets its own **frame**. TF2 tracks the
 relationships between them so any node can ask: *where is this point, in
 that frame?*
 
-```{figure} ../../_static/images/diagrams/03-tf-tree.svg
+```{figure} ../_static/images/diagrams/tf-tree.svg
 :alt: A tree of coordinate frames. Map connects to Odom with a dynamic transform corrected by localization. Odom connects to Base Footprint with a dynamic transform from odometry. Base Footprint connects to Base Link with a static transform, and Base Link connects to Laser Frame, Camera Link and IMU Link, each with a static transform.
 :width: 100%
 
@@ -62,8 +62,8 @@ sensor frames is static (published once).
 `map` → `odom` → `base_footprint` → `base_link` is the standard
 convention. Every node underneath can get a smooth local estimate (via
 `odom`) or a globally correct one (via `map`), as needed.
-[Module 5](../05-mapping-localization.md) explains *why* the tree splits
-at `odom` — for this module, the important part is the last hop:
+[Mapping and World Models](../mapping-world-models/index.md) explains *why* the tree splits
+at `odom` — for this topic, the important part is the last hop:
 `base_link` → sensor frame, which is **static** — it never changes
 because the sensor is bolted where it is bolted.
 
@@ -99,14 +99,14 @@ except TransformException as ex:
 Catch `TransformException` specifically — a lookup legitimately fails
 while the buffer is still filling at startup, and a bare `except:` also
 swallows `KeyboardInterrupt`. You will reuse this exact pattern in
-[module 4](../04-perception/fiducial-markers.md) to turn a detected
+[Perception](../perception/fiducial-markers.md) to turn a detected
 marker into a usable position.
 
 An IMU (`sensor_msgs/msg/Imu`) gives angular velocity and linear
 acceleration directly from the sensor frame — useful for orientation, but
 like any sensor it has noise and drift of its own. A **dynamic** transform
 (`odom`→`base_link`, published on `/tf` rather than `/tf_static`) changes
-every cycle as the robot moves; [module 5](../05-mapping-localization.md)
+every cycle as the robot moves; [Mapping and World Models](../mapping-world-models/index.md)
 is where you first publish one for real.
 
 ## How ALeRT applies it

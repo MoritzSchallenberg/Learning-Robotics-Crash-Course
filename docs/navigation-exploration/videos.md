@@ -1,6 +1,6 @@
 # Interesting videos
 
-{{ optional }}
+{{ intermediate }}
 
 ## Start here
 
@@ -16,7 +16,7 @@ Covers: live demonstrations of Nav2 features by Nav2's lead maintainer,
 including planning, costmaps and recovery behaviour in practice.
 
 *Why watch it*: straight from the source that maintains the tool this
-module teaches — a deeper, maintainer's-eye view of the same
+topic teaches — a deeper, maintainer's-eye view of the same
 Planner/Controller/Behavior Server architecture from [Nav2 architecture and
 costmaps](nav2-architecture-and-costmaps.md#how-it-works).
 
@@ -38,14 +38,14 @@ README](https://github.com/MoritzSchallenberg/Learning-Robotics-Crash-Course).
 ## Practical demonstrations
 
 No additional practical-demonstration video has been independently
-verified for this module yet — see this page's closing note on why the
+verified for this topic yet — see this page's closing note on why the
 list stays short rather than padded with unchecked links.
 
 ## ALeRT
 
 {{ alert }} No ALeRT-specific navigation video has been independently
 verified yet. See the [platform page's mapping and navigation
-section](../../platforms/alert-spot.md#mapping-and-navigation) for
+section](../platforms/spot/index.md#mapping-and-navigation) for
 Spot-specific written detail instead.
 
 ## Next subtopic

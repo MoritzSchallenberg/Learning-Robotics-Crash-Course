@@ -1,6 +1,6 @@
 # Perception pipeline
 
-{{ common }} {{ core }}
+{{ foundation }}
 
 ## What this topic is
 
@@ -16,11 +16,11 @@ a robot where to drive. **Localization** answers *where*, in the world:
 "there is a marker at (1.8, 0.4, 0.7) in the `map` frame." This is what
 the robot needs, and it needs more than the image alone — a calibrated
 camera, and either depth, a known object size, or a known surface. Hold
-on to this distinction: it is the point of the whole module.
+on to this distinction: it is the point of the whole topic.
 
 ## How it works
 
-```{figure} ../../_static/images/diagrams/05-perception-pipeline.svg
+```{figure} ../_static/images/diagrams/perception-pipeline.svg
 :alt: A left to right pipeline: Camera produces an Image message, which is rectified using CameraInfo from calibration, then passed to a Detector such as ArUco or YOLO, producing a Detection message, which combined with a TF transform gives a Pose in the map frame.
 :width: 100%
 
@@ -36,7 +36,7 @@ with the size supplying the missing depth information for free.
 
 Input: a `sensor_msgs/msg/Image` topic. Output, at the end of the full
 pipeline: a pose in a named TF frame — the same pattern
-[module 3](../03-sensors-tf.md) already taught for sensor data generally,
+[Sensors and Coordinate Frames](../sensors-frames/index.md) already taught for sensor data generally,
 applied specifically to a detected object.
 
 ## Small example: OpenCV in a ROS 2 node

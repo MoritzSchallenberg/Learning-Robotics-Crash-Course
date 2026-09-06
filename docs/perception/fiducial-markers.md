@@ -1,8 +1,6 @@
 # Fiducial markers in depth
 
-{{ common }}
-
-{{ advanced }} **Status: advanced reading.** [Module 4](index.md) core
+{{ advanced }} **Status: advanced reading.** [Perception](index.md) core
 task covers a minimal ArUco detector. This page goes further: AprilTag, the
 full node with TF publishing, and colour-based detection for comparison.
 
@@ -17,11 +15,11 @@ single camera image gives you the marker's full 6D pose.
 **AprilTag** — a separate library, generally more robust at distance and
 under poor lighting.
 
-Both work the same way and are largely interchangeable for this course.
+Both work the same way and are largely interchangeable for this site.
 
 ## ArUco with OpenCV
 
-The complete node — [module 4](index.md) has you fill in the two marked
+The complete node — [Perception](index.md) has you fill in the two marked
 gaps; this is the finished version:
 
 ```python
@@ -84,8 +82,6 @@ hit an `AttributeError`, check your OpenCV version with
 
 ## AprilTag
 
-{{ common }}
-
 ```bash
 sudo apt install ros-$ROS_DISTRO-apriltag-ros ros-$ROS_DISTRO-image-pipeline
 ```
@@ -142,7 +138,7 @@ ros2 run tf2_ros tf2_echo base_link Standard41h12:7
 
 ### A TF listener for a detected marker
 
-Adapting the [module 3](../03-sensors-tf/laserscan-and-frames.md#small-example-a-minimal-tf-listener-node)
+Adapting the [Sensors and Coordinate Frames](../sensors-frames/laserscan-and-frames.md#small-example-a-minimal-tf-listener-node)
 listener pattern to a marker:
 
 ```python
@@ -188,7 +184,7 @@ for contour in contours:
 OpenCV's hue range is 0–179, not 0–359. Red sits at both ends of that range,
 which is why detecting it usually needs two masks combined with
 `cv2.bitwise_or`. {{ alert }} See the ALeRT line-following exercise on the
-[ALeRT/Spot platform page](../../platforms/alert-spot.md#line-following).
+[ALeRT/Spot platform page](../platforms/spot/index.md#line-following).
 :::
 
 ## Further reading
@@ -196,4 +192,4 @@ which is why detecting it usually needs two masks combined with
 - [ArUco tutorial](https://docs.opencv.org/4.x/d5/dae/tutorial_aruco_detection.html)
 - [AprilTag](https://april.eecs.umich.edu/software/apriltag) and the
   [apriltag_ros wrapper](https://github.com/christianrauch/apriltag_ros)
-- Back to [module 4](index.md)
+- Back to [Perception](index.md)

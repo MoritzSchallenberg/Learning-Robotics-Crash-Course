@@ -1,6 +1,6 @@
 # Interesting videos
 
-{{ optional }}
+{{ intermediate }}
 
 ## Start here
 
@@ -22,8 +22,8 @@ the `view_frames` diagnosis step the guided example builds its whole
 
 *Recommended part*: the whole video — it is already short.
 
-*Why this fits the module*: `view_frames` is the single most-used
-diagnostic tool this module teaches.
+*Why this fits the topic*: `view_frames` is the single most-used
+diagnostic tool this topic teaches.
 
 *Compatibility*: conceptual and applicable to ROS 2 Humble — the CLI
 tools and TF concepts shown are stable across ROS 2 distributions.

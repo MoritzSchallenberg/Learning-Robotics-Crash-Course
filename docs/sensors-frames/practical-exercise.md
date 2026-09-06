@@ -1,10 +1,10 @@
 # Practical TF and RViz exercise
 
-{{ common }} {{ core }}
+{{ foundation }}
 
 ## Guided example: diagnosing "RViz shows nothing"
 
-RViz showing nothing is the single most common problem in this module, so
+RViz showing nothing is the single most common problem in this topic, so
 work through the diagnosis once, deliberately, before you need it under
 pressure:
 
@@ -23,7 +23,7 @@ pressure:
    drivers rarely publish *Reliable*, and a mismatch produces no error at
    all, just silence.
 
-Every "why is nothing showing?" question in this course reduces to one of
+Every "why is nothing showing?" question in this site reduces to one of
 these four checks, in this order.
 
 ## Goal
@@ -83,7 +83,7 @@ obstacle in front of the sensor moves the corresponding points in RViz.
 
 ## Optional extensions
 
-{{ optional }}
+{{ intermediate }}
 
 Add a second static transform for a camera or IMU frame of your choosing,
 and add both to the `TF` display in RViz to see the whole tree at once.
@@ -99,7 +99,7 @@ launch file to recreate this exercise.
 {{ alert }} {{ spotsim }}
 
 Build the RViz setup from the [platform
-page](../../platforms/alert-spot.md#rviz-setup) yourself, using this
+page](../platforms/spot/index.md#rviz-setup) yourself, using this
 page's own diagnosis procedure rather than the platform page's
 already-finished list:
 

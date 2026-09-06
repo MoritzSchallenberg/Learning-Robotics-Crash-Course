@@ -49,7 +49,7 @@ common, subtle source of misplaced sensor data — the robot has moved
 between capture and processing, especially at higher speeds.
 
 **Needs.** [The TF listener
-pattern](../03-sensors-tf/laserscan-and-frames.md#small-example-a-minimal-tf-listener-node).
+pattern](laserscan-and-frames.md#small-example-a-minimal-tf-listener-node).
 
 **Try it.** In the TF listener snippet, replace
 `rclpy.time.Time()` (meaning "latest available") with the actual
@@ -70,7 +70,7 @@ travel](https://docs.ros.org/en/humble/Tutorials/Intermediate/Tf2/Time-Travel-Wi
 **What it is.** `ros2 bag record` captures every message on chosen topics
 to disk with their original timestamps; `ros2 bag play` replays them as if
 they were live — you will use this properly in
-[module 8](../08-integration/system-bringup-and-diagnostics.md), but the underlying tool
+[Integration, Diagnostics and Testing](../integration-testing/system-bringup-and-diagnostics.md), but the underlying tool
 matters here too: a bag is the easiest way to debug a TF problem offline.
 
 **Why it matters.** Recording once and replaying repeatedly turns a
@@ -86,8 +86,8 @@ moving the sensor (or the simulated robot), then play the bag back with
 **Check.** The replayed scan visually matches what you saw live, at the
 same points in the recording.
 
-**Read more.** [Module 8: rosbags,
-briefly](../08-integration/system-bringup-and-diagnostics.md) ·
+**Read more.** [Integration, Diagnostics and Testing: rosbags,
+briefly](../integration-testing/system-bringup-and-diagnostics.md) ·
 [ros2 bag](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Recording-And-Playing-Back-Data.html)
 :::
 
@@ -101,7 +101,7 @@ briefly](../08-integration/system-bringup-and-diagnostics.md) ·
 messages from **several** topics have arrived, close together in time —
 instead of you manually buffering and pairing them up.
 
-**Why it matters.** [Module 4's](../04-perception/camera-calibration.md)
+**Why it matters.** [Perception's](../perception/camera-calibration.md)
 camera-and-depth fusion, and any real sensor-fusion task, needs two
 streams that were captured at close to the same instant; without a
 synchronizer you are pairing whatever happened to arrive most recently on
@@ -127,7 +127,7 @@ documentation](https://github.com/ros2/message_filters)
 **What it is.** `robot_localization`'s `ekf_node` fuses multiple sources of
 motion estimate — wheel odometry and an IMU, typically — into one smoother,
 more accurate `odom`→`base_link` transform than either source alone.
-[Module 5](../05-mapping-localization/mapping-and-slam.md#how-it-works)
+[Mapping and World Models](../mapping-world-models/mapping-and-slam.md#how-it-works)
 covers *why* odometry drifts; this is the standard tool for reducing that
 drift.
 
@@ -162,10 +162,10 @@ which is only as accurate as your tape-measure estimate.
 **Why it matters.** A few centimetres or a couple of degrees of error in a
 hand-measured static transform is invisible with one sensor, but shows up
 immediately as misaligned data once you fuse two — exactly the kind of
-error module 4's camera-LiDAR fusion work depends on being small.
+error Perception's camera-LiDAR fusion work depends on being small.
 
 **Needs.** Two sensors viewing an overlapping area, and
-[module 4's camera calibration](../04-perception/camera-calibration.md)
+[Perception's camera calibration](../perception/camera-calibration.md)
 completed first.
 
 **Try it.** {{ unverified }} — research one open-source
@@ -177,7 +177,7 @@ captured views it typically needs.
 
 **Read more.** {{ unverified }} — search for "LiDAR camera extrinsic
 calibration ROS 2"; tooling in this space changes often enough that this
-course does not pin one specific package.
+site does not pin one specific package.
 :::
 
 (pointcloud2-advanced)=
@@ -186,14 +186,14 @@ course does not pin one specific package.
 
 **What it is.** `sensor_msgs/msg/PointCloud2` represents a 3D point cloud —
 the natural output of a depth camera or a 3D LiDAR, and a step up in
-complexity from the 2D `LaserScan` this module covers: each point carries
+complexity from the 2D `LaserScan` this topic covers: each point carries
 `x, y, z` (and often more fields, like color or intensity), packed in a
 binary layout described by the message's own field metadata rather than a
 flat array.
 
-**Why it matters.** [ALeRT/Spot's](../../platforms/alert-spot.md) 3D LiDAR
-publishes `PointCloud2`, not `LaserScan`; module 5's
-[3D mapping extensions](../05-mapping-localization/localization-and-3d-mapping.md#mapping-rough-3d-terrain)
+**Why it matters.** [ALeRT/Spot's](../platforms/spot/index.md) 3D LiDAR
+publishes `PointCloud2`, not `LaserScan`; Mapping and World Models's
+[3D mapping extensions](../mapping-world-models/localization-and-3d-mapping.md#mapping-rough-3d-terrain)
 (Octomap, GLIM) consume it directly.
 
 **Needs.** A `PointCloud2` source — a simulated depth camera or 3D LiDAR.

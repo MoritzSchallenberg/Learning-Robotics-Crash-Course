@@ -1,6 +1,6 @@
 # Interesting videos
 
-{{ optional }}
+{{ intermediate }}
 
 ## Start here
 
@@ -18,17 +18,17 @@ pipeline](perception-pipeline.md) and
 [the practical exercise](practical-exercise.md) use directly.
 
 *Why watch it*: a second walkthrough of the exact `generateImageMarker`
-and `detectMarkers` calls this module has you run, including the pose
+and `detectMarkers` calls this topic has you run, including the pose
 estimation step the practical exercise's Optional extensions point
 toward.
 
 *Recommended part*: the whole video — it is already short.
 
-*Why this fits the module*: ArUco generation and detection are this
-module's core practical skill.
+*Why this fits the topic*: ArUco generation and detection are this
+topic's core practical skill.
 
 *Compatibility*: conceptual and applicable to the OpenCV version this
-course uses — verify the exact `cv2.aruco` function names against
+site uses — verify the exact `cv2.aruco` function names against
 [OpenCV's own ArUco
 documentation](https://docs.opencv.org/4.x/d5/dae/tutorial_aruco_detection.html)
 if a name in the video looks unfamiliar, since the ArUco API has changed
@@ -43,7 +43,7 @@ Not yet populated.
 
 ## ALeRT / Spot
 
-Not yet populated for this module specifically — see
+Not yet populated for this topic specifically — see
 [Try it on Spot](practical-exercise.md#try-it-on-spot) for the hands-on
 exercise instead.
 

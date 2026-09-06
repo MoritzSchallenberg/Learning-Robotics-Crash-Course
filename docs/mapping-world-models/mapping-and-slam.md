@@ -1,6 +1,6 @@
 # Mapping and SLAM
 
-{{ common }} {{ core }}
+{{ foundation }}
 
 ## What this topic is
 
@@ -35,7 +35,7 @@ over a few metres, unreliable after a few minutes.
 
 SLAM Toolbox closes that gap with **loop closure**: recognising a
 previously seen place and using the match to correct everything mapped
-since. This is exactly why the practical exercise on this module's next
+since. This is exactly why the practical exercise on this topic's next
 subpage asks you to drive slowly and close loops, rather than trusting
 odometry over a long, one-way path.
 
@@ -46,12 +46,12 @@ on the practical exercise's next step.
 ## Inputs and outputs
 
 SLAM Toolbox subscribes to `/scan` (a `LaserScan`, see
-[module 3](../03-sensors-tf/laserscan-and-frames.md)) and the
+[Sensors and Coordinate Frames](../sensors-frames/laserscan-and-frames.md)) and the
 `odom`→`base_link` transform, and publishes an occupancy grid on `/map`
 plus the `map`→`odom` transform — the correction that keeps `odom`'s
 smooth drift from accumulating forever.
 
-```{figure} ../../_static/images/diagrams/06-mapping-localization-dataflow.svg
+```{figure} ../_static/images/diagrams/mapping-localization-dataflow.svg
 :alt: Two modes sharing laser scan and odometry as inputs. Mapping mode feeds SLAM Toolbox, producing an occupancy grid map and the map to odom transform. Localization mode feeds a saved map plus scan and odometry into AMCL, producing a corrected pose and the same map to odom transform.
 :width: 100%
 
@@ -67,18 +67,18 @@ a simulation), drive slowly in a loop around the space, and watch the map
 form in RViz (fixed frame `map`). Save it once the shape looks right:
 
 ```bash
-ros2 run nav2_map_server map_saver_cli -f ~/course_ws/my_map
+ros2 run nav2_map_server map_saver_cli -f ~/ros2_ws/my_map
 ```
 
 The full end-to-end walkthrough, with exact launch commands for your own
-workspace or platform, is this module's
+workspace or platform, is this topic's
 [practical exercise](practical-exercise.md).
 
 ## How ALeRT applies it
 
 {{ alert }} {{ simulation }} Spot maps with `ros2 launch webots_spot
 slam_launch.py` — the same SLAM Toolbox this page teaches, just a
-platform-specific launch file. See this module's [Try it on
+platform-specific launch file. See this topic's [Try it on
 Spot](practical-exercise.md#try-it-on-spot).
 
 ## Common problems

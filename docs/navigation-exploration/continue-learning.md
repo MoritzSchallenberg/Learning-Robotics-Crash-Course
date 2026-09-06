@@ -13,9 +13,9 @@ record what actually changed.
 **Why it matters.** [Nav2 architecture and costmaps'](nav2-architecture-and-costmaps.md#how-it-works)
 tip already claims the inflation radius controls doorway behaviour; this
 task makes you verify that claim yourself rather than take it on faith —
-the same "measure it, do not guess" standard as this course's
+the same "measure it, do not guess" standard as this site's
 power-budgeting exercise in
-[module 1](../01-hardware/continue-learning.md).
+[Hardware Design](../platforms/hardware-design/continue-learning.md).
 
 **Needs.** [The practical exercise](practical-exercise.md), working end to
 end.
@@ -42,7 +42,7 @@ configuration](https://docs.nav2.org/humble/configuration_and_development/config
 up, wait) when the planner or controller gets stuck; the **BT Navigator**
 coordinates the whole sequence — planning, following, recovering — using a
 behavior tree, the same formalism
-[module 7](../07-autonomous-decisions/mission-logic.md#how-it-works) covers for mission
+[Autonomous Decision-Making](../decision-making/mission-logic.md#how-it-works) covers for mission
 logic.
 
 **Why it matters.** [The practical exercise's](practical-exercise.md#common-problems)
@@ -77,7 +77,7 @@ route through, layered onto the costmap), and **speed zones** (regions
 where maximum velocity is reduced, independent of the global speed limit).
 
 **Why it matters.** This is the direct bridge to the
-{ref}`capstone project's <the-mission>` multi-step mission — "reach a
+{ref}`Autonomous Rescue Mission's <the-mission>` multi-step mission — "reach a
 target area", "handle more than one target" — expressed as Nav2
 primitives instead of one-off custom code.
 
@@ -137,13 +137,13 @@ Poses](https://docs.nav2.org/humble/behavior_trees/trees/nav_through_poses_recov
 instead of "it seemed fine": **success rate** (goals reached ÷ goals
 attempted, over many trials), **time to goal**, and **minimum obstacle
 distance** during the run — the same three numbers the
-{ref}`capstone project's <self-assessment-checklist>` self-assessment
+{ref}`Autonomous Rescue Mission's <self-assessment-checklist>` self-assessment
 implicitly depends on being good.
 
 **Why it matters.** A single successful demo run proves the system *can*
 work; a measured success rate over many runs is what tells you whether it
-*reliably* works — the difference matters enormously for the capstone
-project.
+*reliably* works — the difference matters enormously for the Autonomous Rescue
+Mission.
 
 **Needs.** The tuning-task topic above, run more than once.
 
@@ -171,7 +171,7 @@ approach: find the boundary between known-free and unknown space, drive to
 the nearest one, repeat until no frontiers remain.
 
 **Why it matters.** This is directly useful for the
-[capstone project](../hackathon.md)'s optional "explore an unknown area"
+[Autonomous Rescue Mission](../rescue-projects/autonomous-rescue-mission.md)'s optional "explore an unknown area"
 extension.
 
 **Needs.** [The practical exercise](practical-exercise.md), working end to

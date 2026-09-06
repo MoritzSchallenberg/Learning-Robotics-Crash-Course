@@ -1,9 +1,7 @@
 # Camera calibration
 
-{{ common }}
-
-{{ optional }} **Status: preparation / reference.** This is *not* part of
-[module 4](index.md)'s core task. Do this beforehand if your camera needs
+{{ intermediate }} **Status: preparation / reference.** This is *not* part of
+[Perception](index.md)'s core task. Do this beforehand if your camera needs
 it, or read it as background — it should never block the marker detection
 task.
 
@@ -42,8 +40,6 @@ Simulated cameras also publish valid `CameraInfo` already — see
 :::
 
 ## Calibrating a webcam
-
-{{ common }}
 
 ```bash
 sudo apt install ros-$ROS_DISTRO-usb-cam ros-$ROS_DISTRO-camera-calibration
@@ -131,4 +127,4 @@ The `k` matrix should now contain real numbers.
 
 - [ROS 2 image_pipeline documentation](https://docs.ros.org/en/rolling/p/image_pipeline/)
   — including the `camera_calibration` and `image_proc` packages
-- Back to [module 4](index.md)
+- Back to [Perception](index.md)

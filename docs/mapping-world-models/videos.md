@@ -1,6 +1,6 @@
 # Interesting videos
 
-{{ optional }}
+{{ intermediate }}
 
 ## Start here
 
@@ -16,9 +16,9 @@ Covers: an interview with SLAM Toolbox's author on why it was built, how
 it handles loop closure and lifelong mapping, and what makes it different
 from older 2D SLAM approaches.
 
-*Why watch it*: this module teaches SLAM Toolbox as a tool to operate;
+*Why watch it*: this topic teaches SLAM Toolbox as a tool to operate;
 this is the reasoning from the person who built it, including the
-lifelong-mapping ideas behind [this module's own Advanced
+lifelong-mapping ideas behind [this topic's own Advanced
 topics](continue-learning.md#advanced-topics), which cover multi-session
 mapping.
 
@@ -39,14 +39,14 @@ README](https://github.com/MoritzSchallenberg/Learning-Robotics-Crash-Course).
 ## Practical demonstrations
 
 No additional practical-demonstration video has been independently
-verified for this module yet — see this page's closing note on why the
+verified for this topic yet — see this page's closing note on why the
 list stays short rather than padded with unchecked links.
 
 ## ALeRT
 
 {{ alert }} No ALeRT-specific mapping video has been independently
 verified yet. See the [platform page's mapping and navigation
-section](../../platforms/alert-spot.md#mapping-and-navigation) for
+section](../platforms/spot/index.md#mapping-and-navigation) for
 Spot-specific written detail instead.
 
 ## Next subtopic

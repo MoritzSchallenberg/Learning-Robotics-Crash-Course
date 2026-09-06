@@ -1,6 +1,6 @@
 # Practical perception exercise
 
-{{ common }} {{ core }}
+{{ foundation }}
 
 ## Goal
 
@@ -11,7 +11,7 @@ publish the detected marker ID on a ROS 2 topic.
 
 A new package (call it `perception_demo`) with an empty node file
 `aruco_node.py`, and a running, calibrated camera topic — either your
-platform's real driver, or [Webots'](../../platforms/simulation.md)
+platform's real driver, or [Webots'](../simulation/index.md)
 simulated camera. [The perception pipeline
 page](perception-pipeline.md) already gave you every piece of code the
 node needs (`cv_bridge` conversion, the ArUco detector,
@@ -30,7 +30,7 @@ subscriber-callback node, not a fill-in-the-blank template.
    page](perception-pipeline.md) inside the callback.
 3. Add a publisher for `/detected_marker_id`
    (`std_msgs/msg/Int32`, or a custom type from
-   {ref}`module 2's Continue learning <custom-message-and-service-types>` if
+   {ref}`ROS 2's Continue learning <custom-message-and-service-types>` if
    you want to publish more than an ID) and publish whenever a marker is
    found.
 4. Register the node as a console script in `setup.py`, then build:
@@ -61,7 +61,7 @@ report a marker that is not there).
 ## Common problems
 
 - **Detections flicker on and off** at the edge of the frame — expected;
-  this is exactly why module 5's mapping task needs the position to be
+  this is exactly why Mapping and World Models's mapping task needs the position to be
   *remembered*, not just detected once.
 - **`cv_bridge` import error** — the workspace was not sourced, or
   `cv_bridge` was not installed for your ROS 2 distribution.
@@ -74,7 +74,7 @@ report a marker that is not there).
 
 ## Optional extensions
 
-{{ optional }}
+{{ intermediate }}
 
 Publish the detected marker's position as a TF frame (see
 [fiducial markers in depth](fiducial-markers.md#a-tf-listener-for-a-detected-marker))
@@ -90,7 +90,7 @@ printed marker works as this test image.
 at the marker to create glare, and re-run your node without changing any
 code. Record at what point detection starts missing frames it caught
 easily before — a concrete first data point for
-{ref}`this module's occlusion-handling topic <handling-occlusion>` in
+{ref}`this topic's occlusion-handling topic <handling-occlusion>` in
 Continue learning, since inconsistent lighting produces the same kind of
 intermittent "sometimes not detected" symptom as physical occlusion does.
 
@@ -98,8 +98,8 @@ intermittent "sometimes not detected" symptom as physical occlusion does.
 
 {{ alert }} {{ spotsim }}
 
-The [platform page](../../platforms/alert-spot.md#image-processing)
-already names the two ALeRT tutorial exercises this module's techniques
+The [platform page](../platforms/spot/index.md#image-processing)
+already names the two ALeRT tutorial exercises this topic's techniques
 map onto; do them yourself here, against Webots Spot:
 
 1. Subscribe to the gripper camera
@@ -118,7 +118,7 @@ map onto; do them yourself here, against Webots Spot:
    calibration rather than an assumed one.
 5. **Optional**: detect the red line on the floor with an HSV threshold
    ([platform page's line-following
-   exercise](../../platforms/alert-spot.md#line-following)) and publish
+   exercise](../platforms/spot/index.md#line-following)) and publish
    the thresholded mask as a debug `Image` topic — a visible way to check
    your HSV range is actually right, rather than guessing from numbers
    alone.
@@ -128,7 +128,7 @@ Turning a detection into a **movement command** (driving toward a
 detected marker or line) is a simulation-only exercise. Do not send
 `cmd_vel` commands derived from live image processing on a physical
 Spot outside a supervised exercise — see
-[module 7](../07-autonomous-decisions/practical-exercise.md#try-it-on-spot).
+[Autonomous Decision-Making](../decision-making/practical-exercise.md#try-it-on-spot).
 :::
 
 **Verification**: `ros2 topic echo /detected_marker_id` reports a value

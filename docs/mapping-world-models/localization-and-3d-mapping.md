@@ -1,6 +1,6 @@
 # Localization and 3D mapping
 
-{{ common }} {{ core }}
+{{ foundation }}
 
 ## What this topic is
 
@@ -24,10 +24,10 @@ estimate, scores each against the incoming laser scan, and repeatedly
 resamples toward the hypotheses that agree best with what the sensor
 actually sees. As the robot moves, the cloud tightens around the true pose.
 
-Like SLAM Toolbox on [this module's previous
+Like SLAM Toolbox on [this topic's previous
 subtopic](mapping-and-slam.md), AMCL publishes the `map`→`odom` correction
-— never both at once (see [this module's
-overview](../05-mapping-localization.md#how-the-complete-system-fits-together)).
+— never both at once (see [this topic's
+overview](index.md#how-the-complete-system-fits-together)).
 
 If the estimate is ever badly wrong — a bad initial pose, or the robot
 genuinely moved without odometry seeing it — this is the classic
@@ -52,14 +52,14 @@ converged — watch the scan against the mapped walls in RViz as the real
 check, not the numeric pose alone: if the scan slides through a wall,
 localization has not converged no matter what the pose readout claims. The
 full walkthrough, including starting localization and setting the initial
-pose, is this module's [practical exercise](practical-exercise.md).
+pose, is this topic's [practical exercise](practical-exercise.md).
 
 ## How ALeRT applies it
 
 {{ alert }} {{ simulation }} Spot localizes with `ros2 launch webots_spot
 nav_launch.py` against a previously saved map — see the [platform page's
 note on where the map file needs to
-live](../../platforms/alert-spot.md#mapping-and-navigation).
+live](../platforms/spot/index.md#mapping-and-navigation).
 
 ## Common problems
 
@@ -80,7 +80,7 @@ live](../../platforms/alert-spot.md#mapping-and-navigation).
 
 {{ alert }} An occupancy grid is a flat slice — fine for a robot on a
 factory floor, useless for one climbing over rubble. ALeRT uses two 3D
-approaches for that case; **neither is part of the general course**, and
+approaches for that case; **neither is part of this site's core content**, and
 both are genuinely more advanced than the 2D SLAM and localization covered
 above.
 
@@ -108,7 +108,7 @@ matching fails entirely: uneven ground, stairs, rubble — situations where
 "the floor" is not a single plane. Installation:
 [koide3.github.io/glim](https://koide3.github.io/glim/installation.html).
 
-{{ unverified }} Beyond the install commands above, this course has not
+{{ unverified }} Beyond the install commands above, this site has not
 independently verified a working configuration for either tool — the
 source material references them by repository link, without a tested
 parameter set. If you use them, expect to read the linked repository's own

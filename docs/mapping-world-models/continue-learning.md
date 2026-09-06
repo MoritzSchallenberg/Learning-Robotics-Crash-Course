@@ -9,7 +9,7 @@
 returned to a **previously seen place**, and using that match to correct
 the accumulated drift in everything mapped since — this is the actual
 mechanism behind "why mapping needs SLAM, not just odometry" from [Mapping
-and SLAM: how it works](../05-mapping-localization/mapping-and-slam.md#how-it-works).
+and SLAM: how it works](mapping-and-slam.md#how-it-works).
 
 **Why it matters.** A map built without ever closing a loop keeps
 accumulating drift the whole time; a large mapped area can end up visibly
@@ -38,7 +38,7 @@ single, crisp lines (good) or doubled/smeared (bad, from driving too fast —
 [the practical exercise's](practical-exercise.md#common-problems) Common
 problems section)? Is there unexplained "noise" occupying open floor?
 
-**Why it matters.** Navigation in [module 6](../06-navigation.md) trusts this
+**Why it matters.** Navigation in [Navigation and Exploration](../navigation-exploration/index.md) trusts this
 map completely; a smeared or noisy map produces a robot that refuses to
 plan through a doorway that is actually clear.
 
@@ -70,7 +70,7 @@ through what should be a wall" symptom
 [the practical exercise's Verification](practical-exercise.md#verification)
 warns about — an out-of-date map is a silent failure mode, not a crash.
 
-**Needs.** [Git prerequisite](../../prerequisites/git.md) and
+**Needs.** [Git prerequisite](../getting-started/git.md) and
 [the practical exercise](practical-exercise.md).
 
 **Try it.** Commit your saved map files to a git repository, then re-map
@@ -80,8 +80,8 @@ that as a second version.
 **Check.** `git log` shows both map versions, and you can explain from the
 commit messages alone which is current.
 
-**Read more.** [Module 8: reproducible
-systems](../08-integration/system-bringup-and-diagnostics.md) — the same "one source of
+**Read more.** [Integration, Diagnostics and Testing: reproducible
+systems](../integration-testing/system-bringup-and-diagnostics.md) — the same "one source of
 truth, in version control" principle.
 :::
 
@@ -128,7 +128,7 @@ you already reproduced a version of this in
 [the practical exercise's Optional
 extensions](practical-exercise.md#optional-extensions), and it is
 introduced conceptually in [Localization and 3D mapping: how it
-works](../05-mapping-localization/localization-and-3d-mapping.md#how-it-works).
+works](localization-and-3d-mapping.md#how-it-works).
 Detecting the loss automatically (rather than a human noticing the scan
 drifting through a wall) means watching AMCL's reported **covariance**: a
 healthy, converged localization has low covariance; a lost one has high,
@@ -137,7 +137,7 @@ growing covariance.
 **Why it matters.** A mission that keeps navigating confidently on a wrong
 pose estimate is worse than one that stops and asks for help — this is
 exactly the kind of silent failure the
-{ref}`capstone project's <self-assessment-checklist>` safety thinking
+{ref}`Autonomous Rescue Mission's <self-assessment-checklist>` safety thinking
 cares about.
 
 **Needs.** [The practical exercise's Optional

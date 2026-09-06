@@ -1,10 +1,8 @@
 # Data labeling
 
-{{ common }}
-
 {{ advanced }} **Status: advanced reading.** Needed only if you train a
 [custom YOLO model](object-detection.md#training-a-custom-model) — not part
-of [module 4](index.md)'s core task.
+of [Perception](index.md)'s core task.
 
 ## 1. Collect images
 
@@ -70,4 +68,4 @@ above.
 
 - [MakeSense.ai](https://www.makesense.ai/) · [Roboflow](https://roboflow.com/) ·
   [CVAT](https://www.cvat.ai/)
-- Back to [module 4](index.md) · [object detection](object-detection.md)
+- Back to [Perception](index.md) · [object detection](object-detection.md)
